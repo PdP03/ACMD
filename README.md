@@ -1,6 +1,6 @@
 # ACMD
 Text based game for software eng. \
-**NB**:è possibile vedere anche il il Class Diagramm
+**NB**:È presente anche un class diagramm dell'intero progetto:
 ![Alt text](https://github.com/PdP03/ACMD/blob/main/DiagrammiUML/ClassDiagram.svg)
 
 
