@@ -1,0 +1,209 @@
+@startuml
+package "Item1" #DDDDDD{  /'songole tipologie elementi'/
+ class Item {
+   String nome;
+   int peso;
+   ItemType tipologia;   
+  int getQuanita();
+  void addQuantita();
+   /'tutti set get'/
+  
+}
+   enum ItemType{
+POZIONE1
+POZIONE2
+ARMA1
+ARMA2
+ARMATURA1
+ARMATURA2
+}
+note left of Item : Implementa un singolo Item 
+
+ class Storage{   /'gestire elementi'/
+
+  boolean add();
+  boolean remove();   /'perché se si prova a cavare qualcosa non esiste ; oppure lancia una eccezione'/
+  Item[] listaElementi();
+}   
+note left of Storage : Classe base per tutti i contenitori
+ class Inventario{ /'del player'/
+  byte pesoMassimo;
+  byte pesoAttuale;  
+
+  public Inventario(byte peso);
+  getPeso();
+  int search();
+}
+   class Chest{}
+
+   class Arma{
+int valore;
+}
+   class Armatura{
+int valore;
+}
+   class Pozione{
+int valore;
+int get_set();
+}
+}
+Inventario --|> Storage
+Arma --|> Item
+Armatura --|> Item
+Pozione --|> Item
+Chest --|> Storage
+
+
+package "Entita'" #DDDDDD{ /'ADT tutti tipi di entità '/
+
+abstract class Entity{
+  Inventario inv;
+  short int salute;
+  byte danno_base;
+  byte armatura_base;
+  String name;
+  byte livello;
+
+  byte getLivello();
+  byte setLivello();
+  String toString();
+  int changeVita();
+  boolean addItem();
+  boolean removeItem();
+  Inventario[] getInventory();
+  attackEntity(Entity);           /'con relativa probabilità'/
+} 
+class Player{
+  byte Carattere;
+  setCarattere();
+  getCarattere();
+
+
+}
+abstract class Monster{
+  drop();   /'get inventory'/
+}
+class Monster_Factory{            /'classe astratta gestisce mostri'/
+
+  Monster create(int type);
+  Monster createRandom();
+}
+class Gatto{
+
+}
+class Mago_nero{
+
+}
+class Ladro{
+
+}
+class Lupo{
+
+}
+class Goblin{
+
+}
+}
+Player --|>Entity
+Monster --|>Entity
+Gatto ---|> Monster
+Mago_nero ---|> Monster
+Goblin ---|> Monster
+Lupo ---|> Monster
+Ladro ---|> Monster
+
+Monster_Factory--|>Gatto
+Monster_Factory--|>Mago_nero 
+Monster_Factory--|>Goblin 
+Monster_Factory--|>Lupo 
+Monster_Factory--|>Ladro 
+
+
+package Menu1 #DDDDDD{
+class MenuItem{
+   String command;
+   String description;
+
+  setCommand();
+  setDescription();
+  getCommand();
+  getDescription();
+  }
+
+class Menu{
+   Map<int, MenuItem> commandMap = new HashMap<int, MenuItem>;
+  
+   PrintMenuItems();
+   selectMenu(int )
+}
+   class Classi_Disponibili {}
+   class Menu_iniziale{}
+   class Menu_battaglia{}
+}
+Menu --|> MenuItem
+Classi_Disponibili --|> Menu
+Menu_iniziale --|> Menu
+Menu_battaglia --|> Menu
+
+
+package Mappa #DDDDDD{             
+   class Coordinates{
+  int x,y;
+  int getX();
+  int getY();
+  int setX();
+  int setY();
+
+}
+
+enum  Direction{
+  NORD
+  WEST
+  OVEST
+  SOUTH
+}
+
+class node
+{
+  Coordinates cord;
+  Direction[] dir = new Direction[4];
+  setDirection(Direction[] d);
+  addDirection(Direction d);
+  Direction[] getDirection();
+
+}
+   class Stanza{
+  Monster mostro;
+  Chest baule;
+}
+
+}
+
+
+package Prompts #DDDDDD{
+interface Command{              /'tutti i comandi in lista'/
+  String id;
+  String[] alias;
+
+  String getCommand();
+  String[] getAlias();
+}
+class Command_Collection{
+  enum
+}
+class Command_Parser{           /'divide per la sintassi'/
+
+  checkSinstassi();
+} 
+note left of Command_Parser : Per lanciare eccezioni in caso di commandi non corretti / facade
+note left of Command_Collection : Classe in cui si implementano effettivamente tutti i comandi
+}
+Command_Collection ---> Command
+
+
+
+Menu ---[hidden] Item
+Item ---[hidden]> Prompts
+Mappa ---[hidden]> "Entita'"
+"Entita'" ---[hidden]> Prompts
+@enduml
