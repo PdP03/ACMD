@@ -1,5 +1,8 @@
 # ACMD
-Text based game for software eng. 
+Text based game for software eng. \
+**NB**:È presente anche un class diagramm dell'intero progetto:
+![Alt text](https://github.com/PdP03/ACMD/blob/main/DiagrammiUML/ClassDiagram.svg)
+
 
 # START POINT
 Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/main/src/Game.java) il quale andra a richiamare tutti i metodi/classi che servono per:
