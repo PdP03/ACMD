@@ -175,12 +175,23 @@ package Mappa #DDDDDD{
   int setY();
 
 }
+  /'Classe che carica da file la lista dei nodi'/
+  class LoadNode{
+  List<node> list = new ArrayList<node>;
+  public LoadCommand(String fileName);
+  
+  List<node> getListCommands();
+  
+}
+
   class MappaGraf{
   List<Stanza> stanze = new ArrayList<Stanza>;
   List<node> nodi = new ArrayList<node>;
 
   generateStanze();
   generatePercorso();
+  /'Converte la lista di nodi in un albero'/
+  listToAlbero(List<node> l);
   List<node> getPercorsoTo(Nodo start, Stanza end);
   List<Direction> validPositionOf(node n);
   boolean checkpositionOf(node n);
@@ -219,6 +230,7 @@ class node
 
 
 MappaGraf "1"--> "*" Stanza
+MappaGraf "1"--> "1" LoadNode
 MappaGraf "1" --> "*" node
 node"1" --> "1"Coordinates
 node"1" --> "1"Direction
