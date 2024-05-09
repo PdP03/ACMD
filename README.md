@@ -1,8 +1,5 @@
 # ACMD
 Text based game for software eng. \
-**NB**:È presente anche un class diagramm dell'intero progetto:
-![Alt text](https://github.com/PdP03/ACMD/blob/main/DiagrammiUML/ClassDiagram.svg)
-
 
 # START POINT
 Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/main/src/Game.java) il quale andra a richiamare tutti i metodi/classi che servono per:
@@ -15,4 +12,11 @@ Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/main/src/Game.
 * Carica la mappa e gli oggetti
 * Istanzia i Nemici
 * Gestisce interazioni Player-Mappa (Player raccoglie oggetti, Player usa Pozioni, Player prende i drop da un Mostro...)
+
+**NB**:È presente anche un class diagramm dell'intero progetto:
+![Alt text](https://github.com/PdP03/ACMD/blob/main/DiagrammiUML/ClassDiagram.svg)
+
+# SEQUENCE DIAGRAM (Work in progress....)
+![Alt text](https://github.com/PdP03/ACMD/blob/main/DiagrammiUML/SequenceDiagram.svg)
+
 
