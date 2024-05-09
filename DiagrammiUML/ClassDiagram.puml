@@ -131,10 +131,10 @@ class MenuItem{
   }
 
 class Menu{
-   Map<int, MenuItem> commandMap = new HashMap<int, MenuItem>;
+   Map<String, MenuItem> commandMap = new HashMap<String, MenuItem>;
   
    PrintMenuItems();
-   selectMenu(int )
+   MenuItem selectedMenu(String key);
 }
    class Classi_Disponibili {}
    class Menu_iniziale{}
@@ -175,6 +175,8 @@ class node
    class Stanza{
   Monster mostro;
   Chest baule;
+  Monster getMostro();
+  Chest getChest();
 }
 
 }
