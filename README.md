@@ -1,7 +1,7 @@
 # ACMD
 Text based game for software eng. \
 **NB**:È presente anche un class diagramm dell'intero progetto:
-![DSS](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/PdP03/ACMD/dev/DiagrammiUML/ClassDiagram.puml)
+![DSS](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/ACMD/dev/DiagrammiUML/ClassDiagram.puml)
 
 
 # START POINT
