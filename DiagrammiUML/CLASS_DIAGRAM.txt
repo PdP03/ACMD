@@ -1,11 +1,15 @@
 @startuml
-package "Item1" #DDDDDD{  /'songole tipologie elementi'/
- class Item {
+package "StorageManagment" #DDDDDD{  /'songole tipologie elementi'/
+ abstract Item {
    String nome;
    int peso;
+   int valore;
    ItemType tipologia;   
-  int getQuanita();
-  void addQuantita();
+  int getQuanity();
+  void addItem();
+  void removeItem();
+  String description;
+  String showDescription();
    /'tutti set get'/
   
 }
@@ -20,41 +24,52 @@ ARMATURA2
 note left of Item : Implementa un singolo Item 
 
  class Storage{   /'gestire elementi'/
+  List<Item> items = new ArrayList<item>;
+  boolean add(Item i);
+  boolean remove(Item i);   /'perché se si prova a cavare qualcosa non esiste ; oppure lancia una eccezione'/
+  List<Item> showStorage();
 
-  boolean add();
-  boolean remove();   /'perché se si prova a cavare qualcosa non esiste ; oppure lancia una eccezione'/
-  Item[] listaElementi();
 }   
 note left of Storage : Classe base per tutti i contenitori
- class Inventario{ /'del player'/
-  byte pesoMassimo;
+ class Inventario{ /'Non serve pesoMax perche è gia presente in player'/
   byte pesoAttuale;  
-
-  public Inventario(byte peso);
-  getPeso();
-  int search();
+  byte getPeso();
+  byte quantyOf(Item i);
 }
-   class Chest{}
+
+   class Chest{
+  void RandomGenerate();
+}
 
    class Arma{
-int valore;
+  getDanno();
+
 }
    class Armatura{
-int valore;
+  getDifesa();
 }
    class Pozione{
-int valore;
-int get_set();
+  getEffect();
 }
 }
+Storage -> Item
 Inventario --|> Storage
 Arma --|> Item
 Armatura --|> Item
 Pozione --|> Item
 Chest --|> Storage
+Item -> ItemType
 
 
 package "Entita'" #DDDDDD{ /'ADT tutti tipi di entità '/
+enum MType{
+  GATTO
+  LUPA
+  GOBLIN
+  LADRO
+  MAGO_OSCURO
+  
+}
 
 abstract class Entity{
   Inventario inv;
@@ -74,6 +89,7 @@ abstract class Entity{
   attackEntity(Entity);           /'con relativa probabilità'/
 } 
 class Player{
+  fainal byte PESO_MAX;
   byte Carattere;
   setCarattere();
   getCarattere();
@@ -82,10 +98,13 @@ class Player{
 }
 abstract class Monster{
   drop();   /'get inventory'/
+  Mtype tipo
+  Monseter(Mtype t);
+  Mtype getMType();
 }
 class Monster_Factory{            /'classe astratta gestisce mostri'/
 
-  Monster create(int type);
+  Monster create(MType type);
   Monster createRandom();
 }
 class Gatto{
@@ -104,6 +123,7 @@ class Goblin{
 
 }
 }
+Monster -> MType
 Player --|>Entity
 Monster --|>Entity
 Gatto ---|> Monster
@@ -112,15 +132,15 @@ Goblin ---|> Monster
 Lupo ---|> Monster
 Ladro ---|> Monster
 
-Monster_Factory--|>Gatto
-Monster_Factory--|>Mago_nero 
-Monster_Factory--|>Goblin 
-Monster_Factory--|>Lupo 
-Monster_Factory--|>Ladro 
+Monster_Factory-->Gatto
+Monster_Factory-->Mago_nero 
+Monster_Factory-->Goblin 
+Monster_Factory-->Lupo 
+Monster_Factory-->Ladro 
 
 
-package Menu1 #DDDDDD{
-class MenuItem{
+package MenuGraphic #DDDDDD{
+class MenuEntry{
    String command;
    String description;
 
@@ -130,17 +150,17 @@ class MenuItem{
   getDescription();
   }
 
-class Menu{
-   Map<String, MenuItem> commandMap = new HashMap<String, MenuItem>;
+abstract class Menu{
+   Map<String, MenuEntry> commandMap = new HashMap<String, MenuEntry>;
   
-   PrintMenuItems();
-   MenuItem selectedMenu(String key);
+   String toString();
 }
    class Classi_Disponibili {}
    class Menu_iniziale{}
    class Menu_battaglia{}
 }
-Menu --|> MenuItem
+note left of Menu :"Specificare i singoli comnadi nelle implementazioni dei menù"
+Menu --> MenuEntry
 Classi_Disponibili --|> Menu
 Menu_iniziale --|> Menu
 Menu_battaglia --|> Menu
@@ -155,6 +175,19 @@ package Mappa #DDDDDD{
   int setY();
 
 }
+  class MappaGraf{
+  List<Stanza> stanze = new ArrayList<Stanza>;
+  List<node> nodi = new ArrayList<node>;
+
+  generateStanze();
+  generatePercorso();
+  List<node> getPercorsoTo(Nodo start, Stanza end);
+  List<Direction> validPositionOf(node n);
+  boolean checkpositionOf(node n);
+  
+  
+}
+note left of MappaGraf :"Classe di facade"
 
 enum  Direction{
   NORD
@@ -173,37 +206,121 @@ class node
 
 }
    class Stanza{
+  Coordinates cord;
   Monster mostro;
+  setCord(int x, int y);
+  Coordinates getCord();
   Chest baule;
   Monster getMostro();
   Chest getChest();
 }
 
-}
+} 
+
+
+MappaGraf "1"--> "*" Stanza
+MappaGraf "1" --> "*" node
+node"1" --> "1"Coordinates
+node"1" --> "1"Direction
+Stanza"1" --> "1"Coordinates
 
 
 package Prompts #DDDDDD{
-interface Command{              /'tutti i comandi in lista'/
-  String id;
-  String[] alias;
-
-  String getCommand();
-  String[] getAlias();
+/'Questa class è un Singleton: tutto entra ed esce da qua'/
+class CommandEntry{
+  String comand;
+  String description;
+  pubblic CommandEntry(String c, String d);
+  String toString();/'Restituisce command+description in una stringa'/
 }
-class Command_Collection{
-  enum
+
+class LoadCommand{
+  List<CommandEntry> list = new ArrayList<CommandEntry>;
+  public LoadCommand(String fileName);
+  
+  List<CommandEntry> getListCommands();
+  
 }
-class Command_Parser{           /'divide per la sintassi'/
 
-  checkSinstassi();
-} 
-note left of Command_Parser : Per lanciare eccezioni in caso di commandi non corretti / facade
-note left of Command_Collection : Classe in cui si implementano effettivamente tutti i comandi
+class VerifyCommand{
+  HashMap<int,CommandEntry> map = new HashMap<int,CommandEntry>();
+  VerifyCommand(List<CommandEntry> l);
+  Command cmmd;
+  LoadCommand load;
+
+  changeCommand(Command c);
+  void changeCommand()
+  boolean checkSintax(ConmmandEntry c);
+  private listToBucket(List<CommandEntry> l); /'riempie la hashList(map) dalla List<CommandEntry> l'/
+  
 }
-Command_Collection ---> Command
+class StartCommand{
+  execute();
+}
+class ExitCommand{
+  execute();
+}
+
+interface Command{
+  execute();
+}
+
+}
+LoadCommand -> CommandEntry
+VerifyCommand --> CommandEntry
+VerifyCommand --> Command
+VerifyCommand --> LoadCommand
+StartCommand --|> Command
+ExitCommand --|> Command
+
+
+package Engine #DDDDDD{
+/'organizzatore e gestore degli eventi del gioco'/
+class GameEngine{
+Player p;
+Mappa m;
+
+/'Setup runtime(es: nome Player)'/
+void runSetup();
+/'esce dal gioco e notifica a gui'/
+void exit();
+
+/'metodo che permette a player di attaccare '/
+void attack();
+/'Richiamato internamente quanto il nemico attacca'/
+private void enemyAttack();
+/'Restituisce una stringa con l'inventario del Player'/
+String playerInventory();
+/'Restituisce una stringa con oggetti e item in una staza'/
+String getStanza();
+/'Utilizza un item al interno del player'/
+void usePlayerItem(Item i)
+/'Restituisce le cordinate del player'/
+Coordinates getPlayerCord();
+
+/'Sposta Player a nord-sud-est-ovest-back'/
+void nord();
+void sud();
+void est();
+void ovest();
+void back();
+
+/'Aggiunge gli item dei drop del mostro al Player'/
+private addDropItems()
+/'Toglie un Item dal inventario del player'/
+void removePlayerItem(Item i);
 
 
 
+}
+/'Questa è la classe main'/
+class Game{
+public void main();
+
+}
+}
+
+Mappa ---> Engine 
 Menu ---[hidden] Item
 Item ---[hidden]> Prompts
 Mappa ---[hidden]> "Entita'"
