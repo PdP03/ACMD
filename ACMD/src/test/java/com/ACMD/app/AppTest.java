@@ -1,4 +1,4 @@
-package com.ACMD.app;
+package test.java.com.ACMD.app;
 
 import static org.junit.Assert.assertTrue;
 
