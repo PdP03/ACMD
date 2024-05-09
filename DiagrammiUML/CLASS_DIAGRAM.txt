@@ -24,7 +24,7 @@ ARMATURA2
 note left of Item : Implementa un singolo Item 
 
  class Storage{   /'gestire elementi'/
-  List<Item> items = new ArrayList<item>;
+  List<Item> items = new ArrayList<Item>;
   boolean add(Item i);
   boolean remove(Item i);   /'perché se si prova a cavare qualcosa non esiste ; oppure lancia una eccezione'/
   List<Item> showStorage();
