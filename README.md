@@ -1,7 +1,7 @@
 # ACMD
 Text based game for software eng. \
 **NB**:È presente anche un class diagramm dell'intero progetto:
-![Alt text](https://github.com/PdP03/ACMD/blob/main/DiagrammiUML/ClassDiagram.puml)
+![Alt text](https://github.com/PdP03/ACMD/blob/dev/DiagrammiUML/ClassDiagram.puml)
 
 
 # START POINT
