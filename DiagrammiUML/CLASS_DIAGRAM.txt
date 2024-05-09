@@ -178,7 +178,7 @@ package Mappa #DDDDDD{
   /'Classe che carica da file la lista dei nodi'/
   class LoadNode{
   List<node> list = new ArrayList<node>;
-  public LoadCommand(String fileName);
+  public LoadNode(String fileName);
   
   List<node> getListCommands();
   
@@ -186,12 +186,13 @@ package Mappa #DDDDDD{
 
   class MappaGraf{
   List<Stanza> stanze = new ArrayList<Stanza>;
-  List<node> nodi = new ArrayList<node>;
+  /*Questa classe implementa un red-black tree*/
+  TreeMap<K,node> nodiTree = new TreeMap<K,V>;
 
   generateStanze();
   generatePercorso();
   /'Converte la lista di nodi in un albero'/
-  listToAlbero(List<node> l);
+  listToTree(List<node> l);
   List<node> getPercorsoTo(Nodo start, Stanza end);
   List<Direction> validPositionOf(node n);
   boolean checkpositionOf(node n);
