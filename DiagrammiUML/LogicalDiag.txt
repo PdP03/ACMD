@@ -1,0 +1,49 @@
+@startuml
+package "UI Layer" {
+  [Grafica]
+  [Menu]
+  [Grafica] --[hidden]> [Menu]
+}
+
+package "Game Engine Layer" {
+  [Player]
+  [Mappa]
+  [GameEngine]
+  [StorageManagment]
+}
+[GameEngine]<-->[Mappa]
+[GameEngine]<-->[Player]
+[StorageManagment] <-- [Player]
+[StorageManagment] <-- [Mappa]
+[StorageManagment] <-- [GameEngine]
+
+[GameEngine] --[hidden]> [Adapter Layer]
+
+
+package "Adapter Layer" {
+  [Prompt]
+  [GraphicAdapter]
+  [AdapterSalvataggio]
+  [Prompt] --[hidden]> [GraphicAdapter]
+  [AdapterSalvataggio] -[hidden]> [GraphicAdapter] 
+}
+[Grafica] -> [Prompt]
+[Prompt] -> [GameEngine]
+[GameEngine] -> [GraphicAdapter]
+[Prompt] -> [AdapterSalvataggio]
+
+[GraphicAdapter] -> [Grafica]
+[GraphicAdapter] -> [Menu]
+
+package "Persitance Layer" {
+  [Salvataggio]
+}
+[AdapterSalvataggio] <--> [Salvataggio]
+[AdapterSalvataggio] <--> [GameEngine]
+
+
+
+
+
+
+@enduml
