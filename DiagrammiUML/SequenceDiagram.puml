@@ -1,50 +1,56 @@
 @startuml
 
-entity      Entity      as Foo4
-database    Database    as Foo5
 
-actor Utente as u
+
 participant Game as ga
 
-/'--------------------AVVIO DEL GIOCO'/
-create GameEngine
-ga -> GameEngine : new GameEngine()
-create Grafica
-ga -> Grafica : new Grafica()
-/'-----CREAZIONE MENU INIZIALE'/
-create Menu_iniziale
-Grafica -> Menu_iniziale : new Menu_iniziale()
-Grafica -> Menu_iniziale : toString()
-Menu_iniziale -> Grafica : vociDelMenu["voce1..."]
-/'-----CREAZIONE VERIFY_COMMAND'/
+/'---------------- INIZIALIZZAZIONE OGGETTI ----------------'/
+create AdapterGrafica
+ga -> AdapterGrafica: new AdapterGrafica();
+create GraficaOutput
+AdapterGrafica -> GraficaOutput: new GraficaOutput();
+create MainMenu
+ga -> MainMenu: new MainMenu();
+create Prompt
+ga -> Prompt : new Prompt()
+create GraficaInput
+Prompt -> GraficaInput : new GraficaInput();
 create VerifyCommand
-Grafica -> VerifyCommand : new VerifyCommand()
+Prompt -> VerifyCommand: new VerifyCommand();
 
-/'****************************COMANDO START INVIATO DA UTENTE****************************'/
-u -> Grafica : comando["start"]
-Grafica -> VerifyCommand : checkSintax(comando)
-VerifyCommand -> GameEngine : runSetup()
-GameEngine -> Grafica : clearMenu()
-Grafica -> Menu_iniziale : delete()
-destroy Menu_iniziale  /'fine della vita del menu_iniziale'/
-/'-----CREAZIONE MAPPA_GRAF'/
+actor Utente as u
+
+/'---------------- AVVIO MENU INIZIALE ----------------'/
+ga -> AdapterGrafica : print(Menu.toString());
+ga -> Prompt : stateMenu(MainMenu);
+ga -> Prompt : waitInput();
+Prompt -> GraficaInput : input();
+u -> GraficaInput : comando["start"]
+GraficaInput --> Prompt : risultato di input()
+Prompt -> VerifyCommand : checkSintax(String comando)
+VerifyCommand --> Prompt: risultato di checkSintax()
+Prompt --> ga : risultato di waitInput() [enum]
+note left
+Se riceve enum START allora 
+si può avviare la partita
+end note
+
+/'---------------- AVVIO PARTITA ----------------'/
+create GameEngine
+ga -> GameEngine : new GameEngine();
 create MappaGraf
-GameEngine -> MappaGraf : new MappaGraf()
-GameEngine -> Grafica : getUserName()
-Grafica -> GameEngine : name["giocatore1"]
-/'-----CREAZIONE PLAYER'/
-create Player
-GameEngine -> Player : new Player(name["giocatore1"])
-GameEngine -> Grafica: setPosition(Player.getPos())
-
-/'****************************COMANDO MOVE <DIRECTION> INVIATO DA UTENTE****************************'/
-u -> Grafica : comando["move nord"]
-Grafica -> VerifyCommand : checkSintax(comando) 
-VerifyCommand -> GameEngine : nord()
-GameEngine -> MappaGraf : getNode(Player.getPos(), DIRECTION.NORD)
-MappaGraf -> GameEngine : restituisce node
-GameEngine -> Player : setPos(node.getPos())
-GameEngine -> Grafica : setPosition(player.getPos())
-
+GameEngine -> MappaGraf: new MappaGraf();
+ga -> GameEngine : runSetup();
+note right
+Creazione di Player
+e di mappa con nemici
+item nelle stanze
+end note
+GameEngine -> MappaGraf : init();
+ga -> MainMenu : delete[];
+destroy MainMenu
+create MoveMenu
+ga -> MoveMenu: new MoveMenu();
+ga -> Prompt : stateMenu(MoveMenu);
 
 @enduml
