@@ -20,9 +20,9 @@ Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/main/src/Game.
 ![Alt text](https://github.com/PdP03/ACMD/blob/main/DiagrammiUML/ClassDiagram.svg)
 
 # LAYER DIAGRAM
-![Alt text](https://github.com/PdP03/ACMD/blob/main/DiagrammiUML/LayerDiagram.svg)
+![LayerDiagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/PdP03/ACMD/dev/DiagrammiUML/LayerDiagram.puml)
 
 # SEQUENCE DIAGRAM (Work in progress....)
-![Alt text](https://github.com/PdP03/ACMD/blob/main/DiagrammiUML/SequenceDiagram.svg)
+![Alt text](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/PdP03/ACMD/dev/DiagrammiUML/SequenceDiagram.puml)
 
 
