@@ -16,3 +16,13 @@ Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/main/src/Game.
 * Istanzia i Nemici
 * Gestisce interazioni Player-Mappa (Player raccoglie oggetti, Player usa Pozioni, Player prende i drop da un Mostro...)
 
+**NB**:È presente anche un class diagramm dell'intero progetto:
+![Alt text](https://github.com/PdP03/ACMD/blob/main/DiagrammiUML/ClassDiagram.svg)
+
+# LAYER DIAGRAM
+![Alt text](https://github.com/PdP03/ACMD/blob/main/DiagrammiUML/LayerDiagram.svg)
+
+# SEQUENCE DIAGRAM (Work in progress....)
+![Alt text](https://github.com/PdP03/ACMD/blob/main/DiagrammiUML/SequenceDiagram.svg)
+
+
