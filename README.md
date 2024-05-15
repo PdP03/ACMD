@@ -14,17 +14,18 @@ Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/main/src/Game.
 * Gestisce interazioni Player-Mappa (Player raccoglie oggetti, Player usa Pozioni, Player prende i drop da un Mostro...)
 
 # LAYER DIAGRAM
-![LayerDiagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/PdP03/ACMD/dev/DiagrammiUML/LayerDiagram.puml)
+![LayerDiagram](https://github.com/PdP03/ACMD/tree/dev/DiagrammiUML/SequenceDiagram.svg)
 
 # CLASS DIAGRAM
-![Class Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/PdP03/ACMD/dev/DiagrammiUML/ClassDiagram.puml)
+![Class Diagram](https://github.com/PdP03/ACMD/tree/dev/DiagrammiUML/ClassDiagram(Entita-MenuGraphic-Mappa-GameEngine-Prompt).svg)
+![Class Diagram](https://github.com/PdP03/ACMD/tree/dev/DiagrammiUML/ClassDiagram(Storage-Persistance-Adapter).svg)
 
 # SEQUENCE DIAGRAM (Work in progress....)
 Il diagramma di avvio del gioco è:
-![Alt text](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/PdP03/ACMD/dev/DiagrammiUML/SequenceDiagram.puml)
+![Alt text](https://github.com/PdP03/ACMD/tree/dev/DiagrammiUML/SequenceDiagram.svg)
 Altri sequence diagram utili sono:
-* [comandi move per player](https://github.com/PdP03/ACMD/tree/dev/DiagrammiUML/provvisorio1.puml)
-* [load di una partita](https://github.com/PdP03/ACMD/tree/dev/DiagrammiUML/provvisorio2.puml)
+* [comandi move per player](https://github.com/PdP03/ACMD/tree/dev/DiagrammiUML/provvisorio1.svg)
+* [load di una partita](https://github.com/PdP03/ACMD/tree/dev/DiagrammiUML/provvisorio2.svg)
 * altri da fare .....
 
 

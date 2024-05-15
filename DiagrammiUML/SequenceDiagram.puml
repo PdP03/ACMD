@@ -22,6 +22,7 @@ actor Utente as u
 
 /'---------------- AVVIO MENU INIZIALE ----------------'/
 ga -> AdapterGrafica : print(Menu.toString());
+AdapterGrafica -> GraficaOutput : print(String)
 ga -> Prompt : stateMenu(MainMenu);
 ga -> Prompt : waitInput();
 Prompt -> GraficaInput : input();

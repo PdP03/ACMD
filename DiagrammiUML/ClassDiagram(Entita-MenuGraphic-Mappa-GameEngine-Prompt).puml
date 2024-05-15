@@ -1,0 +1,288 @@
+@startuml
+package "Entita'" #DDDDDD{ /'ADT tutti tipi di entità '/
+enum MType{
+  MOSTRO_MARINO
+  COBOLDO
+  BOSS_DRAGO
+  ARMATURA
+  MAGO_OSCURO
+}
+
+abstract class Entity{
+  Inventario inv;
+  short int salute;
+  byte danno_base;
+  byte armatura_base;
+  String name;
+  String storia;
+  byte livello;
+
+  byte getLivello();
+  String getStoria();
+  byte setLivello();
+  int changeVita();
+  boolean addItem();
+  boolean removeItem();
+  Inventario[] getInventory();
+  attackEntity(Entity);           /'con relativa probabilità'/
+} 
+
+
+
+class Player{
+  final byte PESO_MAX;
+  byte Carattere;
+
+  setCarattere();
+  getCarattere();
+}
+note left of Player:"Il carattere è ancora da implementare(ingorarlo per il momento)"
+
+abstract class Monster{
+  Mtype tipo
+
+  Monseter(Mtype t);
+  Mtype getMType();
+}
+class Monster_Factory{            /'classe astratta gestisce mostri'/
+
+  Monster create(MType type);
+  Monster createRandom();
+}
+class Armatura{}
+class Mago_nero{}
+class Mostro_Marino{}
+class Coboldo{}
+class BossDrago{}
+
+}
+Monster -> MType
+Player --|>Entity
+Monster --|>Entity
+Armatura--|> Monster
+Mago_nero --|> Monster
+Mostro_Marino --|> Monster
+Coboldo--|> Monster
+BossDrago--|> Monster
+
+Monster_Factory --> BossDrago
+Monster_Factory --> Mago_nero 
+Monster_Factory --> Coboldo
+Monster_Factory --> Armatura
+Monster_Factory --> Mostro_Marino 
+
+/'sta nel kernel layer'/
+package MenuGraphic #DDDDDD{
+class LoaderMenu{
+  LoaderMenu(String file)
+  Menu getMenu();
+
+}
+
+abstract class Menu{
+  /'La prima stringa e il comando mentre la seconda è la descrizione'/
+  Map<String, String> commandMap = new HashMap<String, String>;
+  
+  String toString();
+}
+class StartMenu{}
+class BattleMenu{}
+class MovmentMenu{}
+class ExitMenu{}
+}
+note left of Menu :"Specificare i singoli comnadi nelle implementazioni dei menù"
+BattleMenu---|> Menu
+StartMenu---|> Menu
+MovmentMenu ---|> Menu
+ExitMenu---|> Menu
+
+BattleMenu --> LoaderMenu
+StartMenu --> LoaderMenu
+MovmentMenu --> LoaderMenu
+ExitMenu --> LoaderMenu
+
+
+package Mappa #DDDDDD{   
+
+class LoaderMap{
+  LoaderMap(String file);
+  MapGraf getMap();
+} 
+    
+class Coordinates{
+  int x,y;
+  int getX();
+  int getY();
+  int setX();
+  int setY();
+
+}
+  /'Classe che carica da file la lista dei nodi'/
+  class LoadNode{
+  List<node> list = new ArrayList<node>;
+  public LoadNode(String fileName);
+  
+  List<node> getListCommands();
+  
+}
+
+  class MapGraf{
+  List<Stanza> stanze = new ArrayList<Stanza>;
+  /*Questa classe implementa un red-black tree*/
+  TreeMap<K,node> nodiTree = new TreeMap<K,V>;
+
+  generateStanze();
+  generatePercorso();
+  /'Converte la lista di nodi in un albero'/
+  listToTree(List<node> l);
+  List<node> getPercorsoTo(Nodo start, Stanza end);
+  List<Direction> validPositionOf(node n);
+  boolean checkpositionOf(node n);
+  
+  
+}
+note left of MapGraf :"Classe di facade"
+
+enum  Direction{
+  NORD
+  WEST
+  OVEST
+  SOUTH
+}
+
+class node
+{
+  Coordinates cord;
+  Direction[] dir = new Direction[4];
+  setDirection(Direction[] d);
+  addDirection(Direction d);
+  Direction[] getDirection();
+
+}
+   class Stanza{
+  Coordinates cord;
+  Monster mostro;
+  setCord(int x, int y);
+  Coordinates getCord();
+  Chest baule;
+  Monster getMostro();
+  Chest getChest();
+}
+
+} 
+
+
+MapGraf "1"--> "*" Stanza
+MapGraf "1"--> "1" LoadNode
+MapGraf "1" --> "*" node
+node"1" --> "1"Coordinates
+node"1" --> "1"Direction
+Stanza"1" --> "1"Coordinates
+
+
+package Prompts #DDDDDD{
+/'Questa class è un Singleton: tutto entra ed esce da qua'/
+class Promt{
+Command cmmd;
+  HashMap<String,Command> map = new HashMap<String,Command>;
+  
+  private changeCommand(Command c);
+
+  Promt(GameEngine g);
+  InputType waitInput();
+  File getOldSave();
+}
+
+class StartCommand{
+  execute();
+}
+class ExitCommand{
+  execute();
+}
+class LookCommand{
+  execute();
+}
+class AttackCommand{
+  execute();
+}
+class MoveBackCommand{
+  execute();
+}
+class MovePlayerCommand{
+  execute();
+}
+class PlayerTakeCommand{
+  execute();
+}
+class PlayerUseCommand{
+  execute();
+}
+class PlayerRemoveCommand{
+  execute();
+}
+class PlayerRemoveStackCommand{
+  execute();
+}
+class LoadCommand{
+  execute();
+}
+
+interface Command{
+  execute();
+}
+
+}
+StartCommand --|> Command
+ExitCommand --|> Command
+LookCommand --|> Command
+AttackCommand --|> Command
+MoveBackCommand --|> Command
+MovePlayerCommand --|> Command
+PlayerUseCommand --|> Command
+PlayerRemoveStackCommand --|> Command
+LoadCommand --|> Command
+Promt --> Command
+
+package GameEngineLayer #DDDDDD{
+/'organizzatore e gestore degli eventi del gioco'/
+class GameEngine{
+  Player p;
+  Mappa m;
+  String buffer
+
+  /'metodo per l'inizializzazione(di player e mappa)'/
+  void runSetup();
+  Vector<Object> save();
+
+  /'metodo richiamati durante il gioco '/
+  void lookAround();
+  void attack();
+  void movePlayerBack();
+  void movePlayer(Direction d);
+  void playerTake(String item);
+  void playerUse(String item);
+  void playerRemove(String item);        /'aggiunge nel buffer una info degli oggetti eliminati'/
+  void playerRemoveStack(String items);/'toglie tutto lo stack di item'/
+
+  /'metodi usati per aggiornare la grafica richiamati da Game'/
+  String getPlayerInv();
+  byte getPlayerLife();
+  byte getPlayerLv();
+  byte getMonsterLife();
+  boolean PlayerIsFighting();
+  String getBuffer();
+
+  /'metodi usati nel load di un partita'/
+  void load(File f); 
+}
+note right of GameEngine:"DANTE COSA RESTITUISCE ADAPTER GRAFICA?"
+
+}
+
+class Game{
+public void main();
+
+}
+
+Game --> GameEngine 
+@enduml

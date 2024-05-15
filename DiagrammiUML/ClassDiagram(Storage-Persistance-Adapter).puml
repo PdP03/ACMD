@@ -1,0 +1,90 @@
+@startuml
+package "StorageManagment" #DDDDDD{  /'songole tipologie elementi'/
+class ItemFactory
+{
+  ItemStack getRandomItem();
+  ItemStack getItem(ItemType t);
+}
+
+class LoaderItem{
+  LoaderItem(String file);
+  Inventoy getInventory();
+}
+
+ class ItemStack {
+   String nome;
+   byte peso;
+   byte quanty;
+   byte valore;
+   ItemType tipologia;   
+   String description;
+   
+   byte getQuanity();
+   void addQuantity();
+   void removeQuanty();
+   String showDescription();
+   short getPeso();
+   /'tutti set get'/
+  
+}
+
+enum ItemType{
+  POZIONE1
+  POZIONE2
+  ARMA1
+  ARMA2
+  ARMATURA1
+  ARMATURA2
+}
+
+/'gestione di infiniti item'/
+abstract Storage{   
+  List<ItemStack> items = new ArrayList<ItemStack>;
+
+  void add(ItemStack i);
+  boolean remove(ItemStack i);   /'restituisce false se storage è vuoto'/
+  String showStorage();
+}
+note left of Storage : Classe base per tutti i contenitori
+
+class Inventario{ /'Non serve pesoMax perche è gia presente in player'/
+  byte weight;
+
+  byte getWeight();
+  byte quantyOf(String items);
+  ItemStack searchFor(String item);
+}
+
+class Chest{
+}
+
+}
+Storage -> ItemStack 
+Inventario --|> Storage
+
+Chest --|> Storage
+ItemStack -> ItemType
+
+
+
+
+package PersistaceLayer #DDDDDD{
+  class awsClient{
+    void upload(File f);
+    void download(String file);
+    String getChecksum(String file);
+  }
+
+  class JsonParser{
+    
+  }
+  
+}
+
+package AdapterLayer #DDDDDD{
+  class AdapterSave{
+    boolean checkOldSave(File f);
+    File loadSave(); /'file'/
+  }
+}
+@enduml
