@@ -1,5 +1,5 @@
 # ACMD
-Text based game for software eng. \
+Text based game for software eng.
 
 # START POINT
 Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/main/src/Game.java) il quale andra a richiamare tutti i metodi/classi che servono per:
