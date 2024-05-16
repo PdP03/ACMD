@@ -1,8 +1,0 @@
-
-package StorageManagement;
-
-public class noItem_Exception extends RuntimeException
-{
-   public noItem_Exception()
-     { System.out.println("Non ci sono oggetti di questo tipo"); }
-}
