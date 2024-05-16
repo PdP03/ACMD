@@ -1,0 +1,10 @@
+
+package KernelEnum;
+
+public enum Menu_Enum
+{
+    Start,
+    Combact,
+    Move,
+    YN;
+}
