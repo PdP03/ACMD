@@ -1,9 +1,0 @@
-
-package com.Item;
-
-public enum ItemType
-{
-    ARMA,
-    ARMATURA,
-    POZIONE;
-}
