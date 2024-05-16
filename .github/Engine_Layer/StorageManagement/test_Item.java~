@@ -1,0 +1,57 @@
+
+package Item;
+
+class test_Item
+{
+	public static void main(String[] args)
+	{
+		System.out.println("Test item");
+	 //_costruttori
+
+	 	Item i1 = new Item("primo item",  ItemType.ARMA, 10);
+		Item i2 = new Item("secondo item",ItemType.POZIONE,1,3);
+
+	 //_metodi
+
+		System.out.println( i1.getQuantity() );
+		i1.addItem();    System.out.println( i1.getQuantity() );
+		i1.removeItem(); System.out.println( i1.getQuantity() );
+		System.out.println( i1 );
+
+	 //_eccezioni
+
+		Item ia = new Item("", ItemType.ARMA,10);
+		Item ib = new Item("j",ItemType.ARMA,-1);
+		Item ic = new Item("k",ItemType.ARMA,0,0);
+
+		Item id = new Item("f",ItemType.ARMA,1,1);
+		id.removeItem();
+		id.removeItem();
+	}
+}
+
+//class test_ItemType
+
+class test_Storage
+{
+	public static void main(String[] args)
+	{
+
+	}
+}
+
+class test_Chest
+{
+	public static void main(String[] args)
+	{
+		System.out.println("chest");
+	}
+}
+
+class test_Inventario
+{
+	public static void main(String[] args)
+	{
+
+	}
+}
