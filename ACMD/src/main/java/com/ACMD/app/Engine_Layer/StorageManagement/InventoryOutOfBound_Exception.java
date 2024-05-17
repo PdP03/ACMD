@@ -1,5 +1,5 @@
 
-package StorageManagement;
+package com.ACMD.app.Engine_Layer.StorageManagement;
 
 public class InventoryOutOfBound_Exception extends RuntimeException
 {

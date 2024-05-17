@@ -1,4 +1,3 @@
-
 /*
     Per aumentare l'efficienza si potrebbe fare un bucket che divide per le varie categorie
      di tipo di arma.
@@ -13,8 +12,9 @@
 // TERMINARE : dover mettere che togliere il peso quando fa remove
 // TERMINARE : forse ciò che sto facendo non funziona, perché io non salvo direttamente l'elemento, quindi non posso ritrovarmelo nella lista
 // TERMINARE : se salva più oggetti di stesso tipo in inventario
+package com.ACMD.app.Engine_Layer.StorageManagement;
 
-import StorageManagement;
+import java.util.LinkedList;
 
 public class Inventario extends Storage
 {
@@ -24,11 +24,12 @@ public class Inventario extends Storage
     byte maxOggetti, contOggetti =0;
 
 //  ## Costruttore ##
-    public Inventario(int maxOggetti)
+    public Inventario(byte maxOggetti)
     {
+        super();
         if( maxOggetti <=0 ) throw new IllegalArgumentException();
 
-        super();
+        
         this.maxOggetti = maxOggetti;
     }
 

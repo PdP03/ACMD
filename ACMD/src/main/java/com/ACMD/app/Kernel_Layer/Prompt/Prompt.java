@@ -1,10 +1,9 @@
 
-package Kernel_Layer.Prompts;
+package com.ACMD.app.Kernel_Layer.Prompt;
+import com.ACMD.app.Engine_Layer.GameEngine.*;
+import com.ACMD.app.Kernel_Layer.Menu.Menu_Enum;
 
-import Engine_Layer.GameEngine.GameEngine;
 //import
-
-import Kernel_Layer.KernelEnum.*;
 
 public class Prompt
 {
