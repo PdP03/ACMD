@@ -59,6 +59,9 @@ public /*abstract*/ class Item
     public void addItem()
      { ++quantita; }
 
+    public ItemType getType()
+     { return tipologia;}
+
     public boolean removeItem()
      {
         if( quantita>0 ) return --quantita != 0;
