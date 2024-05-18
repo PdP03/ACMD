@@ -133,7 +133,7 @@ public abstract class Entity {
      * @param value quantita da aggiungere
      * @return health nuovo valore impostato
      */
-    public short changehealth(short value) throws IllegalArgumentException{
+    public short changeHealth(short value) throws IllegalArgumentException{
         if(value > Short.MAX_VALUE - health){
             throw new IllegalArgumentException("Il valore: " + health + "+" + value +" supera il valore max " + Short.MAX_VALUE + "(overflow)");
         }

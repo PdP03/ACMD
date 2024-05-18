@@ -24,6 +24,7 @@ public class Player extends Entity{
      */
     public Player(String name){
         super.level = BASE_LEVEL;
+        super.maxHealth = BASE_HEALTH;
         super.health = BASE_HEALTH;
         super.damage = BASE_DAMAGE;
         super.armor = BASE_ARMOR;
@@ -35,7 +36,7 @@ public class Player extends Entity{
         if(l < 1)
             throw new IllegalArgumentException("Il lv. "+ l +" non esiste");
         
-        maxHealth += (level-l)*HEALTH_MULTIPLIER;
+        maxHealth += (l-level)*HEALTH_MULTIPLIER;
         level = l;
     }
 
