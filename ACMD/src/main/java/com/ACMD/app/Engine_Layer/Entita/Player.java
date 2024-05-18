@@ -9,11 +9,14 @@ import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
  * Classe che rappresenta il player
  */
 public class Player extends Entity{
-    final byte MAX_INVENTORY_WEIGTH = 10;
-    final byte BASE_DAMAGE = 1;
-    final byte BASE_ARMOR = 1;
-    final byte BASE_HEALTH = 5;
-    final byte BASE_LEVEL = 1;
+    private final byte MAX_INVENTORY_WEIGTH = 10;
+    private final byte BASE_DAMAGE = 1;
+    private final byte BASE_ARMOR = 1;
+    private final byte BASE_HEALTH = 5;
+    private final byte BASE_LEVEL = 1;
+    private final byte HEALTH_MULTIPLIER = 2;
+    private final byte DAMAGE_MULTIPLIER = 1;
+    private final byte ARMOR_MULTIPLIER = 1;
 
     /**
      * Inizializza un giocatore con i parametri di default
@@ -27,19 +30,42 @@ public class Player extends Entity{
         super.name = name;
     }
 
-    boolean removeItem(Item i){
-        if(inv.removeItem(i)){
+    //imposta il nuovo livello e aggiorna la vita max
+    public void setLv(byte l) throws IllegalArgumentException{
+        if(l < 1)
+            throw new IllegalArgumentException("Il lv. "+ l +" non esiste");
+        
+        maxHealth += (level-l)*HEALTH_MULTIPLIER;
+        level = l;
+    }
+
+    //ritorna il valore del danno in base al lv.
+    public byte getDamage(){
+        return (byte)(super.damage + (level-1)*DAMAGE_MULTIPLIER);
+    }
+
+    public byte getArmor(){
+        return (byte)(super.armor + (level-1)*ARMOR_MULTIPLIER);
+    }
+
+    /**
+     * Rimuove un item dall'inventario del player. Lancia IllegalArgumentException se l'inventario è vuoto
+     * @param i item da eliminare
+     * @return boolean true se è stato eliminato 
+     */
+    public boolean removeItem(Item i) throws IllegalArgumentException{
+        if(!inv.removeItem(i)){
             throw new IllegalArgumentException();
         }
         
         //il player può avere una sola arma è una sola armatura
         switch(i.getType()){
             case ARMA:
-                super.damage -= ((Arma)i).getDamage();
+                super.safeDecrementDamage(((Arma)i).getDamage());
                 return true;
 
             case ARMATURA:
-                super.armor -= ((Armatura)i).getDifense();
+                super.safeDecrementArmor(((Armatura)i).getDifense());
                 return true;
 
             default:        //neccessario poichè lo switch vuole tutti i case definiti nella enum
@@ -63,7 +89,7 @@ public class Player extends Entity{
                 if(inv.searchType(i.getType())){
                     return false;
                 }
-                super.damage += ((Arma)i).getDamage();
+                super.safeIncrementDamage(((Arma)i).getDamage());
                 inv.addItem(i);
                 return true;
 
@@ -72,7 +98,7 @@ public class Player extends Entity{
                     return false;
                 }
                 inv.addItem(i);
-                super.armor += ((Armatura)i).getDifense();
+                super.safeIncrementArmor(((Armatura)i).getDifense());
                 return true;
 
             default:        //neccessario poichè lo switch vuole tutti i case definiti nella enum

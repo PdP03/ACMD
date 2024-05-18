@@ -14,10 +14,9 @@ public abstract class Entity {
     protected InventarioProvvisorio inv = new InventarioProvvisorio();
     protected String name;
     protected String history;//probabilmente va spostata nelle effettive implementazioni dei mostri
-    protected byte level;
-    protected short health;
-    protected byte damage;
-    protected byte armor;
+    protected short health, maxHealth;
+    protected byte damage, armor, level;
+
 
     /**
      * Restituisce il livello attuale
@@ -28,12 +27,11 @@ public abstract class Entity {
     }
 
     /**
-     * Imposta il livello ad un valore desiderato
+     * Imposta il livello ad un valore desiderato. Lancia IllegalArgumentException se il livello non è valido
+     * Si noti che cambiano anche i valori: health, damage, armor.
      * @param l livello
      */
-    public void setLv(byte l){
-        level = l;
-    }
+    public abstract void setLv(byte l) throws IllegalArgumentException;
 
     /**
      * Valore della vita
@@ -47,17 +45,13 @@ public abstract class Entity {
      * Valore del danno che fa ad un altra entity
      * @return damage
      */
-    public byte getDamage(){
-        return damage;
-    }
+    public abstract byte getDamage();
 
     /**
      * Valore della difesa del player
      * @return armor
      */
-    public byte getArmor(){
-        return armor;
-    }
+    public abstract byte getArmor();
 
     /**
      * Nome del entità
@@ -65,6 +59,56 @@ public abstract class Entity {
      */
     public String getName(){
         return name;
+    }
+
+    // ---- INCREMENTO CON CONTROLLO OVERFLOW ----
+    protected void safeIncrementHealth(short amount)
+    {
+        if(amount < 0 || Short.MAX_VALUE - amount < health)
+            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto per 'health'");
+        
+        health += amount;
+    }
+
+    protected void safeIncrementDamage(byte amount)
+    {
+        if(amount < 0 || Byte.MAX_VALUE - amount < damage)
+            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto per 'damage'");
+        
+        damage += amount;
+    }
+
+    protected void safeIncrementArmor(byte amount)
+    {
+        if(amount < 0 || Byte.MAX_VALUE - amount < armor)
+            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto per 'armor'");
+        
+        armor += amount;
+    }
+
+    // ---- DECREMENTO CON CONTROLLO OVERFLOW ----
+    protected void safeDecrementHealth(short amount)
+    {
+        if(amount < 0 || Short.MAX_VALUE - amount < health)
+            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto per 'health'");
+        
+        health -= amount;
+    }
+
+    protected void safeDecrementDamage(byte amount)
+    {
+        if(amount < 0 || Byte.MAX_VALUE - amount < damage)
+            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto per 'damage'");
+        
+        damage -= amount;
+    }
+
+    protected void safeDecrementArmor(byte amount)
+    {
+        if(amount < 0 || Byte.MAX_VALUE - amount < armor)
+            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto per 'armor'");
+        
+        armor -= amount;
     }
 
     /**
@@ -91,9 +135,15 @@ public abstract class Entity {
      */
     public short changehealth(short value) throws IllegalArgumentException{
         if(value > Short.MAX_VALUE - health){
-            throw new IllegalArgumentException("Il valore: " + health + "+" + value +" supera il valore max " + Short.MAX_VALUE);
+            throw new IllegalArgumentException("Il valore: " + health + "+" + value +" supera il valore max " + Short.MAX_VALUE + "(overflow)");
         }
-        health += value;
+
+        if(value + health <= maxHealth){
+            health += value;
+        }
+        else{
+            health = maxHealth;
+        }
 
         return health;
     }
@@ -103,13 +153,13 @@ public abstract class Entity {
      * @param i item da inserire 
      * @return boolean true se è stato aggiunto false altrimenti
      */
-    abstract boolean addItem(Item i);
+    public abstract boolean addItem(Item i);
 
     /**
      * Rimuove un singolo item dal inventario
      * @param i item da eliminare
      * @return boolean true se è stato rimosso false altrimenti
      */
-    abstract boolean removeItem(Item i);
+    public abstract boolean removeItem(Item i);
 
 }
