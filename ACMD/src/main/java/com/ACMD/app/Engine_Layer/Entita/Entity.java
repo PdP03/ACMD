@@ -13,7 +13,7 @@ import com.ACMD.app.Engine_Layer.StorageManagement.Item;
 public abstract class Entity {
     protected InventarioProvvisorio inv = new InventarioProvvisorio();
     protected String name;
-    protected String history;//probabilmente va spostata nelle effettive implementazioni dei mostri
+    protected String history;
     protected short health, maxHealth;
     protected byte damage, armor, level;
 
@@ -34,11 +34,35 @@ public abstract class Entity {
     }
 
     /**
+     * Restituisce la 'storia' di un entita che descrive il personaggio
+     * @return String descrizione del entità
+     */
+    public String getHistory(){
+        return history;
+    }
+
+    /**
      * Nome del entità
      * @return name
      */
     public String getName(){
         return name;
+    }
+
+    /**
+     * Valore del danno che fa ad un altra entity
+     * @return damage
+     */
+    public byte getDamage(){
+        return damage;
+    }
+
+    /**
+     * Valore della difesa del player
+     * @return armor
+     */
+    public byte getArmor(){
+        return armor;
     }
 
     // ---- INCREMENTO CON CONTROLLO OVERFLOW ----
@@ -135,18 +159,6 @@ public abstract class Entity {
      * @param l livello
      */
     public abstract void setLv(byte l) throws IllegalArgumentException;
-
-    /**
-     * Valore del danno che fa ad un altra entity
-     * @return damage
-     */
-    public abstract byte getDamage();
-
-    /**
-     * Valore della difesa del player
-     * @return armor
-     */
-    public abstract byte getArmor();
 
     /**
      * Aggiugne un singolo item nel inventario

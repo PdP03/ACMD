@@ -41,26 +41,16 @@ public class Player extends Entity{
         level = l;
 
         //check overflow di armor
-        val = (byte)(BASE_ARMOR + (level-1)*ARMOR_MULTIPLIER);
-        if(val < 0)
+        val = (byte)((l-level)*ARMOR_MULTIPLIER);
+        if(val < 0 || Byte.MAX_VALUE - val < super.armor)
             throw new IllegalArgumentException("Overflow di armor (livello troppo alto):"+val);
-        super.armor = val;
+        super.armor += val;
         
         //check overflow di damage
-        val = (byte)(BASE_DAMAGE + (level-1)*DAMAGE_MULTIPLIER);
-        if(val < 0)
+        val = (byte)((l-level)*DAMAGE_MULTIPLIER);
+        if(val < 0 || Byte.MAX_VALUE - val < super.damage)
             throw new IllegalArgumentException("Overflow di damage (livello troppo alto): "+val);
-        super.damage = val;
-    }
-
-    //ritorna il valore del danno in base al lv.
-    public byte getDamage(){
-        return super.damage;
-    }
-
-    //ritorna il valore di armor in base al lv.
-    public byte getArmor(){
-        return super.armor;
+        super.damage += val;
     }
 
     /**
