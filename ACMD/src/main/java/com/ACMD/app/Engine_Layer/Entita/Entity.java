@@ -17,7 +17,6 @@ public abstract class Entity {
     protected short health, maxHealth;
     protected byte damage, armor, level;
 
-
     /**
      * Restituisce il livello attuale
      * @return level
@@ -27,31 +26,12 @@ public abstract class Entity {
     }
 
     /**
-     * Imposta il livello ad un valore desiderato. Lancia IllegalArgumentException se il livello non è valido
-     * Si noti che cambiano anche i valori: health, damage, armor.
-     * @param l livello
-     */
-    public abstract void setLv(byte l) throws IllegalArgumentException;
-
-    /**
      * Valore della vita
      * @return health
      */
     public short getLife(){
         return health;
     }
-
-    /**
-     * Valore del danno che fa ad un altra entity
-     * @return damage
-     */
-    public abstract byte getDamage();
-
-    /**
-     * Valore della difesa del player
-     * @return armor
-     */
-    public abstract byte getArmor();
 
     /**
      * Nome del entità
@@ -147,6 +127,26 @@ public abstract class Entity {
 
         return health;
     }
+
+    // -------- METODI ASTRATTI --------
+    /**
+     * Imposta il livello ad un valore desiderato. Lancia IllegalArgumentException se il livello non è valido
+     * Si noti che cambiano anche i valori: health, damage, armor.
+     * @param l livello
+     */
+    public abstract void setLv(byte l) throws IllegalArgumentException;
+
+    /**
+     * Valore del danno che fa ad un altra entity
+     * @return damage
+     */
+    public abstract byte getDamage();
+
+    /**
+     * Valore della difesa del player
+     * @return armor
+     */
+    public abstract byte getArmor();
 
     /**
      * Aggiugne un singolo item nel inventario

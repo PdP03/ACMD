@@ -33,20 +33,34 @@ public class Player extends Entity{
 
     //imposta il nuovo livello e aggiorna la vita max
     public void setLv(byte l) throws IllegalArgumentException{
+        byte val;
         if(l < 1)
             throw new IllegalArgumentException("Il lv. "+ l +" non esiste");
         
         maxHealth += (l-level)*HEALTH_MULTIPLIER;
         level = l;
+
+        //check overflow di armor
+        val = (byte)(BASE_ARMOR + (level-1)*ARMOR_MULTIPLIER);
+        if(val < 0)
+            throw new IllegalArgumentException("Overflow di armor (livello troppo alto):"+val);
+        super.armor = val;
+        
+        //check overflow di damage
+        val = (byte)(BASE_DAMAGE + (level-1)*DAMAGE_MULTIPLIER);
+        if(val < 0)
+            throw new IllegalArgumentException("Overflow di damage (livello troppo alto): "+val);
+        super.damage = val;
     }
 
     //ritorna il valore del danno in base al lv.
     public byte getDamage(){
-        return (byte)(super.damage + (level-1)*DAMAGE_MULTIPLIER);
+        return super.damage;
     }
 
+    //ritorna il valore di armor in base al lv.
     public byte getArmor(){
-        return (byte)(super.armor + (level-1)*ARMOR_MULTIPLIER);
+        return super.armor;
     }
 
     /**
