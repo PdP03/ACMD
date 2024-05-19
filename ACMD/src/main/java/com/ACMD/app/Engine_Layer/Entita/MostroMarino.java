@@ -26,13 +26,8 @@ public class MostroMarino extends Monster{
      * @param damage byte difesa iniziale del mostro
      * @param armor byte attacco iniziale del mostro
      */
-    public MostroMarino(String name, short health, byte damage, byte armor){
-        super(MType.MOSTRO_MARINO, name);
+    public MostroMarino(String name, short health, byte damage, byte armor) throws IllegalArgumentException{
+        super(MType.MOSTRO_MARINO, name, health, damage, armor);
         super.history = story;
-
-        super.maxHealth = health;
-        super.health = health;
-        super.damage = damage;
-        super.armor = armor;
     }
 }

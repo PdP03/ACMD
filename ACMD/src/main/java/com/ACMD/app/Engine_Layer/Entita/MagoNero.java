@@ -27,12 +27,7 @@ public class MagoNero extends Monster{
      * @param armor byte attacco iniziale del mostro
      */
     public MagoNero(String name, short health, byte damage, byte armor){
-        super(MType.MAGO_OSCURO, name);
+        super(MType.MAGO_OSCURO, name, health, damage, armor);
         super.history = story;
-
-        super.maxHealth = health;
-        super.health = health;
-        super.damage = damage;
-        super.armor = armor;
     }
 }

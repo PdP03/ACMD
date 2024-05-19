@@ -17,6 +17,7 @@ public class Player extends Entity{
     private final byte HEALTH_MULTIPLIER = 2;
     private final byte DAMAGE_MULTIPLIER = 1;
     private final byte ARMOR_MULTIPLIER = 1;
+    final String story ="Tutti danno la colpa a me è mi odiano perchè uso il METODO SCIENTIFICO. Dimostrero a loro che si sbagliano!!!";
 
     /**
      * Inizializza un giocatore con i parametri di default
@@ -29,6 +30,7 @@ public class Player extends Entity{
         super.damage = BASE_DAMAGE;
         super.armor = BASE_ARMOR;
         super.name = name;
+        super.history = story;
     }
 
     //imposta il nuovo livello e aggiorna la vita max
@@ -91,7 +93,7 @@ public class Player extends Entity{
         //il player può avere una sola arma è una sola armatura
         switch(i.getType()){
             case ARMA:
-                if(inv.searchType(i.getType())){
+                if(inv.search(i.toString())){
                     return false;
                 }
                 super.safeIncrementDamage(((Arma)i).getDamage());
@@ -99,7 +101,7 @@ public class Player extends Entity{
                 return true;
 
             case ARMATURA:
-                if(inv.searchType(i.getType())){
+                if(inv.search(i.toString())){
                     return false;
                 }
                 inv.addItem(i);

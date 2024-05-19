@@ -33,6 +33,27 @@ public abstract class Monster extends Entity{
     }
 
     /**
+     * Costruttore che permette di modificare i valori di partenza di un mostro
+     * @param t tipo mostro
+     * @param name nome 
+     * @param health vita iniziale
+     * @param damage danno iniziale
+     * @param armor armatura iniziale
+     */
+    public Monster(MType t, String name, short health, byte damage, byte armor){
+        if(health <= 1 || damage <= 0 || armor <= 0){
+            throw new IllegalArgumentException("Valore health, damage, armor non corretto");
+        }
+
+        type = t;
+        super.level = BASE_LEVEL;
+        super.maxHealth = health;
+        super.health = health;
+        super.damage = damage;
+        super.armor = armor;
+    }
+
+    /**
      * Metodo di appoggio per selezionare il nome
      * @param t MType tipo di mostro
      * @return String nome in base a MType

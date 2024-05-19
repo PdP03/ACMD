@@ -27,12 +27,7 @@ public class Coboldo extends Monster{
      * @param armor byte attacco iniziale del mostro
      */
     public Coboldo(String name, short health, byte damage, byte armor){
-        super(MType.COBOLDO, name);
+        super(MType.COBOLDO, name, health, damage, armor);
         super.history = story;
-
-        super.maxHealth = health;
-        super.health = health;
-        super.damage = damage;
-        super.armor = armor;
     }
 }
