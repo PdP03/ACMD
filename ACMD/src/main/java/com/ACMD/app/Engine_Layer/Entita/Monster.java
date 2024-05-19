@@ -90,7 +90,6 @@ public abstract class Monster extends Entity{
             throw new IllegalArgumentException("Il lv. "+ l +" non esiste");
         
         maxHealth += (l-level)*HEALTH_MULTIPLIER;
-        level = l;
 
         //check overflow di armor
         val = (byte)((l-level)*ARMOR_MULTIPLIER);
@@ -103,6 +102,8 @@ public abstract class Monster extends Entity{
         if(val < 0 || Byte.MAX_VALUE - val < super.damage)
             throw new IllegalArgumentException("Overflow di damage (livello troppo alto): "+val);
         super.damage += val;
+
+        level = l;
     }
 
     //aggiunta del elemento se non esiste lancia IllegalArgumentException

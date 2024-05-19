@@ -74,7 +74,7 @@ public class TestPlayer {
     }
 
     @Test
-    public void testChangeHealt(){
+    public void testChangeHealth(){
         //---- TEST HEALT GIA A FULL VITA ----
         p.changeHealth((short)1);
         Assert.assertEquals(5, p.getLife());
