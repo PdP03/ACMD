@@ -1,14 +1,21 @@
 package com.ACMD.app.Engine_Layer.Entita;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import com.ACMD.app.Engine_Layer.StorageManagement.Arma;
 import com.ACMD.app.Engine_Layer.StorageManagement.Armatura;
 import com.ACMD.app.Engine_Layer.StorageManagement.Item;
-import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 
 /**
- * Classe che rappresenta il player
+ * Classe che rappresenta il player sfrutta l'Observer Pattern implementato
+ * tramite PropertyChangeSupport poiche java.util.Observer/Observable sono 
+ * deprecati da Java 9 (https://stackoverflow.com/questions/46380073/observer-is-deprecated-in-java-9-what-should-we-use-instead-of-it)
  */
 public class Player extends Entity{
+    //handler degli observer
+    private PropertyChangeSupport observerHandler;
+    
+    //variabili del player
     private final byte MAX_INVENTORY_WEIGTH = 10;
     private final byte BASE_DAMAGE = 1;
     private final byte BASE_ARMOR = 1;
@@ -31,6 +38,29 @@ public class Player extends Entity{
         super.armor = BASE_ARMOR;
         super.name = name;
         super.history = story;
+
+        //inizializzazione del handler
+        observerHandler = new PropertyChangeSupport(this);
+    }
+
+    /**
+     * Aggiunge un nuovo listener(observer) a observerHandler, tutti gli
+     * observer aggiunti verrano notificati in caso di cambiamento
+     * @param listener oggetto PropertyChangeListener che vuole osservare player
+     */
+    public void addObserver(PropertyChangeListener listener) {
+        observerHandler.addPropertyChangeListener(listener);
+    }
+
+    /**
+     * Toglie un listener(observer) da observerHandler in questo modo
+     * l'observer tolto NON verra più notificato. Se observer non è
+     * presente in observerHandler il metodo removePropertyChangeListener()
+     * non fa nulla.
+     * @param listener oggetto PropertyChangeListener da rimuovere
+     */
+    public void removeObserver(PropertyChangeListener listener){
+        observerHandler.removePropertyChangeListener(listener);
     }
 
     //imposta il nuovo livello e aggiorna la vita max
@@ -52,7 +82,9 @@ public class Player extends Entity{
         if(val < 0 || Byte.MAX_VALUE - val < super.damage)
             throw new IllegalArgumentException("Overflow di damage (livello troppo alto): "+val);
         super.damage += val;
-
+        
+        //richiamat tutti gli observer che è avvenuto "levelChange" con oldValue=level e newValue=l
+        observerHandler.firePropertyChange("levelChange", (Byte)level, (Byte)l);
         level = l;
     }
 

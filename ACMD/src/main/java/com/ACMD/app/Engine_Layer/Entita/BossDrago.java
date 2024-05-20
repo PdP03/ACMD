@@ -1,7 +1,9 @@
 package com.ACMD.app.Engine_Layer.Entita;
 
 public class BossDrago extends Monster{
-    final String story = "Io sono il DRAGO, odio tutti perchè non mi crede nessuno agh! IO voglio dimostrare che il MOTO PERPETUO ESISTE per farlo userò te. Verrai bruciato in un forno è ricavero tutta la tua energia!!!";
+    final String story = "Io sono il DRAGO, odio tutti perchè non mi crede nessuno argh! IO voglio dimostrare che il MOTO PERPETUO ESISTE per farlo "+
+                        "userò te, verrai bruciato in un forno è ricaverò tutta la tua energia mediante delle turbine che non si fermeranno MAI"+
+                        " ahahah!!! Nessuno potrà fermarmi";
     
     /*
      * Costruttore senza parametri. Inizializzato con valori di default.

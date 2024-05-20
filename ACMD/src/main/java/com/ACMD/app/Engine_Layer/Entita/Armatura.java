@@ -1,7 +1,9 @@
 package com.ACMD.app.Engine_Layer.Entita;
 
 public class Armatura extends Monster{
-    final String story = "Io sono Armatura Fluttuante, non so come mai ora posso 'volare' prima ero tranquilla ad abbronzarmi sotto il sole forse c'è qualcuno che sta creando dei campi magnetici. Troverò il colpevole e lo punirò(anche se sono arrugginita)!";
+    final String story = "Io sono Armatura Fluttuante, non so come mai ma ora posso 'volare'. Ero tranquilla ad abbronzarmi sotto il sole"+
+                        " quando ho sentito una forza, forse c'è qualcuno che sta creando dei campi magnetici.\n" +
+                        "Anche se sono arrugginita troverò il colpevole e lo punirò! Cosi potrò continuare a rilassarmi.";
     
     /*
      * Costruttore senza parametri. Inizializzato con valori di default.

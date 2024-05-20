@@ -1,7 +1,8 @@
 package com.ACMD.app.Engine_Layer.Entita;
 
 public class Coboldo extends Monster{
-    final String story = "Io sono Coboldo e vengo dal reglio dei CAMPI VETTORIALI.\nQualcuno mi ha rubato un autovettore devo riprenderlo!!";
+    final String story = "Io sono Coboldo e vengo dal regno dei CAMPI VETTORIALI a più dimensioni.\nMi stavo divertendo a dilatare e restringere "+
+                        "gli oggetti ma qualcuno mi ha rubato un autovettore e non posso piu farlo :( !!! Troverò il colpevole";
     
     /*
      * Costruttore senza parametri. Inizializzato con valori di default.

@@ -1,8 +1,17 @@
 package com.ACMD.app.Engine_Layer.Entita;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import com.ACMD.app.Engine_Layer.StorageManagement.Item;
 
-public abstract class Monster extends Entity{
+/**
+ * Monster sfrutta l'Observer Pattern implementato tramite PropertyChangeSupport 
+ * poiche java.util.Observer/Observable sono deprecati da Java 9 
+ * (https://stackoverflow.com/questions/46380073/observer-is-deprecated-in-java-9-what-should-we-use-instead-of-it)
+ * @see Player
+ * 
+ */
+public abstract class Monster extends Entity implements PropertyChangeListener {
     private MType type;
     private final byte BASE_DAMAGE = 2;
     private final byte BASE_ARMOR = 1;
@@ -51,6 +60,18 @@ public abstract class Monster extends Entity{
         super.health = health;
         super.damage = damage;
         super.armor = armor;
+    }
+
+    /**
+     * Metodo richiamato in automatico da PropertyChangeSupport in player in caso
+     * di modifiche alla classe (vedi Player.java)
+     * @param event tipo di modifica subita da Player
+     */
+    public void propertyChange(PropertyChangeEvent event){
+        if(event.getPropertyName() == "levelChange"){
+            byte b = (Byte)event.getNewValue();
+            setLv(b);
+        }
     }
 
     /**

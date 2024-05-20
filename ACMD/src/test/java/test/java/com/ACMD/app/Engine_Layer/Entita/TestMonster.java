@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import com.ACMD.app.Engine_Layer.Entita.MagoNero;
 import com.ACMD.app.Engine_Layer.Entita.Monster;
+import com.ACMD.app.Engine_Layer.Entita.Player;
 
 /**
  * Nota: non è neccessario testare singolarmete le classi dei mostri poichè non implementano metodi aggiuntivi rispetto a Monster.java
@@ -20,7 +21,8 @@ public class TestMonster {
 
     @Test
     public void testHistory(){
-        String excepted = "Io sono Mago Nero, studiando i circuiti elettrici mi sono accorto che possono essere scritti tramite funzioni di trasferimento ed esiste un punto di risonanza. \nMostro Marino ha un problema simile forse posso aiutarlo!";
+        String excepted = "Io sono Mago Nero, studiando i circuiti elettrici mi sono accorto che possono essere scritti tramite funzioni di trasferimento.\nStavo cercando di trovare la frequenza di taglio di un filtro analizzando l'uscita al variare del ingresso, tuttavia qualcuno mi ha rubato il condensatore INACCETTABILE se ti trovo verrai punito!";
+
         Assert.assertEquals(excepted, m.getHistory());
     }
 
@@ -81,6 +83,34 @@ public class TestMonster {
         m.setLv(Byte.MAX_VALUE);
         m.changeHealth((short)1000);
         Assert.assertEquals(257, m.getLife());
+    }
+
+    /*
+     * Test per verificare che se il Player modifica il suo livello questo
+     * venga notificato anche a Monster
+     */
+    @Test
+    public void testChangeLevel(){
+        Player p = new Player("Pippo");
+        //---- TEST INCREMENTO LV PLAYER ----
+        //aggiungo il mostro come osservatore
+        p.addObserver(m);
+        //Cambio lv. solo a player
+        p.setLv((byte)2);
+
+        Assert.assertEquals(p.getLv(), m.getLv());
+
+        //---- TEST INCREMENTO LV PLAYER DOPO RIMOZINE DI MONSTER ----
+        p.removeObserver(m);
+        p.setLv((byte)3);
+
+        Assert.assertNotEquals(p.getLv(), m.getLv());
+
+        //---- TEST INCREMENTO LV MAX ----
+        p.addObserver(m);
+        p.setLv((byte)(Byte.MAX_VALUE-1));//-1 è neccessario poiche manderebbe in overflow damage di monster
+        
+        Assert.assertEquals(p.getLv(), m.getLv());
     }
 
     //TODO: da implementare
