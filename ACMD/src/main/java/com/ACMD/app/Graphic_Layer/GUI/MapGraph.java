@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import org.jgrapht.graph.DefaultWeightedEdge; //!!! Cosa devo fare! 
-import org.jgrapht.graph.SimpleDirectedWeightedGraph;
+import org.jgrapht.graph.*;
+
+
 
 
 //How about mettere statica nodes? 
@@ -15,7 +16,7 @@ import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 public class MapGraph {
     public MapGraph(String path){
 
-    SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge> map = new SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge>(
+        SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge> map = new SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge>(
             DefaultWeightedEdge.class); //Creazione di una mappa di nodi 
 
            List<Node> nodes = new ArrayList<Node>();

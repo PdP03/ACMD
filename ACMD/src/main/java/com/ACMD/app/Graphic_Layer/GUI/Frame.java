@@ -7,5 +7,5 @@ public interface Frame {
     /**
      * Inizializza le componenti, in questa classe è non implementato
      */
-    private void initComponents(){}
+    default void initComponents(){}
 }
