@@ -34,6 +34,14 @@ public abstract class Entity {
     }
 
     /**
+     * Restituisce il valore massimo di vita del player
+     * @return maxHealth
+     */
+    public short getMaxLife(){
+        return maxHealth;
+    }
+
+    /**
      * Restituisce la 'storia' di un entita che descrive il personaggio
      * @return String descrizione del entità
      */
@@ -68,24 +76,24 @@ public abstract class Entity {
     // ---- INCREMENTO CON CONTROLLO OVERFLOW ----
     protected void safeIncrementHealth(short amount)
     {
-        if(amount < 0 || Short.MAX_VALUE - amount < health)
-            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto per 'health'");
+        if(amount < 0 || Short.MAX_VALUE < health + amount)
+            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto/basso per 'health'(overflow)");
         
         health += amount;
     }
 
     protected void safeIncrementDamage(byte amount)
     {
-        if(amount < 0 || Byte.MAX_VALUE - amount < damage)
-            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto per 'damage'");
+        if(amount < 0 || Byte.MAX_VALUE < damage + amount)
+            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto/basso per 'damage'(overflow)");
         
         damage += amount;
     }
 
     protected void safeIncrementArmor(byte amount)
     {
-        if(amount < 0 || Byte.MAX_VALUE - amount < armor)
-            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto per 'armor'");
+        if(amount < 0 || Byte.MAX_VALUE < armor + amount)
+            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto/basso per 'armor'(overflow)");
         
         armor += amount;
     }
@@ -93,24 +101,24 @@ public abstract class Entity {
     // ---- DECREMENTO CON CONTROLLO OVERFLOW ----
     protected void safeDecrementHealth(short amount)
     {
-        if(amount < 0 || Short.MAX_VALUE - amount < health)
-            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto per 'health'");
+        if(amount < 0 || health - amount < Short.MIN_VALUE)
+            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto/basso per 'health'(overflow)");
         
         health -= amount;
     }
 
     protected void safeDecrementDamage(byte amount)
     {
-        if(amount < 0 || Byte.MAX_VALUE - amount < damage)
-            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto per 'damage'");
+        if(amount < 0 || damage - amount < Short.MIN_VALUE)
+            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto/basso per 'damage'(overflow)");
         
         damage -= amount;
     }
 
     protected void safeDecrementArmor(byte amount)
     {
-        if(amount < 0 || Byte.MAX_VALUE - amount < armor)
-            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto per 'armor'");
+        if(amount < 0 || armor - amount < Short.MIN_VALUE)
+            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto/basso per 'armor'(overflow)");
         
         armor -= amount;
     }
@@ -138,8 +146,11 @@ public abstract class Entity {
      * @return health nuovo valore impostato
      */
     public short changeHealth(short value) throws IllegalArgumentException{
-        if(value > Short.MAX_VALUE - health){
-            throw new IllegalArgumentException("Il valore: " + health + "+" + value +" supera il valore max " + Short.MAX_VALUE + "(overflow)");
+        if(value + health > Short.MAX_VALUE){
+            throw new IllegalArgumentException("Il valore: " + health + "+" + value +" supera il valore max: " + Short.MAX_VALUE + "(overflow)");
+        }
+        else if(value + health < Short.MIN_VALUE){
+            throw new IllegalArgumentException("Il valore: " + health + "+" + value +" è più piccolo del valore min: " + Short.MIN_VALUE + "(overflow)");
         }
 
         if(value + health <= maxHealth){

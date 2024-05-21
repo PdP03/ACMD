@@ -34,7 +34,7 @@ public abstract class Monster extends Entity implements PropertyChangeListener {
         super.armor = BASE_ARMOR;
 
         if(name == null){
-            super.name = selectName(t);
+            super.name = Monster.selectName(t);
         }
         else{
             super.name = name;
@@ -79,7 +79,7 @@ public abstract class Monster extends Entity implements PropertyChangeListener {
      * @param t MType tipo di mostro
      * @return String nome in base a MType
      */
-    private String selectName(MType t){
+    private static String selectName(MType t){
         switch(t){
             case MOSTRO_MARINO:
                 return "Mostro Marino";

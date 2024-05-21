@@ -108,12 +108,7 @@
 
     </dependency>
 
-    <!-- Graph library-->
-    <dependency>
-      <groupId>org.jgrapht</groupId>
-      <artifactId>jgrapht</artifactId>
-      <version>${jgrapht.version}</version>
-    </dependency>
+
 
   </dependencies>
 

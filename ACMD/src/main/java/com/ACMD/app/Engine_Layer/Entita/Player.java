@@ -16,7 +16,7 @@ public class Player extends Entity{
     private PropertyChangeSupport observerHandler;
     
     //variabili del player
-    private final byte MAX_INVENTORY_WEIGTH = 10;
+    private final byte MAX_INVENTORY_WEIGHT = 10;
     private final byte BASE_DAMAGE = 1;
     private final byte BASE_ARMOR = 1;
     private final byte BASE_HEALTH = 5;
@@ -89,6 +89,15 @@ public class Player extends Entity{
     }
 
     /**
+     * Controlla se un item si può inserire nel inventario oppure no
+     * @param i Item da controllare
+     * @return ritorna false se item lascia spazio nel inventario altrimenti true
+     */
+    public boolean doesFillInv(Item i){
+        return i.getWeight() + inv.getWeight() > MAX_INVENTORY_WEIGHT;
+    }
+
+    /**
      * Rimuove un item dall'inventario del player. Lancia IllegalArgumentException se l'inventario è vuoto
      * @param i item da eliminare
      * @return boolean true se è stato eliminato 
@@ -119,7 +128,7 @@ public class Player extends Entity{
      * @return boolean true se è stato inserito false se l'item è gia presente e non può essere inserito
      */
     public boolean addItem(Item i) throws IllegalArgumentException{
-        if(i.getWeight() + inv.getWeigth() > MAX_INVENTORY_WEIGTH){
+        if(doesFillInv(i)){
             throw new IllegalArgumentException();
         }
         
@@ -142,6 +151,7 @@ public class Player extends Entity{
                 return true;
 
             default:        //neccessario poichè lo switch vuole tutti i case definiti nella enum
+                inv.addItem(i);
                 return true;
         }
     }

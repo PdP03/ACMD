@@ -1,0 +1,8 @@
+    Ho cavato questa roba poichè Maven non riesce a compilare è non partono i test (se non serve cancellare il file):
+    
+    <!-- Graph library-->
+    <dependency>
+      <groupId>org.jgrapht</groupId>
+      <artifactId>jgrapht</artifactId>
+      <version>${jgrapht.version}</version>
+    </dependency>
