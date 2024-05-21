@@ -16,50 +16,50 @@ package com.ACMD.app.Engine_Layer.StorageManagement;
 
 import java.util.LinkedList;
 
-public class Inventario extends Storage
-{
-//  ## Variabili ##
+public class Inventario extends Storage {
+    // ## Variabili ##
 
-    byte pesoAttuale =0;                //inventario conosce solo il suo peso, non quanto può portarne il personaggio
-    byte maxOggetti, contOggetti =0;
+    byte pesoAttuale = 0; // inventario conosce solo il suo peso, non quanto può portarne il personaggio
+    byte maxOggetti, contOggetti = 0;
 
-//  ## Costruttore ##
-    public Inventario(byte maxOggetti)
-    {
+    // ## Costruttore ##
+    public Inventario(byte maxOggetti) {
         super();
-        if( maxOggetti <=0 ) throw new IllegalArgumentException();
+        if (maxOggetti <= 0)
+            throw new IllegalArgumentException();
 
-        
         this.maxOggetti = maxOggetti;
     }
 
-//  ## Metodi ##
+    // ## Metodi ##
 
-    public boolean addItem( Item t )
-    {
-        if( ++contOggetti == maxOggetti )       // NOTA: in realtà avrei dovuto fare un metodo che controlla se è full, e poi usare quello; inoltre avrei dovuto lanciare una eccezione.. ma così secondo me è più efficiente
+    public boolean addItem(Item t) {
+        if (++contOggetti == maxOggetti) // NOTA: in realtà avrei dovuto fare un metodo che controlla se è full, e poi
+                                         // usare quello; inoltre avrei dovuto lanciare una eccezione.. ma così secondo
+                                         // me è più efficiente
         {
-            --contOggetti;              //torna a stato valido
-            //throw new InventoryOutOfBound("Non ci sono posti per altri tipi di oggetti");
+            --contOggetti; // torna a stato valido
+            // throw new InventoryOutOfBound("Non ci sono posti per altri tipi di oggetti");
             return false;
         }
 
         LinkedList<Item> items = super.showStorage();
         int pos = items.indexOf(t);
 
-        if( pos < 0 ) items.add(t);     //aggiungo oggetto che non è in inventario
-         else
-            {
-                t = items.get(pos);
-                t.add();
-                pesoAttuale += t.getPeso();
-            }
+        if (pos < 0)
+            items.add(t); // aggiungo oggetto che non è in inventario
+        else {
+            t = items.get(pos);
+            t.addItem();
+            pesoAttuale += t.getWeight();
+        }
 
         return true;
     }
-    
-    public getWeigth()
-     { return pesoAttuale; }
+
+    public byte getWeigth() {
+        return pesoAttuale;
+    }
 
     public int quantityOf( Item t )         //restituisce la quantità di un determinato oggetto
     {
@@ -68,7 +68,7 @@ public class Inventario extends Storage
         t = items.get( pos<0 ? return 0; : pos );   //non esiste un metodo che mi permette di crea
         return t.getQuantity(); */
 
-        items.contains(t) ? return t.getQuantity(); : return 0;
+        return (items.contains(t) ? t.getQuantity() : 0);
     }
 
 }

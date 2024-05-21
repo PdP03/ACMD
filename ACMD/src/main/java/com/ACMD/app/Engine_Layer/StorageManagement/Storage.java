@@ -1,14 +1,16 @@
-
+    
 package com.ACMD.app.Engine_Layer.StorageManagement;
 
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public abstract class Storage
 {
 
 //    final int n = 10;
-    private LinkedList<String, Item> items;
+    private LinkedList<String, Item> items;        //Bruh la linked list può avere un tipo solo al suo interno, o è Item o è String.
+                                                    // Ecco cosa succede ad non usare un IDE che ti segna gli errori quando si scrive codice
 
     public Storage()
     {
