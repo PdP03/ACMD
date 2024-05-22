@@ -11,7 +11,7 @@ package com.ACMD.app.Engine_Layer.StorageManagement;
     es: getDanno e getDifesa fanno la stessa cosa, ma chiaro che uno è arma ed altro è armatura
 */
 
-public /*abstract*/ class Item
+public /*abstract*/ class ItemStack
 {
     String nome;
     int peso;
@@ -22,7 +22,7 @@ public /*abstract*/ class Item
 
 //  ## costruttori ##
 
-    public Item(String n, ItemType t, int p)
+    public ItemStack(String n, ItemType t, int p)
     {
         if(p<0)
          throw new IllegalArgumentException("Peso non può essere negativo");  //compilatore mette condition guards come false in cache di default?
@@ -35,7 +35,7 @@ public /*abstract*/ class Item
         tipologia= t;
     }
 	    	
-    public Item(String n, ItemType t, int p, int q  )
+    public ItemStack(String n, ItemType t, int p, int q  )
     {
         if( p<0)
          throw new IllegalArgumentException("Peso non può essere negativo");
