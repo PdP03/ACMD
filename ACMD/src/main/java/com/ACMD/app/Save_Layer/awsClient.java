@@ -1,5 +1,8 @@
 package com.ACMD.app.Save_Layer;
 
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.AwsCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -16,13 +19,20 @@ public class awsClient {
 
     public awsClient() {}
 
-    static final Region region = Region.US_EAST_1;
-    static final String bucketName = "macdtest";
+    final static Region region = Region.US_EAST_1;
+    final static String bucketName = "macdtest";
+    final static String accessKeyId = "AKIAZJ42G7ZVBUEAUGE3";
+    final static String secretAcessKey = "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";
+
+    static AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKeyId, secretAcessKey);
 
     public static void Upload(File file) {
 
         
-        S3Client client = S3Client.builder().region(region).build();
+        S3Client client = S3Client.builder()
+        .region(region)
+        .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
+        .build();
         DateTimeFormatter dt = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
 
         try {
@@ -40,7 +50,10 @@ public class awsClient {
     }
 
     public void Download(String fileName){
-        S3Client client = S3Client.builder().region(region).build();
+        S3Client client = S3Client.builder()
+        .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
+        .region(region)
+        .build();
         try {
             GetObjectRequest request =  GetObjectRequest.builder().bucket(bucketName).key(fileName).build();
             client.getObject(request);
