@@ -18,6 +18,7 @@ public class AppTest
     /**
      * Rigorous Test :-)
      * Simple test to check upload on aws
+     * Why does it want Upload static??? 
      */
     @Test
     public void evaluatesExpression(){
