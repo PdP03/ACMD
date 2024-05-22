@@ -54,6 +54,7 @@ public /*abstract*/ class ItemStack
          throw new IllegalArgumentException("Il nome dell'oggetto non è valido");
         if(quantita <=0)
          throw new IllegalArgumentException("La quantità non è positiva");
+            //anche se prima avevo messo queste condizioni nei singoli costruttori in modo da evitare il controllo sulla quantità che non serve.. e forse è più sensato perché non si tratta di un metodo che può essere utile all'esterno
     }
 
 
@@ -64,8 +65,8 @@ public /*abstract*/ class ItemStack
 
     public boolean removeQuantity()
      {
-        if( quantita>0 ) return --quantita != 0;
-         else throw new noItem_Exception();
+        return (--quantita) == 0;    //ritorna vero se non ci sono altri elementi
+   //         else throw new noItem_Exception();
      }
 
 
