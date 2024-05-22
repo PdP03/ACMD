@@ -23,7 +23,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                       
     
 
-    private void initComponents() {
+    public void initComponents() {
         //Inizializzazione delle variabili oggetto per la grafica 
         setBackground(new java.awt.Color(0,0,0));
         jToolBar1 = new javax.swing.JToolBar();
