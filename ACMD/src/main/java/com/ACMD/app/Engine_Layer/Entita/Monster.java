@@ -2,7 +2,7 @@ package com.ACMD.app.Engine_Layer.Entita;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import com.ACMD.app.Engine_Layer.StorageManagement.Item;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 
 /**
  * Monster sfrutta l'Observer Pattern implementato tramite PropertyChangeSupport 
@@ -128,13 +128,13 @@ public abstract class Monster extends Entity implements PropertyChangeListener {
     }
 
     //aggiunta del elemento se non esiste lancia IllegalArgumentException
-    public boolean addItem(Item i){
+    public boolean addItem(ItemStack i){
         inv.addItem(i);
         return true;
     }
 
     //rimozione del elemento se non esiste lancia IllegalArgumentException
-    public boolean removeItem(Item i) throws IllegalArgumentException{
+    public boolean removeItem(ItemStack i) throws IllegalArgumentException{
         if(!inv.removeItem(i)){
             throw new IllegalArgumentException();
         }

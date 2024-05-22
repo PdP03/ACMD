@@ -1,7 +1,7 @@
 
 package com.ACMD.app.Engine_Layer.StorageManagement;
 
-public class Armatura extends Item
+public class Armatura extends ItemStack
 {
     byte valore;
 

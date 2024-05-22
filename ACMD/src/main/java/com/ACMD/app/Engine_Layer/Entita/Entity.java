@@ -1,6 +1,6 @@
 package com.ACMD.app.Engine_Layer.Entita;
 
-import com.ACMD.app.Engine_Layer.StorageManagement.Item;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 
 /**
  * Classe che rappresenta una generica entità (Player o Mostro). Viene rappresentata dai parametri:
@@ -176,13 +176,13 @@ public abstract class Entity {
      * @param i item da inserire 
      * @return boolean true se è stato aggiunto false altrimenti
      */
-    public abstract boolean addItem(Item i);
+    public abstract boolean addItem(ItemStack i);
 
     /**
      * Rimuove un singolo item dal inventario
      * @param i item da eliminare
      * @return boolean true se è stato rimosso false altrimenti
      */
-    public abstract boolean removeItem(Item i);
+    public abstract boolean removeItem(ItemStack i);
 
 }

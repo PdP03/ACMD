@@ -2,7 +2,7 @@
 package com.ACMD.app.Engine_Layer.StorageManagement;
 //import Item.ItemType;
 
-public class Arma extends Item
+public class Arma extends ItemStack
 {
     byte valore;
 

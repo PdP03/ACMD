@@ -1,7 +1,7 @@
 
 package com.ACMD.app.Engine_Layer.StorageManagement;
 
-public class Pozione extends Item
+public class Pozione extends ItemStack
 {
     byte valore;
 

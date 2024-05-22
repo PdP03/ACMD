@@ -4,7 +4,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import com.ACMD.app.Engine_Layer.StorageManagement.Arma;
 import com.ACMD.app.Engine_Layer.StorageManagement.Armatura;
-import com.ACMD.app.Engine_Layer.StorageManagement.Item;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 
 /**
  * Classe che rappresenta il player sfrutta l'Observer Pattern implementato
@@ -93,7 +94,7 @@ public class Player extends Entity{
      * @param i Item da controllare
      * @return ritorna false se item lascia spazio nel inventario altrimenti true
      */
-    public boolean doesFillInv(Item i){
+    public boolean doesFillInv(ItemStack i){
         return i.getWeight() + inv.getWeight() > MAX_INVENTORY_WEIGHT;
     }
 
@@ -102,7 +103,7 @@ public class Player extends Entity{
      * @param i item da eliminare
      * @return boolean true se è stato eliminato 
      */
-    public boolean removeItem(Item i) throws IllegalArgumentException{
+    public boolean removeItem(ItemStack i) throws IllegalArgumentException{
         if(!inv.removeItem(i)){
             throw new IllegalArgumentException();
         }
@@ -127,7 +128,7 @@ public class Player extends Entity{
      * @param i item da aggiungere
      * @return boolean true se è stato inserito false se l'item è gia presente e non può essere inserito
      */
-    public boolean addItem(Item i) throws IllegalArgumentException{
+    public boolean addItem(ItemStack i) throws IllegalArgumentException{
         if(doesFillInv(i)){
             throw new IllegalArgumentException();
         }
