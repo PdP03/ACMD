@@ -6,30 +6,18 @@ public class BossDrago extends Monster{
                         " ahahah!!! Nessuno potrà fermarmi";
     
     /*
-     * Costruttore senza parametri. Inizializzato con valori di default.
+     * Costruttore senza nome.
      */
-    public BossDrago(){
-        super(MType.BOSS_DRAGO, null);
+    public BossDrago(short baseHealth, byte baseDamage, byte baseArmor, byte baseLv , byte healthMul, byte damageMul, byte armorMul) throws IllegalArgumentException{
+        super(MType.BOSS_DRAGO, baseHealth, baseDamage, baseArmor, baseLv , healthMul, damageMul, armorMul);
         super.history = story;
     }
 
     /*
-     * Costruttore con nome. Il resto dei parametri hanno i valori di default
+     * Costruttore con nome
      */
-    public BossDrago(String name){
-        super(MType.BOSS_DRAGO, name);
-        super.history = story;
-    }
-
-    /**
-     * Costruttore che inizializza a valori scelti
-     * @param name String nome
-     * @param health short vita iniziale del mostro
-     * @param damage byte difesa iniziale del mostro
-     * @param armor byte attacco iniziale del mostro
-     */
-    public BossDrago(String name, short health, byte damage, byte armor){
-        super(MType.BOSS_DRAGO, name, health, damage, armor);
+    public BossDrago(String name, short baseHealth, byte baseDamage, byte baseArmor, byte baseLv , byte healthMul, byte damageMul, byte armorMul) throws IllegalArgumentException{
+        super(MType.BOSS_DRAGO, name, baseHealth, baseDamage, baseArmor, baseLv , healthMul, damageMul, armorMul);
         super.history = story;
     }
 }

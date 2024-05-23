@@ -6,30 +6,18 @@ public class MagoNero extends Monster{
                         "qualcuno mi ha rubato il condensatore INACCETTABILE se ti trovo verrai punito!";
     
     /*
-     * Costruttore senza parametri. Inizializzato con valori di default.
+     * Costruttore senza nome.
      */
-    public MagoNero(){
-        super(MType.MAGO_OSCURO, null);
+    public MagoNero(short baseHealth, byte baseDamage, byte baseArmor, byte baseLv , byte healthMul, byte damageMul, byte armorMul) throws IllegalArgumentException{
+        super(MType.MAGO_OSCURO, baseHealth, baseDamage, baseArmor, baseLv , healthMul, damageMul, armorMul);
         super.history = story;
     }
 
     /*
-     * Costruttore con nome. Il resto dei parametri hanno i valori di default
+     * Costruttore con nome
      */
-    public MagoNero(String name){
-        super(MType.MAGO_OSCURO, name);
-        super.history = story;
-    }
-
-    /**
-     * Costruttore che inizializza a valori scelti
-     * @param name String nome
-     * @param health short vita iniziale del mostro
-     * @param damage byte difesa iniziale del mostro
-     * @param armor byte attacco iniziale del mostro
-     */
-    public MagoNero(String name, short health, byte damage, byte armor){
-        super(MType.MAGO_OSCURO, name, health, damage, armor);
+    public MagoNero(String name, short baseHealth, byte baseDamage, byte baseArmor, byte baseLv , byte healthMul, byte damageMul, byte armorMul) throws IllegalArgumentException{
+        super(MType.MAGO_OSCURO, name, baseHealth, baseDamage, baseArmor, baseLv , healthMul, damageMul, armorMul);
         super.history = story;
     }
 }

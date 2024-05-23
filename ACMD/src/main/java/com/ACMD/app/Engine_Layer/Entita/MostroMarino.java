@@ -6,30 +6,18 @@ public class MostroMarino extends Monster{
                         " riesco a controllarla argh!!!\nDevo trovare il colpevole.";
     
     /*
-     * Costruttore senza parametri. Inizializzato con valori di default.
+     * Costruttore senza nome.
      */
-    public MostroMarino(){
-        super(MType.MOSTRO_MARINO, null);
+    public MostroMarino(short baseHealth, byte baseDamage, byte baseArmor, byte baseLv , byte healthMul, byte damageMul, byte armorMul) throws IllegalArgumentException{
+        super(MType.MOSTRO_MARINO, baseHealth, baseDamage, baseArmor, baseLv , healthMul, damageMul, armorMul);
         super.history = story;
     }
 
     /*
-     * Costruttore con nome. Il resto dei parametri hanno i valori di default
+     * Costruttore con nome
      */
-    public MostroMarino(String name){
-        super(MType.MOSTRO_MARINO, name);
-        super.history = story;
-    }
-
-    /**
-     * Costruttore che inizializza a valori scelti
-     * @param name String nome
-     * @param health short vita iniziale del mostro
-     * @param damage byte difesa iniziale del mostro
-     * @param armor byte attacco iniziale del mostro
-     */
-    public MostroMarino(String name, short health, byte damage, byte armor) throws IllegalArgumentException{
-        super(MType.MOSTRO_MARINO, name, health, damage, armor);
+    public MostroMarino(String name, short baseHealth, byte baseDamage, byte baseArmor, byte baseLv , byte healthMul, byte damageMul, byte armorMul) throws IllegalArgumentException{
+        super(MType.MOSTRO_MARINO, name, baseHealth, baseDamage, baseArmor, baseLv , healthMul, damageMul, armorMul);
         super.history = story;
     }
 }

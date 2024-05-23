@@ -5,30 +5,18 @@ public class Coboldo extends Monster{
                         "gli oggetti ma qualcuno mi ha rubato un autovettore e non posso piu farlo :( !!! Troverò il colpevole";
     
     /*
-     * Costruttore senza parametri. Inizializzato con valori di default.
+     * Costruttore senza nome.
      */
-    public Coboldo(){
-        super(MType.COBOLDO, null);
+    public Coboldo(short baseHealth, byte baseDamage, byte baseArmor, byte baseLv , byte healthMul, byte damageMul, byte armorMul) throws IllegalArgumentException{
+        super(MType.COBOLDO, baseHealth, baseDamage, baseArmor, baseLv , healthMul, damageMul, armorMul);
         super.history = story;
     }
 
     /*
-     * Costruttore con nome. Il resto dei parametri hanno i valori di default
+     * Costruttore con nome
      */
-    public Coboldo(String name){
-        super(MType.COBOLDO, name);
-        super.history = story;
-    }
-
-    /**
-     * Costruttore che inizializza a valori scelti
-     * @param name String nome
-     * @param health short vita iniziale del mostro
-     * @param damage byte difesa iniziale del mostro
-     * @param armor byte attacco iniziale del mostro
-     */
-    public Coboldo(String name, short health, byte damage, byte armor){
-        super(MType.COBOLDO, name, health, damage, armor);
+    public Coboldo(String name, short baseHealth, byte baseDamage, byte baseArmor, byte baseLv , byte healthMul, byte damageMul, byte armorMul) throws IllegalArgumentException{
+        super(MType.COBOLDO, name, baseHealth, baseDamage, baseArmor, baseLv , healthMul, damageMul, armorMul);
         super.history = story;
     }
 }

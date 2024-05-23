@@ -13,53 +13,69 @@ import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
  */
 public abstract class Monster extends Entity implements PropertyChangeListener {
     private MType type;
-    private final byte BASE_DAMAGE = 2;
-    private final byte BASE_ARMOR = 1;
-    private final byte BASE_HEALTH = 3;
-    private final byte BASE_LEVEL = 1;
-    private final byte HEALTH_MULTIPLIER = 2;
-    private final byte DAMAGE_MULTIPLIER = 1;
-    private final byte ARMOR_MULTIPLIER = 1;
+    private byte HEALTH_MULTIPLIER;
+    private byte DAMAGE_MULTIPLIER;
+    private byte ARMOR_MULTIPLIER;
 
     /**
      * Costruttore che pemette di selezionare il tipo
      * @param t Mtype
+     * @param baseHealth vita iniziale
+     * @param baseDamage danno iniziale
+     * @param baseArmor armatura iniziale
+     * @param baseLv armatura iniziale
+     * @param healthMul moltiplicatore vita
+     * @param damageMul moltiplicatore damage
+     * @param armorMul moltiplicatore armor
      */
-    public Monster(MType t, String name){
-        type = t;
-        super.level = BASE_LEVEL;
-        super.maxHealth = BASE_HEALTH;
-        super.health = BASE_HEALTH;
-        super.damage = BASE_DAMAGE;
-        super.armor = BASE_ARMOR;
+    public Monster(MType t, short baseHealth, byte baseDamage, byte baseArmor, byte baseLv , byte healthMul, byte damageMul, byte armorMul) throws IllegalArgumentException{
+        if(baseHealth <= 1 || baseDamage <= 0 || baseArmor <= 0 || baseLv <= 0 || healthMul <= 0 || damageMul <= 0 || armorMul <= 0){
+            throw new IllegalArgumentException("Valori di inizializzazione non corretti");
+        }
 
-        if(name == null){
-            super.name = Monster.selectName(t);
-        }
-        else{
-            super.name = name;
-        }
+        type = t;
+        super.level = baseLv;
+        super.maxHealth = baseHealth;
+        super.health = baseHealth;
+        super.damage = baseDamage;
+        super.armor = baseArmor;
+        super.name = Monster.selectName(t);
+
+        //inizializzazione dei moltiplicatori
+        HEALTH_MULTIPLIER = healthMul;
+        DAMAGE_MULTIPLIER = damageMul;
+        ARMOR_MULTIPLIER = armorMul;
     }
 
     /**
      * Costruttore che permette di modificare i valori di partenza di un mostro
      * @param t tipo mostro
      * @param name nome 
-     * @param health vita iniziale
-     * @param damage danno iniziale
-     * @param armor armatura iniziale
+     * @param baseHealth vita iniziale
+     * @param baseDamage danno iniziale
+     * @param baseArmor armatura iniziale
+     * @param baseLv armatura iniziale
+     * @param healthMul moltiplicatore vita
+     * @param damageMul moltiplicatore damage
+     * @param armorMul moltiplicatore armor
      */
-    public Monster(MType t, String name, short health, byte damage, byte armor){
-        if(health <= 1 || damage <= 0 || armor <= 0){
-            throw new IllegalArgumentException("Valore health, damage, armor non corretto");
+    public Monster(MType t, String name, short baseHealth, byte baseDamage, byte baseArmor, byte baseLv, byte healthMul, byte damageMul, byte armorMul) throws IllegalArgumentException{
+        if(baseHealth <= 1 || baseDamage <= 0 || baseArmor <= 0 || baseLv <= 0 || healthMul <= 0 || damageMul <= 0 || armorMul <= 0){
+            throw new IllegalArgumentException("Valori di inizializzazione non corretti");
         }
 
         type = t;
-        super.level = BASE_LEVEL;
-        super.maxHealth = health;
-        super.health = health;
-        super.damage = damage;
-        super.armor = armor;
+        super.level = baseLv;
+        super.maxHealth = baseHealth;
+        super.health = baseHealth;
+        super.damage = baseDamage;
+        super.armor = baseArmor;
+        super.name = name;
+
+        //inizializzazione dei moltiplicatori
+        HEALTH_MULTIPLIER = healthMul;
+        DAMAGE_MULTIPLIER = damageMul;
+        ARMOR_MULTIPLIER = armorMul;
     }
 
     /**
@@ -110,18 +126,20 @@ public abstract class Monster extends Entity implements PropertyChangeListener {
         if(l < 1)
             throw new IllegalArgumentException("Il lv. "+ l +" non esiste");
         
+        if((l-level)*HEALTH_MULTIPLIER < 0)
+        throw new IllegalArgumentException("Overflow di armor (livello troppo alto):");
         maxHealth += (l-level)*HEALTH_MULTIPLIER;
 
         //check overflow di armor
         val = (byte)((l-level)*ARMOR_MULTIPLIER);
         if(val < 0 || Byte.MAX_VALUE - val < super.armor)
-            throw new IllegalArgumentException("Overflow di armor (livello troppo alto):"+val);
+            throw new IllegalArgumentException("valore non corretto (livello troppo alto/basso):"+val);
         super.armor += val;
         
         //check overflow di damage
         val = (byte)((l-level)*DAMAGE_MULTIPLIER);
         if(val < 0 || Byte.MAX_VALUE - val < super.damage)
-            throw new IllegalArgumentException("Overflow di damage (livello troppo alto): "+val);
+            throw new IllegalArgumentException("valore non corretto (livello troppo alto/basso): "+val);
         super.damage += val;
 
         level = l;

@@ -17,17 +17,18 @@ public class MonsterFactory {
      * @return Monster
      */
     public Monster create(MType t){
+        byte healthMul = (byte)1, damageMul = (byte)2, armorMul = (byte)1, baseLv = (byte)1, baseHealth=(byte)3,baseArmor=(byte)1,baseDamage=(byte)2;
         switch(t){
             case MOSTRO_MARINO:
-                return new MostroMarino();
+                return new MostroMarino(baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
             case COBOLDO:
-                return new Coboldo();
+                return new Coboldo(baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
             case BOSS_DRAGO:
-                return new BossDrago();
+                return new BossDrago(baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
             case ARMATURA:
-                return new Armatura();
+                return new Armatura(baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
             case MAGO_OSCURO:
-                return new MagoNero();
+                return new MagoNero(baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
             default:
                 return null;
         }
@@ -40,17 +41,18 @@ public class MonsterFactory {
      * @return Monster
      */
     public Monster create(MType t, String name){
+        byte healthMul = (byte)1, damageMul = (byte)2, armorMul = (byte)1, baseLv = (byte)1, baseHealth=(byte)3,baseArmor=(byte)1,baseDamage=(byte)2;
         switch(t){
             case MOSTRO_MARINO:
-                return new MostroMarino(name);
+                return new MostroMarino(name, baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
             case COBOLDO:
-                return new Coboldo(name);
+                return new Coboldo(name, baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
             case BOSS_DRAGO:
-                return new BossDrago(name);
+                return new BossDrago(name, baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
             case ARMATURA:
-                return new Armatura(name);
+                return new Armatura(name, baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
             case MAGO_OSCURO:
-                return new MagoNero(name);
+                return new MagoNero(name, baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
             default:
                 return null;
         }
@@ -63,17 +65,18 @@ public class MonsterFactory {
      * @return Monster
      */
     public Monster create(MType t, String name, short health, byte damage, byte armor){
+        byte healthMul = (byte)1, damageMul = (byte)2, armorMul = (byte)1, baseLv = (byte)1;
         switch(t){
             case MOSTRO_MARINO:
-                return new MostroMarino(name, health, damage, armor);
+                return new MostroMarino(name, health, damage, armor, baseLv, healthMul, damageMul, armorMul);
             case COBOLDO:
-                return new Coboldo(name, health, damage, armor);
+                return new Coboldo(name, health, damage, armor, baseLv, healthMul, damageMul, armorMul);
             case BOSS_DRAGO:
-                return new BossDrago(name, health, damage, armor);
+                return new BossDrago(name, health, damage, armor, baseLv, healthMul, damageMul, armorMul);
             case ARMATURA:
-                return new Armatura(name, health, damage, armor);
+                return new Armatura(name, health, damage, armor, baseLv, healthMul, damageMul, armorMul);
             case MAGO_OSCURO:
-                return new MagoNero(name, health, damage, armor);
+                return new MagoNero(name, health, damage, armor, baseLv, healthMul, damageMul, armorMul);
             default:
                 return null;
         }
