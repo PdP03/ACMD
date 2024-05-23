@@ -1,0 +1,35 @@
+@startuml
+
+title Gestione,Istanziare,Usare oggetti
+
+participant Prompt     order 1
+participant GameEngine order 2 #red
+participant Player     order 10
+participant Inventario order 20
+participant ItemStack  order 30
+control    ItemFactory order 40
+
+group Istanziare
+
+/'Prompt che fa? '/
+GameEngine  -> ItemFactory : (tipo,quantità,peso)
+ItemFactory -> ItemFactory : crea ItemStack
+ItemFactory -->GameEngine : ottiene ItemStack
+GameEngine  -> Inventario : add(Item)        /'o tramite player?'/
+return
+
+end
+group Gestione
+
+GameEngine -> Player : use
+Player -> Inventario : remove
+return
+Player -> GameEngine : applica effetto
+
+end
+group Usare
+
+
+
+end
+@enduml
