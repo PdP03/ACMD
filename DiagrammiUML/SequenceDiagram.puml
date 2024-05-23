@@ -1,6 +1,6 @@
 @startuml
 
-
+alt INIZIALIZZAZIONE
 
 participant Game as ga
 
@@ -20,9 +20,13 @@ ga -> Prompt : new Prompt()
 create GraficaInput
 Prompt -> GraficaInput : new GraficaInput();
 
-create VerifyCommand
+/'create VerifyCommand
 Prompt -> VerifyCommand: new VerifyCommand();
+'/
+end
 
+
+alt AVVIO MENU INIZIALE
 actor Utente as u
 
 /'---------------- AVVIO MENU INIZIALE ----------------'/
@@ -33,37 +37,37 @@ ga -> Prompt : stateMenu(MainMenu);
 ga -> Prompt : waitInput();
 Prompt -> GraficaInput : input();
 
+/'GraficaInput -> u'/
 u -> GraficaInput : comando["start"]
 GraficaInput --> Prompt : risultato di input()
-Prompt -> VerifyCommand : checkSintax(String comando)
-VerifyCommand --> Prompt: risultato di checkSintax()
 Prompt --> ga : risultato di waitInput() [enum]
-
-note left
+/'note left
 Se riceve enum START allora 
 si può avviare la partita
 end note
+'/
+
+group Riceve comando START
 
 /'---------------- AVVIO PARTITA ----------------'/
 create GameEngine
 ga -> GameEngine : new GameEngine();
-
 create MappaGraf
 GameEngine -> MappaGraf: new MappaGraf();
 ga -> GameEngine : runSetup();
-
 note right
 Creazione di Player
 e di mappa con nemici
 item nelle stanze
 end note
-
 GameEngine -> MappaGraf : init();
 ga -> MainMenu : delete[];
-
 destroy MainMenu
 create MoveMenu
 ga -> MoveMenu: new MoveMenu();
 ga -> Prompt : stateMenu(MoveMenu);
+
+end
+end
 
 @enduml
