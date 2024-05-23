@@ -55,9 +55,6 @@ public abstract class Storage
 
                                                     // A sì? Diventerò così forte da scrivere codice che compila al primo colpo anche senza IDE. Compila è, non funziona
 
-//  ## Costruttori ##
-
-                                                    // A sì? Diventerò così forte da scrivere codice che compila al primo colpo anche senza IDE. Compila è, non funziona
 
 //  ## Costruttori ##
 
