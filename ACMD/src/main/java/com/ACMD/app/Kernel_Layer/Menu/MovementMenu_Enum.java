@@ -1,7 +1,7 @@
 
 package com.ACMD.app.Kernel_Layer.Menu;
 
-public enum Menu_Enum
+public enum MovementMenu_Enum
 {
     Start,
     Combact,
