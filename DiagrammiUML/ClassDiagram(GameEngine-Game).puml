@@ -1,0 +1,41 @@
+
+/'organizzatore e gestore degli eventi del gioco'/
+class GameEngine{
+  Player p;
+  Mappa m;
+  String buffer
+
+  /'metodo per l'inizializzazione(di player e mappa)'/
+  void runSetup();
+  Vector<Object> save();
+
+  /'metodo richiamati durante il gioco '/
+  void lookAround();
+  void attack();
+  void movePlayerBack();
+  void movePlayer(Direction d);
+  void playerTake(String item);
+  void playerUse(String item);
+  void playerRemove(String item);        /'aggiunge nel buffer una info degli oggetti eliminati'/
+  void playerRemoveStack(String items);/'toglie tutto lo stack di item'/
+
+  /'metodi usati per aggiornare la grafica richiamati da Game'/
+  String getPlayerInv();
+  byte getPlayerLife();
+  byte getPlayerLv();
+  byte getMonsterLife();
+  boolean PlayerIsFighting();
+  String getBuffer();
+
+  /'metodi usati nel load di un partita'/
+  void loadPlayer(Player f);
+  void loadMap(Mappa m); 
+}
+
+
+class Game{
+public void main();
+
+}
+
+Game -> GameEngine

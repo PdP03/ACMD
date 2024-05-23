@@ -19,6 +19,7 @@ Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/main/src/Game.
 # CLASS DIAGRAM
 ![Class Diagram](https://github.com/PdP03/ACMD/blob/dev/DiagrammiUML/ClassDiagram(Entita-MenuGraphic-Mappa-GameEngine-Prompt).svg)
 ![Class Diagram](https://github.com/PdP03/ACMD/blob/dev/DiagrammiUML/ClassDiagram(Storage-Persistance-Adapter).svg)
+![Class Diagram](https://github.com/PdP03/ACMD/blob/dev/DiagrammiUML/ClassDiagram(GameEngine-Game).svg)
 
 # SEQUENCE DIAGRAM (Work in progress....)
 Il diagramma di avvio del gioco è:

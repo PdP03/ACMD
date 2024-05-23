@@ -37,6 +37,12 @@ enum ItemType{
   ARMATURA
   POZIONE_CURA
   POZIONE_DANNO
+  POZIONE_FORZA
+  POZIONE_RESISTENZA
+  POZIONE_VELENO
+  POZIONE_INVALIDITA
+  CIBO
+  EASTER_EGG
 }
 
 /'gestione di infiniti item'/
@@ -62,6 +68,7 @@ class Chest{
   
   void lock();
   void unlock()
+  void getLock();
 
 }
 
@@ -79,7 +86,7 @@ package PersistaceLayer #DDDDDD{
   class awsClient{
     void upload(File f);
     void download(String file);
-    String getChecksum(String file);
+    String getChecksum(String file);  
   }
 
   class JsonParser{
