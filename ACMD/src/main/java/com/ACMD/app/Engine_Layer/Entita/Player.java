@@ -109,11 +109,11 @@ public class Player extends Entity{
         //il player può avere una sola arma è una sola armatura
         switch(i.getType()){
             case ARMA:
-                super.safeDecrementDamage(((Arma)i).getDamage());
+                super.safeDecrementDamage((byte)i.getValue());
                 return true;
 
             case ARMATURA:
-                super.safeDecrementArmor(((Armatura)i).getDifense());
+                super.safeDecrementArmor((byte)i.getValue());
                 return true;
 
             default:        //neccessario poichè lo switch vuole tutti i case definiti nella enum
@@ -137,7 +137,7 @@ public class Player extends Entity{
                 if(inv.search(i.toString())){
                     return false;
                 }
-                super.safeIncrementDamage(((Arma)i).getDamage());
+                super.safeIncrementDamage((byte)i.getValue());
                 inv.addItem(i);
                 return true;
 
@@ -146,7 +146,7 @@ public class Player extends Entity{
                     return false;
                 }
                 inv.addItem(i);
-                super.safeIncrementArmor(((Armatura)i).getDifense());
+                super.safeIncrementArmor((byte)i.getValue());
                 return true;
 
             default:        //neccessario poichè lo switch vuole tutti i case definiti nella enum
