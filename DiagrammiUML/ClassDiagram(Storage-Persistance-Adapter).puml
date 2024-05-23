@@ -4,58 +4,65 @@ class ItemFactory
 {
   ItemStack getRandomItem();
   ItemStack getItem(ItemType t);
+  ItemStack getItem(ItemType t, byte valore);
+  ItemStack getItem(ItemType t, byte valore, byte peso);
 }
 
 class LoaderItem{
   LoaderItem(String file);
-  Inventoy getInventory();
+  public HashMap<ItemType, ItemStack> loadItems();
 }
 
- class ItemStack {
-   String nome;
-   byte peso;
-   byte quanty;
-   byte valore;
-   ItemType tipologia;   
-   String description;
+class ItemStack {
+  String name;
+  byte weight;
+  byte quanty;
+  byte value;
+  ItemType type;   
+  String description;
    
-   byte getQuanity();
-   void addQuantity();
-   void removeQuanty();
-   String showDescription();
-   short getPeso();
-   /'tutti set get'/
-  
+  byte getQuanity();
+  void addQuantity();
+  byte getPeso();
+  byte getValue();
+  ItemType getType();
+  String getName();
+
+  void removeQuantity();
+  String showDescription();
 }
 
 enum ItemType{
-  POZIONE1
-  POZIONE2
-  ARMA1
-  ARMA2
-  ARMATURA1
-  ARMATURA2
+  ARMA
+  ARMATURA
+  POZIONE_CURA
+  POZIONE_DANNO
 }
 
 /'gestione di infiniti item'/
 abstract Storage{   
   List<ItemStack> items = new ArrayList<ItemStack>;
 
-  void add(ItemStack i);
-  boolean remove(ItemStack i);   /'restituisce false se storage è vuoto'/
-  String showStorage();
+  boolean add(ItemStack i);
+  boolean remove(ItemStack i);
+  List<ItemStack> showStorage();
+  String toString();
 }
-note left of Storage : Classe base per tutti i contenitori
 
-class Inventario{ /'Non serve pesoMax perche è gia presente in player'/
+class Inventario{
   byte weight;
 
   byte getWeight();
-  byte quantyOf(String items);
-  ItemStack searchFor(String item);
+  byte quantyOf(ItemType t);
+  ItemStack searchFor(ItemType t);
 }
 
 class Chest{
+  boolean lock;
+  
+  void lock();
+  void unlock()
+
 }
 
 }

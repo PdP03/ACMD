@@ -10,66 +10,141 @@ enum MType{
 
 abstract class Entity{
   Inventario inv;
-  short int salute;
-  byte danno_base;
-  byte armatura_base;
   String name;
-  String storia;
-  byte livello;
+  String history;
+  short health;
+  short maxHealth;
+  byte damage;
+  byte armor;
+  byte level;
 
-  byte getLivello();
-  String getStoria();
-  byte setLivello();
-  int changeVita();
-  boolean addItem();
-  boolean removeItem();
-  Inventario[] getInventory();
-  attackEntity(Entity);           /'con relativa probabilità'/
+  /'---------- METODI ENTITY ----------'/
+  byte getLv();
+  byte getLife();
+  byte getMaxLife();
+  String getHistory();
+  String getName();
+  byte getDamage();
+  byte getArmor();
+  Inventario getInv();
+  String showInv();
+  short changeHealth(short value);
+  abstract void setLv(byte l);
+  abstract boolean addItem(ItemStack i);
+  abstract boolean removeItem(ItemStack i)
+
+  protected void safeIncrementHealth(short amount);
+  protected void safeIncrementDamage(byte amount);
+  protected void safeIncrementArmor(byte amount);
+  protected void safeDecrementHealth(short amount);
+  protected void safeDecrementDamage(byte amount);
+  protected void safeDecrementArmor(byte amount);
 } 
 
 
 
 class Player{
-  final byte PESO_MAX;
-  byte Carattere;
+  private PropertyChangeSupport observerHandler;
+  final byte MAX_INVENTORY_WEIGHT = 10
+  final byte BASE_DAMAGE = 1
+  final byte BASE_ARMOR = 1
+  final byte BASE_HEALTH = 5
+  final byte BASE_LEVEL = 1
+  final byte HEALTH_MULTIPLIER = 2
+  final byte DAMAGE_MULTIPLIER = 1
+  final byte ARMOR_MULTIPLIER = 1
+  final String story = ""
 
-  setCarattere();
-  getCarattere();
+  /'---------- COSTRUTTORI ----------'/
+  Player(String name);
+  /'---------- METODI PLAYER ----------'/
+  void addObserver(PropertyChangeListener listener);
+  void removeObserver(PropertyChangeListener listener);
+  boolean doesFillInv(ItemStack i);
 }
-note left of Player:"Il carattere è ancora da implementare(ingorarlo per il momento)"
 
 abstract class Monster{
-  Mtype tipo
+  private MType type
+  private final byte BASE_DAMAGE = 2
+  private final byte BASE_ARMOR = 1
+  private final byte BASE_HEALTH = 3
+  private final byte BASE_LEVEL = 1
+  private final byte HEALTH_MULTIPLIER = 2
+  private final byte DAMAGE_MULTIPLIER = 1
+  private final byte ARMOR_MULTIPLIER = 1
 
-  Monseter(Mtype t);
-  Mtype getMType();
+  /'---------- COSTRUTTORI ----------'/
+  Monster(MType t, String name);
+  Monster(MType t, String name, short health, byte damage, byte armor);
+  /'---------- METODI MONSTER ----------'/
+  void propertyChange(PropertyChangeEvent event);
+  private String selectName(MType t);
+  MType getType();
 }
-class Monster_Factory{            /'classe astratta gestisce mostri'/
-
+class MonsterFactory{
+  /'---------- METODI MONSTER_FACTORY ----------'/
   Monster create(MType type);
+  Monster create(MType t, String name);
+  Monster create(MType t, String name, short health, byte damage, byte armor);
   Monster createRandom();
 }
-class Armatura{}
-class Mago_nero{}
-class Mostro_Marino{}
-class Coboldo{}
-class BossDrago{}
+class Armatura{
+  final String story="";
+
+  /'---------- COSTRUTTORI ----------'/
+  Armatura();
+  Armatura(String name);
+  Armatura(String name, short health, byte damage, byte armor);
+}
+class MagoNero{
+  final String story="";
+
+  /'---------- COSTRUTTORI ----------'/
+  MagoNero();
+  MagoNero(String name);
+  MagoNero(String name, short health, byte damage, byte armor);
+}
+class MostroMarino{
+  final String story="";
+
+  /'---------- COSTRUTTORI ----------'/
+  MostroMarino();
+  MostroMarino(String name);
+  MostroMarino(String name, short health, byte damage, byte armor);
+}
+class Coboldo{
+  final String story="";
+
+  /'---------- COSTRUTTORI ----------'/
+  Coboldo();
+  Coboldo(String name);
+  Coboldo(String name, short health, byte damage, byte armor);
+
+}
+class BossDrago{
+  final String story="";
+
+  /'---------- COSTRUTTORI ----------'/
+  BossDrago();
+  BossDrago(String name);
+  BossDrago(String name, short health, byte damage, byte armor);
+}
 
 }
 Monster -> MType
 Player --|>Entity
 Monster --|>Entity
 Armatura--|> Monster
-Mago_nero --|> Monster
-Mostro_Marino --|> Monster
+MagoNero --|> Monster
+MostroMarino --|> Monster
 Coboldo--|> Monster
 BossDrago--|> Monster
 
-Monster_Factory --> BossDrago
-Monster_Factory --> Mago_nero 
-Monster_Factory --> Coboldo
-Monster_Factory --> Armatura
-Monster_Factory --> Mostro_Marino 
+MonsterFactory --> BossDrago
+MonsterFactory --> MagoNero 
+MonsterFactory --> Coboldo
+MonsterFactory --> Armatura
+MonsterFactory --> MostroMarino 
 
 /'sta nel kernel layer'/
 package MenuGraphic #DDDDDD{
@@ -83,6 +158,7 @@ abstract class Menu{
   /'La prima stringa e il comando mentre la seconda è la descrizione'/
   Map<String, String> commandMap = new HashMap<String, String>;
   
+  Vector<String> getElement();
   String toString();
 }
 class StartMenu{}
@@ -183,14 +259,15 @@ Stanza"1" --> "1"Coordinates
 package Prompts #DDDDDD{
 /'Questa class è un Singleton: tutto entra ed esce da qua'/
 class Promt{
-Command cmmd;
-  HashMap<String,Command> map = new HashMap<String,Command>;
+  Command cmmd;
+  boolean egnineLinked;
   
-  private changeCommand(Command c);
-
-  Promt(GameEngine g);
+  /'----------- COSTRUTTORI -----------'/
+  Promt();
+  /'----------- METODI PROMPT -----------'/
+  private void changeCommand(Command c);
+  void linkEngine(GameEngine g)
   InputType waitInput();
-  File getOldSave();
 }
 
 class StartCommand{
@@ -284,5 +361,5 @@ public void main();
 
 }
 
-Game --> GameEngine 
+Game --> GameEngine
 @enduml

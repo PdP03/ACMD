@@ -34,7 +34,7 @@ public /*abstract*/ class ItemStack
         exceptionLauncher();
     }
 	    	
-    public ItemStack(String n, ItemType t, int p, int q  )
+    public ItemStack(String n, ItemType t, int p, int q)
     {
         nome= n;
         peso= p;
