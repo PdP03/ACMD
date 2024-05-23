@@ -1,0 +1,11 @@
+@startuml
+
+title Diversi tipi di azione
+
+group Nemici
+
+end
+group Stampa a schermo
+
+end
+@enduml
