@@ -1,5 +1,5 @@
 @startuml
 
-title Stampa a schermo : Gestione,Istanziare,Usare oggetti
+title Gestione,Istanziare,Usare oggetti
 
 @enduml
