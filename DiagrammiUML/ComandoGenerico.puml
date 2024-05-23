@@ -2,10 +2,48 @@
 
 title Comando generico
 
-Game          -> Prompt
-Prompt        -> GraphicInput
+participant Game          order 1
+participant Prompt        order 2 #yellow
+participant GraphicInput  order 3
+actor Utente              order 4
+participant GameEngine    order 10
+participant Adapter_Salvataggio  order 20
+database Amazon           order 30
 
-actor Utente
-GraphicInput  -> Utente
+
+activate Game
+Game          -> Prompt : dare controllo
+activate Prompt
+Prompt        -> GraphicInput : attesa di input
+activate GraphicInput
+GraphicInput  -> Utente : attesa
+activate Utente
+
+Utente       --> GraphicInput : scrive comando
+deactivate Utente
+GraphicInput --> Prompt : stringa
+deactivate GraphicInput
+Prompt        -> Prompt : controllo correttezza rispetto menù
+Prompt        -> Prompt : richiama il metodo corrispondente
+deactivate Prompt
+deactivate Game
+
+
+alt Azioni Gioco
+Prompt  -[#red]> GameEngine : attacco/movimento/uso
+GameEngine   --> Prompt     : facoltativo
+Prompt       --> Game       : Enum per gli eventi
+
+
+else Salvataggio
+/'activate Prompt'/
+Prompt      -[#green]> Adapter_Salvataggio :
+Adapter_Salvataggio -> Amazon
+/'deactivate Prompt'/
+
+else No azioni particolari
+Prompt      --> Game : Enum per gli eventi
+
+end
 
 @enduml
