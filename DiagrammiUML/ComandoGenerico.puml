@@ -1,0 +1,11 @@
+@startuml
+
+title Comando generico
+
+Game          -> Prompt
+Prompt        -> GraphicInput
+
+actor Utente
+GraphicInput  -> Utente
+
+@enduml
