@@ -14,9 +14,14 @@ import org.jgrapht.graph.*;
 //How about mettere statica nodes? 
 
 public class MapGraph {
+    SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge> map;
+    /**
+     * Initialize the graph "map" based on the informations of the given file 
+     * @param path the path of the file
+     */
     public MapGraph(String path){
 
-        SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge> map = new SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge>(
+            map = new SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge>(
             DefaultWeightedEdge.class); //Creazione di una mappa di nodi 
 
            List<Node> nodes = new ArrayList<Node>();

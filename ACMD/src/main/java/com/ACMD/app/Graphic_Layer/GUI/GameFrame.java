@@ -12,17 +12,20 @@ import javax.swing.*;
 public class GameFrame extends javax.swing.JFrame implements Frame {
     int globalRiga=0;
     int globalColonna=0;
-    int playerX=19;
-    int playerY=1;
+    /**
+     * Costruttore che genera il gameFrame
+     */
     public GameFrame() {
                     initComponents(); // Crea la finestra vuota, senza aggiugnere la mappa  
                     this.getContentPane().setBackground(new java.awt.Color(0,0,0));
-                    addMapPicture(); // Aggiunge l'immagine (grafica)
-                    addPlayerPosition(); //Default = (5,5) 
+                    addMapPicture("C:\\Users\\Matteo\\Desktop\\Prova mappa\\Mappa_Definitiva1.png"); // Aggiunge l'immagine (grafica)
+                    addPlayerPosition(19,1,"C:\\Users\\Matteo\\Desktop\\Prova mappa\\PersonIcon.jpg"); //Default = (5,5) 
     }
                       
     
-
+    /**
+     * Metodo che inizializza tutte le componenti del frame
+     */
     public void initComponents() {
         //Inizializzazione delle variabili oggetto per la grafica 
         setBackground(new java.awt.Color(0,0,0));
@@ -99,7 +102,11 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     }// </editor-fold>                        
                 
     
-    
+    /**
+     * Moves the player position from the current one to the desired one: 
+     * @param x The position from the top left corner along the x axis
+     * @param y The position from the top left corner along the y axis
+     */
     public void move(int x,int y)
         {
         jInternalFrame1.remove(jLabelMap);
@@ -129,18 +136,29 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
 
         }
 
-        private void addPlayerPosition() {
+        /**
+         * Sets the postion of the player to the default one
+         * @param x The position from the top left corner along the x axis
+         * @param y The position from the top left corner along the y axis
+         * @param PlayerImage is the path to the icon of the player 
+        */
+        private void addPlayerPosition(int x, int y, String PlayerImage) {
+
             ImageIcon imageIcon = new ImageIcon("C:\\Users\\Matteo\\Desktop\\Prova mappa\\PersonIcon.jpg"); // load the image to a imageIcon
             // Image image = imageIcon.getImage(); // transform it 
             // Image newimg = image.getScaledInstance(25, 25,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
              //imageIcon = new ImageIcon(newimg);  // transform it back
 
            //  jButtonPlayer.setIcon(imageIcon);
-             move(playerX, playerY);
+             move(x,y);
             SwingUtilities.updateComponentTreeUI(jInternalFrame1); //Update del frame
         }
-    
-        private void addMapPicture() {
+        
+        /**
+         * Adds the picture of the map to the frame
+         * @param path the path of the picture
+         */
+        private void addMapPicture(String path) {
             // TODO Auto-generated method stub
             jInternalFrame1.getContentPane().setLayout(new BorderLayout());
             jInternalFrame1.setSize(500,500);
@@ -150,7 +168,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
             jButtonPlayer.setVisible(true);
             jLabelMap.setSize(jInternalFrame1.getSize(getSize()));
            
-            jLabelMap.setIcon(new javax.swing.ImageIcon("C:\\Users\\Matteo\\Desktop\\Prova mappa\\Mappa_Definitiva1.png")); // NOI18N
+            jLabelMap.setIcon(new javax.swing.ImageIcon(path)); // NOI18N
             jLabelMap.setLayout(new GridLayout(20,20));
             jInternalFrame1.add(jLabelMap);
             SwingUtilities.updateComponentTreeUI(jInternalFrame1);
@@ -167,7 +185,10 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
 
 
 
-
+        /**
+         * Adds some components
+         * Note: this method is black box generated 
+         */
         public void AddComponents1(){javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
             jPanel1.setLayout(jPanel1Layout);
             jPanel1Layout.setHorizontalGroup(
@@ -210,7 +231,10 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             );
     }
-
+    /**
+         * Adds some other components
+         * Note: this method is black box generated 
+         */
     public void addComponents2(){
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

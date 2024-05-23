@@ -1,8 +1,12 @@
 package com.ACMD.app.Graphic_Layer.GUI;
 
+/**
+ * Class that rappresents Coordinates
+ */
 class Coordinates
 {
     private int x,y;
+
 
     public int getX() {
         return x;
@@ -20,6 +24,10 @@ class Coordinates
         this.y = y;
     }
 
+    /**
+     * @return The format of the toString is ( x,y )
+     * 
+     */
     public String toString(){return "( "+x+","+y+" )";}
 
     public Coordinates(int x,int y){this.x=x; this.y=y;}
@@ -35,6 +43,10 @@ public class Node{
     public Coordinates getCoord() {
         return coord;
     }
+    /**
+     * 
+     * @return (x , y)
+     */
     public String getStringCoord() {
         return "("+this.coord.getX()+" , "+this.getCoord().getY()+")";
     }
@@ -74,6 +86,9 @@ public class Node{
     public void setWest(Coordinates west) {
         this.west = west;
     }
+    /**
+     * Prints all the non null nodes the node can go to 
+     * */ 
     public void printAllDirection()
     {
         if(north!=null) System.out.println("Nord: "+getNorth().toString());
