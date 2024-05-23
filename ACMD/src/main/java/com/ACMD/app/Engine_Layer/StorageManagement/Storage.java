@@ -64,7 +64,6 @@ public abstract class Storage
     public Storage()
     {
         items = new LinkedList<ItemStack>();
-        items = new LinkedList<ItemStack>();
     }
 
 //  ## Metodi Private ##
