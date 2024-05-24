@@ -1,7 +1,5 @@
 package com.ACMD.app.Engine_Layer.Entita;
 
-import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
-
 /**
  * Classe che rappresenta una generica entità (Player o Mostro). Viene rappresentata dai parametri:
  * - health, vita del entità

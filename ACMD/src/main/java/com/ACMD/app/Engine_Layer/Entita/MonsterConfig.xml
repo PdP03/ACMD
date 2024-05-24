@@ -1,0 +1,52 @@
+<monster>
+  <armatura>
+    <base_damage>2</base_damage>
+    <base_armor>1</base_armor>
+    <base_health>3</base_health>
+    <base_level>1</base_level>
+    <armor_multiplier>1</armor_multiplier>
+    <damage_multiplier>1</damage_multiplier>
+    <health_multiplier>2</health_multiplier>
+  </armatura>
+
+  <mago_nero>
+    <base_damage>2</base_damage>
+    <base_armor>1</base_armor>
+    <base_health>3</base_health>
+    <base_level>1</base_level>
+    <armor_multiplier>1</armor_multiplier>
+    <damage_multiplier>1</damage_multiplier>
+    <health_multiplier>2</health_multiplier>
+  </mago_nero>
+
+  <coboldo>
+    <base_damage>2</base_damage>
+    <base_armor>1</base_armor>
+    <base_health>3</base_health>
+    <base_level>1</base_level>
+    <armor_multiplier>1</armor_multiplier>
+    <damage_multiplier>1</damage_multiplier>
+    <health_multiplier>2</health_multiplier>
+  </coboldo>
+
+  <boss_drago>
+    <base_damage>2</base_damage>
+    <base_armor>1</base_armor>
+    <base_health>3</base_health>
+    <base_level>1</base_level>
+    <armor_multiplier>1</armor_multiplier>
+    <damage_multiplier>1</damage_multiplier>
+    <health_multiplier>2</health_multiplier>
+  </boss_drago>
+
+  <mostro_marino>
+    <base_damage>2</base_damage>
+    <base_armor>1</base_armor>
+    <base_health>3</base_health>
+    <base_level>1</base_level>
+    <armor_multiplier>1</armor_multiplier>
+    <damage_multiplier>1</damage_multiplier>
+    <health_multiplier>2</health_multiplier>
+  </mostro_marino>
+
+</monster>

@@ -1,23 +1,20 @@
 package com.ACMD.app.Engine_Layer.Entita;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
-import javax.xml.parsers.DocumentBuilder; 
-import javax.xml.parsers.DocumentBuilderFactory; 
-import org.w3c.dom.Document; 
-import org.w3c.dom.NodeList; 
-import org.w3c.dom.Node; 
-import java.io.File;
+import java.util.Vector;
 
 public class MonsterFactory {
+    final String fileName = "MonsterConfig.xml";
     Random generator;
+    Vector<MonsterValues> defaultValues;
     MType[] types;
-    //Map<Mtype, MonsterValues> DEFAULT_VALUE = new HashMap<>();
 
     public MonsterFactory(){
         generator = new Random(System.currentTimeMillis());
         types = MType.values();
+
+        xmlReader reader = new xmlReader(fileName);
+        defaultValues = reader.getMonsterValues();
     }
 
     /**
@@ -26,18 +23,47 @@ public class MonsterFactory {
      * @return Monster
      */
     public Monster create(MType t){
-        byte healthMul = (byte)1, damageMul = (byte)2, armorMul = (byte)1, baseLv = (byte)1, baseHealth=(byte)3,baseArmor=(byte)1,baseDamage=(byte)2;
         switch(t){
             case MOSTRO_MARINO:
-                return new MostroMarino(baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
+                return new MostroMarino(defaultValues.get(MType.MOSTRO_MARINO.getId()).health, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).damage, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).armor, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).level, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).healthMul, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).damageMul, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).armorMul);
             case COBOLDO:
-                return new Coboldo(baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
+                return new Coboldo(defaultValues.get(MType.COBOLDO.getId()).health, 
+                                    defaultValues.get(MType.COBOLDO.getId()).damage, 
+                                    defaultValues.get(MType.COBOLDO.getId()).armor, 
+                                    defaultValues.get(MType.COBOLDO.getId()).level, 
+                                    defaultValues.get(MType.COBOLDO.getId()).healthMul, 
+                                    defaultValues.get(MType.COBOLDO.getId()).damageMul, 
+                                    defaultValues.get(MType.COBOLDO.getId()).armorMul);
             case BOSS_DRAGO:
-                return new BossDrago(baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
+                return new BossDrago(defaultValues.get(MType.BOSS_DRAGO.getId()).health, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).damage, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).armor, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).level, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).healthMul, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).damageMul, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).armorMul);
             case ARMATURA:
-                return new Armatura(baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
+                return new Armatura(defaultValues.get(MType.ARMATURA.getId()).health, 
+                                    defaultValues.get(MType.ARMATURA.getId()).damage, 
+                                    defaultValues.get(MType.ARMATURA.getId()).armor, 
+                                    defaultValues.get(MType.ARMATURA.getId()).level, 
+                                    defaultValues.get(MType.ARMATURA.getId()).healthMul, 
+                                    defaultValues.get(MType.ARMATURA.getId()).damageMul, 
+                                    defaultValues.get(MType.ARMATURA.getId()).armorMul);
             case MAGO_OSCURO:
-                return new MagoNero(baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
+                return new MagoNero(defaultValues.get(MType.MAGO_OSCURO.getId()).health, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).damage, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).armor, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).level, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).healthMul, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).damageMul, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).armorMul);
             default:
                 return null;
         }
@@ -50,18 +76,47 @@ public class MonsterFactory {
      * @return Monster
      */
     public Monster create(MType t, String name){
-        byte healthMul = (byte)1, damageMul = (byte)2, armorMul = (byte)1, baseLv = (byte)1, baseHealth=(byte)3,baseArmor=(byte)1,baseDamage=(byte)2;
         switch(t){
             case MOSTRO_MARINO:
-                return new MostroMarino(name, baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
+                return new MostroMarino(name, defaultValues.get(MType.MOSTRO_MARINO.getId()).health, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).damage, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).armor, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).level, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).healthMul, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).damageMul, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).armorMul);
             case COBOLDO:
-                return new Coboldo(name, baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
+                return new Coboldo(name, defaultValues.get(MType.COBOLDO.getId()).health, 
+                                    defaultValues.get(MType.COBOLDO.getId()).damage, 
+                                    defaultValues.get(MType.COBOLDO.getId()).armor, 
+                                    defaultValues.get(MType.COBOLDO.getId()).level, 
+                                    defaultValues.get(MType.COBOLDO.getId()).healthMul, 
+                                    defaultValues.get(MType.COBOLDO.getId()).damageMul, 
+                                    defaultValues.get(MType.COBOLDO.getId()).armorMul);
             case BOSS_DRAGO:
-                return new BossDrago(name, baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
+                return new BossDrago(name, defaultValues.get(MType.BOSS_DRAGO.getId()).health, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).damage, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).armor, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).level, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).healthMul, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).damageMul, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).armorMul);
             case ARMATURA:
-                return new Armatura(name, baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
+                return new Armatura(name, defaultValues.get(MType.ARMATURA.getId()).health, 
+                                    defaultValues.get(MType.ARMATURA.getId()).damage, 
+                                    defaultValues.get(MType.ARMATURA.getId()).armor, 
+                                    defaultValues.get(MType.ARMATURA.getId()).level, 
+                                    defaultValues.get(MType.ARMATURA.getId()).healthMul, 
+                                    defaultValues.get(MType.ARMATURA.getId()).damageMul, 
+                                    defaultValues.get(MType.ARMATURA.getId()).armorMul);
             case MAGO_OSCURO:
-                return new MagoNero(name, baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
+                return new MagoNero(name, defaultValues.get(MType.MAGO_OSCURO.getId()).health, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).damage, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).armor, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).level, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).healthMul, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).damageMul, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).armorMul);
             default:
                 return null;
         }
@@ -74,18 +129,37 @@ public class MonsterFactory {
      * @return Monster
      */
     public Monster create(MType t, String name, short health, byte damage, byte armor){
-        byte healthMul = (byte)1, damageMul = (byte)2, armorMul = (byte)1, baseLv = (byte)1;
         switch(t){
             case MOSTRO_MARINO:
-                return new MostroMarino(name, health, damage, armor, baseLv, healthMul, damageMul, armorMul);
+                return new MostroMarino(name, health, damage, armor, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).level, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).healthMul, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).damageMul, 
+                                        defaultValues.get(MType.MOSTRO_MARINO.getId()).armorMul);
             case COBOLDO:
-                return new Coboldo(name, health, damage, armor, baseLv, healthMul, damageMul, armorMul);
+                return new Coboldo(name, health, damage, armor,
+                                    defaultValues.get(MType.COBOLDO.getId()).level, 
+                                    defaultValues.get(MType.COBOLDO.getId()).healthMul, 
+                                    defaultValues.get(MType.COBOLDO.getId()).damageMul, 
+                                    defaultValues.get(MType.COBOLDO.getId()).armorMul);
             case BOSS_DRAGO:
-                return new BossDrago(name, health, damage, armor, baseLv, healthMul, damageMul, armorMul);
+                return new BossDrago(name, health, damage, armor,
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).level, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).healthMul, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).damageMul, 
+                                    defaultValues.get(MType.BOSS_DRAGO.getId()).armorMul);
             case ARMATURA:
-                return new Armatura(name, health, damage, armor, baseLv, healthMul, damageMul, armorMul);
+                return new Armatura(name, health, damage, armor, 
+                                    defaultValues.get(MType.ARMATURA.getId()).level, 
+                                    defaultValues.get(MType.ARMATURA.getId()).healthMul, 
+                                    defaultValues.get(MType.ARMATURA.getId()).damageMul, 
+                                    defaultValues.get(MType.ARMATURA.getId()).armorMul);
             case MAGO_OSCURO:
-                return new MagoNero(name, health, damage, armor, baseLv, healthMul, damageMul, armorMul);
+                return new MagoNero(name, health, damage, armor,
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).level, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).healthMul, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).damageMul, 
+                                    defaultValues.get(MType.MAGO_OSCURO.getId()).armorMul);
             default:
                 return null;
         }

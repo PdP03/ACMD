@@ -2,7 +2,6 @@ package com.ACMD.app.Engine_Layer.Entita;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 
 /**
  * Monster sfrutta l'Observer Pattern implementato tramite PropertyChangeSupport 
