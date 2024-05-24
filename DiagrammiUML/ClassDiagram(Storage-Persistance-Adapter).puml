@@ -57,11 +57,16 @@ abstract Storage{
 
   List<ItemStack> showStorage();
   byte quantityOf(ItemType t);
-  ItemStack searchFor(ItemType t);
-  ItemStack searchFor(String name);
+  final ItemStack searchFor(ItemType t);
+  final ItemStack searchFor(String name);
 
   String toString();
 }
+note left of Storage::"searchFor(String name)"
+final o shallow copy, ma con final si evita
+che si possa modificare i dati restituiti
+pensando di influenzare array
+end note
 
 class Inventario{
   byte weight;
