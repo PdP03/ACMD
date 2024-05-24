@@ -33,6 +33,7 @@ class ItemStack {
   String showDescription();
 
   boolean equals(Object);
+  ItemStack clone();
 }
 
 enum ItemType{
