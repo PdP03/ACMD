@@ -9,10 +9,6 @@ public class Inventario extends Storage
 
 //  ## Metodi Public ##
 
-   ItemStack searchFor(String item)
-    {return null;}
-
-
 
 //  ## Metodi return variabili ##
 
