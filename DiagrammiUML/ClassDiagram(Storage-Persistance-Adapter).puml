@@ -57,8 +57,8 @@ abstract Storage{
 
   List<ItemStack> showStorage();
   byte quantityOf(ItemType t);
-  final ItemStack searchFor(ItemType t);
-  final ItemStack searchFor(String name);
+  ItemStack searchFor(ItemType t);
+  ItemStack searchFor(String name);
 
   String toString();
 }
