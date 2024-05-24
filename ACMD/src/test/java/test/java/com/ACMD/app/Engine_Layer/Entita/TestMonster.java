@@ -16,7 +16,8 @@ public class TestMonster {
 
     @Before
     public void resetPlayer(){
-        m = new MagoNero("1");
+        byte healthMul = (byte)2, damageMul = (byte)1, armorMul = (byte)1, baseLv = (byte)1, baseHealth=(byte)3,baseArmor=(byte)1,baseDamage=(byte)2;
+        m = new MagoNero(baseHealth, baseDamage, baseArmor, baseLv, healthMul, damageMul, armorMul);
     }
 
     @Test
@@ -111,23 +112,5 @@ public class TestMonster {
         p.setLv((byte)(Byte.MAX_VALUE-1));//-1 è neccessario poiche manderebbe in overflow damage di monster
         
         Assert.assertEquals(p.getLv(), m.getLv());
-    }
-
-    //TODO: da implementare
-    @Test
-    public void testRemoveItem(){
-
-    }
-
-    //TODO: da implementare
-    @Test
-    public void testAddItem(){
-
-    }
-
-    //TODO: da implementare
-    @Test
-    public void testGetInv(){
-
     }
 }

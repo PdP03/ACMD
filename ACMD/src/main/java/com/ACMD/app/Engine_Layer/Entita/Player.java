@@ -9,12 +9,15 @@ import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
  * Classe che rappresenta il player sfrutta l'Observer Pattern implementato
  * tramite PropertyChangeSupport poiche java.util.Observer/Observable sono 
  * deprecati da Java 9 (https://stackoverflow.com/questions/46380073/observer-is-deprecated-in-java-9-what-should-we-use-instead-of-it)
+ * 
+ * Player ha un inventario e gli oggetti che contiene possono modificare i suoi valori
  */
 public class Player extends Entity{
     //handler degli observer
     private PropertyChangeSupport observerHandler;
     
     //variabili del player
+    protected InventarioProvvisorio inv = new InventarioProvvisorio();
     private final byte MAX_INVENTORY_WEIGHT = 10;
     private final byte BASE_DAMAGE = 1;
     private final byte BASE_ARMOR = 1;
@@ -142,7 +145,7 @@ public class Player extends Entity{
                 return true;
 
             case ARMATURA:
-                if(inv.search(i.toString())){
+                if(inv.quantityOf(i.toString()) > 1){
                     return false;
                 }
                 inv.addItem(i);
@@ -153,5 +156,21 @@ public class Player extends Entity{
                 inv.addItem(i);
                 return true;
         }
+    }
+
+    /**
+     * Restituisce l'inventario del entità
+     * @return inv
+     */
+    public InventarioProvvisorio getInv(){
+        return inv;
+    }
+
+    /**
+     * Restituisce una stringa che rappresenta l'inventario
+     * @return inv String
+     */
+    public String showInv(){
+        return inv.toString();
     }
 }

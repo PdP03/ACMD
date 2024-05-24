@@ -6,7 +6,7 @@ package com.ACMD.app.Kernel_Layer.Menu;
     -per esempio per aggiornare la grafica
 */
 
-public enum BackStateGame_Menu
+public enum BackStateGame_Enum
 {
     Start,
     Combact,

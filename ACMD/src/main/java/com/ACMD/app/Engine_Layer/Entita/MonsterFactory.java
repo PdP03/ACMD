@@ -1,10 +1,19 @@
 package com.ACMD.app.Engine_Layer.Entita;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+import javax.xml.parsers.DocumentBuilder; 
+import javax.xml.parsers.DocumentBuilderFactory; 
+import org.w3c.dom.Document; 
+import org.w3c.dom.NodeList; 
+import org.w3c.dom.Node; 
+import java.io.File;
 
 public class MonsterFactory {
     Random generator;
     MType[] types;
+    //Map<Mtype, MonsterValues> DEFAULT_VALUE = new HashMap<>();
 
     public MonsterFactory(){
         generator = new Random(System.currentTimeMillis());

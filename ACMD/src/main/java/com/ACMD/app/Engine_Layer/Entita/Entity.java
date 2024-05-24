@@ -8,10 +8,8 @@ import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
  * - damage, danno del entità
  * - level, livello del entità
  * - name, nome del entità
- * - inv, inventario (insieme degli item trasportati)
  */
 public abstract class Entity {
-    protected InventarioProvvisorio inv = new InventarioProvvisorio();
     protected String name;
     protected String history;
     protected short health, maxHealth;
@@ -122,22 +120,6 @@ public abstract class Entity {
         
         armor -= amount;
     }
-
-    /**
-     * Restituisce l'inventario del entità
-     * @return inv
-     */
-    public InventarioProvvisorio getInv(){
-        return inv;
-    }
-
-    /**
-     * Restituisce una stringa che rappresenta l'inventario
-     * @return inv String
-     */
-    public String showInv(){
-        return inv.toString();
-    }
     
     /**
      * Cambia la vita del entità aggiungendo value. 
@@ -170,19 +152,4 @@ public abstract class Entity {
      * @param l livello
      */
     public abstract void setLv(byte l) throws IllegalArgumentException;
-
-    /**
-     * Aggiugne un singolo item nel inventario
-     * @param i item da inserire 
-     * @return boolean true se è stato aggiunto false altrimenti
-     */
-    public abstract boolean addItem(ItemStack i);
-
-    /**
-     * Rimuove un singolo item dal inventario
-     * @param i item da eliminare
-     * @return boolean true se è stato rimosso false altrimenti
-     */
-    public abstract boolean removeItem(ItemStack i);
-
 }

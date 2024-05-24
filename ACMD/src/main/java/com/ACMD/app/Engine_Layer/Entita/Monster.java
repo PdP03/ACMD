@@ -144,20 +144,4 @@ public abstract class Monster extends Entity implements PropertyChangeListener {
 
         level = l;
     }
-
-    //aggiunta del elemento se non esiste lancia IllegalArgumentException
-    public boolean addItem(ItemStack i){
-        inv.addItem(i);
-        return true;
-    }
-
-    //rimozione del elemento se non esiste lancia IllegalArgumentException
-    public boolean removeItem(ItemStack i) throws IllegalArgumentException{
-        if(!inv.removeItem(i)){
-            throw new IllegalArgumentException();
-        }
-
-        return true;
-    }
-    
 }
