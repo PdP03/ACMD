@@ -63,9 +63,8 @@ abstract Storage{
   String toString();
 }
 note left of Storage::"searchFor(String name)"
-final o shallow copy, ma con final si evita
-che si possa modificare i dati restituiti
-pensando di influenzare array
+shallow copy, evita di influenzare elementi interni
+?esiste modo per fare un final per il chiamante
 end note
 
 class Inventario{
