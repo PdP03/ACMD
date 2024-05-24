@@ -16,7 +16,7 @@ class LoaderItem{
 class ItemStack {
   String name;
   byte weight;
-  byte quanty;
+  byte quantity;
   byte value;
   ItemType type;   
   String description;
@@ -28,8 +28,11 @@ class ItemStack {
   ItemType getType();
   String getName();
 
-  void removeQuantity();
+  void addQuantity();
+  boolean removeQuantity();
   String showDescription();
+
+  boolean equals(Object);
 }
 
 enum ItemType{
@@ -51,16 +54,18 @@ abstract Storage{
 
   boolean add(ItemStack i);
   boolean remove(ItemStack i);
+
   List<ItemStack> showStorage();
+  byte quantityOf(ItemType t);
+  ItemStack searchFor(ItemType t);
+  ItemStack searchFor(String name);
+
   String toString();
 }
 
 class Inventario{
   byte weight;
-
-  byte getWeight();
-  byte quantyOf(ItemType t);
-  ItemStack searchFor(ItemType t);
+  byte getTotalWeight();
 }
 
 class Chest{
@@ -68,7 +73,7 @@ class Chest{
   
   void lock();
   void unlock()
-  void getLock();
+  boolean getLock();
 
 }
 
