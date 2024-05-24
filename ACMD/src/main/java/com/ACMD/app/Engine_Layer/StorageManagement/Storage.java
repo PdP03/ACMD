@@ -19,6 +19,88 @@ Problema:   Dover controllare da esterno tutto quanto -> scomodo e ridondante
 
 Meglio idea1 e se bisogna apportare delle modifiche fare un override sugli oggeti in modo che add non possa esistere
 */
+/*
+ * 
+ * 
+*/
+
+
+public abstract class Storage
+{
+
+//    final int n = 10;
+    private LinkedList<ItemStack> items;
+
+//  ## Costruttori ##
+
+    public Storage()
+    {
+        items = new LinkedList<ItemStack>();
+    }
+
+//  ## Metodi Private ##
+
+//  ## Metodi Public ##
+
+    public boolean add(ItemStack t)
+    {
+        int pos = items.indexOf(t);
+        if( pos<0 )// ? items.add(t); //: (items.get() ).
+         (items.get(pos)).addQuantity();  //#FARE : se la copia fatta sugli elementi è deep e non shallow, allora si può prendere t e modificare quello senza fare una doppia ricerca
+                                          //#FARE : anzi, faccio la ricerca per oggetto, e poi aggiungo all'oggetto trovato
+                                          //#TESTARE : se facendo get toglie l'oggetto, fa una deep copy o una shallow copy.. in base a questo dovrò adeguarmi
+        else items.add(t);
+
+        return true;        //#CHIEDERE : perché avevamo messo booleano
+    }
+    //possibilità sottoclassi di scegliere se esiste un valore massimo alla quantità di oggetti che si possono portare <- invece no, perché basta richiamare con super
+
+    public boolean remove(ItemStack t)
+    {//_true se la rimozione si è potuta fare, false per evitare di lanciare un'eccezione <- non accade nulla, non è così grave da bloccarsi.. a meno che non restituisca anche il dato
+        int pos;
+        if( (pos= items.indexOf(t)) <0)
+         throw new noItem_Exception("Oggetto in inventario non esiste");   // in genere preferisco lanciare un numero piuttosto che una eccezione, ma dato che lo scopo è la chiarezza e storage è un facade per gli oggetti, ok l'eccezione
+
+        t = items.get(pos);     //???deep copy     #TERMINARE
+        if( t.removeQuantity() )
+            items.remove(pos);
+
+        return true;
+    }
+
+    public ItemStack[] searchFor(ItemType tip)
+    {
+        LinkedList<ItemStack> lista = new LinkedList<ItemStack>();
+        //#TESTARE : ma se io faccio la copia in questo modo in realtà è una deep copy, quindi sto facendo passare gli oggetti veri.. no bene, devo passare delle copie
+        
+        //? CONTROLLA SE È UN BOOLEano
+        for(int i=0; i< items.size(); i++)
+         lista.add(null)
+
+        return lista.toArray(lista);
+    }
+
+    public ItemStack searchFor(String name)
+    {
+        return null;
+    }
+
+    public String showStorage()
+    {
+        return null;
+    }
+
+    public boolean existItem(ItemStack t)
+    //?? perché non si fa direttamente che se l'elemento non c'è ritorna false il remove? Questi programmatori di Java che sono fissati con le loro eccezioni
+    {
+        return items.contains(t);
+   //? esattamente come funziona se viene fatto il cast ad oggetto? Non può controllare il valore hash di java perché è diverso per ogni oggetto, allora come riesce a capire? Fa un cast forzato?
+    }
+
+//  ## Metodi return variabili ##
+
+}
+
 
 /*
 Funzionamento:
@@ -45,63 +127,3 @@ Però:
     essendo che dall'esterno non devono lavorare con gli item, devo trovare un modo per associare
      il nome all'oggetto, quindi forse è meglio una hastable
 */
-
-public abstract class Storage
-{
-
-//    final int n = 10;
-    private LinkedList<ItemStack> items;        //Bruh la linked list può avere un tipo solo al suo interno, o è Item o è String.
-                                                    // Ecco cosa succede ad non usare un IDE che ti segna gli errori quando si scrive codice
-
-                                                    // A sì? Diventerò così forte da scrivere codice che compila al primo colpo anche senza IDE. Compila è, non funziona
-
-
-//  ## Costruttori ##
-
-    public Storage()
-    {
-        items = new LinkedList<ItemStack>();
-    }
-
-//  ## Metodi Private ##
-
-//  ## Metodi Public ##
-
-    public boolean add(ItemStack t)
-    {
-        //items.contatins(t) ? items.add(t); : (items.get() ).;
-        return true;        //#CHIEDERE : perché avevamo messo booleano
-    }
-    //possibilità sottoclassi di scegliere se esiste un valore massimo alla quantità di oggetti che si possono portare <- invece no, perché basta richiamare con super
-
-    public boolean remove(ItemStack t)
-    {//_ritorna true se esistono ancora oggetti, false se era l'ultimo
-        int pos;
-        if( (pos= items.indexOf(t)) <0)
-         throw new noItem_Exception("Oggetto in inventario non esiste");   // in genere preferisco lanciare un numero piuttosto che una eccezione, ma dato che lo scopo è la chiarezza e storage è un facade per gli oggetti, ok l'eccezione
-
-        t = items.get(pos);     //???deep copy     #TERMINARE
-        if( t.removeQuantity() )
-         {
-            items.remove(pos);
-            return false;
-         }
-
-        return true;
-    }
-
-    public String showStorage()
-    {
-        return null;
-    }
-
-    public boolean existItem(ItemStack t)
-    //?? perché non si fa direttamente che se l'elemento non c'è ritorna false il remove? Questi programmatori di Java che sono fissati con le loro eccezioni
-    {
-        return items.contains(t);
-   //? esattamente come funziona se viene fatto il cast ad oggetto? Non può controllare il valore hash di java perché è diverso per ogni oggetto, allora come riesce a capire? Fa un cast forzato?
-    }
-
-//  ## Metodi return variabili ##
-
-}

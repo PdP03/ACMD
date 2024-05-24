@@ -13,33 +13,33 @@ package com.ACMD.app.Engine_Layer.StorageManagement;
 
 public /*abstract*/ class ItemStack
 {
-    String nome;
-    int peso;
-    int quantita;           //oggetti si possono impilare
-    int valore;             //#TERMINARE
-    ItemType tipologia;
+    String name;
+    int weight;
+    int quantity;           //oggetti si possono impilare
+    int value;             //#TERMINARE
+    ItemType tipology;
     String description;     //#TERMINARE
 
     final int VALORE_DEFAULT_QUANTITA = 1;
 
 //  ## costruttori ##
 
-    public ItemStack(String n, ItemType t, int p)
+    public ItemStack(String n, ItemType t, int w)
     {
-        nome= n;
-        peso= p;
-        quantita= VALORE_DEFAULT_QUANTITA;
-        tipologia= t;
+        name= n;
+        weight= w;
+        quantity= VALORE_DEFAULT_QUANTITA;
+        tipology= t;
 
         exceptionLauncher();
     }
 	    	
-    public ItemStack(String n, ItemType t, int p, int q)
+    public ItemStack(String n, ItemType t, int w, int q)
     {
-        nome= n;
-        peso= p;
-        quantita= q;
-        tipologia= t;
+        name= n;
+        weight= w;
+        quantity= q;
+        tipology= t;
 
         exceptionLauncher();
     }
@@ -48,11 +48,11 @@ public /*abstract*/ class ItemStack
 
     private void exceptionLauncher()
     {
-        if( peso<0)
+        if( weight<0)
          throw new IllegalArgumentException("Peso non può essere negativo");
-        if(nome=="" || nome==null)
+        if(name=="" || name==null)
          throw new IllegalArgumentException("Il nome dell'oggetto non è valido");
-        if(quantita <=0)
+        if(quantity <=0)
          throw new IllegalArgumentException("La quantità non è positiva");
             //anche se prima avevo messo queste condizioni nei singoli costruttori in modo da evitare il controllo sulla quantità che non serve.. e forse è più sensato perché non si tratta di un metodo che può essere utile all'esterno
     }
@@ -60,12 +60,19 @@ public /*abstract*/ class ItemStack
 
 //  ## Metodi Public ##
 
+    public boolean equals(Object o)
+     {
+        ItemStack i= (ItemStack)o;
+        return this.tipology==i.tipology && this.name==i.name && this.value==i.value && this.weight==i.weight;
+//interessante che non segna errore su o anche se non esiste in Object la variabile tipology
+     }
+
     public void addQuantity()
-     { ++quantita; }
+     { ++quantity; }
 
     public boolean removeQuantity()
      {
-        return (--quantita) == 0;    //ritorna vero se non ci sono altri elementi
+        return (--quantity) == 0;    //ritorna vero se si può eliminare : non fa controlli se negativo
    //         else throw new noItem_Exception();
      }
 
@@ -73,15 +80,15 @@ public /*abstract*/ class ItemStack
 //  ## Metodi variabili ##
 
     public int getQuantity()
-     { return quantita; }
+     { return quantity; }
     public int getValue()
-     { return valore; }
+     { return value; }
     public ItemType getType()
-     { return tipologia;}
+     { return tipology;}
     public int getWeight()
-     { return peso;}
+     { return weight;}
     public String getName()
-     {return nome;}
+     {return name;}
 
     public String showDescription()
      {return description;}
