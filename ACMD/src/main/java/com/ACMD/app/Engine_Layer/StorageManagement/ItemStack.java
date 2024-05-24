@@ -44,6 +44,16 @@ public /*abstract*/ class ItemStack
         exceptionLauncher();
     }
 
+    private ItemStack(String n, ItemType t, int w, int q, int v, String descr)
+    {//_per il clone
+        name = n;
+        tipology = t;
+        weight = w;
+        quantity = q;
+        value = v;
+        description = descr;
+    }
+
 //  ## Metodi Private ##
 
     private void exceptionLauncher()
@@ -66,6 +76,11 @@ public /*abstract*/ class ItemStack
         return this.tipology==i.tipology && this.name==i.name && this.value==i.value && this.weight==i.weight;
 //interessante che non segna errore su o anche se non esiste in Object la variabile tipology
      }
+
+    public ItemStack clone() //#TESTARE
+    {
+        return new ItemStack(this.name,this.tipology,this.weight,this.quantity,this.value,this.description); //che bello che non servano i metodi, perché è dentro la stessa classe, quindi accetta
+    }
 
     public void addQuantity()
      { ++quantity; }

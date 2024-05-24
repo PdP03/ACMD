@@ -44,12 +44,13 @@ public abstract class Storage
 
     public boolean add(ItemStack t)
     {
-        int pos = items.indexOf(t);
-        if( pos<0 )// ? items.add(t); //: (items.get() ).
-         (items.get(pos)).addQuantity();  //#FARE : se la copia fatta sugli elementi è deep e non shallow, allora si può prendere t e modificare quello senza fare una doppia ricerca
-                                          //#FARE : anzi, faccio la ricerca per oggetto, e poi aggiungo all'oggetto trovato
-                                          //#TESTARE : se facendo get toglie l'oggetto, fa una deep copy o una shallow copy.. in base a questo dovrò adeguarmi
-        else items.add(t);
+        //_sfrutto che si usa la shallow copy
+        int pos = items.indexOf(t) ;
+
+        if(pos<0)
+         items.add(t);
+        else
+        (items.get(pos)).addQuantity();// ottengo la posizione, mi faccio dare l'elemento e aggiungo uno
 
         return true;        //#CHIEDERE : perché avevamo messo booleano
     }
@@ -58,36 +59,40 @@ public abstract class Storage
     public boolean remove(ItemStack t)
     {//_true se la rimozione si è potuta fare, false per evitare di lanciare un'eccezione <- non accade nulla, non è così grave da bloccarsi.. a meno che non restituisca anche il dato
         int pos;
-        if( (pos= items.indexOf(t)) <0)
-         throw new noItem_Exception("Oggetto in inventario non esiste");   // in genere preferisco lanciare un numero piuttosto che una eccezione, ma dato che lo scopo è la chiarezza e storage è un facade per gli oggetti, ok l'eccezione
-
-        t = items.get(pos);     //???deep copy     #TERMINARE
+        if( (pos= items.indexOf(t)) <0) return false;
+         
+        //_l'oggetto esiste, ora se è l'ultimo devo eliminarlo
+        t = items.get(pos);
         if( t.removeQuantity() )
             items.remove(pos);
 
         return true;
     }
 
-    public ItemStack[] searchFor(ItemType tip)
-    {
-        LinkedList<ItemStack> lista = new LinkedList<ItemStack>();
-        //#TESTARE : ma se io faccio la copia in questo modo in realtà è una deep copy, quindi sto facendo passare gli oggetti veri.. no bene, devo passare delle copie
-        
-        //? CONTROLLA SE È UN BOOLEano
+    public /*final*/ ItemStack searchFor(ItemType tip)
+    {//_ritorna solo il primo oggetto di quel tipo
+        //ma se io faccio la copia in questo modo in realtà è una deep copy, quindi sto facendo passare gli oggetti veri.. no bene, devo passare delle copie
+        //soluzione: non faccio alcuna copia e li passo la stessa lista, ma come costante
+
         for(int i=0; i< items.size(); i++)
-         lista.add(null)
+         if( (items.get(i)).getType() == tip ) return (items.get(i)).clone();
 
-        return lista.toArray(lista);
-    }
-
-    public ItemStack searchFor(String name)
-    {
         return null;
     }
 
-    public String showStorage()
+    public /*final*/ ItemStack searchFor(String name)
     {
+
+        for(int i=0; i< items.size(); i++)
+         if( (items.get(i)).getName() == name ) return (items.get(i)).clone();
+
         return null;
+    }
+
+    public LinkedList<ItemStack> showStorage()
+    {
+        Object obj= items.clone();
+        return (LinkedList<ItemStack>)obj;      //? si può dirgli di fidarsi : potrei fare un metodo clone anche qua in modo che torni una linkedList, ma dopo riceverei insulti perché ho reimplementato qualcosa che già esiste nelle librerie. Quindi rimarrà il warning
     }
 
     public boolean existItem(ItemStack t)
@@ -127,3 +132,33 @@ Però:
     essendo che dall'esterno non devono lavorare con gli item, devo trovare un modo per associare
      il nome all'oggetto, quindi forse è meglio una hastable
 */
+
+
+
+/*
+ *    public boolean add(ItemStack t)
+    {
+        int pos = items.indexOf(t);
+        if( pos<0 )// ? items.add(t); //: (items.get() ).
+         (items.get(pos)).addQuantity();  //#FARE : se la copia fatta sugli elementi è deep e non shallow, allora si può prendere t e modificare quello senza fare una doppia ricerca
+                                          //#FARE : anzi, faccio la ricerca per oggetto, e poi aggiungo all'oggetto trovato
+                                          //#TESTARE : se facendo get toglie l'oggetto, fa una deep copy o una shallow copy.. in base a questo dovrò adeguarmi
+                                            //_deep, quindi ho uso .clone() o ritorno final
+        else items.add(t);
+
+        return true;        //#CHIEDERE : perché avevamo messo booleano
+    }
+ */
+/*
+ public boolean remove(ItemStack t)
+ {//_true se la rimozione si è potuta fare, false per evitare di lanciare un'eccezione <- non accade nulla, non è così grave da bloccarsi.. a meno che non restituisca anche il dato
+     int pos;
+     if( (pos= items.indexOf(t)) <0)
+      throw new noItem_Exception("Oggetto in inventario non esiste");   // in genere preferisco lanciare un numero piuttosto che una eccezione, ma dato che lo scopo è la chiarezza e storage è un facade per gli oggetti, ok l'eccezione
+
+     t = items.get(pos);     //???deep copy     #TERMINARE
+     if( t.removeQuantity() )
+         items.remove(pos);
+
+     return true;
+ }*/
