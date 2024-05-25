@@ -10,7 +10,7 @@ class ItemFactory      /'alloca oggetti prendendo da caratteristiche da file di 
 
 class LoaderItem{ /'crea stuttura comoda con tutta configurazione per il factory'/
   LoaderItem(String file);
-  public HashMap<ItemType, ItemStack> loadItems();
+  public /'HashMap<ItemType, ItemStack> '/ Vector<ItemSatck> loadItems(); /'per adesso è più comodo così, tanto per gli iteratori è più facile da cambiare'/
 }
 
 class ItemStack {
