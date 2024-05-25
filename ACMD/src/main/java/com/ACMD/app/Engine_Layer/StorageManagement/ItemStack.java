@@ -14,17 +14,20 @@ package com.ACMD.app.Engine_Layer.StorageManagement;
 public /*abstract*/ class ItemStack
 {
     String name;
-    int weight;
-    int quantity;           //oggetti si possono impilare
-    int value;             //#TERMINARE
+    byte weight;
+    byte quantity;           //oggetti si possono impilare
+    byte value;
     ItemType tipology;
-    String description;     //#TERMINARE
+    String description;
 
     final int VALORE_DEFAULT_QUANTITA = 1;
 
 //  ## costruttori ##
 
-    public ItemStack(String n, ItemType t, int w)
+    /**                 ?per quale motivo se tolgo l'asterisco non capisce che è un parametro
+    * @param w Peso
+    */ 
+    public ItemStack(String n, ItemType t, byte w)
     {
         name= n;
         weight= w;
@@ -33,8 +36,12 @@ public /*abstract*/ class ItemStack
 
         exceptionLauncher();
     }
-	    	
-    public ItemStack(String n, ItemType t, int w, int q)
+	  
+    /**
+     * @param w Peso
+     * @param q Quantità
+     */
+    public ItemStack(String n, ItemType t, byte w, byte q)
     {
         name= n;
         weight= w;
@@ -44,7 +51,7 @@ public /*abstract*/ class ItemStack
         exceptionLauncher();
     }
 
-    private ItemStack(String n, ItemType t, int w, int q, int v, String descr)
+    private ItemStack(String n, ItemType t, byte w, byte q, byte v, String descr)
     {//_per il clone
         name = n;
         tipology = t;
@@ -70,6 +77,10 @@ public /*abstract*/ class ItemStack
 
 //  ## Metodi Public ##
 
+    /**
+     * @return Controlla tipologia, nome, valore, peso : no descrizione o quantità
+     * Quindi possono esserci due oggetti uguali ma dove cambia solo la descrizione
+     */
     public boolean equals(Object o)
      {
         ItemStack i= (ItemStack)o;
@@ -85,9 +96,12 @@ public /*abstract*/ class ItemStack
     public void addQuantity()
      { ++quantity; }
 
+    /**
+     * @return Ritorna vero se si può eliminare
+     */
     public boolean removeQuantity()
      {
-        return (--quantity) == 0;    //ritorna vero se si può eliminare : non fa controlli se negativo
+        return (--quantity) == 0;
    //         else throw new noItem_Exception();
      }
 

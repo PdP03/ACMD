@@ -15,8 +15,8 @@ public class test_ItemStack
 		System.out.println("Test item");
 	 //_costruttori
 
-	 	ItemStack i1 = new ItemStack("primo item",  ItemType.ARMA, 10);
-		ItemStack i2 = new ItemStack("secondo item",ItemType.POZIONE,1,3);
+	 	ItemStack i1 = new ItemStack("primo item",  ItemType.ARMA,(byte)10);
+		ItemStack i2 = new ItemStack("secondo item",ItemType.POZIONE_CURA,(byte)1,(byte)3);
 
 	 //_metodi      : se si vuole automatizzare meglio si possono fare dei controlli che se il valore atteso non è quello giusto, allora lancia una eccezione
 
@@ -27,11 +27,11 @@ public class test_ItemStack
 
 	 //_eccezioni
 
-		try { ItemStack ia = new ItemStack("", ItemType.ARMA,10);  } catch(IllegalArgumentException e) { System.out.println("Primo costruttore"); }
-		try { ItemStack ib = new ItemStack("j",ItemType.ARMA,-1);  } catch(IllegalArgumentException e) { System.out.println("Primo costruttore"); }
-		try { ItemStack ic = new ItemStack("k",ItemType.ARMA,0,0); } catch(IllegalArgumentException e) { System.out.println("Primo costruttore"); }
+		try { ItemStack ia = new ItemStack("", ItemType.ARMA,(byte)10);  } catch(IllegalArgumentException e) { System.out.println("Primo costruttore"); }
+		try { ItemStack ib = new ItemStack("j",ItemType.ARMA,(byte)-1);  } catch(IllegalArgumentException e) { System.out.println("Primo costruttore"); }
+		try { ItemStack ic = new ItemStack("k",ItemType.ARMA,(byte)0,(byte)0); } catch(IllegalArgumentException e) { System.out.println("Primo costruttore"); }
 
-		ItemStack id = new ItemStack("f",ItemType.ARMA,1,1);
+		ItemStack id = new ItemStack("f",ItemType.ARMA,(byte)1,(byte)1);
 		try { id.removeQuantity(); } catch( noItem_Exception e ) { System.out.println("questo non si dovrebbe attivare"); }
 		try { id.removeQuantity(); } catch( noItem_Exception e ) { System.out.println("Tutti item rimossi"); }
 
