@@ -30,8 +30,14 @@ public class xmlReader{
         String[] splitted = rootDir.split("ACMD");
         rootDir = splitted[0]+"ACMD";
 
+        //check sul sistema in uso poichè Unix usa / come separatore mentre windws \
+        String fileDir = rootDir+entityDir+fileName;
+        if(System.getProperty("os.name").contains("Linux")){
+            fileDir = fileDir.replaceAll("\\\\", "\\/");
+        }
+
         //Creazione del oggetto che rappresenta il file (non interagisce con il sistema operativo)
-        File xml = new File(rootDir+entityDir+fileName);
+        File xml = new File(fileDir);
 
         //inizializzazione del parser e lettura del file xml
         try{
