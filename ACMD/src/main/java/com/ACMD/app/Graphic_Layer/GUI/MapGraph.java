@@ -69,6 +69,7 @@ public class MapGraph {
                                 nodes.get(i).setEast(new Coordinates(nodes.get(j).getCoord().getX() , nodes.get(j).getCoord().getY()));
                                 break;
                             case "O": 
+                            case "W":
                                 nodes.get(i).setWest(new Coordinates(nodes.get(j).getCoord().getX() , nodes.get(j).getCoord().getY()));
                                 break;
                         }
@@ -85,6 +86,7 @@ public class MapGraph {
                                 nodes.get(j).setEast(new Coordinates(nodes.get(i).getCoord().getX() , nodes.get(i).getCoord().getY()));
                                 break;
                             case "O": 
+                            case "W":
                                 nodes.get(j).setWest(new Coordinates(nodes.get(i).getCoord().getX() , nodes.get(i).getCoord().getY()));
                                 break;
                         }
