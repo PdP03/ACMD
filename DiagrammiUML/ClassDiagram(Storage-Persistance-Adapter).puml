@@ -1,14 +1,14 @@
 @startuml
 package "StorageManagment" #DDDDDD{  /'songole tipologie elementi'/
-class ItemFactory
+class ItemFactory      /'alloca oggetti prendendo da caratteristiche da file di configurazione'/
 {
   ItemStack getRandomItem();
-  ItemStack getItem(ItemType t);
-  ItemStack getItem(ItemType t, byte valore);
-  ItemStack getItem(ItemType t, byte valore, byte peso);
+  ItemStack getRandom(ItemType t);
+  ItemStack getItem(String name);
+  ItemStack createItem(String name, ItemType t, byte value, byte weight, byte quantity, String description); /'nel save si deve aggiungere questo dato'/
 }
 
-class LoaderItem{
+class LoaderItem{ /'crea stuttura comoda con tutta configurazione per il factory'/
   LoaderItem(String file);
   public HashMap<ItemType, ItemStack> loadItems();
 }
@@ -22,8 +22,7 @@ class ItemStack {
   String description;
    
   byte getQuanity();
-  void addQuantity();
-  byte getPeso();
+  byte getWeight();
   byte getValue();
   ItemType getType();
   String getName();
@@ -70,7 +69,8 @@ end note
 
 class Inventario{
   byte weight;
-  byte getTotalWeight();
+  int getTotalWeight();
+/'overload di add e remove'/
 }
 
 class Chest{
@@ -78,7 +78,7 @@ class Chest{
   
   void lock();
   void unlock()
-  boolean getLock();
+  boolean getLock(); /'o meglio chiamarlo getState?'/
 
 }
 
