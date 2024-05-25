@@ -30,10 +30,10 @@ public class xmlReader{
         String[] splitted = rootDir.split("ACMD");
         rootDir = splitted[0]+"ACMD";
 
-        //recupera il file
+        //Creazione del oggetto che rappresenta il file (non interagisce con il sistema operativo)
         File xml = new File(rootDir+entityDir+fileName);
 
-        //inizializzazione del parser del file xml
+        //inizializzazione del parser e lettura del file xml
         try{
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             docXml = builder.parse(xml);
