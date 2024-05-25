@@ -91,7 +91,7 @@ public /*abstract*/ class ItemStack
 //interessante che non segna errore su o anche se non esiste in Object la variabile tipology
      }
 
-    public ItemStack clone() //#TESTARE
+    public ItemStack clone()
     {
         return new ItemStack(this.name,this.tipology,this.weight,this.quantity,this.value,this.description); //che bello che non servano i metodi, perché è dentro la stessa classe, quindi accetta
     }
