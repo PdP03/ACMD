@@ -92,6 +92,7 @@ public class MapGraph {
                         }
                         
                     }
+                    file.close();
                 }
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
@@ -116,9 +117,10 @@ public class MapGraph {
                 System.out.println(e.getStringCoord() +" è il nodo considerato: ");
                e.printAllDirection();
             }
-
+            
             
         }
+
 
         
 }

@@ -4,22 +4,30 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import java.awt.GridLayout;
-
-
+import java.awt.Image;
+import java.awt.event.*;
 import javax.swing.*;
 
 
 public class GameFrame extends javax.swing.JFrame implements Frame {
     int globalRiga=0;
     int globalColonna=0;
+    
+    Color backGround = new Color(150,150,150);
+    Color lightBackground = new Color(204, 204, 204);
+
+    String mapIconPath="C:\\Users\\Matteo\\Desktop\\Prova mappa\\Mappa_Definitiva.png";
+    String playerIcon = "C:\\Users\\Matteo\\Desktop\\Prova mappa\\PersonIcon.jpg";
+    String keyIcon = "C:\\Users\\Matteo\\Desktop\\Prova mappa\\Key2.jpg";
+    String musicIcon = "C:\\Users\\Matteo\\Desktop\\Prova mappa\\BackgroundMusic.jpg";
     /**
      * Costruttore che genera il gameFrame
      */
     public GameFrame() {
-                    initComponents(); // Crea la finestra vuota, senza aggiugnere la mappa  
-                    this.getContentPane().setBackground(new java.awt.Color(0,0,0));
-                    addMapPicture("C:\\Users\\Matteo\\Desktop\\Prova mappa\\Mappa_Definitiva1.png"); // Aggiunge l'immagine (grafica)
-                    addPlayerPosition(19,1,"C:\\Users\\Matteo\\Desktop\\Prova mappa\\PersonIcon.jpg"); //Default = (5,5) 
+                    this.getContentPane().setBackground(backGround);
+                    initComponents(); // Crea la finestra vuota, senza aggiugnere la mappa          
+                    addMapPicture(mapIconPath); // Aggiunge l'immagine (grafica)
+                    addPlayerPosition(19,1,playerIcon); 
     }
                       
     
@@ -28,15 +36,13 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      */
     public void initComponents() {
         //Inizializzazione delle variabili oggetto per la grafica 
-        setBackground(new java.awt.Color(0,0,0));
+        //setBackground(new java.awt.Color(0,0,0));
         jToolBar1 = new javax.swing.JToolBar();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
         jInternalFrame1 = new javax.swing.JInternalFrame("Caverna");
         jButtonPlayer = new javax.swing.JRadioButton();
         jLabelMap = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanelProgressBars = new javax.swing.JPanel(); jPanelProgressBars.setBackground(backGround);
         jBarVitaNemico = new javax.swing.JProgressBar();
         jLabel1 = new javax.swing.JLabel();
         jLabelVita = new javax.swing.JLabel();
@@ -52,44 +58,56 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jToolBar1.setRollover(true);
 
         //Implementazione dell'inventario
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "AHOHHOHOHOH", "Item 2", "Item 3", "Item 4"};
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(true);
         jLabel1.setText("Nemico");
         jLabelVita.setText("Vita");
         jLabel2.setText("Peso");
-
-/*     
-
-
-*/
         jInternalFrame1.setVisible(true);
         jButtonPlayer.setEnabled(false);    
-        jBarPeso.setBackground(new java.awt.Color(0, 0, 0));
+        jBarPeso.setBackground(lightBackground);
+        jBarVitaNemico.setBackground(lightBackground);
+        jBarVitaNemico.setForeground(new Color(255,0,0));
+        jBarVitaPlayer.setBackground(lightBackground);
+        jBarVitaNemico.setForeground(new Color(255,0,0));
+
         jBarPeso.setForeground(new java.awt.Color(0, 255, 0));
+        jBarPeso.setValue(10);
 
 
         AddComponents1(); //Metodo black box
         
-        
+        jTextComandi.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (jTextComandi.getText().equals("Enter your answer")) {
+                    jTextComandi.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (jTextComandi.getText().isEmpty()) {
+                    jTextComandi.setText("Enter your answer");
+                }
+            }
+        });
+
+
         jButtonInvio.setText("Submit");
         jButtonInvio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 
-                move(globalRiga++%20,globalColonna%20);
+                try {move(globalRiga++%20,globalColonna%20);
+                }catch (Exception e ){}
                 
                 SwingUtilities.updateComponentTreeUI(jInternalFrame1);
                 
            }
         });
 
-        jTextStory.setBackground(new java.awt.Color(204, 204, 204));
+        jTextStory.setBackground(lightBackground);
         jTextStory.setColumns(20);
         jTextStory.setRows(5);
         jTextStory.setText("Here goes the story");
@@ -104,16 +122,20 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     
     /**
      * Moves the player position from the current one to the desired one: 
-     * @param x The position from the top left corner along the x axis
-     * @param y The position from the top left corner along the y axis
+     * @param x The position from the top left corner along the x axis, values 0 to 19
+     * @param y The position from the top left corner along the y axis, values 0 to 19
+     * @throws RuntimeException x or y not in the range [0,19]
      */
-    public void move(int x,int y)
+    public void move (int x,int y) throws RuntimeException
         {
+
+        if(x <0 || x>19 || y<0 || y>19 ) throw new RuntimeException("either x or y values not between 0-19 ");
+
         jInternalFrame1.remove(jLabelMap);
         jLabelMap=new JLabel("");
         jLabelMap.setSize(jInternalFrame1.getSize());
         jLabelMap.setLayout(new GridLayout(20,20));
-        jLabelMap.setIcon(new ImageIcon("C:\\Users\\Matteo\\Desktop\\Prova mappa\\Mappa_Definitiva1.png"));
+        jLabelMap.setIcon(new ImageIcon(mapIconPath));
         jButtonPlayer.setEnabled(false);    
         
 
@@ -144,13 +166,17 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         */
         private void addPlayerPosition(int x, int y, String PlayerImage) {
 
-            ImageIcon imageIcon = new ImageIcon("C:\\Users\\Matteo\\Desktop\\Prova mappa\\PersonIcon.jpg"); // load the image to a imageIcon
+           // ImageIcon imageIcon = new ImageIcon("C:\\Users\\Matteo\\Desktop\\Prova mappa\\PersonIcon.jpg"); // load the image to a imageIcon
             // Image image = imageIcon.getImage(); // transform it 
             // Image newimg = image.getScaledInstance(25, 25,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
              //imageIcon = new ImageIcon(newimg);  // transform it back
 
            //  jButtonPlayer.setIcon(imageIcon);
-             move(x,y);
+             try {
+                move(x,y);
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+            }
             SwingUtilities.updateComponentTreeUI(jInternalFrame1); //Update del frame
         }
         
@@ -173,7 +199,38 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
             jInternalFrame1.add(jLabelMap);
             SwingUtilities.updateComponentTreeUI(jInternalFrame1);
         }
+        /**
+         * @param amount the value of the bar [0,100]
+         * @throws RuntimeException thrown if amount is grater 100. If negative amount is set to 0 
+         */
+        public void setPlayerHealth(int amount ) throws RuntimeException
+        {
+            if(amount>100) throw new RuntimeException("value greater than 100 ");
+            if (amount <0) amount =0; 
+            jBarVitaPlayer.setValue(amount);
+        }
 
+        /**
+         * @param amount the value of the bar [0,100]
+         * @throws RuntimeException thrown if amount is grater 100. If negative amount is set to 0 
+         */
+        public void setEnemyrHealth(int amount ) throws RuntimeException
+        {
+            if(amount>100) throw new RuntimeException("value greater than 100 ");
+            if (amount <0) amount =0; 
+            jBarVitaNemico.setValue(amount);
+        }
+
+        /**
+         * @param amount the value of the bar [0,100]
+         * @throws RuntimeException thrown if amount is grater 100. If negative amount is set to 0 
+         */
+        public void setPeso(int amount) throws RuntimeException
+        {
+            if(amount>100) throw new RuntimeException("value greater than 100 ");
+            if (amount <0) amount =0; 
+            jBarPeso.setValue(amount);
+        }
 
 
 
@@ -189,18 +246,18 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          * Adds some components
          * Note: this method is black box generated 
          */
-        public void AddComponents1(){javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-            jPanel1.setLayout(jPanel1Layout);
-            jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+        public void AddComponents1(){javax.swing.GroupLayout jPanelProgressBarsLayout = new javax.swing.GroupLayout(jPanelProgressBars);
+            jPanelProgressBars.setLayout(jPanelProgressBarsLayout);
+            jPanelProgressBarsLayout.setHorizontalGroup(
+                jPanelProgressBarsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelProgressBarsLayout.createSequentialGroup()
+                    .addGroup(jPanelProgressBarsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelProgressBarsLayout.createSequentialGroup()
                             .addComponent(jLabelVita)
                             .addGap(4, 4, 4))
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelProgressBarsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jBarVitaPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jBarPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(23, 23, 23)
@@ -209,22 +266,22 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                     .addComponent(jBarVitaNemico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
-            jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
+            jPanelProgressBarsLayout.setVerticalGroup(
+                jPanelProgressBarsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelProgressBarsLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanelProgressBarsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelProgressBarsLayout.createSequentialGroup()
                             .addComponent(jBarVitaNemico, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanelProgressBarsLayout.createSequentialGroup()
+                            .addGroup(jPanelProgressBarsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelVita)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGap(25, 25, 25)
                             .addComponent(jLabel2)
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanelProgressBarsLayout.createSequentialGroup()
                             .addComponent(jBarVitaPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jBarPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,7 +326,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanelProgressBars, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,9 +351,40 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 18, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanelProgressBars, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
         );
+       JButton jButtonSave = new JButton("Save Game");
+       jButtonSave.setSize(100,30);
+       jButtonSave.setLocation(1200,730);
+       add(jButtonSave);
+
+       JButton key = new JButton();
+       key.setSize(120,70);
+       key.setBackground(backGround);
+       key.setForeground(new Color(255,0,0));
+       key.setBorderPainted(false);
+       
+       ImageIcon imageIcon2 = new ImageIcon(keyIcon); // load the image to a imageIcon
+       Image image2 = imageIcon2.getImage(); // transform it 
+       Image newimg2 = image2.getScaledInstance(70, 70,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+       imageIcon2 = new ImageIcon(newimg2);  // transform it back
+       key.setIcon(imageIcon2);
+       key.setText("4");
+       key.setLocation(675,710);
+       key.setOpaque(false);
+       add(key);
+
+       CircleButton JButtonMusic=new CircleButton("Play music");
+       imageIcon2 = new ImageIcon(musicIcon); // load the image to a imageIcon
+       image2 = imageIcon2.getImage(); // transform it 
+       newimg2 = image2.getScaledInstance(70, 70,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+       imageIcon2 = new ImageIcon(newimg2);  // transform it back
+       JButtonMusic.setSize(120,70);       
+       JButtonMusic.setLocation(1050,710);
+       JButtonMusic.setIcon(new ImageIcon(musicIcon));       
+       add(JButtonMusic);
+
 }
      // Variables declaration - do not modify                     
      private javax.swing.JProgressBar jBarPeso;
@@ -308,12 +396,10 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      private javax.swing.JLabel jLabel2;
      private javax.swing.JLabel jLabelMap;
      private javax.swing.JLabel jLabelVita;
-     private javax.swing.JList<String> jList2;
-     private javax.swing.JPanel jPanel1;
+     private javax.swing.JPanel jPanelProgressBars; // Pannello del 
      private javax.swing.JPanel jPanel2;
      private javax.swing.JRadioButton jButtonPlayer;
      private javax.swing.JScrollPane jScrollPane1;
-     private javax.swing.JScrollPane jScrollPane3;
      private javax.swing.JScrollPane jScrollPane4;
      private javax.swing.JTextField jTextComandi;
      private javax.swing.JTextArea jTextStory;
