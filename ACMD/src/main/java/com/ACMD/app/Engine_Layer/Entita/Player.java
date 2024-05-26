@@ -2,7 +2,9 @@ package com.ACMD.app.Engine_Layer.Entita;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import com.ACMD.app.Engine_Layer.StorageManagement.Inventario;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 
 /**
  * Classe che rappresenta il player sfrutta l'Observer Pattern implementato
@@ -16,7 +18,7 @@ public class Player extends Entity{
     private PropertyChangeSupport observerHandler;
     
     //variabili del player
-    protected InventarioProvvisorio inv = new InventarioProvvisorio();
+    protected Inventario inv = new Inventario();
     private final byte MAX_INVENTORY_WEIGHT = 10;
     private final byte BASE_DAMAGE = 1;
     private final byte BASE_ARMOR = 1;
@@ -92,10 +94,10 @@ public class Player extends Entity{
     /**
      * Controlla se un item si può inserire nel inventario oppure no
      * @param i Item da controllare
-     * @return ritorna false se item lascia spazio nel inventario altrimenti true
+     * @return ritorna true se l'item riempie l'invenatio altrimenti false
      */
     public boolean doesFillInv(ItemStack i){
-        return i.getWeight() + inv.getWeight() > MAX_INVENTORY_WEIGHT;
+        return i.getWeight() + inv.getTotalWeight() > MAX_INVENTORY_WEIGHT;
     }
 
     /**
@@ -104,7 +106,7 @@ public class Player extends Entity{
      * @return boolean true se è stato eliminato 
      */
     public boolean removeItem(ItemStack i) throws IllegalArgumentException{
-        if(!inv.removeItem(i)){
+        if(!inv.remove(i)){
             throw new IllegalArgumentException();
         }
         
@@ -136,23 +138,23 @@ public class Player extends Entity{
         //il player può avere una sola arma è una sola armatura
         switch(i.getType()){
             case ARMA:
-                if(inv.search(i.toString())){
+                if(inv.searchFor(ItemType.ARMA) != null){
                     return false;
                 }
                 super.safeIncrementDamage((byte)i.getValue());
-                inv.addItem(i);
+                inv.add(i);
                 return true;
 
             case ARMATURA:
-                if(inv.quantityOf(i.toString()) > 1){
+                if(inv.searchFor(i.toString()) != null){
                     return false;
                 }
-                inv.addItem(i);
+                inv.add(i);
                 super.safeIncrementArmor((byte)i.getValue());
                 return true;
 
             default:        //neccessario poichè lo switch vuole tutti i case definiti nella enum
-                inv.addItem(i);
+                inv.add(i);
                 return true;
         }
     }
@@ -161,7 +163,7 @@ public class Player extends Entity{
      * Restituisce l'inventario del entità
      * @return inv
      */
-    public InventarioProvvisorio getInv(){
+    public Inventario getInv(){
         return inv;
     }
 
