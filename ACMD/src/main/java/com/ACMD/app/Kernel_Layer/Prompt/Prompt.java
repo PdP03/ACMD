@@ -3,9 +3,9 @@ package com.ACMD.app.Kernel_Layer.Prompt;
 
 import java.util.HashMap;
 
-import com.ACMD.app.Engine_Layer.GameEngine.*;
-import com.ACMD.app.Kernel_Layer.Menu.Menu_Enum;
-//import com.ACMD.app.Kernel_Layer.Prompt.CommandPattern.Command;
+import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
+import com.ACMD.app.Kernel_Layer.Menu.*;
+import com.ACMD.app.Kernel_Layer.Prompt.CommandPattern.Command;
 
 
 /*
@@ -17,14 +17,26 @@ import com.ACMD.app.Kernel_Layer.Menu.Menu_Enum;
         -quali voci del menù si possono usare
 
     #PROBLEMA: una volta che mi viene passato il menù delle operazioni che possono eseguire, come faccio a legarlo al metodo?
-*/
+    #PROBLEMA: essendo enum diverse, ci vogliono signature differenti, è brutto
+ 
+    Odio l'idea di booleano a caso.
+    Capisco che non posso fare una classe a parte.. cioè, lo accetto solo perché dall'esterno di prompt la cosa si complica.
+    Però se trovo una idea che sta dentro a prompt io la faccio. Tipo creare un metodo che riallochi l'oggetto.
+    Altrimenti.. anche se non si farà.. una classe SmallPrompt che è in grado solo di comunicare con Game e non GameEngine:
+        quindi che è solo in grado di interfacciarsi con l'utente e non di far partire il gioco
+    */
 
+    /**
+     * @Singleton
+     */
 public class Prompt
 {
 
+    boolean engineLinked = false;
+
     //## Costruttore ##
 
-    public Prompt(GameEngine gme, Menu_Enum firstMenu)
+    public Prompt(GameEngine gme, StartMenu firstMenu)
     {
         //istanzia una sola volta la grafica di input
     }
@@ -33,12 +45,16 @@ public class Prompt
 
     //## Metodi Public ##
 
-    public Menu_Enum waitInput()
+    public BackStateGame_Enum waitInput()
     {//:richiama la grafica di input, aspetta il comando, fa le verifiche necessarie 
 
-
+        return null;
     }
 
+    public void linkEngine(GameEngine g)
+    {
+
+    }
     
 
 
@@ -50,7 +66,9 @@ public class Prompt
     }
 
     private void changeCommand(Command cmmd)
-     {}
+    {
+        
+    }
 
     //## Metodi Command-Pattern ##
 }

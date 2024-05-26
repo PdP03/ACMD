@@ -115,7 +115,22 @@ public abstract class Storage
     }
 
 //  ## Metodi return variabili ##
+    public String toString()
+    {
+        String s="";
+        ItemStack it;
+        for(int i=0; i<items.size(); i++)
+        {
+            it= items.get(i);
+            s+= it.getName()+
+                ":\n  Peso: "+it.getWeight()+
+                 "\n  Valore: "+it.getValue()+
+                 //"\n  Descrizione: "+it.get 
+                 "\n";
+        }
 
+        return s;
+    }
 }
 
 
