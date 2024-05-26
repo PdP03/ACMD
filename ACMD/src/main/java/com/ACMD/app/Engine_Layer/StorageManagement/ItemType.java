@@ -13,4 +13,6 @@ public enum ItemType
     POZIONE_INVALIDITA,
     CIBO,
     EASTER_EGG;
+
+    public static int NumeroEnum = 9;   //tolto EASTER_EGG
 }

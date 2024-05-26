@@ -14,17 +14,20 @@ package com.ACMD.app.Engine_Layer.StorageManagement;
 public /*abstract*/ class ItemStack
 {
     String name;
-    int weight;
-    int quantity;           //oggetti si possono impilare
-    int value;             //#TERMINARE
+    byte weight;
+    byte quantity;           //oggetti si possono impilare
+    byte value;
     ItemType tipology;
-    String description;     //#TERMINARE
+    String description;
 
     final int VALORE_DEFAULT_QUANTITA = 1;
 
 //  ## costruttori ##
 
-    public ItemStack(String n, ItemType t, int w)
+    /**                 ?per quale motivo se tolgo l'asterisco non capisce che è un parametro
+    * @param w Peso
+    *
+    public ItemStack(String n, ItemType t, byte w)
     {
         name= n;
         weight= w;
@@ -33,8 +36,12 @@ public /*abstract*/ class ItemStack
 
         exceptionLauncher();
     }
-	    	
-    public ItemStack(String n, ItemType t, int w, int q)
+	  
+    /**
+     * @param w Peso
+     * @param q Quantità
+     *
+    public ItemStack(String n, ItemType t, byte w, byte q)
     {
         name= n;
         weight= w;
@@ -42,15 +49,18 @@ public /*abstract*/ class ItemStack
         tipology= t;
 
         exceptionLauncher();
-    }
+    }*/
 
-    private ItemStack(String n, ItemType t, int w, int q, int v, String descr)
-    {//_per il clone
-        name = n;
+    public ItemStack(String n, ItemType t, byte w, byte q, byte v, String descr) //perché ora c'è il factory, quindi non è più item a pigliarsi la roba
+    {//_era per il clone
+
+        exceptionLauncher();    //si potrebbe per rendere più efficiente l'esecuzione fare questi controlli dentro il factory, al massimo andrebbe a rendere più pesante il caricamento: però si può pensare di fare i controlli solo sugli oggetti
+                                //che sono istanziati da salvataggi e che non si trovano nella hashtable
+            name = n;
         tipology = t;
-        weight = w;
+          weight = w;
         quantity = q;
-        value = v;
+           value = v;
         description = descr;
     }
 
@@ -70,6 +80,10 @@ public /*abstract*/ class ItemStack
 
 //  ## Metodi Public ##
 
+    /**
+     * @return Controlla tipologia, nome, valore, peso : no descrizione o quantità
+     * Quindi possono esserci due oggetti uguali ma dove cambia solo la descrizione
+     */
     public boolean equals(Object o)
      {
         ItemStack i= (ItemStack)o;
@@ -77,7 +91,7 @@ public /*abstract*/ class ItemStack
 //interessante che non segna errore su o anche se non esiste in Object la variabile tipology
      }
 
-    public ItemStack clone() //#TESTARE
+    public ItemStack clone()
     {
         return new ItemStack(this.name,this.tipology,this.weight,this.quantity,this.value,this.description); //che bello che non servano i metodi, perché è dentro la stessa classe, quindi accetta
     }
@@ -85,9 +99,12 @@ public /*abstract*/ class ItemStack
     public void addQuantity()
      { ++quantity; }
 
+    /**
+     * @return Ritorna vero se si può eliminare
+     */
     public boolean removeQuantity()
      {
-        return (--quantity) == 0;    //ritorna vero se si può eliminare : non fa controlli se negativo
+        return (--quantity) == 0;
    //         else throw new noItem_Exception();
      }
 

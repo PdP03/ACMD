@@ -3,18 +3,49 @@ package com.ACMD.app.Engine_Layer.StorageManagement;
 
 public class Inventario extends Storage
 {
-    byte totalWeight;
+    int totalWeight=0;
 
 //  ## Costruttori ##
 
-//  ## Metodi Public ##
+public Inventario()
+{
+    super();
+}
+
+//  ## OverLoad Public ##
+
+
+public boolean add(ItemStack t)
+{
+    super.add(t);
+    totalWeight+= t.getWeight();
+        // if(totalWeight<0) throw new IllegalArgumentException("Il peso lanciato è troppo");
+    return true;
+}
+
+/**
+ * @return False se non è trovato in inventario
+ */
+public boolean remove(ItemStack t)
+{
+    if( super.remove(t) )
+    {
+        totalWeight-= t.getWeight();
+        return true;
+    }
+
+    return false;
+}
 
 
 //  ## Metodi return variabili ##
 
-    public byte getWeight()
+    public int getTotalWeight()
      {return totalWeight;}
-    public byte quantyOf(String items)
-     {return 0;}
+    public int quantyOf(String item)
+     {
+        ItemStack t = this.searchFor(item); //metodo ereditato da Storage
+        return t.getQuantity();
+     }
 
 }

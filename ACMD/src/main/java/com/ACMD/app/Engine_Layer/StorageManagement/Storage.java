@@ -1,4 +1,4 @@
-    
+    //#REFACTORING
 package com.ACMD.app.Engine_Layer.StorageManagement;
 
 //import java.util.HashMap;
@@ -42,6 +42,9 @@ public abstract class Storage
 
 //  ## Metodi Public ##
 
+    /**
+     * @return Ritorna sempre true
+     */
     public boolean add(ItemStack t)
     {
         //_sfrutto che si usa la shallow copy
@@ -56,6 +59,9 @@ public abstract class Storage
     }
     //possibilità sottoclassi di scegliere se esiste un valore massimo alla quantità di oggetti che si possono portare <- invece no, perché basta richiamare con super
 
+    /**
+     * @return False se non è stato trovato
+     */
     public boolean remove(ItemStack t)
     {//_true se la rimozione si è potuta fare, false per evitare di lanciare un'eccezione <- non accade nulla, non è così grave da bloccarsi.. a meno che non restituisca anche il dato
         int pos;
@@ -65,10 +71,13 @@ public abstract class Storage
         t = items.get(pos);
         if( t.removeQuantity() )
             items.remove(pos);
-
+        
         return true;
     }
 
+    /**
+     * @return Ritorna primo oggetto di quel tipo. Null se non trova nulla
+     */
     public /*final*/ ItemStack searchFor(ItemType tip)
     {//_ritorna solo il primo oggetto di quel tipo
         //ma se io faccio la copia in questo modo in realtà è una deep copy, quindi sto facendo passare gli oggetti veri.. no bene, devo passare delle copie
@@ -89,6 +98,9 @@ public abstract class Storage
         return null;
     }
 
+    /**
+     * @return Non ritorna la vera lista, ma una deep copy
+     */
     public LinkedList<ItemStack> showStorage()
     {
         Object obj= items.clone();
