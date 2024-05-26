@@ -297,7 +297,7 @@ class Promt{
   /'----------- METODI PROMPT -----------'/
   private void changeCommand(Command c);
   void linkEngine(GameEngine g)
-  InputType waitInput();
+  BackStateGame_Enum waitInput();
 }
 
 class StartCommand{
