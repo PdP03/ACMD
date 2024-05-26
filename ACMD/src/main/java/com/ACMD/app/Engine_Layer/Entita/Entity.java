@@ -3,7 +3,7 @@ package com.ACMD.app.Engine_Layer.Entita;
 /**
  * Classe che rappresenta una generica entità (Player o Mostro). Viene rappresentata dai parametri:
  * - health, vita del entità
- * - damage, danno del entità
+ * - attack, danno del entità
  * - level, livello del entità
  * - name, nome del entità
  */
@@ -11,7 +11,7 @@ public abstract class Entity {
     protected String name;
     protected String history;
     protected short health, maxHealth;
-    protected byte damage, armor, level;
+    protected byte attack, armor, level;
 
     /**
      * Restituisce il livello attuale
@@ -55,10 +55,10 @@ public abstract class Entity {
 
     /**
      * Valore del danno che fa ad un altra entity
-     * @return damage
+     * @return attack
      */
-    public byte getDamage(){
-        return damage;
+    public byte getAttack(){
+        return attack;
     }
 
     /**
@@ -80,10 +80,10 @@ public abstract class Entity {
 
     protected void safeIncrementDamage(byte amount)
     {
-        if(amount < 0 || Byte.MAX_VALUE < damage + amount)
-            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto/basso per 'damage'(overflow)");
+        if(amount < 0 || Byte.MAX_VALUE < attack + amount)
+            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto/basso per 'attack'(overflow)");
         
-        damage += amount;
+        attack += amount;
     }
 
     protected void safeIncrementArmor(byte amount)
@@ -105,10 +105,10 @@ public abstract class Entity {
 
     protected void safeDecrementDamage(byte amount)
     {
-        if(amount < 0 || damage - amount < Short.MIN_VALUE)
-            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto/basso per 'damage'(overflow)");
+        if(amount < 0 || attack - amount < Short.MIN_VALUE)
+            throw new IllegalArgumentException("Il valore "+ amount +" è troppo alto/basso per 'attack'(overflow)");
         
-        damage -= amount;
+        attack -= amount;
     }
 
     protected void safeDecrementArmor(byte amount)
@@ -146,7 +146,7 @@ public abstract class Entity {
     // -------- METODI ASTRATTI --------
     /**
      * Imposta il livello ad un valore desiderato. Lancia IllegalArgumentException se il livello non è valido
-     * Si noti che cambiano anche i valori: health, damage, armor.
+     * Si noti che cambiano anche i valori: health, attack, armor.
      * @param l livello
      */
     public abstract void setLv(byte l) throws IllegalArgumentException;

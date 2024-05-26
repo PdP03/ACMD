@@ -58,15 +58,15 @@ public class TestMonster {
     @Test(expected=IllegalArgumentException.class)
     public void testDamage(){
         //---- TEST VALORE DI DEFAULT ----
-        Assert.assertEquals(2, m.getDamage());
+        Assert.assertEquals(2, m.getAttack());
 
         //---- TEST CON LV. 2 ----
         m.setLv((byte)2);
-        Assert.assertEquals(3, m.getDamage());
+        Assert.assertEquals(3, m.getAttack());
 
         //---- TEST CON LV. MAX (lancia eccezzione damage va in overflow)----
         m.setLv(Byte.MAX_VALUE);
-        Assert.assertEquals(127, m.getDamage());
+        Assert.assertEquals(127, m.getAttack());
 
     }
 
