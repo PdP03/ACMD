@@ -9,12 +9,11 @@ enum MType{
 }
 
 abstract class Entity{
-  Inventario inv;
   String name;
   String history;
   short health;
   short maxHealth;
-  byte damage;
+  byte attack;
   byte armor;
   byte level;
 
@@ -24,14 +23,10 @@ abstract class Entity{
   byte getMaxLife();
   String getHistory();
   String getName();
-  byte getDamage();
+  byte getAttack();
   byte getArmor();
-  Inventario getInv();
-  String showInv();
   short changeHealth(short value);
   abstract void setLv(byte l);
-  abstract boolean addItem(ItemStack i);
-  abstract boolean removeItem(ItemStack i)
 
   protected void safeIncrementHealth(short amount);
   protected void safeIncrementDamage(byte amount);
@@ -45,8 +40,9 @@ abstract class Entity{
 
 class Player{
   private PropertyChangeSupport observerHandler;
+  Inventario inv;
   final byte MAX_INVENTORY_WEIGHT = 10
-  final byte BASE_DAMAGE = 1
+  final byte BASE_ATTACK= 1
   final byte BASE_ARMOR = 1
   final byte BASE_HEALTH = 5
   final byte BASE_LEVEL = 1
@@ -60,26 +56,28 @@ class Player{
   /'---------- METODI PLAYER ----------'/
   void addObserver(PropertyChangeListener listener);
   void removeObserver(PropertyChangeListener listener);
+  void setLv(byte l);
   boolean doesFillInv(ItemStack i);
+  boolean removeItem(ItemStack i);
+  boolean addItem(ItemStack i);
+  Inventario getInv();
+  String showInv();
 }
 
 abstract class Monster{
   private MType type
-  private final byte BASE_DAMAGE = 2
-  private final byte BASE_ARMOR = 1
-  private final byte BASE_HEALTH = 3
-  private final byte BASE_LEVEL = 1
   private final byte HEALTH_MULTIPLIER = 2
   private final byte DAMAGE_MULTIPLIER = 1
   private final byte ARMOR_MULTIPLIER = 1
 
   /'---------- COSTRUTTORI ----------'/
-  Monster(MType t, String name);
-  Monster(MType t, String name, short health, byte damage, byte armor);
+  Monster(MType t, short baseHealth, byte baseDamage, byte baseArmor, byte baseLv , byte healthMul, byte damageMul, byte armorMul);
+  Monster(MType t, String name, short baseHealth, byte baseAttack, byte baseArmor, byte baseLv, byte healthMul, byte damageMul, byte armorMul);
   /'---------- METODI MONSTER ----------'/
   void propertyChange(PropertyChangeEvent event);
   private String selectName(MType t);
   MType getType();
+  void setLv(byte l);
 }
 class MonsterFactory{
   /'---------- METODI MONSTER_FACTORY ----------'/
@@ -88,6 +86,26 @@ class MonsterFactory{
   Monster create(MType t, String name, short health, byte damage, byte armor);
   Monster createRandom();
 }
+
+class xmlReader{
+  /'---------- COSTRUTTORI ----------'/
+  xmlReader(String fileName)
+
+  /'---------- METODI----------'/
+  Vector<MonsterValues> getMonsterValues();
+  private MonsterValues getValuesFrom(Element eAttribute);
+  private MType getMTypeBy(String name);
+}
+
+class MonsterValues{
+  short health, maxHealth;
+  byte damage, armor, level;
+  byte healthMul, armorMul, damageMul;
+}
+
+note right of MonsterValues:"è una struct"
+
+
 class Armatura{
   final String story="";
 
@@ -145,6 +163,9 @@ MonsterFactory --> MagoNero
 MonsterFactory --> Coboldo
 MonsterFactory --> Armatura
 MonsterFactory --> MostroMarino 
+MonsterFactory -> xmlReader
+xmlReader -> MonsterValues
+
 
 /'sta nel kernel layer'/
 package MenuGraphic #DDDDDD{
@@ -181,43 +202,43 @@ ExitMenu --> LoaderMenu
 package Mappa #DDDDDD{   
 
 class LoaderMap{
+  /'---------- COSTRUTTORI ----------'/
   LoaderMap(String file);
-  MapGraf getMap();
+
+  /'---------- METODI----------'/
+  Graph<Node, edge> getMap();
 } 
     
 class Coordinates{
   int x,y;
+  
+  /'---------- COSTRUTTORI ----------'/
+  Coordinates(int x, int y);
+
+  /'---------- METODI----------'/
   int getX();
   int getY();
-  int setX();
-  int setY();
+  int setX(int x);
+  int setY(int y);
 
 }
-  /'Classe che carica da file la lista dei nodi'/
-  class LoadNode{
-  List<node> list = new ArrayList<node>;
-  public LoadNode(String fileName);
-  
-  List<node> getListCommands();
-  
-}
 
-  class MapGraf{
-  List<Stanza> stanze = new ArrayList<Stanza>;
-  /*Questa classe implementa un red-black tree*/
-  TreeMap<K,node> nodiTree = new TreeMap<K,V>;
+class MapGraph{
+  ArrayList<Room> rooms = new ArrayList<Room>;
+  Graph<Node, edge> nodiTree = new Graph<Node, edge>;
 
-  generateStanze();
-  generatePercorso();
-  /'Converte la lista di nodi in un albero'/
-  listToTree(List<node> l);
-  List<node> getPercorsoTo(Nodo start, Stanza end);
-  List<Direction> validPositionOf(node n);
-  boolean checkpositionOf(node n);
-  
-  
+  /'---------- METODI ----------'/
+  private ArrayList<Room> generateRoom(int quantity);
+
+  List<node> getRouteTo(Nodo start, Room end);
+  List<node> getRouteTo(Nodo start, Node end);
+  List<node> getRouteTo(Room start, Node end);
+  Direction[] validDirectionOf(Node n);
+  boolean isValidDirectionFor(Node n, Direction dir);
+  Monster getMonsterAt(Coordinates cord);
+  Chest getChestAt(Coordinates cord);
 }
-note left of MapGraf :"Classe di facade"
+note left of MapGraph :"Classe di facade"
 
 enum  Direction{
   NORD
@@ -226,34 +247,43 @@ enum  Direction{
   SOUTH
 }
 
-class node
-{
+class node{
   Coordinates cord;
-  Direction[] dir = new Direction[4];
+  Direction[] dir;
+  
+  /'---------- COSTRUTTORI ----------'/
+  node(Direction[] dir);
+
+  /'---------- METODI ----------'/
   setDirection(Direction[] d);
   addDirection(Direction d);
   Direction[] getDirection();
 
 }
-   class Stanza{
+
+class Room{
   Coordinates cord;
-  Monster mostro;
-  setCord(int x, int y);
+  Monster monster;
+  Chest chest;
+  
+  /'---------- COSTRUTTORI ----------'/
+  Room(int x, int y);
+
+  /'---------- METODI ----------'/
   Coordinates getCord();
-  Chest baule;
-  Monster getMostro();
+  Monster getMonster();
   Chest getChest();
-}
+  }
 
 } 
 
 
-MapGraf "1"--> "*" Stanza
-MapGraf "1"--> "1" LoadNode
-MapGraf "1" --> "*" node
-node"1" --> "1"Coordinates
-node"1" --> "1"Direction
-Stanza"1" --> "1"Coordinates
+MapGraph --> Room
+MapGraph --> node
+MapGraph -> LoaderMap
+node --> Coordinates
+node --> Direction
+Room --> Coordinates
 
 
 package Prompts #DDDDDD{

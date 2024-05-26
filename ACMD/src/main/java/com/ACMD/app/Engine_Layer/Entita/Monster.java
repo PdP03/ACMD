@@ -125,8 +125,6 @@ public abstract class Monster extends Entity implements PropertyChangeListener {
         if(l < 1)
             throw new IllegalArgumentException("Il lv. "+ l +" non esiste");
         
-        if((l-level)*HEALTH_MULTIPLIER < 0)
-        throw new IllegalArgumentException("Overflow di armor (livello troppo alto):");
         maxHealth += (l-level)*HEALTH_MULTIPLIER;
 
         //check overflow di armor
