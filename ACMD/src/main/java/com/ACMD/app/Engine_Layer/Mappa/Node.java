@@ -1,4 +1,4 @@
-package com.ACMD.app.Graphic_Layer.GUI;
+package com.ACMD.app.Engine_Layer.Mappa;
 
 /**
  * Class that rappresents Coordinates

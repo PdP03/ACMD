@@ -375,14 +375,16 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
        key.setOpaque(false);
        add(key);
 
-       CircleButton JButtonMusic=new CircleButton("Play music");
+       JButton JButtonMusic=new CircleButton("");
        imageIcon2 = new ImageIcon(musicIcon); // load the image to a imageIcon
        image2 = imageIcon2.getImage(); // transform it 
        newimg2 = image2.getScaledInstance(70, 70,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
        imageIcon2 = new ImageIcon(newimg2);  // transform it back
+       JButtonMusic.setIcon(imageIcon2); 
+
        JButtonMusic.setSize(120,70);       
        JButtonMusic.setLocation(1050,710);
-       JButtonMusic.setIcon(new ImageIcon(musicIcon));       
+       
        add(JButtonMusic);
 
 }

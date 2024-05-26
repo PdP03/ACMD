@@ -1,7 +1,9 @@
 package com.ACMD.app.Graphic_Layer.GUI;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
@@ -101,4 +103,8 @@ public class CircleButton extends JButton{
 		int stringHeight = metrics.getHeight();
 		g.drawString(getText(), getWidth()/2 - stringWidth/2, getHeight()/2 + stringHeight/4);
 	}
+		@Override
+		public void setIcon(Icon g){
+			super.setIcon(g);
+		}
 }
