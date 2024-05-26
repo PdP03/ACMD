@@ -54,14 +54,16 @@ public /*abstract*/ class ItemStack
     public ItemStack(String n, ItemType t, byte w, byte q, byte v, String descr) //perché ora c'è il factory, quindi non è più item a pigliarsi la roba
     {//_era per il clone
 
-        exceptionLauncher();    //si potrebbe per rendere più efficiente l'esecuzione fare questi controlli dentro il factory, al massimo andrebbe a rendere più pesante il caricamento: però si può pensare di fare i controlli solo sugli oggetti
-                                //che sono istanziati da salvataggi e che non si trovano nella hashtable
+       
             name = n;
         tipology = t;
           weight = w;
         quantity = q;
            value = v;
         description = descr;
+
+        exceptionLauncher();    //si potrebbe per rendere più efficiente l'esecuzione fare questi controlli dentro il factory, al massimo andrebbe a rendere più pesante il caricamento: però si può pensare di fare i controlli solo sugli oggetti
+        //che sono istanziati da salvataggi e che non si trovano nella hashtable
     }
 
 //  ## Metodi Private ##

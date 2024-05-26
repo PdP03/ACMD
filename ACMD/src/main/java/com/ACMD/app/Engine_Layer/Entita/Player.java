@@ -107,7 +107,7 @@ public class Player extends Entity{
      */
     public boolean removeItem(ItemStack i) throws IllegalArgumentException{
         if(!inv.remove(i)){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("L'elemento non esiste");
         }
         
         //il player può avere una sola arma è una sola armatura
@@ -132,7 +132,7 @@ public class Player extends Entity{
      */
     public boolean addItem(ItemStack i) throws IllegalArgumentException{
         if(doesFillInv(i)){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Questo oggetto è troppo grande (inventario pieno)");
         }
         
         //il player può avere una sola arma è una sola armatura

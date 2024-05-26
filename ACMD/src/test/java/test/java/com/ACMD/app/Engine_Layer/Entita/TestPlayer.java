@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import com.ACMD.app.Engine_Layer.Entita.Player;
+import com.ACMD.app.Engine_Layer.StorageManagement.Inventario;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 
 public class TestPlayer {
     Player p;
@@ -93,27 +96,77 @@ public class TestPlayer {
          Assert.assertEquals(-3, p.getLife());
     }
 
-    //TODO: da implementare
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testRemoveItem(){
+        ItemStack item = new ItemStack("Spada", ItemType.ARMA, (byte)3, (byte)1, (byte)2, "Spada di roccia");
 
+        //---- TEST RIMOZIONE DI UN ELEMENTO ESISTENTE PER DAMAGE(attacco)----
+        byte damageValue = p.getDamage();
+        p.addItem(item);
+        p.removeItem(item);
+        Assert.assertEquals(damageValue, p.getDamage());
+
+        //---- TEST RIMOZIONE DI UN ELEMENTO ESISTENTE PER ARMOR(difesa)----
+        ItemStack itemD = new ItemStack("Stivali", ItemType.ARMATURA, (byte)1, (byte)1, (byte)1, "Stivali in pelle");
+        ItemStack itemD1 = new ItemStack("Pettorina", ItemType.ARMATURA, (byte)3, (byte)1, (byte)3, "Stivali in pelle");
+        byte armorInit = p.getArmor();
+        p.addItem(itemD);
+        Assert.assertNotEquals(armorInit, p.getArmor());
+        p.addItem(itemD1);
+        byte armorValueD1 = p.getArmor();
+        Assert.assertNotEquals(armorInit, p.getArmor());
+        p.removeItem(itemD1);
+        Assert.assertEquals(armorInit + (byte)itemD.getValue(), p.getArmor());
+        Assert.assertEquals(armorValueD1 - (byte)itemD1.getValue(), p.getArmor());
+
+        //---- TEST RIMOZIONE DI UN ELEMENTO NON ESISTENTE (lancia eccezione)----
+        p.removeItem(item);
     }
 
-    //TODO: da implementare
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testAddItem(){
+        //---- TEST AGGIUNTA DI UN ELEMENTO ----
+        ItemStack item = new ItemStack("Stivali", ItemType.ARMATURA, (byte)8, (byte)1, (byte)1, "Stivali in pelle");
+        p.addItem(item);
+        Assert.assertTrue(p.getInv().existItem(item));
+
+        //---- TEST AGGIUNTA DI UN ARMA ----
+        ItemStack itemA = new ItemStack("Spada", ItemType.ARMA, (byte)1, (byte)1, (byte)1, "Spada di legno");
+        byte damageValue = p.getDamage();
+        p.addItem(itemA);
+        Assert.assertNotEquals(damageValue,p.getDamage());
+
+        //---- TEST AGGIUNTA DI UN ELEMENTO CHE NON PUO STARE NEL INVENTARIO(lancia eccezione)----
+        p.addItem(item);
+        
 
     }
 
-    //TODO: da implementare
     @Test
     public void testGetInv(){
+        ItemStack itemC = new ItemStack("Pozione", ItemType.POZIONE_CURA, (byte)7, (byte)1, (byte)1, "cura");
+        p.addItem(itemC);
+        ItemStack itemD = new ItemStack("Pozione", ItemType.POZIONE_DANNO, (byte)2, (byte)1, (byte)1, "danno");
+        p.addItem(itemD);
+        ItemStack itemF = new ItemStack("Pozione", ItemType.POZIONE_FORZA, (byte)1, (byte)1, (byte)1, "forza");
+        p.addItem(itemF);
 
+        Inventario inv = p.getInv();
+        //---- TEST ESISTE POZIONE CURA ----
+        Assert.assertTrue(inv.existItem(itemC));
+        //---- TEST ESISTE POZIONE DANNO ----
+        Assert.assertTrue(inv.existItem(itemD));
+        //---- TEST ESISTE POZIONE FORZA ----
+        Assert.assertTrue(inv.existItem(itemF));
     }
 
-    //TODO: da implementare
+    //TODO: da finire manca implementazione di toString in Inventario
     @Test
     public void testShowInv(){
+        ItemStack itemC = new ItemStack("Pozione", ItemType.POZIONE_CURA, (byte)7, (byte)1, (byte)1, "cura");
+        p.addItem(itemC);
+
+        Assert.assertNotEquals("",p.showInv());
 
     }
 }
