@@ -36,7 +36,7 @@ public abstract class Monster extends Entity implements PropertyChangeListener {
         super.level = baseLv;
         super.maxHealth = baseHealth;
         super.health = baseHealth;
-        super.damage = baseDamage;
+        super.attack = baseDamage;
         super.armor = baseArmor;
         super.name = Monster.selectName(t);
 
@@ -58,8 +58,8 @@ public abstract class Monster extends Entity implements PropertyChangeListener {
      * @param damageMul moltiplicatore damage
      * @param armorMul moltiplicatore armor
      */
-    public Monster(MType t, String name, short baseHealth, byte baseDamage, byte baseArmor, byte baseLv, byte healthMul, byte damageMul, byte armorMul) throws IllegalArgumentException{
-        if(baseHealth <= 1 || baseDamage <= 0 || baseArmor <= 0 || baseLv <= 0 || healthMul <= 0 || damageMul <= 0 || armorMul <= 0){
+    public Monster(MType t, String name, short baseHealth, byte baseAttack, byte baseArmor, byte baseLv, byte healthMul, byte damageMul, byte armorMul) throws IllegalArgumentException{
+        if(baseHealth <= 1 || baseAttack <= 0 || baseArmor <= 0 || baseLv <= 0 || healthMul <= 0 || damageMul <= 0 || armorMul <= 0){
             throw new IllegalArgumentException("Valori di inizializzazione non corretti");
         }
 
@@ -67,7 +67,7 @@ public abstract class Monster extends Entity implements PropertyChangeListener {
         super.level = baseLv;
         super.maxHealth = baseHealth;
         super.health = baseHealth;
-        super.damage = baseDamage;
+        super.attack = baseAttack;
         super.armor = baseArmor;
         super.name = name;
 
@@ -137,9 +137,9 @@ public abstract class Monster extends Entity implements PropertyChangeListener {
         
         //check overflow di damage
         val = (byte)((l-level)*DAMAGE_MULTIPLIER);
-        if(val < 0 || Byte.MAX_VALUE - val < super.damage)
+        if(val < 0 || Byte.MAX_VALUE - val < super.attack)
             throw new IllegalArgumentException("valore non corretto (livello troppo alto/basso): "+val);
-        super.damage += val;
+        super.attack += val;
 
         level = l;
     }

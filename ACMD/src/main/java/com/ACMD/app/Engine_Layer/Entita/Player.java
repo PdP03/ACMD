@@ -20,7 +20,7 @@ public class Player extends Entity{
     //variabili del player
     protected Inventario inv = new Inventario();
     private final byte MAX_INVENTORY_WEIGHT = 10;
-    private final byte BASE_DAMAGE = 1;
+    private final byte BASE_ATTACK = 1;
     private final byte BASE_ARMOR = 1;
     private final byte BASE_HEALTH = 5;
     private final byte BASE_LEVEL = 1;
@@ -37,7 +37,7 @@ public class Player extends Entity{
         super.level = BASE_LEVEL;
         super.maxHealth = BASE_HEALTH;
         super.health = BASE_HEALTH;
-        super.damage = BASE_DAMAGE;
+        super.attack = BASE_ATTACK;
         super.armor = BASE_ARMOR;
         super.name = name;
         super.history = story;
@@ -82,9 +82,9 @@ public class Player extends Entity{
         
         //check overflow di damage
         val = (byte)((l-level)*DAMAGE_MULTIPLIER);
-        if(val < 0 || Byte.MAX_VALUE - val < super.damage)
+        if(val < 0 || Byte.MAX_VALUE - val < super.attack)
             throw new IllegalArgumentException("Overflow di damage (livello troppo alto): "+val);
-        super.damage += val;
+        super.attack += val;
         
         //richiamat tutti gli observer che è avvenuto "levelChange" con oldValue=level e newValue=l
         observerHandler.firePropertyChange("levelChange", (Byte)level, (Byte)l);

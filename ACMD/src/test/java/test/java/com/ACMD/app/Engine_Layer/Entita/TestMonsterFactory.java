@@ -62,7 +62,7 @@ public class TestMonsterFactory {
         Assert.assertEquals(100, mons.getLife());
 
         //---- TEST DANNO ----
-        Assert.assertEquals(20, mons.getDamage());
+        Assert.assertEquals(20, mons.getAttack());
 
         //---- TEST ARMATURA ----
         Assert.assertEquals(20, mons.getArmor());
@@ -81,7 +81,7 @@ public class TestMonsterFactory {
         Assert.assertEquals(104, mons.getLife());
  
         //---- TEST DANNO ----
-        Assert.assertEquals(22, mons.getDamage());
+        Assert.assertEquals(22, mons.getAttack());
  
         //---- TEST ARMATURA ----
         Assert.assertEquals(22, mons.getArmor());

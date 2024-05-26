@@ -46,17 +46,17 @@ public class TestPlayer {
     }
 
     @Test
-    public void testDamage(){
+    public void testAttack(){
         //---- TEST VALORE DI DEFAULT ----
-        Assert.assertEquals(1, p.getDamage());
+        Assert.assertEquals(1, p.getAttack());
 
         //---- TEST CON LV. 2 ----
         p.setLv((byte)2);
-        Assert.assertEquals(2, p.getDamage());
+        Assert.assertEquals(2, p.getAttack());
 
         //---- TEST CON LV. MAX ----
         p.setLv(Byte.MAX_VALUE);
-        Assert.assertEquals(127, p.getDamage());
+        Assert.assertEquals(127, p.getAttack());
 
     }
 
@@ -100,11 +100,11 @@ public class TestPlayer {
     public void testRemoveItem(){
         ItemStack item = new ItemStack("Spada", ItemType.ARMA, (byte)3, (byte)1, (byte)2, "Spada di roccia");
 
-        //---- TEST RIMOZIONE DI UN ELEMENTO ESISTENTE PER DAMAGE(attacco)----
-        byte damageValue = p.getDamage();
+        //---- TEST RIMOZIONE DI UN ELEMENTO ESISTENTE PER ATTACK(attacco)----
+        byte attackValue = p.getAttack();
         p.addItem(item);
         p.removeItem(item);
-        Assert.assertEquals(damageValue, p.getDamage());
+        Assert.assertEquals(attackValue, p.getAttack());
 
         //---- TEST RIMOZIONE DI UN ELEMENTO ESISTENTE PER ARMOR(difesa)----
         ItemStack itemD = new ItemStack("Stivali", ItemType.ARMATURA, (byte)1, (byte)1, (byte)1, "Stivali in pelle");
@@ -132,9 +132,9 @@ public class TestPlayer {
 
         //---- TEST AGGIUNTA DI UN ARMA ----
         ItemStack itemA = new ItemStack("Spada", ItemType.ARMA, (byte)1, (byte)1, (byte)1, "Spada di legno");
-        byte damageValue = p.getDamage();
+        byte attackValue = p.getAttack();
         p.addItem(itemA);
-        Assert.assertNotEquals(damageValue,p.getDamage());
+        Assert.assertNotEquals(attackValue,p.getAttack());
 
         //---- TEST AGGIUNTA DI UN ELEMENTO CHE NON PUO STARE NEL INVENTARIO(lancia eccezione)----
         p.addItem(item);
