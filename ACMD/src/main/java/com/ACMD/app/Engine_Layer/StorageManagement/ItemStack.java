@@ -118,7 +118,7 @@ public /*abstract*/ class ItemStack
        // return (--quantity) == 0;
    //         else throw new noItem_Exception();
 
-        if( quantity==1 ) return true;
+        if( quantity==0 ) return true;  //si elimina quando non ne ho più
 
         --quantity;
         return false;

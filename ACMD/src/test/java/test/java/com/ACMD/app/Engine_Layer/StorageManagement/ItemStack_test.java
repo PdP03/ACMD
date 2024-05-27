@@ -57,8 +57,7 @@ public class ItemStack_test {
     private void controlloAddEccesso()
     {
         ItemStack t = new ItemStack("prova",ItemType.ARMA, (byte) 1, (byte) 255, (byte) 1, null);
-        t.addQuantity();
-        Assert.assertEquals(255,t.getQuantity());
+        Assert.assertEquals(true,t.addQuantity());
     }
     @Test
     private void controlloRemove()
@@ -70,10 +69,9 @@ public class ItemStack_test {
     @Test
     private void controlloRemoveEccesso()
     {
-        ItemStack t = new ItemStack("prova",ItemType.ARMA, (byte) 1, (byte) 1, (byte) 1, null);
-        t.removeQuantity();
-        Assert.assertEquals(1,t.getQuantity());
+        ItemStack t = new ItemStack("prova",ItemType.ARMA, (byte) 1, (byte) 0, (byte) 1, null);
+        Assert.assertEquals(true,t.removeQuantity());
     }
     
-    
+
 }

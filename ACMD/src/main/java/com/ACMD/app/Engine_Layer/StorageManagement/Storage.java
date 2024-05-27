@@ -50,12 +50,11 @@ public abstract class Storage
         //_sfrutto che si usa la shallow copy
         int pos = items.indexOf(t) ;
 
-        if(pos<0)
-         items.add(t);
-        else
-        (items.get(pos)).addQuantity();// ottengo la posizione, mi faccio dare l'elemento e aggiungo uno
+        return !( (pos<0) ?     // ottengo true se pieno, quindi restituisco negato
+             items.add(t) :
+            (items.get(pos)).addQuantity() );// ottengo la posizione, mi faccio dare l'elemento e aggiungo uno
 
-        return true;        //#CHIEDERE : perché avevamo messo booleano
+        //return true;        //#CHIEDERE : perché avevamo messo booleano : ora lo so, per l'eccesso
     }
     //possibilità sottoclassi di scegliere se esiste un valore massimo alla quantità di oggetti che si possono portare <- invece no, perché basta richiamare con super
 
@@ -69,8 +68,8 @@ public abstract class Storage
          
         //_l'oggetto esiste, ora se è l'ultimo devo eliminarlo
         t = items.get(pos);
-        if( t.removeQuantity() )
-            items.remove(pos);
+        if( t.removeQuantity() )    //rimuovo la quantità
+            items.remove(pos);      //se vale 0 allora lo devo rimuovere
         
         return true;
     }
