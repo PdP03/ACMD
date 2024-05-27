@@ -8,6 +8,8 @@ import java.awt.Image;
 import java.awt.event.*;
 import javax.swing.*;
 
+import org.jgrapht.alg.drawing.CircularLayoutAlgorithm2D;
+
 
 public class GameFrame extends javax.swing.JFrame implements Frame {
     int globalRiga=0;
@@ -126,10 +128,10 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      * @param y The position from the top left corner along the y axis, values 0 to 19
      * @throws RuntimeException x or y not in the range [0,19]
      */
-    public void move (int x,int y) throws RuntimeException
+    public void move (int x,int y) throws IllegalArgumentException
         {
 
-        if(x <0 || x>19 || y<0 || y>19 ) throw new RuntimeException("either x or y values not between 0-19 ");
+        if(x <0 || x>19 || y<0 || y>19 ) throw new IllegalArgumentException("either x or y values not between 0-19 ");
 
         jInternalFrame1.remove(jLabelMap);
         jLabelMap=new JLabel("");
@@ -375,14 +377,16 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
        key.setOpaque(false);
        add(key);
 
-       JButton JButtonMusic=new CircleButton("");
+      CircleButton JButtonMusic=new CircleButton("");
+       JButtonMusic.setSize(120,70);
        imageIcon2 = new ImageIcon(musicIcon); // load the image to a imageIcon
+       
        image2 = imageIcon2.getImage(); // transform it 
-       newimg2 = image2.getScaledInstance(70, 70,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+       newimg2 = image2.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
        imageIcon2 = new ImageIcon(newimg2);  // transform it back
-       JButtonMusic.setIcon(imageIcon2); 
+       JButtonMusic.setIcon( imageIcon2); 
 
-       JButtonMusic.setSize(120,70);       
+              
        JButtonMusic.setLocation(1050,710);
        
        add(JButtonMusic);

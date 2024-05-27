@@ -108,6 +108,7 @@ public class MapGraph {
      *
      */
     public void inizalizeChambers(){} 
+    public void get(){}
 
         
 }

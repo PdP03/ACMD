@@ -11,6 +11,7 @@ public class Stanza
     Monster monster; 
     Chest chest; 
     String imagePath;
+    boolean randomize; 
 
     public void setChest(Chest c){this.chest=c;}
     public Chest getChest(){return chest;}
@@ -31,6 +32,12 @@ public class Stanza
      * Empty constructor, only for good habits
      */
     public Stanza(){}
+    /**
+     * 
+     * @param randomize To create a random chamber 
+     */
+    public Stanza(boolean randomize){}
+
 
 
 }

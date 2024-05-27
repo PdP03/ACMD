@@ -62,7 +62,7 @@ public class TestFrame{
         */
      //   new MyTree();
      
-        new GameFrame().setVisible(true);
+        new GameFrame().setVisible(true); 
         MapGraph m = new MapGraph("C:\\Users\\Matteo\\Desktop\\Prova mappa\\Map.txt");   
 }   
 }

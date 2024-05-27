@@ -16,7 +16,9 @@ import org.jgrapht.graph.*;
 //How about mettere statica nodes? 
 
 public class MapGraph {
-    SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge> map;
+    private SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge> map;
+    private Coordinates[] directions;
+    private List<Node> nodes;
     /**
      * Initialize the graph "map" based on the informations of the given file 
      * @param path the path of the file
@@ -25,8 +27,8 @@ public class MapGraph {
 
             map = new SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge>(
             DefaultWeightedEdge.class); //Creazione di una mappa di nodi 
-            Coordinates[] directions = new Coordinates[4]; //{N,S,E;W}
-            List<Node> nodes = new ArrayList<Node>();
+            directions = new Coordinates[4]; //{N,S,E;W}
+            nodes= new ArrayList<Node>();
             try {
                 FileReader f = new FileReader(path);
                 Scanner file = new Scanner(f);
@@ -109,7 +111,30 @@ public class MapGraph {
      * If Harry Potter had this, we didn't have the second movie.... 
      *
      */
-    public void inizalizeChambers(){} 
+    public void inizalizeChambers()
+    {
+    } 
+    public Coordinates[] getDirections(){return directions; }
+    public SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge> getMap() {
+        return map;
+    }
+    /**
+     * 
+     * @return All the nodes 
+     */
+    public List<Node> getNodes() {
+        return nodes;
+    }
+    public void setMap(SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge> map) {
+        this.map = map;
+    }
+    public void setDirections(Coordinates[] directions) {
+        this.directions = directions;
+    }
+    public void setNodes(List<Node> nodes) {
+        this.nodes = nodes;
+    }
+    
 
         
 }
