@@ -9,7 +9,7 @@ package com.ACMD.app.Engine_Layer;
 public class ParsePath {
     /**
      * Metodo che fa la conversione di path
-     * @param filePath path del file da aggiungere alla root
+     * @param filePath path del file da aggiungere alla root (es. \\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer)
      * @return String fullPath formattata secondo il tipo di SO
      */
     public static String getPath(String packagePath, String fileName){
