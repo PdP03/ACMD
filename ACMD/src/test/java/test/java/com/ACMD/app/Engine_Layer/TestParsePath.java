@@ -10,19 +10,19 @@ public class TestParsePath {
         String path = ParsePath.getPath("/main/", "test");
 
         if(System.getProperty("os.name").contains("Linux")){
-            Assert.assertTrue(path.contains("/main/test"));
+            Assert.assertTrue(path.contains("/ACMD/main/test"));
         }
         else{
-            Assert.assertTrue(path.contains("\\main\\test"));
+            Assert.assertTrue(path.contains("\\ACMD\\main\\test"));
         }
 
         path = ParsePath.getPath("\\main\\", "test");
 
         if(System.getProperty("os.name").contains("Linux")){
-            Assert.assertTrue(path.contains("/main/test"));
+            Assert.assertTrue(path.contains("/ACMD/main/test"));
         }
         else{
-            Assert.assertTrue(path.contains("\\main\\test"));
+            Assert.assertTrue(path.contains("\\ACMD\\main\\test"));
         }
 
         
