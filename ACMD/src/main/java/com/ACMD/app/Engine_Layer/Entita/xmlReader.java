@@ -4,7 +4,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document; 
-import org.w3c.dom.NodeList; 
+import org.w3c.dom.NodeList;
+import com.ACMD.app.Engine_Layer.ParsePath;
 import org.w3c.dom.Node; 
 import org.w3c.dom.Element;
 import java.io.File;
@@ -15,26 +16,11 @@ public class xmlReader{
     final String entityDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Entita\\";
 
     /**
-     * Inizializza il reader caricando il file. La directory di ricerca è 'rootDir+entityDir' 
+     * Inizializza il reader caricando il file 
      * @param fileName nome del file (con estensione .xml) da caricare
      */
     public xmlReader(String fileName){
-        //directory da cui viene lanciata l'applicazione
-        String rootDir = System.getProperty("user.dir");
-
-        /*
-        *                                       ----------- IMPORTANTE -----------
-        * Queste righe sono neccessarie poichè se xmlReader viene richiamato da un file di test la directory è C:\....\ACMD\ACMD
-        * mentre se viene richiamato al interno di una classe la directory è C:\...\ACMD in questo modo il file viene sempre trovato
-        */
-        String[] splitted = rootDir.split("ACMD");
-        rootDir = splitted[0]+"ACMD";
-
-        //check sul sistema in uso poichè Unix usa / come separatore mentre windws \
-        String fileDir = rootDir+entityDir+fileName;
-        if(System.getProperty("os.name").contains("Linux")){
-            fileDir = fileDir.replaceAll("\\\\", "\\/");
-        }
+        String fileDir = ParsePath.getPath(entityDir, fileName);
 
         //Creazione del oggetto che rappresenta il file (non interagisce con il sistema operativo)
         File xml = new File(fileDir);
