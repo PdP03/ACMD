@@ -230,11 +230,9 @@ class MapGraph{
   /'---------- METODI ----------'/
   private ArrayList<Room> generateRoom(int quantity);
 
-  List<node> getRouteTo(Nodo start, Room end);
-  List<node> getRouteTo(Nodo start, Node end);
-  List<node> getRouteTo(Room start, Node end);
-  Direction[] validDirectionOf(Node n);
-  boolean isValidDirectionFor(Node n, Direction dir);
+  List<node> getRouteTo(Coordinates start, Coordinates end);
+  Direction[] validDirectionOf(Coordinates n);
+  boolean isValidDirectionFor(Coordinates n, Direction dir);
   Monster getMonsterAt(Coordinates cord);
   Chest getChestAt(Coordinates cord);
 }
