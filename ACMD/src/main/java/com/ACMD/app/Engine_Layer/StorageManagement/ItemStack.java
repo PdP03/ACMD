@@ -70,12 +70,16 @@ public /*abstract*/ class ItemStack
 
     private void exceptionLauncher()
     {
-        if( weight<0)
-         throw new IllegalArgumentException("Peso non può essere negativo");
+        if( weight<=0)
+         throw new IllegalArgumentException("Peso non può essere negativo o nullo");
         if(name=="" || name==null)
          throw new IllegalArgumentException("Il nome dell'oggetto non è valido");
         if(quantity <=0)
          throw new IllegalArgumentException("La quantità non è positiva");
+        if(value<=0)
+         throw new IllegalArgumentException("Il valore deve essere positivo");
+        if(tipology==null)
+         throw new IllegalArgumentException("Deve avere un tipo");
             //anche se prima avevo messo queste condizioni nei singoli costruttori in modo da evitare il controllo sulla quantità che non serve.. e forse è più sensato perché non si tratta di un metodo che può essere utile all'esterno
     }
 
@@ -98,16 +102,26 @@ public /*abstract*/ class ItemStack
         return new ItemStack(this.name,this.tipology,this.weight,this.quantity,this.value,this.description); //che bello che non servano i metodi, perché è dentro la stessa classe, quindi accetta
     }
 
-    public void addQuantity()
-     { ++quantity; }
+    public boolean addQuantity()   //true finito spazio
+     {
+        if( quantity==255 ) return true;
+ 
+        ++quantity;
+        return false;
+     }
 
     /**
      * @return Ritorna vero se si può eliminare
      */
     public boolean removeQuantity()
      {
-        return (--quantity) == 0;
+       // return (--quantity) == 0;
    //         else throw new noItem_Exception();
+
+        if( quantity==1 ) return true;
+
+        --quantity;
+        return false;
      }
 
 

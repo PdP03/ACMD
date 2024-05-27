@@ -7,20 +7,15 @@ import com.ACMD.app.Engine_Layer.StorageManagement.Inventario;
 
 public class Inventario_test {
     
-    public Inventario_test()
-    {
-
-    }
-
     @Test
-    public boolean controlloCostruttori()
+    public void controlloCostruttori()
     {
-        return true;
+        
     }
     @Test
-    public boolean controlloPesoCorretto()
+    public void controlloPesoCorretto()
     {
 
-        return true;
+        
     }
 }

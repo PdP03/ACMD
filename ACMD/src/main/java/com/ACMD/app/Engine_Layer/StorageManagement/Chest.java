@@ -7,7 +7,7 @@ public class Chest extends Storage
 {
     boolean lock= true; //quindi bloccata
 
-    public void lock()   {lock=false;}
+    public void lock()   {lock= true;}
     public void unlock() {lock=false;}
     public boolean getLock() {return lock;}
 }
