@@ -16,19 +16,19 @@ import org.jgrapht.graph.*;
 //How about mettere statica nodes? 
 
 public class MapGraph {
-    private SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge> map;
+    private SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge> map;
     private Coordinates[] directions;
-    private List<Node> nodes;
+    private List<NODE> nodes;
     /**
      * Initialize the graph "map" based on the informations of the given file 
      * @param path the path of the file
      */
     public MapGraph(String path){
 
-            map = new SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge>(
+            map = new SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge>(
             DefaultWeightedEdge.class); //Creazione di una mappa di nodi 
             directions = new Coordinates[4]; //{N,S,E;W}
-            nodes= new ArrayList<Node>();
+            nodes= new ArrayList<NODE>();
             try {
                 FileReader f = new FileReader(path);
                 Scanner file = new Scanner(f);
@@ -41,7 +41,7 @@ public class MapGraph {
                         String theLine = file.nextLine();
                         if(theLine.equals("Connessioni")){addingMode=false; continue;}
                         String line[] = theLine.split(","); 
-                        nodes.add(new Node(Integer.parseInt(line[0]), Integer.parseInt(line[1])));
+                        nodes.add(new NODE(Integer.parseInt(line[0]), Integer.parseInt(line[1])));
                         map.addVertex(nodes.get(count++));
                     }
                     else
@@ -51,7 +51,7 @@ public class MapGraph {
                         //line ={x,y, x2, y2, direction1, direction2} where direction = north or south or east or west
                         int i=0,j=0;
                         boolean foundI=false,foundJ=false;
-                        for(Node n:nodes)
+                        for(NODE n:nodes)
                         {
                         if(n.getCoord().getX()==Integer.parseInt(line[0]) && n.getCoord().getY()==Integer.parseInt(line[1]) && !foundI) {foundI=true;}
                         else{ if(foundI==false) i++;}
@@ -115,23 +115,23 @@ public class MapGraph {
     {
     } 
     public Coordinates[] getDirections(){return directions; }
-    public SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge> getMap() {
+    public SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge> getMap() {
         return map;
     }
     /**
      * 
      * @return All the nodes 
      */
-    public List<Node> getNodes() {
+    public List<NODE> getNodes() {
         return nodes;
     }
-    public void setMap(SimpleDirectedWeightedGraph<Node, DefaultWeightedEdge> map) {
+    public void setMap(SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge> map) {
         this.map = map;
     }
     public void setDirections(Coordinates[] directions) {
         this.directions = directions;
     }
-    public void setNodes(List<Node> nodes) {
+    public void setNodes(List<NODE> nodes) {
         this.nodes = nodes;
     }
     

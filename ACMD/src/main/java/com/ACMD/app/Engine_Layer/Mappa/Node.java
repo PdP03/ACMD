@@ -63,10 +63,10 @@ class Coordinates
  * Classe che implementa un generico nodo della mappa. Di default i campi north, south, east e west sono null 
  * Nel momento in cui si usano i relativi getter e setter sono invece settati (ovviamente)
  */
-public class Node{
+public class NODE{
     private Coordinates coord, north=null, south=null, east=null, west=null;
     private Stanza s; //Stanza associata al nodo
-    public Node(int x,int y){this.coord = new Coordinates(x,y); }
+    public NODE(int x,int y){this.coord = new Coordinates(x,y); }
 
     public Coordinates getCoord() {
         return coord;

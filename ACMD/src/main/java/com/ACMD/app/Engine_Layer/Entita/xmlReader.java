@@ -6,9 +6,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document; 
 import org.w3c.dom.NodeList;
 import com.ACMD.app.Engine_Layer.ParsePath;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
+
 import org.w3c.dom.Node; 
 import org.w3c.dom.Element;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class xmlReader{
@@ -58,7 +62,7 @@ public class xmlReader{
                     return null;
                 }
                 
-                mValues = getValuesFrom((Element)attribute);
+                mValues = getMonsterValuesFrom((Element)attribute);
                 defaultValues.set(type.getId(), mValues);
             }
         }
@@ -71,7 +75,7 @@ public class xmlReader{
      * @param eAttribute nodo in cui sono specificati i valori da leggere
      * @return mValues struct contenente i valori
      */
-    private static MonsterValues getValuesFrom(Element eAttribute){
+    private static MonsterValues getMonsterValuesFrom(Element eAttribute){
         MonsterValues mValues = new MonsterValues();
 
         // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
@@ -109,4 +113,92 @@ public class xmlReader{
                 return null;
         }
     }
+
+    /* --------------------------------------------------------------------------------------------------------------
+     * |                                                                                                            |
+     * |                                         METODI PER ITEM_STACK                                              |
+     * |                                                                                                            |
+     * --------------------------------------------------------------------------------------------------------------
+     */
+
+     /**
+     * Metodo che legge il file di configurazione e restituisce un vector con i valori di default dei vari item
+     * @return defaultValues un Vector<ItemStack> contenente tutti gli item
+     */
+    public Vector<ItemStack> getAllItemStack(){
+        Vector<ItemStack> defaultValues = new Vector<ItemStack>();
+        ItemStack item;
+        ItemValues Ivalues = new ItemValues();
+
+        NodeList itemAttribute = docXml.getElementsByTagName("itemstack").item(0).getChildNodes(); //lista dei nodi mostri (mostro marino, armatura...)
+
+        Node attribute;
+        for(int j = 0; j < itemAttribute.getLength(); j++){
+            attribute = itemAttribute.item(j);
+            if(attribute.getNodeType() == Node.ELEMENT_NODE){
+                Ivalues = getItemValuesFrom((Element)attribute);
+                
+                item = new ItemStack(attribute.getNodeName(), Ivalues.type, Ivalues.weight, Ivalues.quantity, Ivalues.value, Ivalues.description);
+                defaultValues.add(item);
+                System.out.println(Ivalues.description);
+            }
+        }
+
+        return defaultValues;
+    }
+
+
+    /**
+     * Legge i valori dei item da un nodo di tipo element 
+     * @param eAttribute nodo in cui sono specificati i valori da leggere
+     * @return ItemValues struct contenente i valori
+     */
+    private static ItemValues getItemValuesFrom(Element eAttribute){
+        ItemValues iValues = new ItemValues();
+
+        // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
+        iValues.description = eAttribute.getElementsByTagName("description").item(0).getTextContent();
+        iValues.type = getITypeBy(eAttribute.getElementsByTagName("type").item(0).getTextContent());
+        iValues.weight = Byte.parseByte(eAttribute.getElementsByTagName("weight").item(0).getTextContent());
+        iValues.quantity = Byte.parseByte(eAttribute.getElementsByTagName("quantity").item(0).getTextContent());
+        iValues.value = Byte.parseByte(eAttribute.getElementsByTagName("value").item(0).getTextContent());
+
+        return iValues;
+    }
+
+    /**
+     * Metodo di supporto per tradurre il tipo(Stringa) di un item nel rispettivo tipo(ItemType). Se non ci sono
+     * corrispondenze alla ritorna null
+     * @param name nome da controllare
+     * @return ItemType
+     */
+    private static ItemType getITypeBy(String tipo){
+        //IMPORTANTE nei case il nome deve corrispondere a quello del file xml
+        switch(tipo){
+            case "arma":
+                return ItemType.ARMA;
+            case "armatura":
+                return ItemType.ARMATURA;
+            case "cibo":
+                return ItemType.CIBO;
+            case "easter_egg":
+                return ItemType.EASTER_EGG;
+            case "pozione_cura":
+                return ItemType.POZIONE_CURA;
+            case "pozione_danno":
+                return ItemType.POZIONE_DANNO;
+            case "pozione_forza":
+                return ItemType.POZIONE_FORZA;
+            case "pozione_invalidita":
+                return ItemType.POZIONE_INVALIDITA;
+            case "pozione_resistenza":
+                return ItemType.POZIONE_RESISTENZA;
+            case "pozione_veleno":
+                return ItemType.POZIONE_VELENO;
+            default:
+                return null;
+        }
+    }
+
+  
 }

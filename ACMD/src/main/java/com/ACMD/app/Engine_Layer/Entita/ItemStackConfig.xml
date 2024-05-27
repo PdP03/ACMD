@@ -1,0 +1,73 @@
+<itemstack>
+
+  <!-- ARMI -->
+  <coltello>
+    <description>Coltello molto affilato</description>
+    <type>arma</type>
+    <weight>2</weight>
+    <quantity>1</quantity>
+    <value>3</value>
+  </coltello>
+
+  <spada>
+    <description>Spada di legno</description>
+    <type>arma</type>
+    <weight>1</weight>
+    <quantity>1</quantity>
+    <value>1</value>
+  </spada>
+
+  <scettro>
+    <description>Non serve solo a specchiarsi</description>
+    <type>arma</type>
+    <weight>1</weight>
+    <quantity>1</quantity>
+    <value>1</value>
+  </scettro>
+
+  <mazza>
+    <description>Molto pesante ma forte</description>
+    <type>arma</type>
+    <weight>6</weight>
+    <quantity>1</quantity>
+    <value>6</value>
+  </mazza>
+
+
+  <!-- ARMATURE -->
+  <elmo>
+    <description>elmetto piccolo ma robusto</description>
+    <type>armatura</type>
+    <weight>1</weight>
+    <quantity>1</quantity>
+    <value>1</value>
+  </elmo>
+
+  <corazza>
+    <description>Fatta di acciaio</description>
+    <type>armatura</type>
+    <weight>4</weight>
+    <quantity>1</quantity>
+    <value>3</value>
+  </corazza>
+
+  <gambali>
+    <description>Stivali comodi</description>
+    <type>armatura</type>
+    <weight>2</weight>
+    <quantity>1</quantity>
+    <value>2</value>
+  </gambali>
+
+  <sandali>
+    <description>Leggeri e arieggiati</description>
+    <type>armatura</type>
+    <weight>1</weight>
+    <quantity>1</quantity>
+    <value>1</value>
+  </sandali>
+
+
+  <!-- POZIONI -->
+
+</itemstack>
