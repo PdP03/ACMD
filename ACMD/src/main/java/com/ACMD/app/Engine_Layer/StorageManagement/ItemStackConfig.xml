@@ -1,3 +1,16 @@
+<!-- Per inserire nuovi item e sufficente aggiungere una voce con il nome del item in <itemstack> ... </itemstack> 
+    I parametri degli item (type, weight...) vanno racchiusi nel tag che rapresenta il nome del item es. <coltello>
+    ...</coltello> inoltre questo nome è quello che viene assegnato a ItemStack.name
+
+    Per ogni pozione è neccessario specificare il tipo a cui apparteiene es:
+    <pozione cura>
+      .......
+      .......
+      <type>pozione_cura</type>
+    </pozione cura>
+    I type disponibili sono tutti definiti nello switch getITypeBy(String tipo) vedi xmlReader.java
+-->
+
 <itemstack>
 
   <!-- ARMI -->

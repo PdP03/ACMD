@@ -1,11 +1,12 @@
-package com.ACMD.app.Engine_Layer.Entita;
+package com.ACMD.app.Engine_Layer;
 
 import javax.xml.parsers.DocumentBuilder; 
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document; 
 import org.w3c.dom.NodeList;
-import com.ACMD.app.Engine_Layer.ParsePath;
+
+import com.ACMD.app.Engine_Layer.Entita.MType;
 import com.ACMD.app.Engine_Layer.Mappa.Direction;
 import com.ACMD.app.Engine_Layer.Mappa.NODE;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
@@ -19,13 +20,12 @@ import java.util.Vector;
 
 public class xmlReader{
     Document docXml;
-    final String entityDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Entita\\";
 
     /**
      * Inizializza il reader caricando il file 
      * @param fileName nome del file (con estensione .xml) da caricare
      */
-    public xmlReader(String fileName){
+    public xmlReader(String entityDir, String fileName){
         String fileDir = ParsePath.getPath(entityDir, fileName);
 
         //Creazione del oggetto che rappresenta il file (non interagisce con il sistema operativo)
@@ -142,7 +142,6 @@ public class xmlReader{
                 
                 item = new ItemStack(attribute.getNodeName(), Ivalues.type, Ivalues.weight, Ivalues.quantity, Ivalues.value, Ivalues.description);
                 defaultValues.add(item);
-                System.out.println(Ivalues.description);
             }
         }
 

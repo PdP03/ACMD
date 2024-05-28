@@ -5,14 +5,15 @@ import java.util.Vector;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.ACMD.app.Engine_Layer.MonsterValues;
+import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Engine_Layer.Entita.MType;
-import com.ACMD.app.Engine_Layer.Entita.MonsterValues;
-import com.ACMD.app.Engine_Layer.Entita.xmlReader;
 
 public class TestXMLreader {
     @Test
     public void XMLReader(){
-        xmlReader reader = new xmlReader("MonsterConfig.xml");
+        final String entityDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Entita\\";
+        xmlReader reader = new xmlReader(entityDir, "MonsterConfig.xml");
 
         Vector<MonsterValues> values = reader.getMonsterValues();
 

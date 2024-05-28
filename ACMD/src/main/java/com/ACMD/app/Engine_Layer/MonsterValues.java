@@ -1,4 +1,4 @@
-package com.ACMD.app.Engine_Layer.Entita;
+package com.ACMD.app.Engine_Layer;
 
 /**
  * Questa classe in realta è una struct serve solo a memorizzare i valori di un mostro

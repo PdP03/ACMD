@@ -1,3 +1,14 @@
+<!--
+  Per inserire un nuovo nodo è sufficente aggiungere una voce <position>x,y</position> nel tag node
+  dove x e y sono valori interi.
+
+  Per creare una nuova connessione tra due nodi del grafo bisogna inserire:
+  - position_start, nodo di partenza da dove parte il collegamento (i valory sono x,y come per position)
+  - position_end, nodo di arrivo (i valory sono x,y come per position)
+  - direction1, prima direzione
+  - direction2, seconda direzione
+-->
+
 <mappa>
   <node>
     <position>1,19</position>
@@ -7,7 +18,6 @@
     <position>17,2</position>
     <position>2,3</position>
   </node>
-
   
   <connessione>
     <position_start>1,19</position_start>

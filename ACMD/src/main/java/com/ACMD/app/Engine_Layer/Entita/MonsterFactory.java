@@ -3,7 +3,11 @@ package com.ACMD.app.Engine_Layer.Entita;
 import java.util.Random;
 import java.util.Vector;
 
+import com.ACMD.app.Engine_Layer.MonsterValues;
+import com.ACMD.app.Engine_Layer.xmlReader;
+
 public class MonsterFactory {
+    final String entityDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Entita\\";
     final String fileName = "MonsterConfig.xml";
     Random generator;
     Vector<MonsterValues> defaultValues;
@@ -13,7 +17,7 @@ public class MonsterFactory {
         generator = new Random(System.currentTimeMillis());
         types = MType.values();
 
-        xmlReader reader = new xmlReader(fileName);
+        xmlReader reader = new xmlReader(entityDir, fileName);
         defaultValues = reader.getMonsterValues();
     }
 

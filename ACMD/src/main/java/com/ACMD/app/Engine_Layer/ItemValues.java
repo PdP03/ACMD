@@ -1,4 +1,4 @@
-package com.ACMD.app.Engine_Layer.Entita;
+package com.ACMD.app.Engine_Layer;
 
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 
