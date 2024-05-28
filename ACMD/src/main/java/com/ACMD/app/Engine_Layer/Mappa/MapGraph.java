@@ -30,7 +30,6 @@ public class MapGraph {
      * @param path the path of the file
      */
     public MapGraph(String path){
-
             map = new SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge>(DefaultWeightedEdge.class); //Creazione di una mappa di nodi 
             directions = new Coordinates[4]; //{N,S,E;W} 
             nodes= new ArrayList<NODE>();
@@ -104,7 +103,7 @@ public class MapGraph {
                         }
                         
                     }
-                    file.close();
+                    //file.close();
                 }
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
@@ -113,23 +112,36 @@ public class MapGraph {
             } 
         }
     /**
-     * If Harry Potter had this, we didn't have the second movie.... 
-     *
+     * If Harry Potter had this, we would't have the second movie.... 
      */
     public void inizalizeChambers()
     {
         chambers = new ArrayList<Stanza>(); 
         
     } 
-    public Coordinates[] getDirections(){return directions; }
+    public Coordinates[] getDirections(Coordinates coord) throws NoSuchElementException{
+
+        for(NODE s:nodes)
+        {
+            System.out.println("s:" + s.getCoord().getX() +" " + s.getCoord().getY() + " coord vale " + coord.getX() + " " + coord.getY());
+            if(s.getCoord().getX() ==coord.getX() && s.getCoord().getY() == coord.getY() )
+            {
+               Coordinates[] a = new Coordinates[4]; 
+               a[0] = s.getNorth();
+               a[1] = s.getSouth();
+               a[2] = s.getEast();  
+               a[3] = s.getWest();
+               return a;   
+            }
+            
+        }
+        throw new NoSuchElementException("Non esiste un nodo con quelle coordinate"); 
+    }
     public SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge> getMap() {
         return map;
     }
     /**
-     * 
-     * @return All the nodes 
-     * 
-     * 
+     *  @return All the nodes 
      */
     public List<NODE> getNodes() {
         return nodes;
@@ -175,4 +187,10 @@ public class MapGraph {
     }
     public boolean isInChamber(Coordinates cord ){return true; }
         
+    public void printAllNodes(){
+        for(NODE s : nodes) System.out.println(s.getCoord());
+    }
+
+    
 }
+

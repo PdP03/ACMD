@@ -38,7 +38,6 @@ public class NODE{
      * @throws NoSuchElementException se il nodo non è presente
      */
     public Coordinates getNorth() throws NoSuchElementException{
-        if (north==null) throw new NoSuchElementException("Non è possibile dato che il nodo è nullo");
         return north;
     }
     /**
@@ -54,7 +53,7 @@ public class NODE{
      * @throws NoSuchElementException se il nodo non è presente
      */
     public Coordinates getSouth() throws NoSuchElementException{
-        if (south==null) throw new NoSuchElementException("Non è possibile dato che il nodo è nullo");
+     //   if (south==null) throw new NoSuchElementException("Non è possibile dato che il nodo è nullo");
         return south;
     }
     /**
@@ -70,7 +69,7 @@ public class NODE{
          * @throws NoSuchElementException se il nodo non è presente
          */
     public Coordinates getEast() throws NoSuchElementException {
-        if (east==null) throw new NoSuchElementException("Non è possibile dato che il nodo è nullo");
+      //  if (east==null) throw new NoSuchElementException("Non è possibile dato che il nodo è nullo");
         return east;
     }
     /**
@@ -86,7 +85,7 @@ public class NODE{
      * @throws NoSuchElementException se il nodo non è presente
      */
     public Coordinates getWest() throws NoSuchElementException{
-        if (west==null) throw new NoSuchElementException("Non è possibile dato che il nodo è nullo");
+       // if (west==null) throw new NoSuchElementException("Non è possibile dato che il nodo è nullo");
         return west;
     }
     /**
@@ -116,18 +115,19 @@ public class NODE{
     public Coordinates getDirection(DIRECTION direction) throws IOException, NoSuchElementException{
         switch (direction) {
          case NORTH:
-            if (north==null) throw new NoSuchElementException("North is null"); 
+            if (north==null){ System.out.println("North null"); throw new NoSuchElementException("North is null");} 
             return north;        
          case SOUTH: 
-         if (south==null) throw new NoSuchElementException("South is null"); 
+         if (south==null) {System.out.println("S null");throw new NoSuchElementException("South is null"); }
             return south; 
         case EAST: 
-        if (east==null) throw new NoSuchElementException("East is null"); 
+        if (east==null) { System.out.println("E null"); throw new NoSuchElementException("East is null");} 
         return east; 
         case WEST:
-        if (west==null) throw new NoSuchElementException("West is null"); 
+        if (west==null) {System.out.println("W null");throw new NoSuchElementException("West is null"); }
             return west; 
         default: 
+        System.out.println("Input non valido per getDirection (class Node)");
         throw new IOException("Input non valido"); 
         }
      }
