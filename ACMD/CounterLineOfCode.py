@@ -4,7 +4,7 @@ import os
 def countLines(dirpath, file):
     x = 0
     count = 0
-    with open(dirpath+"\\"+file) as file:
+    with open(dirpath+os.sep+file) as file:
         if(".java" in file.name):
             for count, line in enumerate(file):
                 pass
