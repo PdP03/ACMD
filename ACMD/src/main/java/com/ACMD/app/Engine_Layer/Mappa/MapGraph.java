@@ -16,6 +16,7 @@ import org.jgrapht.graph.*;
 //How about mettere statica nodes? 
 
 public class MapGraph {
+    public enum DIRECTION{NORTH, SOUTH, EAST, WEST}; 
     private SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge> map;
     private Coordinates[] directions;
     private List<NODE> nodes;
@@ -27,7 +28,7 @@ public class MapGraph {
 
             map = new SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge>(
             DefaultWeightedEdge.class); //Creazione di una mappa di nodi 
-            directions = new Coordinates[4]; //{N,S,E;W}
+            directions = new Coordinates[4]; //{N,S,E;W} 
             nodes= new ArrayList<NODE>();
             try {
                 FileReader f = new FileReader(path);
