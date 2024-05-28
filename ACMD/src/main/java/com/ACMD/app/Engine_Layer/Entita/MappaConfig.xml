@@ -1,0 +1,67 @@
+<mappa>
+  <node>
+    <position>1,19</position>
+    <position>8,13</position>
+    <position>16,18</position>
+    <position>2,11</position>
+    <position>17,2</position>
+    <position>2,3</position>
+  </node>
+
+  
+  <connessione>
+    <position_start>1,19</position_start>
+    <position_end>8,13</position_end>
+    <direction1>nord</direction1>
+    <direction2>sud</direction2>
+  </connessione>
+
+  <connessione>
+    <position_start>2,11</position_start>
+    <position_end>8,13</position_end>
+    <direction1>est</direction1>
+    <direction2>ovest</direction2>
+  </connessione>
+
+  <connessione>
+    <position_start>16,18</position_start>
+    <position_end>8,13</position_end>
+    <direction1>est</direction1>
+    <direction2>sud</direction2>
+  </connessione>
+
+  <connessione>
+    <position_start>17,2</position_start>
+    <position_end>8,13</position_end>
+    <direction1>sud</direction1>
+    <direction2>est</direction2>
+  </connessione>
+
+  <connessione>
+    <position_start>17,2</position_start>
+    <position_end>2,3</position_end>
+    <direction1>ovest</direction1>
+    <direction2>est</direction2>
+  </connessione>
+
+  <connessione>
+    <position_start>8,13</position_start>
+    <position_end>2,3</position_end>
+    <direction1>ovest</direction1>
+    <direction2>est</direction2>
+  </connessione>
+
+   <connessione>
+    <position_start>16,18</position_start>
+    <position_end>8,13</position_end>
+    <direction1>nord</direction1>
+    <direction2>sud</direction2>
+  </connessione>
+
+   <connessione>
+    <position_start>2,3</position_start>
+    <position_end>17,2</position_end>
+    <direction1>est</direction1>
+    <direction2>ovest</direction2>
+  </connessione>
+</mappa>

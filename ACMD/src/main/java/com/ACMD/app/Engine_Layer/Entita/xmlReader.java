@@ -6,6 +6,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document; 
 import org.w3c.dom.NodeList;
 import com.ACMD.app.Engine_Layer.ParsePath;
+import com.ACMD.app.Engine_Layer.Mappa.Direction;
+import com.ACMD.app.Engine_Layer.Mappa.NODE;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 
@@ -130,7 +132,7 @@ public class xmlReader{
         ItemStack item;
         ItemValues Ivalues = new ItemValues();
 
-        NodeList itemAttribute = docXml.getElementsByTagName("itemstack").item(0).getChildNodes(); //lista dei nodi mostri (mostro marino, armatura...)
+        NodeList itemAttribute = docXml.getElementsByTagName("itemstack").item(0).getChildNodes(); //lista dei nodi item (coltello, spada...)
 
         Node attribute;
         for(int j = 0; j < itemAttribute.getLength(); j++){
@@ -200,5 +202,127 @@ public class xmlReader{
         }
     }
 
-  
+    /* --------------------------------------------------------------------------------------------------------------
+     * |                                                                                                            |
+     * |                                         METODI PER MAPPA                                                   |
+     * |                                                                                                            |
+     * --------------------------------------------------------------------------------------------------------------
+     */
+
+
+    /**
+     * Metodo che legge il file di configurazione e restituisce una lista con i nodi della mappa
+     * @return defaultValues un ArrayList<Node> contenente tutti i nodi
+     */
+    public ArrayList<NODE> getAllNode(){
+        ArrayList<NODE> defaultValues = new ArrayList<NODE>();
+
+        NodeList cordList;
+        NodeList itemAttribute = docXml.getElementsByTagName("mappa").item(0).getChildNodes(); //lista dei nodi position
+        
+        Node attribute;
+        Node val;
+        for(int j = 0; j < itemAttribute.getLength(); j++){
+            attribute = itemAttribute.item(j);
+            
+            if(attribute.getNodeName() == "node"){
+                
+                cordList = attribute.getChildNodes();
+                
+                for(int i = 0; i < cordList.getLength(); i++)
+                {
+                    val = cordList.item(i);
+                    if(val.getNodeType() == Node.ELEMENT_NODE){
+                        defaultValues.add(getPosition((Element)val));
+                    }
+                }
+            }
+        }
+        return defaultValues;
+    }
+
+    /**
+     * Legge le cordinate (x, y) da un nodo element (<position>)
+     * @param node nodo in cui sono specificati i valori da leggere
+     * @return NODE posizione inizializzata
+     */
+    private static NODE getPosition(Node node){
+        String str;
+        String[] splitted;
+        // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
+        str = node.getTextContent();
+        splitted = str.split(",");
+
+        return new NODE(Integer.parseInt(splitted[0]), Integer.parseInt(splitted[1]));
+    }
+
+    /**
+     * Metodo che legge il file di configurazione e restituisce una lista con i nodi della mappa
+     * @return defaultValues un ArrayList<Node> contenente tutti i nodi
+     */
+    public ArrayList<ConnectionValues> getAllConnection(){
+        ArrayList<ConnectionValues> defaultValues = new ArrayList<ConnectionValues>();
+
+        NodeList itemAttribute = docXml.getElementsByTagName("mappa").item(0).getChildNodes(); //lista dei nodi position
+
+        Node attribute;
+        for(int j = 0; j < itemAttribute.getLength(); j++){
+            attribute = itemAttribute.item(j);
+            if(attribute.getNodeName() == "connessione"){
+                defaultValues.add(getConnectionValuesFrom((Element) attribute));
+            
+            }
+        }
+
+        return defaultValues;
+    }
+
+    /**
+     * Legge i valori di una connessione da un nodo di tipo element 
+     * @param eAttribute nodo in cui sono specificati i valori da leggere
+     * @return ConnectionValues struct contenente i valori
+     */
+    private static ConnectionValues getConnectionValuesFrom(Element eAttribute){
+        ConnectionValues cValues = new ConnectionValues();
+        String str;
+        String splitted[];
+
+        // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
+        str = eAttribute.getElementsByTagName("position_start").item(0).getTextContent();
+        splitted = str.split(",");
+        cValues.x = Integer.parseInt(splitted[0]);
+        cValues.y = Integer.parseInt(splitted[1]); 
+
+        str = eAttribute.getElementsByTagName("position_end").item(0).getTextContent();
+        splitted = str.split(",");
+        cValues.x2 = Integer.parseInt(splitted[0]);
+        cValues.y2 = Integer.parseInt(splitted[1]); 
+        cValues.direction1 = getDirectionBy(eAttribute.getElementsByTagName("direction1").item(0).getTextContent());
+        cValues.direction2 = getDirectionBy(eAttribute.getElementsByTagName("direction2").item(0).getTextContent());
+
+        return cValues;
+    }
+
+    /**
+     * Metodo di supporto per tradurre la direction(Stringa) in Direction(enum) . Se non ci sono
+     * corrispondenze alla ritorna null
+     * @param dir nome da controllare
+     * @return ItemType
+     */
+    private static Direction getDirectionBy(String dir){
+        //IMPORTANTE nei case il nome deve corrispondere a quello del file xml
+        switch(dir){
+            case "est":
+                return Direction.EAST;
+            case "ovest":
+                return Direction.WEST;
+            case "sud":
+                return Direction.SOUTH;
+            case "nord":
+                return Direction.NORTH;
+            default:
+                return null;
+        }
+    }
+
 }
