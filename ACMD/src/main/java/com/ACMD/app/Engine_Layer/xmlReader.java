@@ -257,7 +257,7 @@ public class xmlReader{
 
     /**
      * Metodo che legge il file di configurazione e restituisce una lista con i nodi della mappa
-     * @return defaultValues un ArrayList<Node> contenente tutti i nodi
+     * @return defaultValues un ArrayList<ConnectionValues> contenente tutti i valori delle connessioni
      */
     public ArrayList<ConnectionValues> getAllConnection(){
         ArrayList<ConnectionValues> defaultValues = new ArrayList<ConnectionValues>();
@@ -305,8 +305,8 @@ public class xmlReader{
     /**
      * Metodo di supporto per tradurre la direction(Stringa) in Direction(enum) . Se non ci sono
      * corrispondenze alla ritorna null
-     * @param dir nome da controllare
-     * @return ItemType
+     * @param dir direzione da controllare
+     * @return Direction
      */
     private static Direction getDirectionBy(String dir){
         //IMPORTANTE nei case il nome deve corrispondere a quello del file xml
