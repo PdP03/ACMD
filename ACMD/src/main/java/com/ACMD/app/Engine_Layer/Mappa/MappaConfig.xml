@@ -1,12 +1,16 @@
 <!--
-  Per inserire un nuovo nodo è sufficente aggiungere una voce <position>x,y</position> nel tag node
-  dove x e y sono valori interi.
+  Per inserire un nuovo nodo bisogna specificare i campi obbligatori:
+  - <position>...</position>
+  - <isRoom>...</isRoom>
+  - <path_image>...</path_image>
+  Mentre se omessi i tag nord, sud, est, ovest per default sono null
+  
 
-  Per creare una nuova connessione tra due nodi del grafo bisogna inserire:
-  - position_start, nodo di partenza da dove parte il collegamento (i valory sono x,y come per position)
-  - position_end, nodo di arrivo (i valory sono x,y come per position)
-  - direction1, prima direzione
-  - direction2, seconda direzione
+  Per inserire una nuova stanza bisogna specificare i campi obbligatori:
+  - <mtype></mtype>
+  - <positionPlayer>20,20</positionPlayer>
+  
+  NB: i tag position e positionPlayer hanno formato x,y (es. 1,2 -> cord. x = 1, cord. y = 2)
 -->
 
 <mappa>
