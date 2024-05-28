@@ -17,6 +17,7 @@ public class Stanza
     public Chest getChest(){return chest;}
     public void setCoordinates(Coordinates c){this.coord=c;}
     public Coordinates getCoordinates(){return coord;}
+    public Monster getMonster(){return monster;}
     public void setImagePath(String s){imagePath=s;}
     /**
      * Costruttore con tutti i parametri 

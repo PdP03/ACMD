@@ -1,7 +1,9 @@
 package com.ACMD.app.Engine_Layer.Mappa;
 
+import java.io.IOException;
 import java.util.NoSuchElementException;
 
+import com.ACMD.app.Engine_Layer.Mappa.MapGraph.DIRECTION;
 import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
 
 /**
@@ -105,4 +107,29 @@ public class NODE{
         if(east!=null) System.out.println("Est: "+getEast().toString());
         if(west!=null) System.out.println("Ovest: "+getWest().toString());
     }
+    /**
+     * 
+     * @param direction The direction
+     * @return the node at the direction 
+     * @throws IOException thrown if direction is not N/S/E/W/O O stands for "Ovest"
+     */
+    public Coordinates getDirection(DIRECTION direction) throws IOException, NoSuchElementException{
+        switch (direction) {
+         case NORTH:
+            if (north==null) throw new NoSuchElementException("North is null"); 
+            return north;        
+         case SOUTH: 
+         if (south==null) throw new NoSuchElementException("South is null"); 
+            return south; 
+        case EAST: 
+        if (east==null) throw new NoSuchElementException("East is null"); 
+        return east; 
+        case WEST:
+        if (west==null) throw new NoSuchElementException("West is null"); 
+            return west; 
+        default: 
+        throw new IOException("Input non valido"); 
+        }
+     }
+     
 }

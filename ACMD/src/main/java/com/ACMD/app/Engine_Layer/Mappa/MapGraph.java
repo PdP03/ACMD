@@ -6,9 +6,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import org.jgrapht.graph.*;
+
+import com.ACMD.app.Engine_Layer.Entita.Monster;
+import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 
 
 
@@ -20,14 +24,14 @@ public class MapGraph {
     private SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge> map;
     private Coordinates[] directions;
     private List<NODE> nodes;
+    private ArrayList<Stanza> chambers;
     /**
      * Initialize the graph "map" based on the informations of the given file 
      * @param path the path of the file
      */
     public MapGraph(String path){
 
-            map = new SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge>(
-            DefaultWeightedEdge.class); //Creazione di una mappa di nodi 
+            map = new SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge>(DefaultWeightedEdge.class); //Creazione di una mappa di nodi 
             directions = new Coordinates[4]; //{N,S,E;W} 
             nodes= new ArrayList<NODE>();
             try {
@@ -114,6 +118,8 @@ public class MapGraph {
      */
     public void inizalizeChambers()
     {
+        chambers = new ArrayList<Stanza>(); 
+        
     } 
     public Coordinates[] getDirections(){return directions; }
     public SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge> getMap() {
@@ -122,6 +128,8 @@ public class MapGraph {
     /**
      * 
      * @return All the nodes 
+     * 
+     * 
      */
     public List<NODE> getNodes() {
         return nodes;
@@ -135,7 +143,36 @@ public class MapGraph {
     public void setNodes(List<NODE> nodes) {
         this.nodes = nodes;
     }
-    
+   
 
+    public boolean isValidDirectionTo(Coordinates c, DIRECTION dir) throws IOException
+     {
+        for(NODE s:nodes)
+        {
+            if(s.getCoord().getX() ==c.getX() && s.getCoord().getY() == c.getY() )
+            {
+                try{if(s.getDirection(dir) == null) return false; else{return true;}
+                   }catch(IOException e ){throw new IOException("Input non valido");}
+                   catch(NoSuchElementException e){return false;}
+            }
+        }
+        return false; 
+     }
+
+    public Monster getMonsterAt(Coordinates cord){
+            for(Stanza s:chambers)
+            {
+                if(s.getCoordinates() == cord ) return s.getMonster();
+            }
+            return null;
+    }
+    public Chest getChestAt(Coordinates cord){
+        for(Stanza s:chambers)
+        {
+            if(s.getCoordinates() == cord ) return s.getChest();
+        }
+        return null;
+    }
+    public boolean isInChamber(Coordinates cord ){return true; }
         
 }
