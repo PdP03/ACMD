@@ -7,6 +7,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 import com.ACMD.app.Engine_Layer.Entita.MType;
+import com.ACMD.app.Engine_Layer.Mappa.Coordinates;
 import com.ACMD.app.Engine_Layer.Mappa.Direction;
 import com.ACMD.app.Engine_Layer.Mappa.NODE;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
@@ -27,13 +28,9 @@ public class xmlReader{
      */
     public xmlReader(String entityDir, String fileName){
         String fileDir = ParsePath.getPath(entityDir, fileName);
-       // System.out.println();
-        //System.out.println(fileDir);
-        //Creazione del oggetto che rappresenta il file (non interagisce con il sistema operativo)
-        String myPath = "C:\\Users\\Matteo\\Desktop\\Test git\\ACMD\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Mappa\\MappaConfig.xml";
-        // System.out.println(myPath);
-        File xml = new File(fileDir); 
 
+        //Creazione del oggetto che rappresenta il file (non interagisce con il sistema operativo)
+        File xml = new File(fileDir);
 
         //inizializzazione del parser e lettura del file xml
         try{
@@ -215,65 +212,105 @@ public class xmlReader{
 
     /**
      * Metodo che legge il file di configurazione e restituisce una lista con i nodi della mappa
-     * @return defaultValues un ArrayList<Node> contenente tutti i nodi
+     * @return defaultValues un ArrayList<NODE> contenente tutti i nodi
      */
     public ArrayList<NODE> getAllNode(){
         ArrayList<NODE> defaultValues = new ArrayList<NODE>();
-
-        NodeList cordList;
         NodeList itemAttribute = docXml.getElementsByTagName("mappa").item(0).getChildNodes(); //lista dei nodi position
         
         Node attribute;
-        Node val;
         for(int j = 0; j < itemAttribute.getLength(); j++){
             attribute = itemAttribute.item(j);
-            
-            if(attribute.getNodeName() == "node"){
-                
-                cordList = attribute.getChildNodes();
-                
-                for(int i = 0; i < cordList.getLength(); i++)
-                {
-                    val = cordList.item(i);
-                    if(val.getNodeType() == Node.ELEMENT_NODE){
-                        defaultValues.add(getPosition((Element)val));
-                    }
-                }
+            if(attribute.getNodeType() == Node.ELEMENT_NODE && attribute.getNodeName() == "node"){
+                defaultValues.add(getNODEFrom((Element) attribute));
             }
         }
+        
+        
         return defaultValues;
     }
 
     /**
-     * Legge le cordinate (x, y) da un nodo element (<position>)
-     * @param node nodo in cui sono specificati i valori da leggere
-     * @return NODE posizione inizializzata
+     * Legge i valori di un NODO da un nodo di tipo element 
+     * @param eAttribute nodo in cui sono specificati i valori da leggere
+     * @return NODE nodo inizializzato
      */
-    private static NODE getPosition(Node node){
-        String str;
-        String[] splitted;
+    private static NODE getNODEFrom(Element eAttribute){
+        NODE node;
+        Node item;
+       
         // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
-        str = node.getTextContent();
-        splitted = str.split(",");
+        //TAG POSITION
+        Coordinates c = getCord(eAttribute.getElementsByTagName("position").item(0).getTextContent());
+        node = new NODE(c.getX(), c.getY());
 
-        return new NODE(Integer.parseInt(splitted[0]), Integer.parseInt(splitted[1]));
+        //TAG NORD
+        item = eAttribute.getElementsByTagName("nord").item(0);
+        if(item != null){
+            node.setNorth(getCord(item.getTextContent()));
+        }
+        else{
+            node.setNorth(null);
+        }
+
+        //TAG SUD
+        item = eAttribute.getElementsByTagName("sud").item(0);
+        if(item != null){
+            node.setSouth(getCord(item.getTextContent()));
+        }
+        else{
+            node.setSouth(null);
+        }
+
+        //TAG EST
+        item = eAttribute.getElementsByTagName("est").item(0);
+        if(item != null){
+            node.setEast(getCord(item.getTextContent()));
+        }
+        else{
+            node.setEast(null);
+        }
+
+        //TAG OVEST
+        item = eAttribute.getElementsByTagName("ovest").item(0);
+        if(item != null){
+            node.setWest(getCord(item.getTextContent()));
+        }
+        else{
+            node.setWest(null);
+        }
+
+        node.setPathImage(eAttribute.getElementsByTagName("path_image").item(0).getTextContent());
+        node.setIsRoom(Boolean.parseBoolean(eAttribute.getElementsByTagName("isRoom").item(0).getTextContent()));
+        
+        return node;
     }
 
     /**
-     * Metodo che legge il file di configurazione e restituisce una lista con i nodi della mappa
-     * @return defaultValues un ArrayList<ConnectionValues> contenente tutti i valori delle connessioni
+     * ottiene le cordinate x,y da una stringa con il formato: "x,y" (es. "1,2")
+     * @param str
      */
-    public ArrayList<ConnectionValues> getAllConnection(){
-        ArrayList<ConnectionValues> defaultValues = new ArrayList<ConnectionValues>();
+    private static Coordinates getCord(String str){
+        String[] splitted;
+
+        splitted = str.split(",");
+        return new Coordinates(Integer.parseInt(splitted[0]), Integer.parseInt(splitted[1]));
+    }
+
+    /**
+     * Metodo che legge il file di configurazione e restituisce una lista con i valori delle stanze
+     * @return defaultValues un ArrayList<RoomValues> contenente tutti i valori delle stanze
+     */
+    public ArrayList<RoomValues> getAllRoom(){
+        ArrayList<RoomValues> defaultValues = new ArrayList<RoomValues>();
 
         NodeList itemAttribute = docXml.getElementsByTagName("mappa").item(0).getChildNodes(); //lista dei nodi position
-
+        
         Node attribute;
         for(int j = 0; j < itemAttribute.getLength(); j++){
             attribute = itemAttribute.item(j);
-            if(attribute.getNodeName() == "connessione"){
-                defaultValues.add(getConnectionValuesFrom((Element) attribute));
-            
+            if(attribute.getNodeType() == Node.ELEMENT_NODE && attribute.getNodeName() == "room"){
+                defaultValues.add(getRoomValuesFrom((Element) attribute));
             }
         }
 
@@ -281,51 +318,21 @@ public class xmlReader{
     }
 
     /**
-     * Legge i valori di una connessione da un nodo di tipo element 
+     * Legge i valori di una stanza da un nodo di tipo element 
      * @param eAttribute nodo in cui sono specificati i valori da leggere
-     * @return ConnectionValues struct contenente i valori
+     * @return RoomValues struct contenente i valori
      */
-    private static ConnectionValues getConnectionValuesFrom(Element eAttribute){
-        ConnectionValues cValues = new ConnectionValues();
-        String str;
-        String splitted[];
+    private static RoomValues getRoomValuesFrom(Element eAttribute){
+        RoomValues rValues = new RoomValues();
 
         // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
-        str = eAttribute.getElementsByTagName("position_start").item(0).getTextContent();
-        splitted = str.split(",");
-        cValues.x = Integer.parseInt(splitted[0]);
-        cValues.y = Integer.parseInt(splitted[1]); 
+        rValues.mtype = MType.valueOf(eAttribute.getElementsByTagName("mtype").item(0).getTextContent());
+        
+        Coordinates c = getCord(eAttribute.getElementsByTagName("positionPlayer").item(0).getTextContent());
+        rValues.x = c.getX();
+        rValues.y = c.getY();
 
-        str = eAttribute.getElementsByTagName("position_end").item(0).getTextContent();
-        splitted = str.split(",");
-        cValues.x2 = Integer.parseInt(splitted[0]);
-        cValues.y2 = Integer.parseInt(splitted[1]); 
-        cValues.direction1 = getDirectionBy(eAttribute.getElementsByTagName("direction1").item(0).getTextContent());
-        cValues.direction2 = getDirectionBy(eAttribute.getElementsByTagName("direction2").item(0).getTextContent());
-
-        return cValues;
-    }
-
-    /**
-     * Metodo di supporto per tradurre la direction(Stringa) in Direction(enum) . Se non ci sono
-     * corrispondenze alla ritorna null
-     * @param dir direzione da controllare
-     * @return Direction
-     */
-    private static Direction getDirectionBy(String dir){
-        //IMPORTANTE nei case il nome deve corrispondere a quello del file xml
-        switch(dir){
-            case "est":
-                return Direction.EAST;
-            case "ovest":
-                return Direction.WEST;
-            case "sud":
-                return Direction.SOUTH;
-            case "nord":
-                return Direction.NORTH;
-            default:
-                return null;
-        }
+        return rValues;
     }
 
 }

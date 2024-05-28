@@ -13,7 +13,9 @@ import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
 public class NODE{
     private Coordinates coord, north=null, south=null, east=null, west=null;
     private Stanza s; //Stanza associata al nodo
-    public NODE(int x,int y){this.coord = new Coordinates(x,y); }
+    private String pathImg;
+    private boolean isRoom;
+    public NODE(int x,int y){this.coord = new Coordinates(x,y); pathImg = ""; isRoom = false;}
 
     public Coordinates getCoord() {
         return coord;
@@ -32,6 +34,23 @@ public class NODE{
     public void setCoord(Coordinates coord) {
         this.coord = coord;
     }
+
+    public void setPathImage(String s) {
+        pathImg = s;
+    }
+
+    public void setIsRoom(boolean b) {
+        isRoom = b;
+    }
+
+    public boolean isRoom(){
+        return isRoom;
+    }
+
+    public String getPathImage(){
+        return pathImg;
+    }
+
     /**
      * 
      * @return Il nodo a nord rispetto a quello considerato 
