@@ -1,7 +1,5 @@
 package com.ACMD.app.Engine_Layer.Mappa;
 
-
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +9,7 @@ import java.util.Scanner;
 
 import org.jgrapht.graph.*;
 
+import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Engine_Layer.Entita.Monster;
 import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 
@@ -25,6 +24,26 @@ public class MapGraph {
     private Coordinates[] directions;
     private List<NODE> nodes;
     private ArrayList<Stanza> chambers;
+    private ArrayList<Coordinates> playerRoute; 
+    
+
+    public MapGraph()
+    {
+        
+        final String entityDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Mappa\\";
+        xmlReader reader = new xmlReader(entityDir, "MappaConfig.xml");
+
+        ArrayList<NODE> nodes = reader.getAllNode();
+        Coordinates cord;
+        for(NODE n: nodes){
+            cord = n.getCoord();
+            System.out.println("X: "+cord.getX()+" Y:"+cord.getY());}
+
+    }
+
+
+
+
     /**
      * Initialize the graph "map" based on the informations of the given file 
      * @param path the path of the file

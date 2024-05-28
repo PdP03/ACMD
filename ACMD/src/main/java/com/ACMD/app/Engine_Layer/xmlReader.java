@@ -27,9 +27,13 @@ public class xmlReader{
      */
     public xmlReader(String entityDir, String fileName){
         String fileDir = ParsePath.getPath(entityDir, fileName);
-
+       // System.out.println();
+        //System.out.println(fileDir);
         //Creazione del oggetto che rappresenta il file (non interagisce con il sistema operativo)
-        File xml = new File(fileDir);
+        String myPath = "C:\\Users\\Matteo\\Desktop\\Test git\\ACMD\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Mappa\\MappaConfig.xml";
+        // System.out.println(myPath);
+        File xml = new File(fileDir); 
+
 
         //inizializzazione del parser e lettura del file xml
         try{

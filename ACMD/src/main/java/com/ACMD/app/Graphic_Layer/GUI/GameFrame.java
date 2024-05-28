@@ -8,7 +8,7 @@ import java.awt.Image;
 import java.awt.event.*;
 import javax.swing.*;
 
-import org.jgrapht.alg.drawing.CircularLayoutAlgorithm2D;
+import com.ACMD.app.Engine_Layer.ParsePath;
 
 
 public class GameFrame extends javax.swing.JFrame implements Frame {
@@ -17,13 +17,17 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     
     Color backGround = new Color(150,150,150);
     Color lightBackground = new Color(204, 204, 204);
+    ParsePath pathParser=new ParsePath();
+    final String imageDirPath = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Graphic_Layer\\Images\\";
 
-    String mapIconPath="C:\\Users\\Matteo\\Desktop\\Prova mappa\\Mappa_Definitiva.png";
-    String playerIcon = "C:\\Users\\Matteo\\Desktop\\Prova mappa\\PersonIcon.jpg";
-    String keyIcon = "C:\\Users\\Matteo\\Desktop\\Prova mappa\\Key2.jpg";
-    String musicIcon = "C:\\Users\\Matteo\\Desktop\\Prova mappa\\BackgroundMusic.jpg";
+    
+    String mapIconPath = pathParser.getPath(imageDirPath, "Mappa_Definitiva.png");
+    String playerIcon  = pathParser.getPath(imageDirPath,"PersonIcon.jpg");
+    String keyIcon     = pathParser.getPath(imageDirPath,"Key.jpg");
+    String musicIcon   = pathParser.getPath(imageDirPath,"BackgroundMusic.jpg");
     /**
-     * Costruttore che genera il gameFrame
+     * Costruttore che genera il gameFrame, ne setta il background 
+     * 
      */
     public GameFrame() {
                     this.getContentPane().setBackground(backGround);

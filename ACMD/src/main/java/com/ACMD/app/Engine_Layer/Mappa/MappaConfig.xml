@@ -74,4 +74,10 @@
     <direction1>est</direction1>
     <direction2>ovest</direction2>
   </connessione>
+
+  <stanza>
+  <imagePath> pippo </imagePath>
+  <monster> mostro </monster>
+  <position> 2,3 </position>
+  </stanza>
 </mappa>

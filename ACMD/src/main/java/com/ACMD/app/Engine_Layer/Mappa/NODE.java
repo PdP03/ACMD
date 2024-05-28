@@ -127,7 +127,6 @@ public class NODE{
         if (west==null) {System.out.println("W null");throw new NoSuchElementException("West is null"); }
             return west; 
         default: 
-        System.out.println("Input non valido per getDirection (class Node)");
         throw new IOException("Input non valido"); 
         }
      }
