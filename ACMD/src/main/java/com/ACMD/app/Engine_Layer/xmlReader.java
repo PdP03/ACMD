@@ -327,11 +327,11 @@ public class xmlReader{
 
         // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
         rValues.mtype = MType.valueOf(eAttribute.getElementsByTagName("mtype").item(0).getTextContent());
-        
         Coordinates c = getCord(eAttribute.getElementsByTagName("positionPlayer").item(0).getTextContent());
         rValues.x = c.getX();
         rValues.y = c.getY();
-
+        rValues.path =eAttribute.getElementsByTagName("path_image").item(0).getTextContent();
+        rValues.isRoom=true;
         return rValues;
     }
 

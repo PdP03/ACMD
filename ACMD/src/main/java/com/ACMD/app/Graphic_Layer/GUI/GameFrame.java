@@ -9,6 +9,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import com.ACMD.app.Engine_Layer.ParsePath;
+import com.ACMD.app.Engine_Layer.Mappa.Coordinates;
+import com.ACMD.app.Engine_Layer.Mappa.MapGraph;
 
 
 public class GameFrame extends javax.swing.JFrame implements Frame {
@@ -24,7 +26,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     String mapIconPath = pathParser.getPath(imageDirPath, "Mappa_Definitiva.png");
     String playerIcon  = pathParser.getPath(imageDirPath,"PersonIcon.jpg");
     String keyIcon     = pathParser.getPath(imageDirPath,"Key.jpg");
-    String musicIcon   = pathParser.getPath(imageDirPath,"BackgroundMusic.jpg");
+    String musicIcon   = pathParser.getPath(imageDirPath,"Music.png");
     /**
      * Costruttore che genera il gameFrame, ne setta il background 
      * 
@@ -33,7 +35,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                     this.getContentPane().setBackground(backGround);
                     initComponents(); // Crea la finestra vuota, senza aggiugnere la mappa          
                     addMapPicture(mapIconPath); // Aggiunge l'immagine (grafica)
-                    addPlayerPosition(19,1,playerIcon); 
+                    addPlayerPosition(1,19,playerIcon); 
     }
                       
     
@@ -134,21 +136,27 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      */
     public void move (int x,int y) throws IllegalArgumentException
         {
+            try{String path = MapGraph.getIconOf(new Coordinates(x,y)); 
+                path=pathParser.getPath(imageDirPath,path);
+                System.out.println("Path è :" + path);
 
+                jLabelMap.setIcon(new ImageIcon(path)); System.out.println(path); }
+                
+                catch(Exception e ){System.out.println("Elemento non trovato");} 
         if(x <0 || x>19 || y<0 || y>19 ) throw new IllegalArgumentException("either x or y values not between 0-19 ");
-
+        
         jInternalFrame1.remove(jLabelMap);
         jLabelMap=new JLabel("");
         jLabelMap.setSize(jInternalFrame1.getSize());
+        jLabelMap.setIcon(new ImageIcon("C:\\Users\\Matteo\\Desktop\\Test git\\ACMD\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Graphic_Layer\\Images\\Mappa_Definitiva.png"));
         jLabelMap.setLayout(new GridLayout(20,20));
-        jLabelMap.setIcon(new ImageIcon(mapIconPath));
         jButtonPlayer.setEnabled(false);    
         
 
             int i=0; int ii=0;
             for( i=0; i<20; i++){
                 for( ii=0; ii<20; ii++){
-                    if(i== x&& ii==y){jLabelMap.add(jButtonPlayer);}
+                    if(ii== x&& i==y){jLabelMap.add(jButtonPlayer);}
                     else{
                         JLabel l=new JLabel(" ");
                     l.setForeground(Color.RED);
@@ -172,6 +180,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         */
         private void addPlayerPosition(int x, int y, String PlayerImage) {
 
+
            // ImageIcon imageIcon = new ImageIcon("C:\\Users\\Matteo\\Desktop\\Prova mappa\\PersonIcon.jpg"); // load the image to a imageIcon
             // Image image = imageIcon.getImage(); // transform it 
             // Image newimg = image.getScaledInstance(25, 25,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
@@ -191,7 +200,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          * @param path the path of the picture
          */
         private void addMapPicture(String path) {
-            // TODO Auto-generated method stub
+            
             jInternalFrame1.getContentPane().setLayout(new BorderLayout());
             jInternalFrame1.setSize(500,500);
             //jButtonPlayer.setForeground(new java.awt.Color(255, 255, 255));
@@ -244,7 +253,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
 
 
 
-
+ 
 
 
 
@@ -381,7 +390,10 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
        key.setOpaque(false);
        add(key);
 
-      CircleButton JButtonMusic=new CircleButton("");
+       JButton JButtonMusic=new JButton("");
+       //JButtonMusic.setContentAreaFilled(false);
+       JButtonMusic.setFocusPainted(false);
+       JButtonMusic.setBorderPainted(false);
        JButtonMusic.setSize(120,70);
        imageIcon2 = new ImageIcon(musicIcon); // load the image to a imageIcon
        

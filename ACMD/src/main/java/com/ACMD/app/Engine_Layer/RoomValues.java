@@ -8,4 +8,8 @@ import com.ACMD.app.Engine_Layer.Entita.MType;
 public class RoomValues {
     public MType mtype;
     public int x, y;
+    public int posx,posy; 
+    public String path; 
+    public boolean isRoom;
+
 }

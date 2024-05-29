@@ -15,18 +15,85 @@
 
 <mappa>
   <node>
-    <position>0,0</position>
-    <nord>1,1</nord>
-    <sud>2,2</sud>
-    <est>3,3</est>
-    <ovest>4,4</ovest>
-    <isRoom>true</isRoom>
-    <path_image>dir1/dir2/file</path_image>
+    <position>1,19</position>
+    <nord>8,13</nord>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Definitiva.png</path_image>
   </node>
 
+  <node>
+    <position>8,13</position>
+    <nord>7,7</nord>
+    <est>17,2</est>
+    <ovest>2,11</ovest>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Definitiva.png</path_image>
+  </node>
+
+  <node>
+    <position>7,7</position>
+    <est>8,7</est>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Definitiva.png</path_image>
+  </node>
+
+  <node>
+    <position>17,2</position>
+    <nord>17,1</nord>
+    <sud>8,13</sud>
+    <ovest>4,4</ovest>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Definitiva.png</path_image>
+  </node>
+
+  <node>
+    <position>4,4</position>
+    <est>17,2</est>
+    <ovest>2,4</ovest>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Definitiva.png</path_image>
+  </node>
+
+  <node>
+    <position>2,11</position>
+    <est>8,13</est>
+    <ovest>1,11</ovest>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Definitiva.png</path_image>
+  </node>
+
+
+
+
   <room>
+    <position>8,7</position>
     <mtype>MOSTRO_MARINO</mtype>
-    <positionPlayer>20,20</positionPlayer>
+    <positionPlayer>3,8</positionPlayer>
+    <path_image>SeaMap.png</path_image>
+    <isRoom>true</isRoom>
+  </room>
+
+  <room>
+    <position>1,11</position>
+    <mtype>COBOLDO</mtype>
+    <positionPlayer>2,11</positionPlayer>
+    <path_image>Mappa_Kobold.png</path_image>
+    <isRoom>true</isRoom>
+  </room>
+  <room>
+    <position>17,1</position>
+    <mtype>MAGO_OSCURO</mtype>
+    <positionPlayer>8,8</positionPlayer>
+    <path_image>Mappa_Elfo.png</path_image>
+    <isRoom>true</isRoom>
+  </room>
+
+  <room>
+    <position>2,4</position>
+    <mtype>ARMATURA</mtype>
+    <positionPlayer>10,8</positionPlayer>
+    <path_image>ArmorMap.png</path_image>
+    <isRoom>true</isRoom>
   </room>
 
 </mappa>

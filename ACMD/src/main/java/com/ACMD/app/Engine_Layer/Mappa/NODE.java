@@ -11,12 +11,27 @@ import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
  * Nel momento in cui si usano i relativi getter e setter sono invece settati (ovviamente)
  */
 public class NODE{
-    private Coordinates coord, north=null, south=null, east=null, west=null;
-    private Stanza s; //Stanza associata al nodo
-    private String pathImg;
-    private boolean isRoom;
+    protected Coordinates coord, north=null, south=null, east=null, west=null;
+    protected String pathImg;
+    protected boolean isRoom;
+    /**
+     * Costruttore che definisce un nodo, pathImage è definito vuoto e isRoom è falso 
+     * @param x la componente x
+     * @param y la componente y
+     */
     public NODE(int x,int y){this.coord = new Coordinates(x,y); pathImg = ""; isRoom = false;}
-
+    /**
+     * Costruttore vuoto
+     */
+    public NODE(){}
+    /**
+     * Costruttore con tutti i parametri
+     * @param x la x [0,19]
+     * @param y la y [0.19]
+     * @param pathImg Il nome del file immagine partendo dalla cartella "Images" presente in Graphic_Layer
+     * @param isRoom Se è una stanza 
+     */
+    public NODE(int x, int y, String pathImg, boolean isRoom){this.coord = new Coordinates(x,y); this.pathImg =pathImg ; this.isRoom = isRoom;}
     public Coordinates getCoord() {
         return coord;
     }

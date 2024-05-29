@@ -69,20 +69,8 @@ public class TestFrame{
         });
         */
      //   new MyTree();
-     
+      MapGraph m2= new MapGraph();
       new GameFrame().setVisible(true); 
-     
-
-        
-       // MapGraph m = new MapGraph("C:\\Users\\Matteo\\Desktop\\Prova mappa\\Map.txt"); 
-        MapGraph m2= new MapGraph();  
-        //m.printAllNodes();
-        try {
-            Coordinates[] a = new Coordinates[4];
-         //   a=m.getDirections(new Coordinates(8,13));
-          //  System.out.println(a[0]+" "+a[1]+ " "+a[2]+" "+a[3]);
-            }
-        catch(NoSuchElementException e ){System.out.println("NoSUCH");}; 
         }   
 
 }

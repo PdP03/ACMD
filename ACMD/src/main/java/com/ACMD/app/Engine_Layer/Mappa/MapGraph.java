@@ -9,35 +9,50 @@ import java.util.Scanner;
 
 import org.jgrapht.graph.*;
 
+import com.ACMD.app.Engine_Layer.RoomValues;
 import com.ACMD.app.Engine_Layer.xmlReader;
+import com.ACMD.app.Engine_Layer.Entita.MType;
 import com.ACMD.app.Engine_Layer.Entita.Monster;
 import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 
-
-
-
-//How about mettere statica nodes? 
 
 public class MapGraph {
     public enum DIRECTION{NORTH, SOUTH, EAST, WEST}; 
     private SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge> map;
     private Coordinates[] directions;
-    private List<NODE> nodes;
+    private static ArrayList<NODE> nodes;
     private ArrayList<Stanza> chambers;
     private ArrayList<Coordinates> playerRoute; 
-    
+    private Coordinates PlayerPosition =new Coordinates(1,19); //default player postion  
 
+    /**
+     * Costruttore che prende direttamente l'xml
+     */
     public MapGraph()
     {
         
         final String entityDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Mappa\\";
         xmlReader reader = new xmlReader(entityDir, "MappaConfig.xml");
 
-        ArrayList<NODE> nodes = reader.getAllNode();
+        nodes = reader.getAllNode();
+        ArrayList<RoomValues> rooms = reader.getAllRoom(); 
         Coordinates cord;
+
+        //Aggiunta NODI
         for(NODE n: nodes){
             cord = n.getCoord();
-            System.out.println("X: "+cord.getX()+" Y:"+cord.getY());}
+        }
+        //Aggiunta STANZE
+        for(RoomValues r:rooms)
+        {
+            nodes.add(new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), r.mtype, r.path  )); //Coordinate, 
+        }
+        for(NODE n:nodes){
+            System.out.println(n.getCoord()+" e' il nodo considerato ");
+            n.printAllDirection();
+            System.out.println("\n\n");
+        }
+        System.out.println("Infatti qui ho "+ nodes.size());
 
     }
 
@@ -129,15 +144,7 @@ public class MapGraph {
                 System.out.println("File non trovato oppure non sono presenti i dati nel formato corretto.");
 
             } 
-        }
-    /**
-     * If Harry Potter had this, we would't have the second movie.... 
-     */
-    public void inizalizeChambers()
-    {
-        chambers = new ArrayList<Stanza>(); 
-        
-    } 
+        } 
     public Coordinates[] getDirections(Coordinates coord) throws NoSuchElementException{
 
         for(NODE s:nodes)
@@ -171,7 +178,7 @@ public class MapGraph {
     public void setDirections(Coordinates[] directions) {
         this.directions = directions;
     }
-    public void setNodes(List<NODE> nodes) {
+    public void setNodes(ArrayList<NODE> nodes) {
         this.nodes = nodes;
     }
    
@@ -190,7 +197,7 @@ public class MapGraph {
         return false; 
      }
 
-    public Monster getMonsterAt(Coordinates cord){
+    public MType getMonsterAt(Coordinates cord){
             for(Stanza s:chambers)
             {
                 if(s.getCoordinates() == cord ) return s.getMonster();
@@ -208,6 +215,18 @@ public class MapGraph {
         
     public void printAllNodes(){
         for(NODE s : nodes) System.out.println(s.getCoord());
+    }
+
+    public static String getIconOf(Coordinates coord) throws NoSuchElementException
+    {
+        System.out.println(coord);
+        System.out.println(nodes.size());
+        for(NODE s : nodes)
+        {
+            System.out.println(s.getCoord().getX() + " "+ s.getCoord().getY());
+            if(s.getCoord().getX() == coord.getX() && s.getCoord().getY() == coord.getY() ) return s.getPathImage();
+        }
+        throw new NoSuchElementException("Elemento non trovato");
     }
 
     
