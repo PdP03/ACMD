@@ -76,41 +76,50 @@ public class xmlReader{
      */
     private static MonsterValues getMonsterValuesFrom(Element eAttribute){
         MonsterValues mValues = new MonsterValues();
+        Node n;
 
         // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
-        mValues.healthMul = Byte.parseByte(eAttribute.getElementsByTagName("health_multiplier").item(0).getTextContent());
-        mValues.damageMul = Byte.parseByte(eAttribute.getElementsByTagName("damage_multiplier").item(0).getTextContent());
-        mValues.armorMul = Byte.parseByte(eAttribute.getElementsByTagName("armor_multiplier").item(0).getTextContent());
-        mValues.level = Byte.parseByte(eAttribute.getElementsByTagName("base_level").item(0).getTextContent());
-        mValues.health = Byte.parseByte(eAttribute.getElementsByTagName("base_health").item(0).getTextContent());
-        mValues.armor = Byte.parseByte(eAttribute.getElementsByTagName("base_armor").item(0).getTextContent());
-        mValues.damage = Byte.parseByte(eAttribute.getElementsByTagName("base_damage").item(0).getTextContent());
+        n = eAttribute.getElementsByTagName("health_multiplier").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <health_multiplier>");
+        mValues.healthMul = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("damage_multiplier").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <damage_multiplier>");
+        mValues.damageMul = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("armor_multiplier").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <armor_multiplier>");
+        mValues.armorMul = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("base_level").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <base_level>");
+        mValues.level = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("base_health").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <base_health>");
+        mValues.health = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("base_armor").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <base_armor>");
+        mValues.armor = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("base_damage").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <base_damage>");
+        mValues.damage = Byte.parseByte(n.getTextContent());
 
         return mValues;
     }
 
+
     /**
-     * Metodo di supporto per tradurre un nome di un mostro nel rispettivo tipo. Se non ci sono
-     * corrispondenze alla ritorna null
-     * @param name nome da controllare
-     * @return MType
+     * Metodo di utilita usato per lanciare un eccezione se n == null
+     * Definizione dei colori usando le secquenze di escape ANSI vedi:
+     * @see https://en.wikipedia.org/wiki/ANSI_escape_code
+     * @see https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
+     * @param n Node da controllare rappresenta il singolo tag
+     * @param str String da stampare nel errore
+     * @throws IllegalArgumentException
      */
-    private static MType getMTypeBy(String name){
-        //IMPORTANTE nei case il nome deve corrispondere a quello del file xml
-        switch(name){
-            case "mago_nero":
-                return MType.MAGO_OSCURO;
-            case "armatura":
-                return MType.ARMATURA;
-            case "coboldo":
-                return MType.COBOLDO;
-            case "boss_drago":
-                return MType.BOSS_DRAGO;
-            case "mostro_marino":
-                return MType.MOSTRO_MARINO;
-            default:
-                return null;
-        }
+    public static final String ANSI_RESET = "\u001B[0m";    //resetta il colore
+    public static final String ANSI_RED = "\u001B[31m";     //setta il colore a rosso
+
+    private static void throwExeptionIfNull(Node n, String str) throws IllegalArgumentException{
+        if(n == null)
+            throw new IllegalArgumentException(ANSI_RED+str+ANSI_RESET);
     }
 
     /* --------------------------------------------------------------------------------------------------------------
@@ -153,13 +162,24 @@ public class xmlReader{
      */
     private static ItemValues getItemValuesFrom(Element eAttribute){
         ItemValues iValues = new ItemValues();
+        Node n;
 
         // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
-        iValues.description = eAttribute.getElementsByTagName("description").item(0).getTextContent();
-        iValues.type = ItemType.valueOf(eAttribute.getElementsByTagName("type").item(0).getTextContent());
-        iValues.weight = Byte.parseByte(eAttribute.getElementsByTagName("weight").item(0).getTextContent());
-        iValues.quantity = Byte.parseByte(eAttribute.getElementsByTagName("quantity").item(0).getTextContent());
-        iValues.value = Byte.parseByte(eAttribute.getElementsByTagName("value").item(0).getTextContent());
+        n = eAttribute.getElementsByTagName("description").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <description>");
+        iValues.description = n.getTextContent();
+        n = eAttribute.getElementsByTagName("type").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <type>");
+        iValues.type = ItemType.valueOf(n.getTextContent());
+        n = eAttribute.getElementsByTagName("weight").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <weight>");
+        iValues.weight = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("quantity").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <quantity>");
+        iValues.quantity = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("value").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <value>");
+        iValues.value = Byte.parseByte(n.getTextContent());
 
         return iValues;
     }
@@ -199,51 +219,57 @@ public class xmlReader{
      */
     private static NODE getNODEFrom(Element eAttribute){
         NODE node;
-        Node item;
+        Node n;
        
         // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
         //TAG POSITION
-        Coordinates c = getCord(eAttribute.getElementsByTagName("position").item(0).getTextContent());
+        n = eAttribute.getElementsByTagName("position").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <position>");
+        Coordinates c = getCord(n.getTextContent());
         node = new NODE(c.getX(), c.getY());
 
         //TAG NORD
-        item = eAttribute.getElementsByTagName("nord").item(0);
-        if(item != null){
-            node.setNorth(getCord(item.getTextContent()));
+        n = eAttribute.getElementsByTagName("nord").item(0);
+        if(n != null){
+            node.setNorth(getCord(n.getTextContent()));
         }
         else{
             node.setNorth(null);
         }
 
         //TAG SUD
-        item = eAttribute.getElementsByTagName("sud").item(0);
-        if(item != null){
-            node.setSouth(getCord(item.getTextContent()));
+        n = eAttribute.getElementsByTagName("sud").item(0);
+        if(n != null){
+            node.setSouth(getCord(n.getTextContent()));
         }
         else{
             node.setSouth(null);
         }
 
         //TAG EST
-        item = eAttribute.getElementsByTagName("est").item(0);
-        if(item != null){
-            node.setEast(getCord(item.getTextContent()));
+        n = eAttribute.getElementsByTagName("est").item(0);
+        if(n != null){
+            node.setEast(getCord(n.getTextContent()));
         }
         else{
             node.setEast(null);
         }
 
         //TAG OVEST
-        item = eAttribute.getElementsByTagName("ovest").item(0);
-        if(item != null){
-            node.setWest(getCord(item.getTextContent()));
+        n = eAttribute.getElementsByTagName("ovest").item(0);
+        if(n != null){
+            node.setWest(getCord(n.getTextContent()));
         }
         else{
             node.setWest(null);
         }
 
-        node.setPathImage(eAttribute.getElementsByTagName("path_image").item(0).getTextContent());
-        node.setIsRoom(Boolean.parseBoolean(eAttribute.getElementsByTagName("isRoom").item(0).getTextContent()));
+        n = eAttribute.getElementsByTagName("path_image").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <path_image>");
+        node.setPathImage(n.getTextContent());
+        n = eAttribute.getElementsByTagName("isRoom").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <isRoom>");
+        node.setIsRoom(Boolean.parseBoolean(n.getTextContent()));
         
         return node;
     }
@@ -286,14 +312,23 @@ public class xmlReader{
      */
     private static RoomValues getRoomValuesFrom(Element eAttribute){
         RoomValues rValues = new RoomValues();
+        Node n;
 
         // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
-        rValues.mtype = MType.valueOf(eAttribute.getElementsByTagName("mtype").item(0).getTextContent());
-        Coordinates c = getCord(eAttribute.getElementsByTagName("positionPlayer").item(0).getTextContent());
+        n = eAttribute.getElementsByTagName("mtype").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <mtype>");
+        rValues.mtype = MType.valueOf(n.getTextContent());
+        n = eAttribute.getElementsByTagName("positionPlayer").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <positionPlayer>");
+        Coordinates c = getCord(n.getTextContent());
         rValues.x = c.getX();
         rValues.y = c.getY();
-        rValues.path =eAttribute.getElementsByTagName("path_image").item(0).getTextContent();
-        rValues.isRoom=true;
+        n = eAttribute.getElementsByTagName("path_image").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <path_image>");
+        rValues.path =n.getTextContent();
+        n = eAttribute.getElementsByTagName("isRoom").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <isRoom>");
+        rValues.isRoom=Boolean.parseBoolean(n.getTextContent());
         return rValues;
     }
 

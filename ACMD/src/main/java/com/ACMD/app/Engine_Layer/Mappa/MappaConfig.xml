@@ -7,8 +7,11 @@
   
 
   Per inserire una nuova stanza bisogna specificare i campi obbligatori:
-  - <mtype></mtype>
-  - <positionPlayer>20,20</positionPlayer>
+  - <mtype>...</mtype>
+  - <positionPlayer>...</positionPlayer>
+  - <path_image>...</path_image>
+  - <isRoom>...</isRoom>
+  - <position>...</position>
   
   NB: i tag position e positionPlayer hanno formato x,y (es. 1,2 -> cord. x = 1, cord. y = 2)
 -->
