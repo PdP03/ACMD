@@ -66,24 +66,24 @@
 
 
   <room>
-    <position>8,7</position>
+    <positionPlayer>8,7</positionPlayer>
     <mtype>MOSTRO_MARINO</mtype>
-    <positionPlayer>3,8</positionPlayer>
+    <position>3,8</position>
     <path_image>SeaMap.png</path_image>
     <isRoom>true</isRoom>
   </room>
 
   <room>
-    <position>1,11</position>
+    <positionPlayer>1,11</positionPlayer>
     <mtype>COBOLDO</mtype>
-    <positionPlayer>2,11</positionPlayer>
+    <position>2,11</position>
     <path_image>Mappa_Kobold.png</path_image>
     <isRoom>true</isRoom>
   </room>
   <room>
-    <position>17,1</position>
+    <positionPlayer>17,1</positionPlayer>
     <mtype>MAGO_OSCURO</mtype>
-    <positionPlayer>8,8</positionPlayer>
+    <position>8,8</position>
     <path_image>Mappa_Elfo.png</path_image>
     <isRoom>true</isRoom>
   </room>

@@ -1,15 +1,9 @@
 package com.ACMD.app.Graphic_Layer.GUI;
 
-import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Engine_Layer.Mappa.*;
 
-import software.amazon.awssdk.services.s3.model.CORSConfiguration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-
-import org.apache.http.conn.params.ConnConnectionParamBean;
 
 
 public class TestFrame{
@@ -70,6 +64,7 @@ public class TestFrame{
         */
      //   new MyTree();
       MapGraph m2= new MapGraph();
+      MapGraph.printAllIcons();
       new GameFrame().setVisible(true); 
         }   
 

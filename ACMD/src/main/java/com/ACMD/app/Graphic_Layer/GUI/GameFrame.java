@@ -35,7 +35,8 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                     this.getContentPane().setBackground(backGround);
                     initComponents(); // Crea la finestra vuota, senza aggiugnere la mappa          
                     addMapPicture(mapIconPath); // Aggiunge l'immagine (grafica)
-                    addPlayerPosition(1,19,playerIcon); 
+                 //   addPlayerPosition(1,19,playerIcon); 
+                    move(17,1);
     }
                       
     
@@ -136,19 +137,20 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      */
     public void move (int x,int y) throws IllegalArgumentException
         {
-            try{String path = MapGraph.getIconOf(new Coordinates(x,y)); 
-                path=pathParser.getPath(imageDirPath,path);
-                System.out.println("Path è :" + path);
-
-                jLabelMap.setIcon(new ImageIcon(path)); System.out.println(path); }
-                
-                catch(Exception e ){System.out.println("Elemento non trovato");} 
+            System.out.println("Move chiamato con" +x+ " "+y);
         if(x <0 || x>19 || y<0 || y>19 ) throw new IllegalArgumentException("either x or y values not between 0-19 ");
-        
+       
         jInternalFrame1.remove(jLabelMap);
         jLabelMap=new JLabel("");
+        try{
+            String path = MapGraph.getIconOf(new Coordinates(x,y));
+            path = pathParser.getPath(imageDirPath,path );
+            jLabelMap.setIcon(new ImageIcon(path));
+            System.out.println("path: "+path);
+        }catch(Exception e ){}
+      
         jLabelMap.setSize(jInternalFrame1.getSize());
-        jLabelMap.setIcon(new ImageIcon("C:\\Users\\Matteo\\Desktop\\Test git\\ACMD\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Graphic_Layer\\Images\\Mappa_Definitiva.png"));
+     //   jLabelMap.setIcon(new ImageIcon("C:\\Users\\Matteo\\Desktop\\Test_git\\ACMD\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Graphic_Layer\\Images\\Mappa_Definitiva.png"));
         jLabelMap.setLayout(new GridLayout(20,20));
         jButtonPlayer.setEnabled(false);    
         
@@ -209,7 +211,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
             jButtonPlayer.setVisible(true);
             jLabelMap.setSize(jInternalFrame1.getSize(getSize()));
            
-            jLabelMap.setIcon(new javax.swing.ImageIcon(path)); // NOI18N
+          
             jLabelMap.setLayout(new GridLayout(20,20));
             jInternalFrame1.add(jLabelMap);
             SwingUtilities.updateComponentTreeUI(jInternalFrame1);
