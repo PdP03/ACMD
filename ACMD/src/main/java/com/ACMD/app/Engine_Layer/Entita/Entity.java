@@ -120,7 +120,7 @@ public abstract class Entity {
     }
     
     /**
-     * Cambia la vita del entità aggiungendo value. 
+     * Cambia la vita del entità aggiungendo value. La vita può diventare negativa
      * Lancia IllegalArgumentException se health va in overflow
      * @param value quantita da aggiungere
      * @return health nuovo valore impostato

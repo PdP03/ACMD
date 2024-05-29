@@ -73,6 +73,33 @@ public class MapGraph {
 
     }
 
+    public Coordinates getPlayerPos(){
+        return PlayerPosition;
+    }
+
+    /* TODO: Metodo che restituisce info in base alla posizione attuale di player
+     * - se Player si trova in un nodo restituisce posizione del player e direzioni disponibili
+     * - se Player si trova in una stanza restituisce posizione del player tipo di mostro insieme di
+     * oggetti nella chest
+     */
+    public String getPlayerPosInfo(){
+        return "Player si trova in posizione (1,1) e può spostarsi verso: \n-NORD \n-SUD";
+    }
+
+    //TODO: metodo che setta a true la variabile freeRoom nella staza a cordinate c
+    public void setFreeRoomAt(Coordinates c){
+
+    }
+    /*
+     * TODO: implementare un metodo che restituisce true o false se la stanza
+     * è stata liberata dal mostro
+     * nella stanza a cordinate c
+     * 
+     */
+    public boolean isFreeRoomAt(Coordinates c){
+        return false;
+    }
+
 
 
 
@@ -157,7 +184,6 @@ public class MapGraph {
                     //file.close();
                 }
             } catch (IOException e1) {
-                // TODO Auto-generated catch block
                 System.out.println("File non trovato oppure non sono presenti i dati nel formato corretto.");
 
             } 
@@ -253,7 +279,7 @@ public class MapGraph {
         }
         throw new NoSuchElementException("Elemento non trovato");
     }
-    public static boolean isStanza(Coordinates coord) throws NoSuchElementException
+    public boolean isStanza(Coordinates coord) throws NoSuchElementException
     {
         for(NODE s : nodes)
         {
