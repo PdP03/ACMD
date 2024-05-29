@@ -38,7 +38,7 @@ public class xmlReader{
             docXml = builder.parse(xml);
         }
         catch(Exception e){
-            System.err.println("errore nella lettura");
+            throw new IllegalArgumentException("Errore nella lettura del file xml");
         }
     }
 
@@ -58,12 +58,8 @@ public class xmlReader{
         for(int j = 0; j < monsterAttribute.getLength(); j++){
             attribute = monsterAttribute.item(j);
 
-            
             if(attribute.getNodeType() == Node.ELEMENT_NODE){
-                type = getMTypeBy(attribute.getNodeName());
-                if(type == null){
-                    return null;
-                }
+                type = MType.valueOf(attribute.getNodeName());
                 
                 mValues = getMonsterValuesFrom((Element)attribute);
                 defaultValues.set(type.getId(), mValues);
@@ -160,46 +156,12 @@ public class xmlReader{
 
         // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
         iValues.description = eAttribute.getElementsByTagName("description").item(0).getTextContent();
-        iValues.type = getITypeBy(eAttribute.getElementsByTagName("type").item(0).getTextContent());
+        iValues.type = ItemType.valueOf(eAttribute.getElementsByTagName("type").item(0).getTextContent());
         iValues.weight = Byte.parseByte(eAttribute.getElementsByTagName("weight").item(0).getTextContent());
         iValues.quantity = Byte.parseByte(eAttribute.getElementsByTagName("quantity").item(0).getTextContent());
         iValues.value = Byte.parseByte(eAttribute.getElementsByTagName("value").item(0).getTextContent());
 
         return iValues;
-    }
-
-    /**
-     * Metodo di supporto per tradurre il tipo(Stringa) di un item nel rispettivo tipo(ItemType). Se non ci sono
-     * corrispondenze alla ritorna null
-     * @param name nome da controllare
-     * @return ItemType
-     */
-    private static ItemType getITypeBy(String tipo){
-        //IMPORTANTE nei case il nome deve corrispondere a quello del file xml
-        switch(tipo){
-            case "arma":
-                return ItemType.ARMA;
-            case "armatura":
-                return ItemType.ARMATURA;
-            case "cibo":
-                return ItemType.CIBO;
-            case "easter_egg":
-                return ItemType.EASTER_EGG;
-            case "pozione_cura":
-                return ItemType.POZIONE_CURA;
-            case "pozione_danno":
-                return ItemType.POZIONE_DANNO;
-            case "pozione_forza":
-                return ItemType.POZIONE_FORZA;
-            case "pozione_invalidita":
-                return ItemType.POZIONE_INVALIDITA;
-            case "pozione_resistenza":
-                return ItemType.POZIONE_RESISTENZA;
-            case "pozione_veleno":
-                return ItemType.POZIONE_VELENO;
-            default:
-                return null;
-        }
     }
 
     /* --------------------------------------------------------------------------------------------------------------
