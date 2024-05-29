@@ -48,11 +48,8 @@ public class MapGraph {
             nodes.add(new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), r.mtype, r.path  )); //Coordinate, 
         }
         for(NODE n:nodes){
-            System.out.println(n.getCoord()+" e' il nodo considerato ");
             n.printAllDirection();
-            System.out.println("\n\n");
         }
-        System.out.println("Infatti qui ho "+ nodes.size());
 
     }
 
@@ -149,7 +146,7 @@ public class MapGraph {
 
         for(NODE s:nodes)
         {
-            System.out.println("s:" + s.getCoord().getX() +" " + s.getCoord().getY() + " coord vale " + coord.getX() + " " + coord.getY());
+           // System.out.println("s:" + s.getCoord().getX() +" " + s.getCoord().getY() + " coord vale " + coord.getX() + " " + coord.getY());
             if(s.getCoord().getX() ==coord.getX() && s.getCoord().getY() == coord.getY() )
             {
                Coordinates[] a = new Coordinates[4]; 
@@ -219,14 +216,25 @@ public class MapGraph {
 
     public static String getIconOf(Coordinates coord) throws NoSuchElementException
     {
-        System.out.println(coord);
-        System.out.println(nodes.size());
         for(NODE s : nodes)
         {
             System.out.println(s.getCoord().getX() + " "+ s.getCoord().getY());
             if(s.getCoord().getX() == coord.getX() && s.getCoord().getY() == coord.getY() ) return s.getPathImage();
         }
         throw new NoSuchElementException("Elemento non trovato");
+    }
+    public static boolean isStanza(Coordinates coord) throws NoSuchElementException
+    {
+        for(NODE s : nodes)
+        {
+            
+            if(s.getCoord().getX() == coord.getX() && s.getCoord().getY() == coord.getY() ) return s.isRoom();
+        }
+        throw new NoSuchElementException("Elemento non trovato");
+    }
+    public static void printAllIcons()
+    {
+        for(NODE s: nodes ) System.out.println("Il nodo" + s.getCoord()+ " ha "+ s.pathImg);
     }
 
     
