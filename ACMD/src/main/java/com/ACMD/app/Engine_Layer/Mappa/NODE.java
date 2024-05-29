@@ -3,7 +3,6 @@ package com.ACMD.app.Engine_Layer.Mappa;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
-import com.ACMD.app.Engine_Layer.Mappa.MapGraph.DIRECTION;
 import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
 
 /**
@@ -146,7 +145,7 @@ public class NODE{
      * @return the node at the direction 
      * @throws IOException thrown if direction is not N/S/E/W/O O stands for "Ovest"
      */
-    public Coordinates getDirection(DIRECTION direction) throws IOException, NoSuchElementException{
+    public Coordinates getDirection(Direction direction) throws IOException, NoSuchElementException{
         switch (direction) {
          case NORTH:
             if (north==null){ System.out.println("North null"); throw new NoSuchElementException("North is null");} 

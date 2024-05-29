@@ -18,7 +18,6 @@ import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 
 
 public class MapGraph {
-    public enum DIRECTION{NORTH, SOUTH, EAST, WEST}; 
     private SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge> map;
     private Coordinates[] directions;
     private static ArrayList<NODE> nodes;
@@ -39,13 +38,11 @@ public class MapGraph {
         ArrayList<RoomValues> rooms = reader.getAllRoom(); 
        
         for(RoomValues r: rooms){
-            new Coordinates(r.x, r.y);
-            new Coordinates(r.posx, r.posy);
-            factory.create(r.mtype);
+            
             Stanza s = new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), factory.create(r.mtype), r.path);
-            if(s == null){
-                System.out.print("si");
-            }
+            
+            System.out.print(s);
+            
             chambers.add(s);
             //String s = r.path;
             System.out.println(r.x+ " "+ r.y);
@@ -77,14 +74,6 @@ public class MapGraph {
         return PlayerPosition;
     }
 
-    /* TODO: Metodo che restituisce info in base alla posizione attuale di player
-     * - se Player si trova in un nodo restituisce posizione del player e direzioni disponibili
-     * - se Player si trova in una stanza restituisce posizione del player tipo di mostro insieme di
-     * oggetti nella chest
-     */
-    public String getPlayerPosInfo(){
-        return "Player si trova in posizione (1,1) e può spostarsi verso: \n-NORD \n-SUD";
-    }
 
     //TODO: metodo che setta a true la variabile freeRoom nella staza a cordinate c
     public void setFreeRoomAt(Coordinates c){
@@ -98,6 +87,30 @@ public class MapGraph {
      */
     public boolean isFreeRoomAt(Coordinates c){
         return false;
+    }
+
+    /*
+     * TODO: metodo che cambia le cordinate del Player
+     */
+    public void setPlayerPos(Coordinates c){
+
+    }
+
+    /*
+     * TODO: metodo che sposta il player verso la direzione specificata partendo
+     * dalla posizione attuale del player. Lancia un eccezzione se Direction non è
+     * una direzione possibile del nodo
+     */
+    public void movePlayerTo(Direction dir) throws IllegalArgumentException{
+
+    }
+
+    /*
+     * TODO: metodo che restituisce una lista di Direction che contengon l'enum
+     * es ArrayList può contenere Direction.NORD, Direction.SUD
+     */
+    public ArrayList<Direction> validDirectionOf(Coordinates n){
+        return new ArrayList<Direction>(4);
     }
 
 
@@ -198,6 +211,9 @@ public class MapGraph {
 
         return list;
     }
+
+
+
     public Coordinates[] getDirections(Coordinates coord) throws NoSuchElementException{
 
         for(NODE s:nodes)
@@ -236,7 +252,7 @@ public class MapGraph {
     }
    
 
-    public boolean isValidDirectionTo(Coordinates c, DIRECTION dir) throws IOException
+    public boolean isValidDirectionTo(Coordinates c, Direction dir) throws IOException
      {
         for(NODE s:nodes)
         {

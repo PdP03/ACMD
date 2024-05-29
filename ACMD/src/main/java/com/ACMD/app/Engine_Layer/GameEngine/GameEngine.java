@@ -1,14 +1,18 @@
 package com.ACMD.app.Engine_Layer.GameEngine;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import com.ACMD.app.Engine_Layer.Entita.Monster;
 import com.ACMD.app.Engine_Layer.Entita.Player;
 import com.ACMD.app.Engine_Layer.Mappa.Coordinates;
+import com.ACMD.app.Engine_Layer.Mappa.Direction;
 import com.ACMD.app.Engine_Layer.Mappa.MapGraph;
+import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 
 public class GameEngine{
     Player p;
+    Stack<Coordinates> playerStack;
     MapGraph map;
     Boolean lose;
     String buffer;
@@ -41,7 +45,27 @@ public class GameEngine{
      * Scrive nel buffer interno cosa c'è attorno al playr
      */
     public void lookAround(){
-        buffer += map.getPlayerPosInfo();
+        String str = "";
+        Coordinates cord = map.getPlayerPos();
+        ArrayList<Direction> list = map.validDirectionOf(cord);
+        str+="Attualmente "+p.getName()+"è alla posizione " + cord.toString();
+        str += "Le direzioni disponibili sono:";
+        for(Direction d: list){
+            str += "\n-"+d;
+        }
+
+        if(map.isStanza(cord)){
+            Monster m= map.getMonsterAt(cord);
+            str+= "Attento c'è"+m.getName()+" a lv."+m.getLv();
+            Chest chest = map.getChestAt(cord);
+            if(chest.getLock())
+                str+="Ce anche una chest ma è bloccata cosa ci sara dentro?";
+            else{
+                str+="La chest è sbloccata gli item al suo interno sono:"+chest;
+            }
+        }
+
+        buffer += str;
     }
 
     /**
@@ -105,5 +129,35 @@ public class GameEngine{
         return map.isStanza(map.getPlayerPos());
     }
 
+    /**
+     * Sposta il Player alla posizione precedente
+     */
+    public void movePlayerBack(){
+        if(!playerStack.empty()){
+            map.setPlayerPos(playerStack.pop());
+        }
+    }
+
+    /**
+     * Il player si sposta dalla posizione attuale seguendo Direction se il player entra in una
+     * stanza con un mostro allora viene aggiunta in buffer la storia del mostro
+     * @param d Direction
+     */
+    public void movePlayer(Direction d){
+        Monster m;
+        try{
+            if(map.isValidDirectionTo(map.getPlayerPos(), d)){
+                map.movePlayerTo(d);
+                playerStack.add(map.getPlayerPos());
+                if(map.isStanza(map.getPlayerPos())){
+                    m = map.getMonsterAt(map.getPlayerPos());
+                    if(m.getLife() > 0){
+                        buffer += m.getHistory()+"\n";
+                    }
+                }
+            }
+        }
+        catch(Exception e){}
+    }
 
 }
