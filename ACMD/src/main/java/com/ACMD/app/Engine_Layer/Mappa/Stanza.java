@@ -9,7 +9,7 @@ import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 public class Stanza extends NODE
 {
     Coordinates playerPosition; 
-    MType monster; 
+    Monster monster; 
     Chest chest; 
     
 
@@ -17,19 +17,19 @@ public class Stanza extends NODE
     public Chest getChest(){return chest;}
     public void setCoordinates(Coordinates c){this.coord=c;}
     public Coordinates getCoordinates(){return coord;}
-    public MType getMonster(){return monster;}
+    public Monster getMonster(){return monster;}
 
     
     /**
      * Costruttore con tutti i parametri 
      */
-    public Stanza(Coordinates c, MType m, Chest chest)
+    public Stanza(Coordinates c, Monster m, Chest chest)
     {   
         this.monster = m; 
         this.coord = c; 
         this.chest = chest;  
     }
-    public Stanza(Coordinates c, Coordinates player, MType m, String path )
+    public Stanza(Coordinates c, Coordinates player, Monster m, String path )
     {   
         this.monster = m; 
         this.coord = c; 

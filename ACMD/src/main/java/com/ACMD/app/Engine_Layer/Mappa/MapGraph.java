@@ -13,6 +13,7 @@ import com.ACMD.app.Engine_Layer.RoomValues;
 import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Engine_Layer.Entita.MType;
 import com.ACMD.app.Engine_Layer.Entita.Monster;
+import com.ACMD.app.Engine_Layer.Entita.MonsterFactory;
 import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 
 
@@ -30,12 +31,33 @@ public class MapGraph {
      */
     public MapGraph()
     {
-        
+        MonsterFactory factory = new MonsterFactory();
         final String entityDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Mappa\\";
         xmlReader reader = new xmlReader(entityDir, "MappaConfig.xml");
 
         nodes = reader.getAllNode();
         ArrayList<RoomValues> rooms = reader.getAllRoom(); 
+       
+        for(RoomValues r: rooms){
+            new Coordinates(r.x, r.y);
+            new Coordinates(r.posx, r.posy);
+            factory.create(r.mtype);
+            Stanza s = new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), factory.create(r.mtype), r.path);
+            if(s == null){
+                System.out.print("si");
+            }
+            chambers.add(s);
+            //String s = r.path;
+            System.out.println(r.x+ " "+ r.y);
+        }
+
+        for(RoomValues r:rooms)
+        {
+            chambers.add(new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), factory.create(r.mtype), r.path)); //Coordinate, 
+            System.out.println("add");
+        }
+        if(rooms != null)
+            System.out.println(rooms.size());
         Coordinates cord;
 
         //Aggiunta NODI
@@ -43,12 +65,10 @@ public class MapGraph {
             cord = n.getCoord();
         }
         //Aggiunta STANZE
-        for(RoomValues r:rooms)
-        {
-            nodes.add(new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), r.mtype, r.path  )); //Coordinate, 
-        }
+        System.out.println("s");
+        
         for(NODE n:nodes){
-            n.printAllDirection();
+            //n.printAllDirection();
         }
 
     }
@@ -142,6 +162,16 @@ public class MapGraph {
 
             } 
         } 
+    
+    public ArrayList<Monster> getAllMonster(){
+        ArrayList<Monster> list = new ArrayList<Monster>();
+        for(Stanza s: chambers)
+            {
+                list.add(s.getMonster());
+            }
+
+        return list;
+    }
     public Coordinates[] getDirections(Coordinates coord) throws NoSuchElementException{
 
         for(NODE s:nodes)
@@ -194,7 +224,7 @@ public class MapGraph {
         return false; 
      }
 
-    public MType getMonsterAt(Coordinates cord){
+    public Monster getMonsterAt(Coordinates cord){
             for(Stanza s:chambers)
             {
                 if(s.getCoordinates() == cord ) return s.getMonster();
