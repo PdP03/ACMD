@@ -2,6 +2,7 @@ package com.ACMD.app.Engine_Layer.GameEngine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.IllformedLocaleException;
 import java.util.Map;
 import java.util.Stack;
 
@@ -12,8 +13,6 @@ import com.ACMD.app.Engine_Layer.Mappa.Direction;
 import com.ACMD.app.Engine_Layer.Mappa.MapGraph;
 import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 import com.ACMD.app.Engine_Layer.StorageManagement.Inventario;
-import com.ACMD.app.Engine_Layer.StorageManagement.InventoryOutOfBound_Exception;
-import com.ACMD.app.Engine_Layer.StorageManagement.ItemFactory;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
@@ -26,7 +25,6 @@ import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
  */
 public class GameEngine{
     final byte MAX_POTION_USAGE = 3;
-    ItemFactory factory;
     Player p;
     Stack<Coordinates> playerStack;
     MapGraph map;
@@ -43,7 +41,6 @@ public class GameEngine{
         map = null;
         buffer = null;
         lose = null;
-        factory = null;
         potionsActiveted = null;
     }
 
@@ -54,7 +51,6 @@ public class GameEngine{
         lose = false;
         p = new Player(playerName);
         map = new MapGraph();
-        factory = new ItemFactory();
         buffer = "";
         potionsActiveted = new HashMap<ItemType, Byte>();
 
@@ -200,7 +196,11 @@ public class GameEngine{
      * @return boolean
      */
     public boolean playerCanAttack(){
-        return map.isStanza(map.getPlayerPos());
+        if(!map.isStanza(map.getPlayerPos())){
+            return false;
+        }
+
+        return map.getMonsterAt(map.getPlayerPos()).getLife() > 0;
     }
 
     /**
@@ -400,5 +400,109 @@ public class GameEngine{
         while(inv.searchFor(item) != null);
     }
 
+    /**
+     * Restituisce gli elementi presenti nel inventario in formato stringa
+     * @return
+     */
+    public String getPlayerInv(){
+        return ""+p.getInv();
+    }
+
+    /**
+     * Restituisce la vita max del player, lancia DeathException se il player è morto
+     * @return short massima vita del player
+     */
+    public short getPlayerMaxLife(){
+        if(lose){
+            throw new DeathException();
+        }
+        
+        return p.getMaxLife();
+    }
+
+    /**
+     * Restituisce la vita attuale del player, lancia DeathException se il player è morto
+     * @return short vita attuale
+     */
+    public short getPlayerLife() throws DeathException{
+        if(lose){
+            throw new DeathException();
+        }
+        
+        return p.getLife();
+    }
+
+    /**
+     * Restituisce il livello atuale del player, lancia DeathException se il player è morto
+     * @return byte livello
+     */
+    public byte getPlayerLv() throws DeathException{
+        if(lose){
+            throw new DeathException();
+        }
+
+        return p.getLv();
+    }
+
+    /**
+     * Ottine la vita max di un mostro. Lancia IllegalAccessError se non ci sono mostri nella 
+     * posizione del player (ovvero se player può attaccare)
+     * @return short vita massima
+     */
+    public short getMonsterMaxLife() throws IllegalAccessError{
+        if(!playerCanAttack()){
+            throw new IllegalAccessError(); 
+        }
+
+        return map.getMonsterAt(map.getPlayerPos()).getMaxLife();
+    }
     
+    /**
+     * Ottine la vita attuale del mostro. Lancia IllegalAccessError se non ci sono mostri nella 
+     * posizione del player (ovvero se player può attaccare)
+     * @return short vita attuale
+     */
+    public short getMonsterLife() throws IllegalAccessError{
+        if(!playerCanAttack()){
+            throw new IllegalAccessError(); 
+        }
+
+        return map.getMonsterAt(map.getPlayerPos()).getLife();
+    }
+
+    /**
+     * Svuota il buffer e restituisce il contenuto in una stringa
+     * @return String eventi
+     */
+    public String getBuffer(){
+        String s = buffer;
+        buffer = "";
+        return s;
+    }
+
+    /**
+     * Carica un nuovo player con i settaggi passati
+     * @param newPlayer
+     */
+    public void loadPlayer(Player newPlayer){
+        p = newPlayer;
+        ArrayList<Monster> list = map.getAllMonster();
+        for(Monster m: list){
+            p.addObserver(m);
+        }
+
+        lose = false;
+        buffer = "";
+        potionsActiveted = new HashMap<ItemType, Byte>();
+    }
+
+    /**
+     * Carica una nuova mappa con i settaggi passati
+     * @param newMap
+     */
+    public void loadMap(MapGraph newMap){
+        map = newMap;
+    }
+
+
 }
