@@ -14,7 +14,6 @@ import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Engine_Layer.Entita.MType;
 import com.ACMD.app.Engine_Layer.Entita.Monster;
 import com.ACMD.app.Engine_Layer.Entita.MonsterFactory;
-import com.ACMD.app.Engine_Layer.Entita.MonsterFactory;
 import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 
 
@@ -67,8 +66,8 @@ public class MapGraph {
         //Aggiunta STANZE
         for(RoomValues r:rooms)
         {
-            MonsterFactory 
-            nodes.add(new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), r.MonsterFactory(mtype), r.path  )); //Coordinate, 
+            
+            nodes.add(new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), new MonsterFactory().create(r.mtype), r.path  )); //Coordinate, 
         }
         for(NODE n:nodes){
             //n.printAllDirection();
