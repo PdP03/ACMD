@@ -108,7 +108,12 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jButtonInvio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 
-                try {move(globalRiga++%20,globalColonna%20);
+                try {
+                    String[] t=jTextComandi.getText().split(",");
+                    int x=Integer.parseInt(t[0]);
+                    int y=Integer.parseInt(t[1]);
+                    
+                    move(x,y);
                 }catch (Exception e ){}
                 
                 SwingUtilities.updateComponentTreeUI(jInternalFrame1);
@@ -139,7 +144,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      */
     public void move (int x,int y) throws IllegalArgumentException
         {
-            System.out.println("Move chiamato con" +x+ " "+y);
+           // System.out.println("Move chiamato con" +x+ " "+y);
         if(x <0 || x>19 || y<0 || y>19 ) throw new IllegalArgumentException("either x or y values not between 0-19 ");
        
         jInternalFrame1.remove(jLabelMap);
@@ -193,6 +198,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
 
            //  jButtonPlayer.setIcon(imageIcon);
              try {
+                addMapPicture(MapGraph.getPathImage(new Coordinates(x,y)));
                 move(x,y);
             } catch (RuntimeException e) {
                 e.printStackTrace();
@@ -205,19 +211,22 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          * @param path the path of the picture
          */
         private void addMapPicture(String path) {
-            
+            /*
             jInternalFrame1.getContentPane().setLayout(new BorderLayout());
             jInternalFrame1.setSize(500,500);
             //jButtonPlayer.setForeground(new java.awt.Color(255, 255, 255));
             
-            jButtonPlayer.setOpaque(false);
-            jButtonPlayer.setVisible(true);
+            
             jLabelMap.setSize(jInternalFrame1.getSize(getSize()));
            
           
             jLabelMap.setLayout(new GridLayout(20,20));
             jInternalFrame1.add(jLabelMap);
-            SwingUtilities.updateComponentTreeUI(jInternalFrame1);
+            SwingUtilities.updateComponentTreeUI(jInternalFrame1);*/
+            jButtonPlayer.setOpaque(false);
+            jButtonPlayer.setVisible(true);
+            path = ParsePath.getPath(imageDirPath, path);
+            jLabelMap.setIcon(new ImageIcon(path));
         }
         /**
          * @param amount the value of the bar [0,100]

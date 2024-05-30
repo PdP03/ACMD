@@ -27,6 +27,21 @@ public class MapGraph {
     private Coordinates PlayerPosition =new Coordinates(1,19); //default player postion  
 
     /**
+     * 
+     * @param of The node you want the path image of (note: pathimage is not from the root. It is just the name of the file in the "imges" folder)
+     * @return The path 
+     * @throws NoSuchElementException if that node is not in the map 
+     */
+    public static String getPathImage(Coordinates of) throws NoSuchElementException
+    {
+        for(NODE s: nodes)
+        {
+            if(s.getCoord().getX() == of.getX() && s.getCoord().getY()==of.getY())
+            return s.pathImg;
+        }
+        throw new NoSuchElementException("Immagine del nodo" +of.getX()+","+of.getY()+"non trovata");
+    }
+    /**
      * Costruttore che prende direttamente l'xml
      */
     public MapGraph()
