@@ -146,7 +146,7 @@ public class Player extends Entity{
                 return true;
 
             case ARMATURA:
-                if(inv.searchFor(i.toString()) != null){
+                if(inv.searchFor(i.getName()) != null){
                     return false;
                 }
                 inv.add(i);
