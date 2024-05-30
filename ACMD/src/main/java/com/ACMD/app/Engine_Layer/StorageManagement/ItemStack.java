@@ -13,12 +13,12 @@ package com.ACMD.app.Engine_Layer.StorageManagement;
 
 public /*abstract*/ class ItemStack
 {
-    String name;
-    byte weight;
-    byte quantity;           //oggetti si possono impilare
-    byte value;
-    ItemType tipology;
-    String description;
+    private String name;
+    private byte weight;
+    private byte quantity;           //oggetti si possono impilare
+    private byte value;
+    private ItemType tipology;
+    private String description;
 
     final int VALORE_DEFAULT_QUANTITA = 1;
 
@@ -62,12 +62,14 @@ public /*abstract*/ class ItemStack
            value = v;
         description = descr;
 
-        exceptionLauncher();    //si potrebbe per rendere più efficiente l'esecuzione fare questi controlli dentro il factory, al massimo andrebbe a rendere più pesante il caricamento: però si può pensare di fare i controlli solo sugli oggetti
+//        exceptionLauncher(); SPOSTATA NEL FACTORY, QUINDI NON VENGONO PIÙ FATTI CONTROLLI QUI
+                            //vantaggio anche ora chi usa può non impazzire passando degli int, ma poi sarà il factory ad usare byte
+        //si potrebbe per rendere più efficiente l'esecuzione fare questi controlli dentro il factory, al massimo andrebbe a rendere più pesante il caricamento: però si può pensare di fare i controlli solo sugli oggetti
         //che sono istanziati da salvataggi e che non si trovano nella hashtable
     }
 
 //  ## Metodi Private ##
-
+/*
     private void exceptionLauncher()
     {
         if( weight<=0)
@@ -82,7 +84,7 @@ public /*abstract*/ class ItemStack
          throw new IllegalArgumentException("Deve avere un tipo");
             //anche se prima avevo messo queste condizioni nei singoli costruttori in modo da evitare il controllo sulla quantità che non serve.. e forse è più sensato perché non si tratta di un metodo che può essere utile all'esterno
     }
-
+*/
 
 //  ## Metodi Public ##
 
@@ -100,6 +102,7 @@ public /*abstract*/ class ItemStack
     public ItemStack clone()
     {
         return new ItemStack(this.name,this.tipology,this.weight,this.quantity,this.value,this.description); //che bello che non servano i metodi, perché è dentro la stessa classe, quindi accetta
+                // non passo per il facotry perché sto copiando un oggetto che deve essere già in stato valido
     }
 
     public boolean addQuantity()   //true finito spazio
