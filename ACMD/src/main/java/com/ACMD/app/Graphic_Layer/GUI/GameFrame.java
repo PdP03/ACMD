@@ -2,7 +2,7 @@ package com.ACMD.app.Graphic_Layer.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.*;
@@ -116,7 +116,9 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
            }
         });
 
-        jTextStory.setBackground(lightBackground);
+        jTextStory.setBackground(new Color(0,0,0));
+        jTextStory.setForeground(new Color (255,255,255));
+        jTextStory.setFont(jTextStory.getFont().deriveFont( 16f));
         jTextStory.setColumns(20);
         jTextStory.setRows(5);
         jTextStory.setText("Here goes the story");
@@ -392,7 +394,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
        key.setOpaque(false);
        add(key);
 
-       JButton JButtonMusic=new JButton("");
+       CircleButton JButtonMusic=new CircleButton("");
        //JButtonMusic.setContentAreaFilled(false);
        JButtonMusic.setFocusPainted(false);
        JButtonMusic.setBorderPainted(false);

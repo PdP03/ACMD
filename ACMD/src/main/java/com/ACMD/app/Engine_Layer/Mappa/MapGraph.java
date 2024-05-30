@@ -14,7 +14,9 @@ import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Engine_Layer.Entita.MType;
 import com.ACMD.app.Engine_Layer.Entita.Monster;
 import com.ACMD.app.Engine_Layer.Entita.MonsterFactory;
+import com.ACMD.app.Engine_Layer.Entita.MonsterFactory;
 import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
+
 
 
 public class MapGraph {
@@ -29,7 +31,8 @@ public class MapGraph {
      * Costruttore che prende direttamente l'xml
      */
     public MapGraph()
-    {
+    {   
+        chambers = new ArrayList<>();
         MonsterFactory factory = new MonsterFactory();
         final String entityDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Mappa\\";
         xmlReader reader = new xmlReader(entityDir, "MappaConfig.xml");
@@ -37,8 +40,8 @@ public class MapGraph {
         nodes = reader.getAllNode();
         ArrayList<RoomValues> rooms = reader.getAllRoom(); 
        
-        for(RoomValues r: rooms){
-            
+        for(RoomValues r: rooms)
+        {    
             Stanza s = new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), factory.create(r.mtype), r.path);
             
             System.out.print(s);
@@ -62,8 +65,11 @@ public class MapGraph {
             cord = n.getCoord();
         }
         //Aggiunta STANZE
-        System.out.println("s");
-        
+        for(RoomValues r:rooms)
+        {
+            MonsterFactory 
+            nodes.add(new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), r.MonsterFactory(mtype), r.path  )); //Coordinate, 
+        }
         for(NODE n:nodes){
             //n.printAllDirection();
         }
@@ -119,6 +125,7 @@ public class MapGraph {
     /**
      * Initialize the graph "map" based on the informations of the given file 
      * @param path the path of the file
+     * note: E' oblsoleto 
      */
     public MapGraph(String path){
             map = new SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge>(DefaultWeightedEdge.class); //Creazione di una mappa di nodi 
