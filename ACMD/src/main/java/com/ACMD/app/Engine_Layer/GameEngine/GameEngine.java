@@ -37,6 +37,7 @@ public class GameEngine{
         //aggiunta degli observer(Monster) a player
         ArrayList<Monster> list = map.getAllMonster();
         for(Monster m: list){
+            System.out.println(m.getType());
             p.addObserver(m);
         }
     }

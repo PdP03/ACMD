@@ -51,7 +51,7 @@ public class MapGraph {
         for(RoomValues r:rooms)
         {
             // Coordinate stanza , coord player, mostro, percorso
-            nodes.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), new MonsterFactory().create(r.mtype), r.path)); //Coordinate, 
+            chambers.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), new MonsterFactory().create(r.mtype), r.path)); //Coordinate, 
         }
         for(NODE n:nodes){
             //n.printAllDirection();
