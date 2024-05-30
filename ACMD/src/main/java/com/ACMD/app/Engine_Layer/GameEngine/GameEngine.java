@@ -1,6 +1,8 @@
 package com.ACMD.app.Engine_Layer.GameEngine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 import com.ACMD.app.Engine_Layer.Entita.Monster;
@@ -9,7 +11,12 @@ import com.ACMD.app.Engine_Layer.Mappa.Coordinates;
 import com.ACMD.app.Engine_Layer.Mappa.Direction;
 import com.ACMD.app.Engine_Layer.Mappa.MapGraph;
 import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
+import com.ACMD.app.Engine_Layer.StorageManagement.Inventario;
 import com.ACMD.app.Engine_Layer.StorageManagement.InventoryOutOfBound_Exception;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemFactory;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
+import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
 
 /**
  * Classe che implementa tutti i comportamenti neccessari per far interagire Player
@@ -18,11 +25,14 @@ import com.ACMD.app.Engine_Layer.StorageManagement.InventoryOutOfBound_Exception
  * - buffer, stringa che contine il testo da stampare
  */
 public class GameEngine{
+    final byte MAX_POTION_USAGE = 3;
+    ItemFactory factory;
     Player p;
     Stack<Coordinates> playerStack;
     MapGraph map;
     Boolean lose;
     String buffer;
+    Map<ItemType, Byte> potionsActiveted;
 
     /**
      * Costruttore di default istanzia solo GameEngine non è possibile utilizzarla
@@ -33,6 +43,8 @@ public class GameEngine{
         map = null;
         buffer = null;
         lose = null;
+        factory = null;
+        potionsActiveted = null;
     }
 
     /**
@@ -42,7 +54,9 @@ public class GameEngine{
         lose = false;
         p = new Player(playerName);
         map = new MapGraph();
+        factory = new ItemFactory();
         buffer = "";
+        potionsActiveted = new HashMap<ItemType, Byte>();
 
         //aggiunta degli observer(Monster) a player
         ArrayList<Monster> list = map.getAllMonster();
@@ -225,4 +239,166 @@ public class GameEngine{
         }
     }
 
+    /**
+     * Restituisce true se item può essere preso dal player ovvero se le seguenti condizioni sono verificate:
+     * <ul>
+     *      <li>player è in una stana</li>
+     *      <li>la chest è sbloccata</li>
+     *      <li>la chest contiene l'item</li>
+     *      <li>l'item non riempie l'inventario del player</li>
+     * </ul>
+     * @param item nome del item da controllare
+     * @return true se l'item può essere preso altrimenti false
+     */
+    @SuppressWarnings("unused")
+    public boolean canPlayerTake(String item){
+        if(!map.isStanza(map.getPlayerPos())){
+            return false;
+        }
+        
+        Chest c = map.getChestAt(map.getPlayerPos());
+        if(c.getLock()){
+            return false;
+        }
+
+        ItemStack it = c.searchFor(item);
+        if(c == null){
+            return false;
+        }
+        
+        return !p.doesFillInv(it);
+    }
+
+    /**
+     * ottiene rimuove l'item dalla chest e lo inserisce nel inventario del 
+     * player se l'oggetto non esiste allora viene lanciata noItem_Exception
+     * @param item nome del item da prendere
+     */
+    public void playerTake(String item)throws noItem_Exception{
+        if(!canPlayerTake(item)){
+            throw new noItem_Exception();
+        }
+        
+        Chest c = map.getChestAt(map.getPlayerPos());
+        ItemStack it = c.searchFor(item);
+        c.remove(it);
+        p.addItem(it);
+    }
+
+    /**
+     * Restituisce true se player ha l'item
+     * @return boolean
+     */
+    public boolean playerHave(String item){
+        return p.getInv().searchFor(item) != null;
+    }
+
+    //TODO: INIZIO CODICE DA RIFARE
+    /**
+     * Prende un item al interno del inventario e gli applica l'effetto, se item non
+     * viene trovato viene lanciata noItem_Exception
+     * @param item
+     */
+    public void playerUse(String item)throws noItem_Exception, IllegalArgumentException{
+        ItemStack it = p.getInv().searchFor(item);
+        if(it == null)
+            throw new noItem_Exception();
+        
+        
+        if(it.getType() == ItemType.CIBO){
+            p.changeHealth((short)it.getValue());
+        }
+
+        ItemType type = getPotion(it);
+        if(type == null){
+            throw new IllegalArgumentException("Questo item: "+it.getName()+" non può essere usato");
+        }
+        if(potionsActiveted.get(type) == null){
+            potionsActiveted.put(type, MAX_POTION_USAGE);
+        }
+        else{//se il player ha 2 pozioni dello stesso tipo la 2 NON viene usata
+            return;
+        }
+        applayPotion(it);
+        p.removeItem(it);
+    }
+
+    /**
+     * restituisce il tipo della pozione. Se item non è una pozione allora restituisce null 
+     * @param item Item da verificare
+     * @return ItemType solo se è una pozione
+     */
+    private ItemType getPotion(ItemStack item){
+        String str = item.getType().name();
+        
+        if(str.contains("POZIONE")){
+            return item.getType();
+        }
+
+        return null;
+    }
+
+    /**
+     * Applica l'effetto della pozione al player
+     * @param item
+     */
+    private void applayPotion(ItemStack item){
+        switch(item.getType()){
+            case POZIONE_CURA:
+                p.changeHealth((short)item.getValue());
+                break;
+            case POZIONE_DANNO:
+                p.changeHealth((short)-item.getValue());
+                break;
+            case POZIONE_FORZA:
+                break;
+            case POZIONE_INVALIDITA:
+                break;
+            case POZIONE_RESISTENZA:
+                break;
+            case POZIONE_VELENO:
+                break;
+            case CIBO:
+                p.changeHealth((short)item.getValue());
+                break;
+            default:
+                return;
+        }
+    }
+
+    //TODO: FINE CODICE DA RIFARE
+
+    /**
+     * Rimuove un item dal inventario del player lancia noItem_Exception se
+     * l'item non è presente nel inventario
+     * @param item da rimuovere
+     */
+    public void playerRemove(String item) throws noItem_Exception{
+        Inventario inv = p.getInv();
+        ItemStack i = inv.searchFor(item);
+        if(i==null){
+            throw new noItem_Exception();
+        }
+
+        inv.remove(i);
+    }
+
+    /**
+     * Rimuove tutti gli item con lo stesso nome prensenti nel inventario
+     * @param item da rimuovere
+     */
+    public void playerRemoveStack(String item) throws noItem_Exception{
+        Inventario inv = p.getInv();
+        ItemStack i = inv.searchFor(item);
+        if(i==null){
+            throw new noItem_Exception();
+        }
+
+        do{
+            inv.remove(i);
+        }
+        while(inv.searchFor(item) != null);
+    }
+
+    
 }
