@@ -19,17 +19,17 @@ public class ItemStack_test {
     private void controlloCostruttori_peso()
     {
         //? se il primo lancia una eccezione, riesce a capire che deve continuare? Meglio non rischiare
-        ItemStack t = new ItemStack("nome", null, (byte)0, (byte)1, (byte)1, null);
+        new ItemStack("nome", null, (byte)0, (byte)1, (byte)1, null);
     }
     @Test(expected=IllegalArgumentException.class)
     private void controlloCostruttori_nome()
     {
-        ItemStack t = new ItemStack("", null, (byte)1, (byte)1, (byte)1, null);
+        new ItemStack("", null, (byte)1, (byte)1, (byte)1, null);
     }
     @Test(expected=IllegalArgumentException.class)
     private void controlloCostruttori_nomeNull()
     {
-        ItemStack t = new ItemStack(null, null, (byte)1, (byte)1, (byte)1, null);
+        new ItemStack(null, null, (byte)1, (byte)1, (byte)1, null);
     }
     @Test(expected=IllegalArgumentException.class)
     private void controlloCostruttori_quantita()
