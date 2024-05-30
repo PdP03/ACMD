@@ -36,6 +36,15 @@ public class Stanza extends NODE
         this.playerPosition = player; 
         this.pathImg=path;   
     }
+    public Stanza(Coordinates c, Coordinates player, Monster m, String path, Chest chest)
+    {   
+        this.monster = m; 
+        this.coord = c; 
+        this.playerPosition = player; 
+        this.pathImg=path;   
+        this.chest=chest;
+    }
+
     /**
      * Empty constructor, only for good habits
      */

@@ -321,8 +321,13 @@ public class xmlReader{
         n = eAttribute.getElementsByTagName("positionPlayer").item(0);
         throwExeptionIfNull(n, "[FATAL] Manca il tag <positionPlayer>");
         Coordinates c = getCord(n.getTextContent());
-        rValues.x = c.getX();
-        rValues.y = c.getY();
+        rValues.PlayerX = c.getX();
+        rValues.PlayerY = c.getY();
+        n = eAttribute.getElementsByTagName("position").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <position>");
+        Coordinates c2 = getCord(n.getTextContent());
+        rValues.StanzaX = c2.getX();
+        rValues.StanzaY = c2.getY();
         n = eAttribute.getElementsByTagName("path_image").item(0);
         throwExeptionIfNull(n, "[FATAL] Manca il tag <path_image>");
         rValues.path =n.getTextContent();

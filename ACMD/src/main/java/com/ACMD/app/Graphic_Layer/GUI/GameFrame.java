@@ -156,16 +156,17 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jLabelMap.setLayout(new GridLayout(20,20));
         jButtonPlayer.setEnabled(false);    
         
-
+            //Aggiungo le label e il pulsante del player nella posizione corretta
             int i=0; int ii=0;
             for( i=0; i<20; i++){
-                for( ii=0; ii<20; ii++){
+                for( ii=0; ii<20; ii++)
+                {
                     if(ii== x&& i==y){jLabelMap.add(jButtonPlayer);}
                     else{
                         JLabel l=new JLabel(" ");
                     l.setForeground(Color.RED);
                     jLabelMap.add(l);
-                }
+                        }
                 }
             }
 

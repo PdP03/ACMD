@@ -41,18 +41,17 @@ public class MapGraph {
        
         for(RoomValues r: rooms)
         {    
-            Stanza s = new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), factory.create(r.mtype), r.path);
+            Stanza s = new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), factory.create(r.mtype), r.path);
             
             System.out.print(s);
             
             chambers.add(s);
             //String s = r.path;
-            System.out.println(r.x+ " "+ r.y);
         }
 
         for(RoomValues r:rooms)
         {
-            chambers.add(new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), factory.create(r.mtype), r.path)); //Coordinate, 
+            chambers.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), factory.create(r.mtype), r.path)); //Coordinate, 
             System.out.println("add");
         }
         if(rooms != null)
@@ -66,8 +65,8 @@ public class MapGraph {
         //Aggiunta STANZE
         for(RoomValues r:rooms)
         {
-            
-            nodes.add(new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), new MonsterFactory().create(r.mtype), r.path  )); //Coordinate, 
+            // Coordinate stanza , coord player, mostro, percorso
+            nodes.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), new MonsterFactory().create(r.mtype), r.path  )); //Coordinate, 
         }
         for(NODE n:nodes){
             //n.printAllDirection();
