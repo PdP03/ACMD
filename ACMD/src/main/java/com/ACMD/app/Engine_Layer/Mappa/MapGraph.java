@@ -13,11 +13,11 @@ import com.ACMD.app.Engine_Layer.RoomValues;
 import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Engine_Layer.Entita.MType;
 import com.ACMD.app.Engine_Layer.Entita.Monster;
+import com.ACMD.app.Engine_Layer.Entita.MonsterFactory;
 import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 
 
 public class MapGraph {
-    public enum DIRECTION{NORTH, SOUTH, EAST, WEST}; 
     private SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge> map;
     private Coordinates[] directions;
     private static ArrayList<NODE> nodes;
@@ -30,12 +30,31 @@ public class MapGraph {
      */
     public MapGraph()
     {
-        
+        MonsterFactory factory = new MonsterFactory();
         final String entityDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Mappa\\";
         xmlReader reader = new xmlReader(entityDir, "MappaConfig.xml");
 
         nodes = reader.getAllNode();
         ArrayList<RoomValues> rooms = reader.getAllRoom(); 
+       
+        for(RoomValues r: rooms){
+            
+            Stanza s = new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), factory.create(r.mtype), r.path);
+            
+            System.out.print(s);
+            
+            chambers.add(s);
+            //String s = r.path;
+            System.out.println(r.x+ " "+ r.y);
+        }
+
+        for(RoomValues r:rooms)
+        {
+            chambers.add(new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), factory.create(r.mtype), r.path)); //Coordinate, 
+            System.out.println("add");
+        }
+        if(rooms != null)
+            System.out.println(rooms.size());
         Coordinates cord;
 
         //Aggiunta NODI
@@ -43,14 +62,55 @@ public class MapGraph {
             cord = n.getCoord();
         }
         //Aggiunta STANZE
-        for(RoomValues r:rooms)
-        {
-            nodes.add(new Stanza( new Coordinates(r.x, r.y), new Coordinates(r.posx, r.posy), r.mtype, r.path  )); //Coordinate, 
-        }
+        System.out.println("s");
+        
         for(NODE n:nodes){
-            n.printAllDirection();
+            //n.printAllDirection();
         }
 
+    }
+
+    public Coordinates getPlayerPos(){
+        return PlayerPosition;
+    }
+
+
+    //TODO: metodo che setta a true la variabile freeRoom nella staza a cordinate c
+    public void setFreeRoomAt(Coordinates c){
+
+    }
+    /*
+     * TODO: implementare un metodo che restituisce true o false se la stanza
+     * è stata liberata dal mostro
+     * nella stanza a cordinate c
+     * 
+     */
+    public boolean isFreeRoomAt(Coordinates c){
+        return false;
+    }
+
+    /*
+     * TODO: metodo che cambia le cordinate del Player
+     */
+    public void setPlayerPos(Coordinates c){
+
+    }
+
+    /*
+     * TODO: metodo che sposta il player verso la direzione specificata partendo
+     * dalla posizione attuale del player. Lancia un eccezzione se Direction non è
+     * una direzione possibile del nodo
+     */
+    public void movePlayerTo(Direction dir) throws IllegalArgumentException{
+
+    }
+
+    /*
+     * TODO: metodo che restituisce una lista di Direction che contengon l'enum
+     * es ArrayList può contenere Direction.NORD, Direction.SUD
+     */
+    public ArrayList<Direction> validDirectionOf(Coordinates n){
+        return new ArrayList<Direction>(4);
     }
 
 
@@ -137,11 +197,23 @@ public class MapGraph {
                     //file.close();
                 }
             } catch (IOException e1) {
-                // TODO Auto-generated catch block
                 System.out.println("File non trovato oppure non sono presenti i dati nel formato corretto.");
 
             } 
         } 
+    
+    public ArrayList<Monster> getAllMonster(){
+        ArrayList<Monster> list = new ArrayList<Monster>();
+        for(Stanza s: chambers)
+            {
+                list.add(s.getMonster());
+            }
+
+        return list;
+    }
+
+
+
     public Coordinates[] getDirections(Coordinates coord) throws NoSuchElementException{
 
         for(NODE s:nodes)
@@ -180,7 +252,7 @@ public class MapGraph {
     }
    
 
-    public boolean isValidDirectionTo(Coordinates c, DIRECTION dir) throws IOException
+    public boolean isValidDirectionTo(Coordinates c, Direction dir) throws IOException
      {
         for(NODE s:nodes)
         {
@@ -194,7 +266,7 @@ public class MapGraph {
         return false; 
      }
 
-    public MType getMonsterAt(Coordinates cord){
+    public Monster getMonsterAt(Coordinates cord){
             for(Stanza s:chambers)
             {
                 if(s.getCoordinates() == cord ) return s.getMonster();
@@ -223,7 +295,7 @@ public class MapGraph {
         }
         throw new NoSuchElementException("Elemento non trovato");
     }
-    public static boolean isStanza(Coordinates coord) throws NoSuchElementException
+    public boolean isStanza(Coordinates coord) throws NoSuchElementException
     {
         for(NODE s : nodes)
         {
