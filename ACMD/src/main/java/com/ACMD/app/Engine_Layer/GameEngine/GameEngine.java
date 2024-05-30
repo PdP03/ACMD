@@ -2,7 +2,6 @@ package com.ACMD.app.Engine_Layer.GameEngine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.IllformedLocaleException;
 import java.util.Map;
 import java.util.Stack;
 
@@ -13,6 +12,7 @@ import com.ACMD.app.Engine_Layer.Mappa.Direction;
 import com.ACMD.app.Engine_Layer.Mappa.MapGraph;
 import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 import com.ACMD.app.Engine_Layer.StorageManagement.Inventario;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemFactory;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
@@ -25,6 +25,8 @@ import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
  */
 public class GameEngine{
     final byte MAX_POTION_USAGE = 3;
+    final byte INSTANT_POTION_USAGE = 1;
+    ItemFactory factory;
     Player p;
     Stack<Coordinates> playerStack;
     MapGraph map;
@@ -42,6 +44,7 @@ public class GameEngine{
         buffer = null;
         lose = null;
         potionsActiveted = null;
+        factory = null;
     }
 
     /**
@@ -53,6 +56,7 @@ public class GameEngine{
         map = new MapGraph();
         buffer = "";
         potionsActiveted = new HashMap<ItemType, Byte>();
+        factory = new ItemFactory();
 
         //aggiunta degli observer(Monster) a player
         ArrayList<Monster> list = map.getAllMonster();
@@ -160,11 +164,33 @@ public class GameEngine{
     }
 
     /**
+     * Ottiene il valore della pozione passata come ItemType è decrementa gli utilizzi
+     * delle pozioni attivate se la pozione non è stata attivare allora il valore è 0
+     * @param t ItemType da valutare
+     * @return byte valore della pozione
+     */
+    private byte getPotionValue(ItemType t){
+        Byte uses = potionsActiveted.get(t);
+        if(uses == null){
+            return 0;
+        }
+        uses--;
+        if(uses == 0){
+            potionsActiveted.remove(t);
+        }
+        if(uses < 0){
+            return 0;
+        }
+        buffer += "Stai usando pozione "+ t.name();
+        return (byte)factory.getItem(t).getValue();
+    }
+
+    /**
      * Metodo per attacare monster da player se il mostro muore freeRoom viene impostato a true
      * @param m Monster che subisce l'attacco
      */
     private void playerAttack(Monster m){
-        short healthChange = (short)-(p.getAttack() - m.getArmor());
+        short healthChange = (short)-(p.getAttack() - m.getArmor() + getPotionValue(ItemType.POZIONE_FORZA) + getPotionValue(ItemType.POZIONE_VELENO));
         if(healthChange < 0){
             m.changeHealth(healthChange);
 
@@ -180,7 +206,7 @@ public class GameEngine{
      * @param m Mostro che attacca
      */
     private void monsterAttack(Monster m){
-        short healthChange = (short)-(m.getAttack() - p.getArmor());
+        short healthChange = (short)-(m.getAttack() - p.getArmor() - getPotionValue(ItemType.POZIONE_RESISTENZA) - getPotionValue(ItemType.POZIONE_INVALIDITA));
 
         if(healthChange < 0){
             p.changeHealth(healthChange);
@@ -301,24 +327,24 @@ public class GameEngine{
      */
     public void playerUse(String item)throws noItem_Exception, IllegalArgumentException{
         ItemStack it = p.getInv().searchFor(item);
-        if(it == null)
+        if(it == null){
             throw new noItem_Exception();
-        
-        
+        }
+
         if(it.getType() == ItemType.CIBO){
             p.changeHealth((short)it.getValue());
+            p.removeItem(it);
+            return;
         }
 
         ItemType type = getPotion(it);
         if(type == null){
             throw new IllegalArgumentException("Questo item: "+it.getName()+" non può essere usato");
         }
-        if(potionsActiveted.get(type) == null){
-            potionsActiveted.put(type, MAX_POTION_USAGE);
-        }
-        else{//se il player ha 2 pozioni dello stesso tipo la 2 NON viene usata
+        if(potionsActiveted.get(type) != null){//se il player vuole attivare 2 pozioni dello stesso tipo la 2 NON viene usata
             return;
         }
+
         applayPotion(it);
         p.removeItem(it);
     }
@@ -339,7 +365,15 @@ public class GameEngine{
     }
 
     /**
-     * Applica l'effetto della pozione al player
+     * Applica l'effetto della pozione al player in particolare:
+     * <ul>
+     *      <li>POZIONE_CURA, cura istantaneamente il player</li>
+     *      <li>POZIONE_DANNO, fa danno istantaneo al player</li>
+     *      <li>POZIONE_FORZA, aumenta per 3 turni il danno del player</li>
+     *      <li>POZIONE_RESISTENZA, aumenta per 3 turni la difesa del player</li>
+     *      <li>POZIONE_INVALIDITA, diminuisce per 3 turni il l'attacco di monster</li>
+     *      <li>POZIONE_VELENO, diminuisce per 3 turni la difesa di monster</li>
+     * </ul>
      * @param item
      */
     private void applayPotion(ItemStack item){
@@ -351,15 +385,16 @@ public class GameEngine{
                 p.changeHealth((short)-item.getValue());
                 break;
             case POZIONE_FORZA:
+                potionsActiveted.put(ItemType.POZIONE_FORZA, MAX_POTION_USAGE);
                 break;
             case POZIONE_INVALIDITA:
+                potionsActiveted.put(ItemType.POZIONE_INVALIDITA, MAX_POTION_USAGE);
                 break;
             case POZIONE_RESISTENZA:
+                potionsActiveted.put(ItemType.POZIONE_RESISTENZA, MAX_POTION_USAGE);
                 break;
             case POZIONE_VELENO:
-                break;
-            case CIBO:
-                p.changeHealth((short)item.getValue());
+                potionsActiveted.put(ItemType.POZIONE_VELENO, MAX_POTION_USAGE);
                 break;
             default:
                 return;
