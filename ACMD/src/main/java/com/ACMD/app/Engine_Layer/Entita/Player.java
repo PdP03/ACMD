@@ -21,7 +21,7 @@ public class Player extends Entity{
     //variabili del player
     protected Inventario inv = new Inventario();
     private final byte MAX_INVENTORY_WEIGHT = 10;
-    private final byte BASE_ATTACK = 1;
+    private final byte BASE_ATTACK = 2;
     private final byte BASE_ARMOR = 1;
     private final byte BASE_HEALTH = 5;
     private final byte BASE_LEVEL = 1;

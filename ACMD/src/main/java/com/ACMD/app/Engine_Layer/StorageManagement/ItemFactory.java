@@ -4,14 +4,19 @@ package com.ACMD.app.Engine_Layer.StorageManagement;
 //import java.util.HashMap;     no perché perché voglio tipi di accesso differenti
 import java.util.Vector;
 
+import com.ACMD.app.Engine_Layer.xmlReader;
+
 public class ItemFactory
 {
+    final String StorageDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\StorageManagement\\";
+    xmlReader reader;
     static Vector<ItemStack> itemConfigurazione;
-    static final String fileName = "";
+    static final String fileName = "ItemStackConfig.xml";
 
     public ItemFactory()
     {
-        itemConfigurazione= ( new LoaderStorageManagement(fileName) ).getInventory();
+        reader = new xmlReader(StorageDir, fileName);
+        itemConfigurazione= reader.getAllItemStack();
         //this.ordinaPerNome();     //se c'è tempo e voglia si può fare mergesort rispetto nome per ceracre nomi in binary-search
     }
 

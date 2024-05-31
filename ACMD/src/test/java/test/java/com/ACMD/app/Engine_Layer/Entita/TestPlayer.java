@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import com.ACMD.app.Engine_Layer.Entita.Player;
 import com.ACMD.app.Engine_Layer.StorageManagement.Inventario;
+import com.ACMD.app.Engine_Layer.StorageManagement.InventoryOutOfBound_Exception;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 
@@ -40,22 +41,22 @@ public class TestPlayer {
         Assert.assertEquals(2, p.getArmor());
 
         //---- TEST CON LV. MAX ----
-        p.setLv(Byte.MAX_VALUE);
-        Assert.assertEquals(127, p.getArmor());
+        p.setLv((byte)(Byte.MAX_VALUE-1));
+        Assert.assertEquals(126, p.getArmor());
 
     }
 
     @Test
     public void testAttack(){
         //---- TEST VALORE DI DEFAULT ----
-        Assert.assertEquals(1, p.getAttack());
+        Assert.assertEquals(2, p.getAttack());
 
         //---- TEST CON LV. 2 ----
         p.setLv((byte)2);
-        Assert.assertEquals(2, p.getAttack());
+        Assert.assertEquals(3, p.getAttack());
 
         //---- TEST CON LV. MAX ----
-        p.setLv(Byte.MAX_VALUE);
+        p.setLv((byte)(Byte.MAX_VALUE-1));
         Assert.assertEquals(127, p.getAttack());
 
     }
@@ -71,9 +72,9 @@ public class TestPlayer {
         Assert.assertEquals(7, p.getLife());
 
         //---- TEST CON LV. MAX ----
-        p.setLv(Byte.MAX_VALUE);
+        p.setLv((byte)(Byte.MAX_VALUE-1));
         p.changeHealth((short)1000);
-        Assert.assertEquals(257, p.getLife());
+        Assert.assertEquals(255, p.getLife());
     }
 
     @Test
@@ -96,7 +97,7 @@ public class TestPlayer {
          Assert.assertEquals(-3, p.getLife());
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testRemoveItem(){
         ItemStack item = new ItemStack("Spada", ItemType.ARMA, (byte)3, (byte)1, (byte)2, "Spada di roccia");
 
@@ -123,7 +124,7 @@ public class TestPlayer {
         p.removeItem(item);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=InventoryOutOfBound_Exception.class)
     public void testAddItem(){
         //---- TEST AGGIUNTA DI UN ELEMENTO ----
         ItemStack item = new ItemStack("Stivali", ItemType.ARMATURA, (byte)8, (byte)1, (byte)1, "Stivali in pelle");

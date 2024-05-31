@@ -92,6 +92,16 @@ public class GameEngine{
         buffer+="Attualmente "+p.getName()+" sei nella posizione " + cord.toString()+"\n";
         buffer += getNearDirection(cord);
         buffer += getRoomInfo(cord);
+        //buffer += getChestInfo(cord);
+    }
+
+    public String getChestInfo(Coordinates cord){
+        String str="";
+
+        if(map.isStanza(cord)){
+           // Chest c
+        }
+        return null;
     }
 
     /**
@@ -101,14 +111,18 @@ public class GameEngine{
      */
     private String getRoomInfo(Coordinates c){
         String str = "";
+        
         if(map.isStanza(c)){
             Monster m= map.getMonsterAt(c);
             str+= "Attento c'è "+m.getName()+"(lv."+m.getLv()+")";
             Chest chest = map.getChestAt(c);
             if(chest.getLock())
-                str+="Ce anche una chest ma è bloccata cosa ci sara dentro?";
+                str+="\nCe anche una chest ma è bloccata cosa ci sara dentro?";
             else{
-                str+="La chest è sbloccata gli item al suo interno sono:"+chest;
+                str+="\nLa chest è sbloccata gli item al suo interno sono:"+chest;
+            }
+            if(m.getLife() > 0){
+                str += "\n\n"+m.getName()+": "+m.getHistory()+"\n";
             }
 
             return str+"\n";
@@ -159,9 +173,13 @@ public class GameEngine{
         
         Monster m = map.getMonsterAt(cord);
         if(!map.isFreeRoomAt(cord)){
-            playerAttack(m);
+            
+            short val = playerAttack(m);
+            buffer+=p.getName()+" hai attaccato "+ m.getName() +" infliggendo il danno: "+(-val)+"(vita mostro:"+m.getLife()+")\n";
+            //System.out.println(buffer);
             if(m.getLife() > 0){
                 monsterAttack(m);
+                buffer += m.getName()+" ti ha attaccato la tua vita è "+ p.getLife()+"\n";
             }
         }
     }
@@ -192,16 +210,20 @@ public class GameEngine{
      * Metodo per attacare monster da player se il mostro muore freeRoom viene impostato a true
      * @param m Monster che subisce l'attacco
      */
-    private void playerAttack(Monster m){
+    private short playerAttack(Monster m){
         short healthChange = (short)-(p.getAttack() - m.getArmor() + getPotionValue(ItemType.POZIONE_FORZA) + getPotionValue(ItemType.POZIONE_VELENO));
+        System.out.println("healt change: "+ p.getAttack());
         if(healthChange < 0){
             m.changeHealth(healthChange);
 
             if(m.getLife() <= 0){
                 buffer += p.getName() + " hai sconfitto il mostro: " + m.getName() + " ora puoi aprire la chest\n";
                 map.setFreeRoomAt(map.getPlayerPos());
+                map.getChestAt(map.getPlayerPos()).unlock();
             }
         }
+
+        return healthChange;
     }
 
     /**
@@ -238,7 +260,6 @@ public class GameEngine{
     public void movePlayerBack(){
         if(!playerStack.empty()){
             Coordinates c = playerStack.pop();
-            System.out.println(c);
             map.setPlayerPos(c);
         }
 
@@ -256,19 +277,8 @@ public class GameEngine{
             if(map.isValidDirectionTo(map.getPlayerPos(), d)){
                 playerStack.add(map.getPlayerPos());
                 map.movePlayerTo(d);
-                System.out.println("Dico al player di andare a "+d);
-                try{
-                System.out.println(map.isStanza(map.getPlayerPos()));
-                }
-                catch(NoSuchElementException e){
-                    System.out.println("Nodo non trovato");
-                }
                 if(map.isStanza(map.getPlayerPos())){
-                    
-                    m = map.getMonsterAt(map.getPlayerPos());
-                    if(m.getLife() > 0){
-                        buffer += m.getHistory()+"\n";
-                    }
+                    buffer += "Sei entrato in una stanza\n";
                 }
                 else{
                     

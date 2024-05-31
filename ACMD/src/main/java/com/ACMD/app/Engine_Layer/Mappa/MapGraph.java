@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.Scanner;
 
 import org.jgrapht.graph.*;
@@ -15,10 +16,13 @@ import com.ACMD.app.Engine_Layer.Entita.MType;
 import com.ACMD.app.Engine_Layer.Entita.Monster;
 import com.ACMD.app.Engine_Layer.Entita.MonsterFactory;
 import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemFactory;
 
 
 
 public class MapGraph {
+    Random randomGen;
+    ItemFactory itemFacry;
     private SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge> map;
     private Coordinates[] directions;
     private static ArrayList<NODE> nodes;
@@ -51,6 +55,8 @@ public class MapGraph {
      */
     public MapGraph()
     {   
+        itemFacry = new ItemFactory();
+        randomGen = new Random(System.currentTimeMillis());
         chambers = new ArrayList<>();
         MonsterFactory factory = new MonsterFactory();
         final String entityDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Mappa\\";
@@ -68,18 +74,34 @@ public class MapGraph {
             cord = n.getCoord();
         }
         //Aggiunta STANZE
+        Chest ches;
         for(RoomValues r:rooms)
         {
+            ches = getRandomChest();
             // Coordinate stanza , coord player, mostro, percorso
-            nodes.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), new MonsterFactory().create(r.mtype), r.path)); //Coordinate, 
+            nodes.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), factory.create(r.mtype), r.path, ches)); //Coordinate, 
+            chambers.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), factory.create(r.mtype), r.path, ches));
         }
         
         
 
     }
 
+    /**
+     * Crea una chest con elementi random al max contine 3 elementi
+     */
+    private Chest getRandomChest(){
+        Chest c = new Chest();
+        int maxItem = randomGen.nextInt(3);
+        for(int i=0; i<maxItem; i++){
+            c.add(itemFacry.getRandomItem());
+        }
+
+        return c;
+    }
+
     public Coordinates getPlayerPos(){
-        System.out.println("GetPlayer position è stato chiamato con "+PlayerPosition);
+        //System.out.println("GetPlayer position è stato chiamato con "+PlayerPosition);
         return PlayerPosition;
     }
 
@@ -319,16 +341,22 @@ public class MapGraph {
      }
 
     public Monster getMonsterAt(Coordinates cord){
-            for(Stanza s:chambers)
+        Coordinates c;    
+        for(Stanza s:chambers)
             {
-                if(s.getCoordinates() == cord ) return s.getMonster();
+                c = s.getCoordinates();
+                if(c.getX() == cord.getX() && c.getY() == cord.getY() ) return s.getMonster();
             }
             return null;
     }
     public Chest getChestAt(Coordinates cord){
+        Coordinates c; 
         for(Stanza s:chambers)
         {
-            if(s.getCoordinates() == cord ) return s.getChest();
+            c = s.getCoordinates();
+            if(c.getX() == cord.getX() && c.getY() == cord.getY()){ 
+                return s.getChest();
+            }
         }
         return null;
     }
@@ -348,11 +376,11 @@ public class MapGraph {
     }
     public boolean isStanza(Coordinates coord) throws NoSuchElementException
     {
-        for(NODE s : nodes)
+        for(Stanza s : chambers)
         {
             if(s.getCoord().getX() == coord.getX() && s.getCoord().getY() == coord.getY() ) return s.isRoom();
         }
-        throw new NoSuchElementException("Elemento non trovato");
+        return false;
     }
     public static void printAllIcons()
     {

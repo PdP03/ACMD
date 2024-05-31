@@ -18,6 +18,23 @@ public class main {
         System.out.println(engine.getBuffer());
         engine.movePlayer(Direction.WEST);
         engine.lookAround();
+        System.out.println(engine.getBuffer());
+
+
+        //Player attacca
+        engine.attack();
+        System.out.println(engine.getBuffer());
+        engine.attack();
+        System.out.println(engine.getBuffer());
+        engine.attack();
+        System.out.println(engine.getBuffer());
+        //TODO: il player può continuare a colpire il MONSTER anche se è MORTO da sistemare
+        engine.attack();
+        System.out.println(engine.getBuffer());
+        
+
+        engine.lookAround();
+        System.out.println(engine.getBuffer());
         /*
         System.out.println(engine.getBuffer());
         engine.movePlayer(Direction.WEST);
