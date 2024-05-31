@@ -90,7 +90,6 @@ public class MapGraph {
         }
     }
     /*
-     * TODO: implementare un metodo che restituisce true o false se la stanza
      * è stata liberata dal mostro
      * nella stanza a cordinate c
      * 
@@ -105,18 +104,38 @@ public class MapGraph {
     }
 
     /*
-     * TODO: metodo che cambia le cordinate del Player
+
      */
     public void setPlayerPos(Coordinates c){
-
+        PlayerPosition = c; 
     }
 
     /*
-     * TODO: metodo che sposta il player verso la direzione specificata partendo
+     * 
      * dalla posizione attuale del player. Lancia un eccezzione se Direction non è
      * una direzione possibile del nodo
      */
     public void movePlayerTo(Direction dir) throws IllegalArgumentException{
+        for(NODE n: nodes)
+        {
+            if(n.getCoord().getX() == PlayerPosition.getX() && n.getCoord().getY() == PlayerPosition.getY())
+            {
+                switch (dir) {
+                    case NORTH:
+                        PlayerPosition = n.getNorth();
+                        break;
+                    case SOUTH:
+                        PlayerPosition = n.getSouth();
+                        break;
+                    case EAST:
+                        PlayerPosition = n.getEast();
+                    case WEST:
+                        PlayerPosition = n.getWest();
+                    default:
+                        break;
+                }
+            }
+        }
 
     }
 
@@ -125,8 +144,20 @@ public class MapGraph {
      * es ArrayList può contenere Direction.NORD, Direction.SUD
      */
     public ArrayList<Direction> validDirectionOf(Coordinates n){
-        return new ArrayList<Direction>(4);
-    }
+        ArrayList<Direction> dir=new ArrayList<Direction>(4); 
+        for(NODE s: nodes)
+        {
+            if(n.getX() == s.getCoord().getX() && n.getY()==s.getCoord().getY())
+            {
+                if(s.getNorth()!=null) dir.add(Direction.NORTH);
+                if(s.getSouth()!=null) dir.add(Direction.SOUTH);
+                if(s.getEast()!=null) dir.add(Direction.EAST);
+                if(s.getWest()!=null) dir.add(Direction.WEST);          
+            }
+            }
+            return dir;        
+        }
+    
 
 
 
