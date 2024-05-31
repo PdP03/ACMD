@@ -25,7 +25,12 @@ public class MapGraph {
     private ArrayList<Stanza> chambers;
     private ArrayList<Coordinates> playerRoute; 
     private Coordinates PlayerPosition =new Coordinates(1,19); //default player postion  
+    public static int keys=0;
+    public static final int dragonX=12; //sono obbligato a usare static perchè il metodo che aggiunge il drago è static 
+    public static final int dragonY=18;
 
+    private static final int toTheDragonX=8; //sono obbligato a usare static perchè il metodo che aggiunge il drago è static 
+    private static final int toTheDragonY=13;
     /**
      * 
      * @param of The node you want the path image of (note: pathimage is not from the root. It is just the name of the file in the "imges" folder)
@@ -66,11 +71,10 @@ public class MapGraph {
         for(RoomValues r:rooms)
         {
             // Coordinate stanza , coord player, mostro, percorso
-            chambers.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), new MonsterFactory().create(r.mtype), r.path)); //Coordinate, 
+            nodes.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), new MonsterFactory().create(r.mtype), r.path)); //Coordinate, 
         }
-        for(NODE n:nodes){
-            //n.printAllDirection();
-        }
+        
+        
 
     }
 
@@ -78,10 +82,12 @@ public class MapGraph {
         return PlayerPosition;
     }
 
-
-    //TODO: metodo che setta a true la variabile freeRoom nella staza a cordinate c
     public void setFreeRoomAt(Coordinates c){
-
+        for(NODE n:nodes)
+        {
+            if(n.getCoord().getX() == c.getX() && n.getCoord().getY()==c.getY())
+            n.setFree(); 
+        }
     }
     /*
      * TODO: implementare un metodo che restituisce true o false se la stanza
@@ -90,7 +96,12 @@ public class MapGraph {
      * 
      */
     public boolean isFreeRoomAt(Coordinates c){
-        return false;
+        for(NODE s: nodes)
+        {
+            if(s.getCoord().getX() == c.getX() && s.getCoord().getY() == c.getY())
+                return s.getPathImage().contains("Open"); 
+        }
+        throw new NoSuchElementException("Non esiste il nodo in cui invochi isFreeRoomAt");
     }
 
     /*
@@ -295,7 +306,6 @@ public class MapGraph {
     {
         for(NODE s : nodes)
         {
-            System.out.println(s.getCoord().getX() + " "+ s.getCoord().getY());
             if(s.getCoord().getX() == coord.getX() && s.getCoord().getY() == coord.getY() ) return s.getPathImage();
         }
         throw new NoSuchElementException("Elemento non trovato");
@@ -312,6 +322,53 @@ public class MapGraph {
     public static void printAllIcons()
     {
         for(NODE s: nodes ) System.out.println("Il nodo" + s.getCoord()+ " ha "+ s.pathImg);
+    }
+    public static String getAllIcons()
+    {
+        String string="";
+        for(NODE s: nodes ) { string+="Il nodo" + s.getCoord()+ " ha "+ s.pathImg+"\n";}
+        return string;
+        
+    }
+    public static void setBeaten(Coordinates coord)
+    {
+       for(NODE s : nodes)
+        {
+            if(s.getCoord().getX() == coord.getX() && s.getCoord().getY() == coord.getY() )
+            {
+                if(s.pathImg.contains("Open")) return;                                     
+                s.pathImg=s.pathImg.substring(0,s.pathImg.length()-4);
+                s.pathImg+="Open.png";
+                keys++; 
+                //System.out.println(s.pathImg);
+            }
+        }
+    }
+    public static void setDragon()
+    {
+        //Cambia tutti i percorsi della mappa mettendo quelli con il drago
+        for(NODE s:nodes)
+        {
+            if(!s.isRoom())
+            {
+                s.pathImg="Mappa_DefinitivaOpen.png";
+            }                
+        
+        }
+         //Aggiungo il drago
+         nodes.add(new NODE(dragonX,dragonY));
+         for(NODE s:nodes)
+         {
+            if(s.getCoord().getX()==dragonX && s.getCoord().getY() == dragonY)
+            {
+                s.setWest(new Coordinates(toTheDragonX,toTheDragonY));
+                s.setPathImage("Mappa_DefinitivaOpen.png");
+            }
+            if(s.getCoord().getX() == toTheDragonX && s.getCoord().getY() == toTheDragonY)
+            {
+                s.setSouth(new Coordinates(dragonX, dragonY));
+            }
+         }
     }
 
     

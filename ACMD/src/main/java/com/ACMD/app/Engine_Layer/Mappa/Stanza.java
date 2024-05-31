@@ -11,7 +11,10 @@ public class Stanza extends NODE
     Coordinates playerPosition; 
     Monster monster; 
     Chest chest; 
-    
+    boolean isFree=false;
+
+    public boolean isFree(){return isFree;}
+    public void setFree(){isFree=true;}
 
     public void setChest(Chest c){this.chest=c;}
     public Chest getChest(){return chest;}

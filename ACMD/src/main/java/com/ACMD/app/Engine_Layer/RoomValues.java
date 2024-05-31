@@ -11,5 +11,6 @@ public class RoomValues {
     public int StanzaX,StanzaY; // Stanza
     public String path; 
     public boolean isRoom;
+    public boolean isFree=false; 
 
 }

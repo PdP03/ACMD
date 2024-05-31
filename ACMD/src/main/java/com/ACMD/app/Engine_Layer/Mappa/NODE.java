@@ -163,5 +163,9 @@ public class NODE{
         throw new IOException("Input non valido"); 
         }
      }
+    public boolean isFree() { 
+        return false; 
+    }
+    public void setFree(){}
      
 }

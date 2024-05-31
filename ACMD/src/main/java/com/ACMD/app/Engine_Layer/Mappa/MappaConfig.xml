@@ -77,12 +77,21 @@
   </room>
 
   <room>
+    <position>12,18</position>
+    <mtype>BOSS_DRAGO</mtype>
+    <positionPlayer>12,18</positionPlayer>
+    <path_image>Mappa_Drago.png</path_image>
+    <isRoom>true</isRoom>
+  </room>
+
+  <room>
     <position>1,11</position>
     <mtype>COBOLDO</mtype>
     <positionPlayer>2,11</positionPlayer>
     <path_image>Mappa_Kobold.png</path_image>
     <isRoom>true</isRoom>
   </room>
+
   <room>
     <position>17,1</position>
     <mtype>MAGO_OSCURO</mtype>

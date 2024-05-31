@@ -21,9 +21,11 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     Color lightBackground = new Color(204, 204, 204);
     ParsePath pathParser=new ParsePath();
     final String imageDirPath = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Graphic_Layer\\Images\\";
-
+    boolean youWin=false;
     
     String mapIconPath = pathParser.getPath(imageDirPath, "Mappa_Definitiva.png");
+    String mapIconPathOpen = pathParser.getPath(imageDirPath, "Mappa_DefinitivaOpen.png");
+    
     String playerIcon  = pathParser.getPath(imageDirPath,"PersonIcon.jpg");
     String keyIcon     = pathParser.getPath(imageDirPath,"Key.jpg");
     String musicIcon   = pathParser.getPath(imageDirPath,"Music.png");
@@ -36,7 +38,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                     initComponents(); // Crea la finestra vuota, senza aggiugnere la mappa          
                     addMapPicture(mapIconPath); // Aggiunge l'immagine (grafica)
                  //   addPlayerPosition(1,19,playerIcon); 
-                    move(17,1);
+                    move(1,19);
     }
                       
     
@@ -109,10 +111,19 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 
                 try {
+                    if(jTextComandi.getText().contains("Open"))
+                    {
+                        String[] t=jTextComandi.getText().split(",");
+                        int x=Integer.parseInt(t[0]);
+                        int y=Integer.parseInt(t[1]);
+                        MapGraph.setBeaten(new Coordinates(x,y));
+                        key.setVisible(false);
+                        key.setText(MapGraph.keys+"");
+                        key.setVisible(true);                        
+                    }
                     String[] t=jTextComandi.getText().split(",");
                     int x=Integer.parseInt(t[0]);
                     int y=Integer.parseInt(t[1]);
-                    
                     move(x,y);
                 }catch (Exception e ){}
                 
@@ -126,7 +137,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jTextStory.setFont(jTextStory.getFont().deriveFont( 16f));
         jTextStory.setColumns(20);
         jTextStory.setRows(5);
-        jTextStory.setText("Here goes the story");
+        jTextStory.setText(MapGraph.getAllIcons());
         jScrollPane1.setViewportView(jTextStory);
 
         jTextComandi.setText("Enter your answer");
@@ -146,14 +157,16 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         {
            // System.out.println("Move chiamato con" +x+ " "+y);
         if(x <0 || x>19 || y<0 || y>19 ) throw new IllegalArgumentException("either x or y values not between 0-19 ");
-       
         jInternalFrame1.remove(jLabelMap);
         jLabelMap=new JLabel("");
         try{
+            if(MapGraph.keys==2) 
+            {
+                MapGraph.setDragon();
+            }  
             String path = MapGraph.getIconOf(new Coordinates(x,y));
             path = pathParser.getPath(imageDirPath,path );
             jLabelMap.setIcon(new ImageIcon(path));
-            System.out.println("path: "+path);
         }catch(Exception e ){}
       
         jLabelMap.setSize(jInternalFrame1.getSize());
@@ -243,7 +256,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          * @param amount the value of the bar [0,100]
          * @throws RuntimeException thrown if amount is grater 100. If negative amount is set to 0 
          */
-        public void setEnemyrHealth(int amount ) throws RuntimeException
+        public void setEnemyHealth(int amount ) throws RuntimeException
         {
             if(amount>100) throw new RuntimeException("value greater than 100 ");
             if (amount <0) amount =0; 
@@ -388,7 +401,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
        jButtonSave.setLocation(1200,730);
        add(jButtonSave);
 
-       JButton key = new JButton();
+       key = new JButton();
        key.setSize(120,70);
        key.setBackground(backGround);
        key.setForeground(new Color(255,0,0));
@@ -399,7 +412,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
        Image newimg2 = image2.getScaledInstance(70, 70,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
        imageIcon2 = new ImageIcon(newimg2);  // transform it back
        key.setIcon(imageIcon2);
-       key.setText("4");
+       key.setText(MapGraph.keys+"");
        key.setLocation(675,710);
        key.setOpaque(false);
        add(key);
@@ -440,6 +453,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      private javax.swing.JTextField jTextComandi;
      private javax.swing.JTextArea jTextStory;
      private javax.swing.JToolBar jToolBar1;
+     private JButton key;
      // End of variables declaration      
 }    
 

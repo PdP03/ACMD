@@ -64,7 +64,6 @@ public class TestFrame{
         */
      //   new MyTree();
       MapGraph m2= new MapGraph();
-      MapGraph.printAllIcons();
       new GameFrame().setVisible(true); 
         }   
 
