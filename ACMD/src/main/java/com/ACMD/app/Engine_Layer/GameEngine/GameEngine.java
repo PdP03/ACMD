@@ -3,6 +3,7 @@ package com.ACMD.app.Engine_Layer.GameEngine;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Stack;
 
 import com.ACMD.app.Engine_Layer.Entita.Monster;
@@ -236,8 +237,12 @@ public class GameEngine{
      */
     public void movePlayerBack(){
         if(!playerStack.empty()){
-            map.setPlayerPos(playerStack.pop());
+            Coordinates c = playerStack.pop();
+            System.out.println(c);
+            map.setPlayerPos(c);
         }
+
+        buffer = "";
     }
 
     /**
@@ -249,16 +254,23 @@ public class GameEngine{
         Monster m;
         try{
             if(map.isValidDirectionTo(map.getPlayerPos(), d)){
-                map.movePlayerTo(d);
                 playerStack.add(map.getPlayerPos());
-                
+                map.movePlayerTo(d);
+                try{
+                System.out.println(map.isStanza(map.getPlayerPos()));
+                }
+                catch(NoSuchElementException e){
+                    System.out.println("s");
+                }
                 if(map.isStanza(map.getPlayerPos())){
+                    
                     m = map.getMonsterAt(map.getPlayerPos());
                     if(m.getLife() > 0){
                         buffer += m.getHistory()+"\n";
                     }
                 }
                 else{
+                    
                     buffer += p.getName()+" hai raggiunto il nodo "+map.getPlayerPos()+".\n";
                 }
             }
