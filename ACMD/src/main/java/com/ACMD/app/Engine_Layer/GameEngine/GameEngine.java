@@ -44,6 +44,7 @@ public class GameEngine{
         buffer = null;
         lose = null;
         potionsActiveted = null;
+        playerStack = null;
         factory = null;
     }
 
@@ -55,6 +56,7 @@ public class GameEngine{
         p = new Player(playerName);
         map = new MapGraph();
         buffer = "";
+        playerStack = new Stack<Coordinates>();
         potionsActiveted = new HashMap<ItemType, Byte>();
         factory = new ItemFactory();
 
@@ -249,6 +251,7 @@ public class GameEngine{
             if(map.isValidDirectionTo(map.getPlayerPos(), d)){
                 map.movePlayerTo(d);
                 playerStack.add(map.getPlayerPos());
+                
                 if(map.isStanza(map.getPlayerPos())){
                     m = map.getMonsterAt(map.getPlayerPos());
                     if(m.getLife() > 0){

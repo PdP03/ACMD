@@ -118,19 +118,23 @@ public class MapGraph {
     public void movePlayerTo(Direction dir) throws IllegalArgumentException{
         for(NODE n: nodes)
         {
+            
             if(n.getCoord().getX() == PlayerPosition.getX() && n.getCoord().getY() == PlayerPosition.getY())
             {
+                
                 switch (dir) {
                     case NORTH:
                         PlayerPosition = n.getNorth();
-                        break;
+                        return;
                     case SOUTH:
                         PlayerPosition = n.getSouth();
-                        break;
+                        return;
                     case EAST:
                         PlayerPosition = n.getEast();
+                        return;
                     case WEST:
                         PlayerPosition = n.getWest();
+                        return;
                     default:
                         break;
                 }
