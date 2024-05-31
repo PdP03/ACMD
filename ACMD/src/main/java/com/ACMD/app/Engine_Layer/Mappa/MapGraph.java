@@ -54,26 +54,11 @@ public class MapGraph {
         nodes = reader.getAllNode();
         ArrayList<RoomValues> rooms = reader.getAllRoom(); 
        
-        for(RoomValues r: rooms)
-        {    
-            Stanza s = new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), factory.create(r.mtype), r.path);
-            
-            System.out.print(s);
-            
-            chambers.add(s);
-            //String s = r.path;
-        }
-
-        for(RoomValues r:rooms)
-        {
-            chambers.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), factory.create(r.mtype), r.path)); //Coordinate, 
-            System.out.println("add");
-        }
-        if(rooms != null)
-            System.out.println(rooms.size());
-        Coordinates cord;
+        
+        
 
         //Aggiunta NODI
+        Coordinates cord;
         for(NODE n: nodes){
             cord = n.getCoord();
         }
@@ -81,7 +66,7 @@ public class MapGraph {
         for(RoomValues r:rooms)
         {
             // Coordinate stanza , coord player, mostro, percorso
-            nodes.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), new MonsterFactory().create(r.mtype), r.path  )); //Coordinate, 
+            chambers.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), new MonsterFactory().create(r.mtype), r.path)); //Coordinate, 
         }
         for(NODE n:nodes){
             //n.printAllDirection();
