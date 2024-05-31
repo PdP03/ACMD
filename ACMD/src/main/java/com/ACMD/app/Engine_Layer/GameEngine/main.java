@@ -13,15 +13,17 @@ public class main {
         engine.movePlayer(Direction.NORTH);
         engine.lookAround();
         System.out.println(engine.getBuffer());
-        engine.movePlayer(Direction.EAST);
-        engine.lookAround();
-        System.out.println(engine.getBuffer());
         engine.movePlayer(Direction.WEST);
         engine.lookAround();
         System.out.println(engine.getBuffer());
         engine.movePlayer(Direction.WEST);
         engine.lookAround();
+        /*
         System.out.println(engine.getBuffer());
+        engine.movePlayer(Direction.WEST);
+        engine.lookAround();
+        System.out.println(engine.getBuffer());
+        */
     }
     
 }

@@ -12,6 +12,7 @@ public class Stanza extends NODE
     Monster monster; 
     Chest chest; 
     boolean isFree=false;
+    boolean isRoom = true;
 
     public boolean isFree(){return isFree;}
     public void setFree(){isFree=true;}
@@ -21,6 +22,8 @@ public class Stanza extends NODE
     public void setCoordinates(Coordinates c){this.coord=c;}
     public Coordinates getCoordinates(){return coord;}
     public Monster getMonster(){return monster;}
+    public boolean isRoom(){return true;}
+    public boolean isStanza(){return true;}
 
     
     /**

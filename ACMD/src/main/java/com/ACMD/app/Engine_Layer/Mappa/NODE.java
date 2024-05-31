@@ -58,7 +58,7 @@ public class NODE{
     }
 
     public boolean isRoom(){
-        return isRoom;
+        return false;
     }
 
     public String getPathImage(){
@@ -167,5 +167,6 @@ public class NODE{
         return false; 
     }
     public void setFree(){}
+    public boolean isStanza(){return false;}
      
 }

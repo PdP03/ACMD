@@ -79,6 +79,7 @@ public class MapGraph {
     }
 
     public Coordinates getPlayerPos(){
+        System.out.println("GetPlayer position è stato chiamato con "+PlayerPosition);
         return PlayerPosition;
     }
 
@@ -349,7 +350,6 @@ public class MapGraph {
     {
         for(NODE s : nodes)
         {
-            
             if(s.getCoord().getX() == coord.getX() && s.getCoord().getY() == coord.getY() ) return s.isRoom();
         }
         throw new NoSuchElementException("Elemento non trovato");

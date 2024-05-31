@@ -256,11 +256,12 @@ public class GameEngine{
             if(map.isValidDirectionTo(map.getPlayerPos(), d)){
                 playerStack.add(map.getPlayerPos());
                 map.movePlayerTo(d);
+                System.out.println("Dico al player di andare a "+d);
                 try{
                 System.out.println(map.isStanza(map.getPlayerPos()));
                 }
                 catch(NoSuchElementException e){
-                    System.out.println("s");
+                    System.out.println("Nodo non trovato");
                 }
                 if(map.isStanza(map.getPlayerPos())){
                     
@@ -276,7 +277,8 @@ public class GameEngine{
             }
         }
         catch(Exception e){
-            throw new IllegalArgumentException("Sono un eccezione inutile non dovrei mai essere lanciata");
+            e.printStackTrace();
+            throw new IllegalArgumentException("Sono un' eccezione inutile che non dovrebbe mia essere lanciata");
         }
     }
 
