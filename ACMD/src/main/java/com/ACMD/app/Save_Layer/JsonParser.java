@@ -9,10 +9,10 @@ import com.google.gson.JsonObject;
 
 public class JsonParser {
 
-    private final String FILENAME = "Savefile.json";
-    private Gson gson = new Gson();
+    static private final String FILENAME = "Savefile.json";
+    static private Gson gson = new Gson();
     
-    public void WriteSavefile(Object obj){
+    public static void WriteSavefile(Object obj){
 
         try {
             FileWriter writer = new FileWriter(FILENAME);
@@ -26,11 +26,12 @@ public class JsonParser {
     }
 
     //Fare nell'adapter un metodo che parsa il json object nell'object desiderato?
-    public JsonObject ReadSavefile(String objtype) throws IOException{
+    public static JsonObject ReadSavefile(String objtype) throws IOException{
             FileReader reader = new FileReader(FILENAME);
             JsonObject obj = gson.fromJson(FILENAME, JsonObject.class);
             JsonObject requestedObj = obj.getAsJsonObject(objtype);
             reader.close();
             return requestedObj;
     }
+
 }

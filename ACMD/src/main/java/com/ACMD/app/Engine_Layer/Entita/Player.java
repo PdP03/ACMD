@@ -6,6 +6,7 @@ import com.ACMD.app.Engine_Layer.StorageManagement.Inventario;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 
+
 /**
  * Classe che rappresenta il player sfrutta l'Observer Pattern implementato
  * tramite PropertyChangeSupport poiche java.util.Observer/Observable sono 
