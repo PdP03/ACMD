@@ -8,26 +8,24 @@ import com.ACMD.app.Engine_Layer.xmlReader;
 
 public class ItemFactory
 {
-<<<<<<< HEAD
+
     final String StorageDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\StorageManagement\\";
     xmlReader reader;
     static Vector<ItemStack> itemConfigurazione;
     static final String fileName = "ItemStackConfig.xml";
-
-    public ItemFactory()
-    {
-        reader = new xmlReader(StorageDir, fileName);
-        itemConfigurazione= reader.getAllItemStack();
-=======
-    private static Vector<ItemStack> itemConfigurazione;
-    private static final String fileName = "";
+    
+    //private static Vector<ItemStack> itemConfigurazione;
+   // private static final String fileName = "";
     public static final byte MAXVALUE = 100;    //tanto non è può causare danni.. a meno che qualcuno non conosca il limite!!
 
     public ItemFactory()
     {
-        itemConfigurazione= ( new LoaderStorageManagement(fileName) ).loadItems();
+        reader = new xmlReader(StorageDir, fileName);       //by Alex
+        itemConfigurazione= reader.getAllItemStack();
+
+       // itemConfigurazione= ( new LoaderStorageManagement(fileName) ).loadItems();    pensavo si facesse così
         exceptionLauncher(); //controllo tutto valido prima di qualsiasi altra cosa
->>>>>>> 0dec8ea (messo private a variabili _ cambiato dove messo itemStack _ manca XML)
+//>>>>>>> 0dec8ea (messo private a variabili _ cambiato dove messo itemStack _ manca XML)
         //this.ordinaPerNome();     //se c'è tempo e voglia si può fare mergesort rispetto nome per ceracre nomi in binary-search
     }
 

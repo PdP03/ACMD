@@ -18,7 +18,7 @@ public class Storage_test {
     private void add()
     {
         ItemStack t= new ItemStack("prova", ItemType.ARMA,(byte)1, (byte)1, (byte)1, null);
-        Storage items = new //NON POSSO PERCHÉ ASTRATTA
+      //  Storage items = new //NON POSSO PERCHÉ ASTRATTA
 
     }
     @Test

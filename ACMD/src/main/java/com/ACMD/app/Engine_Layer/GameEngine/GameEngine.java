@@ -116,7 +116,7 @@ public class GameEngine{
             Monster m= map.getMonsterAt(c);
             str+= "Attento c'è "+m.getName()+"(lv."+m.getLv()+")";
             Chest chest = map.getChestAt(c);
-            if(chest.getLock())
+            if(chest.isClosed())
                 str+="\nCe anche una chest ma è bloccata cosa ci sara dentro?";
             else{
                 str+="\nLa chest è sbloccata gli item al suo interno sono:"+chest;
@@ -310,7 +310,7 @@ public class GameEngine{
         }
         
         Chest c = map.getChestAt(map.getPlayerPos());
-        if(c.getLock()){
+        if(c.isClosed()){
             return false;
         }
 

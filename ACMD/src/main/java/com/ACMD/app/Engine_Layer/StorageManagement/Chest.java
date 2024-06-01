@@ -9,6 +9,6 @@ public class Chest extends Storage
 
     public void lock()   {lock= true;}
     public void unlock() {lock=false;}
-    public boolean getLock() {return lock;}
+    public boolean isClosed() {return lock;}
 }
 
