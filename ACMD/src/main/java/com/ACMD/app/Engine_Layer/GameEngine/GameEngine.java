@@ -1,13 +1,9 @@
 package com.ACMD.app.Engine_Layer.GameEngine;
 
-import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Stack;
-
-import org.w3c.dom.Node;
 
 import com.ACMD.app.Engine_Layer.Entita.Monster;
 import com.ACMD.app.Engine_Layer.Entita.Player;
@@ -325,7 +321,7 @@ public class GameEngine{
      * @param item nome del item da controllare
      * @return true se l'item può essere preso altrimenti false
      */
-    @SuppressWarnings("unused")
+
     public boolean canPlayerTake(String item){
         if(!map.isStanza(map.getPlayerPos())){
             return false;
@@ -381,7 +377,6 @@ public class GameEngine{
         return p.getInv().searchFor(item) != null;
     }
 
-    //TODO: INIZIO CODICE DA RIFARE
     /**
      * Prende un item al interno del inventario e gli applica l'effetto, se item non
      * viene trovato viene lanciata noItem_Exception
@@ -462,8 +457,6 @@ public class GameEngine{
                 return;
         }
     }
-
-    //TODO: FINE CODICE DA RIFARE
 
     /**
      * Rimuove un item dal inventario del player lancia noItem_Exception se
