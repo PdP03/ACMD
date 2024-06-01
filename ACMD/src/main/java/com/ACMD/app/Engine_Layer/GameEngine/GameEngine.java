@@ -1,10 +1,13 @@
 package com.ACMD.app.Engine_Layer.GameEngine;
 
+import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Stack;
+
+import org.w3c.dom.Node;
 
 import com.ACMD.app.Engine_Layer.Entita.Monster;
 import com.ACMD.app.Engine_Layer.Entita.Player;
@@ -27,6 +30,7 @@ import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
 public class GameEngine{
     final byte MAX_POTION_USAGE = 3;
     final byte INSTANT_POTION_USAGE = 1;
+    byte level;
     ItemFactory factory;
     Player p;
     Stack<Coordinates> playerStack;
@@ -55,6 +59,7 @@ public class GameEngine{
     public void runSetup(String playerName){
         lose = false;
         p = new Player(playerName);
+        level = p.getLv();
         map = new MapGraph();
         buffer = "";
         playerStack = new Stack<Coordinates>();
@@ -66,6 +71,26 @@ public class GameEngine{
         for(Monster m: list){
             p.addObserver(m);
         }
+    }
+
+    /**
+     * Metodo di utilita usato per formattare un testo cambiando colore
+     * Definizione dei colori usando le secquenze di escape ANSI vedi:
+     * @see https://en.wikipedia.org/wiki/ANSI_escape_code
+     * @see https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
+     * @param str Stringa da formattare
+     * @param colorTAG colore da applicare alla stringa
+     * @return String formatta con il colore scelto
+     */
+    public static final String ANSI_RESET = "\u001B[0m";    //resetta il colore
+    public static final String ANSI_RED = "\u001B[31m";     //setta il colore a rosso
+    public static final String ANSI_CYAN = "\u001B[36m";    //setta il colore a ciano
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE_BOLD = "\033[1;34m";   // blu in grassetto
+
+    private static String format(String str, String colorTAG){
+        return colorTAG+str+ANSI_RESET;
     }
 
     /**
@@ -88,20 +113,10 @@ public class GameEngine{
      */
     public void lookAround(){
         Coordinates cord = map.getPlayerPos();
-        
-        buffer+="Attualmente "+p.getName()+" sei nella posizione " + cord.toString()+"\n";
+        buffer += "["+format("INFO", ANSI_CYAN)+"]";
+        buffer+="Attualmente "+p.getName()+" sei nella posizione " + format(cord.toString(), ANSI_GREEN)+"\n";
         buffer += getNearDirection(cord);
         buffer += getRoomInfo(cord);
-        //buffer += getChestInfo(cord);
-    }
-
-    public String getChestInfo(Coordinates cord){
-        String str="";
-
-        if(map.isStanza(cord)){
-           // Chest c
-        }
-        return null;
     }
 
     /**
@@ -114,15 +129,15 @@ public class GameEngine{
         
         if(map.isStanza(c)){
             Monster m= map.getMonsterAt(c);
-            str+= "Attento c'è "+m.getName()+"(lv."+m.getLv()+")";
             Chest chest = map.getChestAt(c);
             if(chest.isClosed())
-                str+="\nCe anche una chest ma è bloccata cosa ci sara dentro?";
+                str+="["+format("INFO", ANSI_CYAN)+"]C'è anche una chest ma è bloccata cosa ci sara dentro?";
             else{
-                str+="\nLa chest è sbloccata gli item al suo interno sono:"+chest;
+                str+="["+format("INFO", ANSI_CYAN)+"]La chest è sbloccata gli item al suo interno sono:\n"+chest;
             }
             if(m.getLife() > 0){
-                str += "\n\n"+m.getName()+": "+m.getHistory()+"\n";
+                str+= "\n["+format("INFO", ANSI_CYAN)+"]Attento c'è "+m.getName()+" (lv."+m.getLv()+")";
+                str += "\n["+format(m.getName(), ANSI_RED)+"]: "+m.getHistory();
             }
 
             return str+"\n";
@@ -138,12 +153,12 @@ public class GameEngine{
     private String getNearDirection(Coordinates c){
         String str="";
         ArrayList<Direction> list = map.validDirectionOf(c);
-        str += "Le direzioni disponibili sono:";
+        str += "["+format("INFO", ANSI_CYAN)+"]"+"Le direzioni disponibili sono:";
         for(Direction d: list){
             str += "\n-"+d;
         }
         if(list.size() == 0){
-            str += "\n- nessuna direzione disponibile";
+            str += "\n- nessuna direzione disponibile\n";
         }
 
         return str+"\n";
@@ -159,7 +174,7 @@ public class GameEngine{
 
     /**
      * Se il player si trova in una stanza prima attacca il mostro, poi riceve danno
-     * dal attacco del mostro. Lancia DeathException se il player è morto oppure IllegalArgumentException
+     * dal attacco del mostro. Lancia DeathException se il player o mostro è morto oppure IllegalArgumentException
      * se il player non si trova in una stanza
      */
     public void attack() throws DeathException, IllegalArgumentException{
@@ -172,14 +187,19 @@ public class GameEngine{
             throw new IllegalArgumentException("Player si trova nel nodo: " + cord + " non sono presenti nemici\n");
         
         Monster m = map.getMonsterAt(cord);
+        if(m.getLife() <= 0){
+            throw new DeathException();
+        }
         if(!map.isFreeRoomAt(cord)){
             
             short val = playerAttack(m);
-            buffer+=p.getName()+" hai attaccato "+ m.getName() +" infliggendo il danno: "+(-val)+"(vita mostro:"+m.getLife()+")\n";
-            //System.out.println(buffer);
+            buffer+="["+format("INFO", ANSI_CYAN)+"]"+p.getName()+" hai attaccato "+ m.getName() +" infliggendo il danno "+(-val)+format(" (la vita del mostro è "+m.getLife()+")\n", ANSI_YELLOW);
             if(m.getLife() > 0){
-                monsterAttack(m);
-                buffer += m.getName()+" ti ha attaccato la tua vita è "+ p.getLife()+"\n";
+                val = monsterAttack(m);
+                buffer += "["+format("INFO", ANSI_CYAN)+"]"+m.getName()+" ti ha attaccato infliggendo il danno "+(-val)+format(" (la vita di "+p.getName()+" è "+p.getLife()+")\n", ANSI_YELLOW);
+            }
+            else{
+                buffer += "["+format("WIN", ANSI_BLUE_BOLD)+"]"+p.getName() + " hai sconfitto " + m.getName() + " la chest si è aperta potresti trovare oggetti interressanti\n";
             }
         }
     }
@@ -212,25 +232,26 @@ public class GameEngine{
      */
     private short playerAttack(Monster m){
         short healthChange = (short)-(p.getAttack() - m.getArmor() + getPotionValue(ItemType.POZIONE_FORZA) + getPotionValue(ItemType.POZIONE_VELENO));
-        System.out.println("healt change: "+ p.getAttack());
         if(healthChange < 0){
             m.changeHealth(healthChange);
 
             if(m.getLife() <= 0){
-                buffer += p.getName() + " hai sconfitto il mostro: " + m.getName() + " ora puoi aprire la chest\n";
+                level++;
+                p.setLv(level);
                 map.setFreeRoomAt(map.getPlayerPos());
                 map.getChestAt(map.getPlayerPos()).unlock();
             }
-        }
 
-        return healthChange;
+            return healthChange;
+        }
+        return 0;
     }
 
     /**
      * Metodo per attaccare il player dal mostro se il player muore allora lose viene impostato a true
      * @param m Mostro che attacca
      */
-    private void monsterAttack(Monster m){
+    private short monsterAttack(Monster m){
         short healthChange = (short)-(m.getAttack() - p.getArmor() - getPotionValue(ItemType.POZIONE_RESISTENZA) - getPotionValue(ItemType.POZIONE_INVALIDITA));
 
         if(healthChange < 0){
@@ -239,7 +260,11 @@ public class GameEngine{
                 lose = true;
                 buffer += "Mi dispiace sei stato sconfitto da: "+m.getName()+" fai un nuovo tentativo!\n";
             }
+
+            return healthChange;
         }
+
+        return 0;
     }
 
     /**
@@ -277,12 +302,9 @@ public class GameEngine{
             if(map.isValidDirectionTo(map.getPlayerPos(), d)){
                 playerStack.add(map.getPlayerPos());
                 map.movePlayerTo(d);
+                buffer += "["+format("INFO", ANSI_CYAN)+"]"+p.getName()+" si è spostato in direzione " + d+"\n";
                 if(map.isStanza(map.getPlayerPos())){
-                    buffer += "Sei entrato in una stanza\n";
-                }
-                else{
-                    
-                    buffer += p.getName()+" hai raggiunto il nodo "+map.getPlayerPos()+".\n";
+                    buffer += "["+format("INFO", ANSI_CYAN)+"]"+p.getName()+" sei entrato in una stanza\n";
                 }
             }
         }
@@ -315,7 +337,8 @@ public class GameEngine{
         }
 
         ItemStack it = c.searchFor(item);
-        if(c == null){
+        
+        if(it == null){
             return false;
         }
         
@@ -334,8 +357,20 @@ public class GameEngine{
         
         Chest c = map.getChestAt(map.getPlayerPos());
         ItemStack it = c.searchFor(item);
-        c.remove(it);
+        
         p.addItem(it);
+        c.remove(it);
+    }
+
+    /**
+     * Da usare solo per fare debugging: stampa le informazioni di player:
+     * -attacco
+     * -difesa
+     * -vita
+     * -maxvita
+     */
+    public void onlyForDebugging(){
+        System.out.print(" armor:"+p.getArmor()+" attack:"+p.getAttack()+" life:"+p.getLife()+" max life"+p.getMaxLife());
     }
 
     /**
