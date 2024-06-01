@@ -1,11 +1,13 @@
 package test.java.com.ACMD.app.Engine_Layer.StorageManagement;
 
 import org.junit.Test;
+
+import com.ACMD.app.Engine_Layer.StorageManagement.Inventario;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 import com.ACMD.app.Engine_Layer.StorageManagement.Storage;
 
-public class Storage_test {
+public class Storage_test {     // utilizzando inventario perché storage è astratta
    /* 
     public Storage_test()
     {
@@ -15,23 +17,24 @@ public class Storage_test {
     }
 */
     @Test
-    private void add()
+    public void add()
     {
-        ItemStack t= new ItemStack("prova", ItemType.ARMA,(byte)1, (byte)1, (byte)1, null);
-      //  Storage items = new //NON POSSO PERCHÉ ASTRATTA
+        ItemStack t   = new ItemStack("prova", ItemType.ARMA,(byte)1, (byte)1, (byte)1, null);
+        Storage items = new Inventario(); //NON POSSO PERCHÉ ASTRATTA
 
     }
     @Test
-    private void addEccesso()
+    public void addEccesso()
     {
 
     }
     @Test
-    private void remove()
+    public void remove()
     {
 
     }
-    @Test void removeEccesso()
+    @Test
+    public void removeEccesso()
     {
 
     }
