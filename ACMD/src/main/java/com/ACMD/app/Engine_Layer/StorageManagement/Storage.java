@@ -5,6 +5,8 @@ package com.ACMD.app.Engine_Layer.StorageManagement;
 //import java.util.HashMap;
 import java.util.LinkedList;
 
+    //NOTA: a causa di vari cambiamenti, è rimasto che gestisce stack di oggetti, e non oggetti     #FUTURO: pensare prima a classi che possono rappresentare oggetti del mondo reale, e quelle sono solo come le strutture in C, contenitori per dati
+
 /*
     Si tratta del gestore degli oggetti.
     Viene passato il nome dell'oggetto e poi si arrangia a memorizzarlo.

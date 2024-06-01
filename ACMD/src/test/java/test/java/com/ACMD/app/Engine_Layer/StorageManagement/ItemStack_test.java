@@ -14,15 +14,18 @@ public class ItemStack_test {
             System.out.println(           add_remove() ? "Superato" : "Non superato" );
     }
 */
-    @Test(expected=IllegalArgumentException.class)
+   /*
+    Controlli spostati in item factory
+   
+   @Test(expected=IllegalArgumentException.class)
     //? perché before e non before all?
     private void controlloCostruttori_peso()
     {
-        //? se il primo lancia una eccezione, riesce a capire che deve continuare? Meglio non rischiare
+        //? se il primo lancia una eccezione, riesce a capire che deve continuare? Meglio non rischiare mettendo tutto in un unico metodo
         new ItemStack("nome", null, (byte)0, (byte)1, (byte)1, null);
     }
     @Test(expected=IllegalArgumentException.class)
-    private void controlloCostruttori_nome()
+    private void controlloCostruttori_nomeVuoto()
     {
         new ItemStack("", null, (byte)1, (byte)1, (byte)1, null);
     }
@@ -41,7 +44,7 @@ public class ItemStack_test {
     {
         new ItemStack("nome", null, (byte)1, (byte)300, (byte)1, null);
     }
-
+*/
 
 //??? si può fare in modo che alcune righe di codice partano solo per il test.. per esempio fare che quelle righe partano anche con eccezzioni e controlli molto stringenti, ma poi tipo con ifdef si tolgono
 
@@ -56,8 +59,14 @@ public class ItemStack_test {
     @Test
     private void controlloAddEccesso()
     {
-        ItemStack t = new ItemStack("prova",ItemType.ARMA, (byte) 1, (byte) 255, (byte) 1, null);
-        Assert.assertEquals(true,t.addQuantity());
+       // ItemStack t = new ItemStack("prova",ItemType.ARMA, (byte) 1, (byte) 255, (byte) 1, null);
+       // non come sopra perché cambio valore alla quantità massima non funziona più
+
+       ItemStack t = new ItemStack("prova",ItemType.ARMA, (byte) 1, (byte) 1, (byte) 1, null);
+       for(int i=0; ! t.addQuantity() && i<10000000; i++) ;  //continuo ad aumentare fino ad un valore impossibile
+
+        //se arrivo qui sicuramente sbagliato: lancia errore
+        Assert.assertEquals(true,false);
     }
     @Test
     private void controlloRemove()
@@ -69,7 +78,7 @@ public class ItemStack_test {
     @Test
     private void controlloRemoveEccesso()
     {
-        ItemStack t = new ItemStack("prova",ItemType.ARMA, (byte) 1, (byte) 0, (byte) 1, null);
+        ItemStack t = new ItemStack("prova",ItemType.ARMA, (byte) 1, (byte) 1, (byte) 1, null);
         Assert.assertEquals(true,t.removeQuantity());
     }
     

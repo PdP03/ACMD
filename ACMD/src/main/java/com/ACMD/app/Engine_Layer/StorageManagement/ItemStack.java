@@ -105,9 +105,14 @@ public /*abstract*/ class ItemStack
                 // non passo per il facotry perché sto copiando un oggetto che deve essere già in stato valido
     }
 
+    /**
+     * @return true se finito lo spazio ; false se non ci sono problemi
+     * In questo modo se qualcuno da fuori deve fare un controllo in caso di errore, può usare il valore direttamente
+     *  senza negare il return
+     */
     public boolean addQuantity()   //true finito spazio
      {
-        if( quantity==255 ) return true;
+        if( quantity> ItemFactory.MAXVALUE ) return true;
  
         ++quantity;
         return false;

@@ -17,6 +17,7 @@ public class ItemFactory
     //private static Vector<ItemStack> itemConfigurazione;
    // private static final String fileName = "";
     public static final byte MAXVALUE = 100;    //tanto non è può causare danni.. a meno che qualcuno non conosca il limite!!
+                                                //ora la uso dentro a ItemStack, come la si mette come variabile di package?
 
     public ItemFactory()
     {
