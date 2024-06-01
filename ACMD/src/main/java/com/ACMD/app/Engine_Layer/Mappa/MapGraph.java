@@ -414,7 +414,7 @@ public class MapGraph {
         {
             if(!s.isRoom())
             {
-                s.pathImg="Mappa_DefinitivaOpen.png";
+                s.pathImg="Mappa_Drago.png";
             }                
         
         }
