@@ -22,7 +22,7 @@ public class main {
       
 
         engine.runSetup("Marriconda");
-        //new GameFrame().setVisible(true);
+        new GameFrame().setVisible(true);
         //vado a trovare coboldo FUNZIONA CORRETTAMNETE
         engine.lookAround();
         System.out.println(engine.getBuffer());
