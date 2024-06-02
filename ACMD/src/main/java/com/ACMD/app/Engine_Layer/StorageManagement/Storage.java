@@ -66,7 +66,7 @@ public abstract class Storage
     public boolean remove(ItemStack t)
     {//_true se la rimozione si è potuta fare, false per evitare di lanciare un'eccezione <- non accade nulla, non è così grave da bloccarsi.. a meno che non restituisca anche il dato
         int pos;
-        if( (pos= items.indexOf(t)) <0) return false;
+        if( (pos= items.indexOf(t)) <0) return false;   //numero negativo se non trovato
 /*
         for(int i=0; i<items.size(); i++)
         {
