@@ -33,14 +33,23 @@ public class main {
         System.out.println(engine.getBuffer());
 
         //TODO: CONTROLLARE engine.playerTake()
-        
+        engine.playerTake("pozione_cura");
+        System.out.println("n\n\nPLAYER PRENDE CURA: "+engine.playerHave("pozione_cura")+"\n\n\n");
+        engine.playerUse("pozione_cura");
+
+        engine.playerUse("pozione_cura");
+
+        engine.lookAround();
+        System.out.println(engine.getBuffer());
+        /*
         String itemChoiche = getItemNameFromChest(items, engine);
         System.out.println("selezionato: "+itemChoiche);
         if(itemChoiche != ""){
             engine.playerTake(itemChoiche);
-        }
+        } */
         engine.onlyForDebugging();
         //controllo che sia stato eliminato l'item dalla chest
+        /* 
         engine.lookAround();
         System.out.println(engine.getBuffer());
 
@@ -82,7 +91,7 @@ public class main {
         System.out.println(engine.getBuffer());
         //--------------------------------------------------- NON FUNZIONA DA CONTROLLARE 2---------------------------------------------------
          
-        
+        */
     }
 
     /**

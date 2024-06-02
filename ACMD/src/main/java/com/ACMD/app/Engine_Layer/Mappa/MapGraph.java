@@ -17,6 +17,7 @@ import com.ACMD.app.Engine_Layer.Entita.Monster;
 import com.ACMD.app.Engine_Layer.Entita.MonsterFactory;
 import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemFactory;
+import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 
 
 
@@ -93,6 +94,7 @@ public class MapGraph {
     private Chest getRandomChest(){
         Chest c = new Chest();
         int maxItem = randomGen.nextInt(3);
+        c.add(itemFacry.getItem(ItemType.POZIONE_CURA));    //TODO: DA RIMUOVERE
         for(int i=0; i<maxItem; i++){
             c.add(itemFacry.getRandomItem());
         }

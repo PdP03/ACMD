@@ -356,6 +356,7 @@ public class GameEngine{
         
         p.addItem(it);
         c.remove(it);
+        System.out.println("\n\nè stato rimosso?: "+c.searchFor(item).getQuantity()+"\n\n");
     }
 
     /**
@@ -404,6 +405,10 @@ public class GameEngine{
 
         applayPotion(it);
         p.removeItem(it);
+        //System.out.println("\n\nè ancora presente l'item:"+p.getInv().existItem(it));
+        if(p.getLife() < 0){
+            throw new DeathException();
+        }
     }
 
     /**
