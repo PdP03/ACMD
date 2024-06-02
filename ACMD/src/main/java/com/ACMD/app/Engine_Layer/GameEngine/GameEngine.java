@@ -184,7 +184,7 @@ public class GameEngine{
         
         Monster m = map.getMonsterAt(cord);
         if(m.getLife() <= 0){
-            throw new DeathException();
+            throw new IllegalArgumentException("Il mostro è morto non puoi ancora attaccarlo");
         }
         if(!map.isFreeRoomAt(cord)){
             

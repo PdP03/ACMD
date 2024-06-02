@@ -175,8 +175,12 @@ public class xmlReader{
         throwExeptionIfNull(n, "[FATAL] Manca il tag <weight>");
         iValues.weight = Byte.parseByte(n.getTextContent());
         n = eAttribute.getElementsByTagName("quantity").item(0);
-        throwExeptionIfNull(n, "[FATAL] Manca il tag <quantity>");
-        iValues.quantity = Byte.parseByte(n.getTextContent());
+        if(n == null){
+            iValues.quantity = 1;
+        }
+        else{
+            iValues.quantity = Byte.parseByte(n.getTextContent());
+        }
         n = eAttribute.getElementsByTagName("value").item(0);
         throwExeptionIfNull(n, "[FATAL] Manca il tag <value>");
         iValues.value = Byte.parseByte(n.getTextContent());
