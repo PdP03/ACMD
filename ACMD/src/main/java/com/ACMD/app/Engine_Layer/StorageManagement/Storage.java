@@ -67,7 +67,14 @@ public abstract class Storage
     {//_true se la rimozione si è potuta fare, false per evitare di lanciare un'eccezione <- non accade nulla, non è così grave da bloccarsi.. a meno che non restituisca anche il dato
         int pos;
         if( (pos= items.indexOf(t)) <0) return false;
-         
+/*
+        for(int i=0; i<items.size(); i++)
+        {
+                System.out.println( items.get(i) );
+        }*/
+
+            System.out.println(this);
+
         //_l'oggetto esiste, ora se è l'ultimo devo eliminarlo
         t = items.get(pos);
         if( t.removeQuantity() )    //rimuovo la quantità
@@ -126,7 +133,8 @@ public abstract class Storage
             s+= it.getName()+
                 ":\n  Peso: "+it.getWeight()+
                  "\n  Valore: "+it.getValue()+
-                 //"\n  Descrizione: "+it.get 
+                 "\n Quantità:"+it.getQuantity()+
+                 //"\n  Descrizione: "+it.getDescription() +
                  "\n";
         }
 
