@@ -18,3 +18,4 @@ buildNumber.properties
 .vscode
 .class
 ACMD/ACMD/src/main/java/com/ACMD/app/Engine_Layer/testLocaleCarloStorageManagement
+ACMD/ACMD/target/surefire-reports
