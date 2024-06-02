@@ -119,18 +119,20 @@ public /*abstract*/ class ItemStack
      }
 
     /**
-     * @return Ritorna vero se si può eliminare
+     * @return Ritorna vero se si può eliminare definitivamente
      */
     public boolean removeQuantity()
      {
-       // return (--quantity) == 0;
+       // return (--quantity) == 0;         no perché essendo che modifica continuando a richiamare può andare in overflow
    //         else throw new noItem_Exception();
 
-        --quantity;
-        if( quantity<=0 ) return true;  //si elimina quando non ne ho più
+        if( quantity > 1 )      //si elimina quando è l'ultimo, quindi 1 no 0
+        {
+            --quantity;
+            return false;
+        }
 
-       // --quantity;
-        return false;
+        return true;
      }
 
 

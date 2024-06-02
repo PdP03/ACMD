@@ -37,8 +37,6 @@ public class main {
         System.out.println("n\n\nPLAYER PRENDE CURA: "+engine.playerHave("pozione_cura")+"\n\n\n");
         engine.playerUse("pozione_cura");
 
-        engine.playerUse("pozione_cura");
-
         engine.lookAround();
         System.out.println(engine.getBuffer());
         /*

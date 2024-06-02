@@ -40,14 +40,16 @@ public class Storage_test {     // utilizzando inventario perché storage è ast
         Storage items = new Inventario();
     }
     @Test
-    public void remove()
+    public void remove_removeEccesso()
     {
+        ItemStack t   = new ItemStack("prova", ItemType.ARMA,(byte)1, (byte)1, (byte)1, null);
+        Storage items = new Inventario();
 
-    }
-    @Test
-    public void removeEccesso()
-    {
+        items.add(t);      //  items.add(t);
 
+        Assert.assertEquals(1, t.getQuantity());
+        Assert.assertEquals(true, items.remove(t));         //remove andato a buon fine
+        Assert.assertEquals(false, items.remove(t));        //remove non possibile
     }
 
 }

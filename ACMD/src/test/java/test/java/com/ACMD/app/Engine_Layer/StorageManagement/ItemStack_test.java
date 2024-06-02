@@ -49,7 +49,7 @@ public class ItemStack_test {
 //??? si può fare in modo che alcune righe di codice partano solo per il test.. per esempio fare che quelle righe partano anche con eccezzioni e controlli molto stringenti, ma poi tipo con ifdef si tolgono
 
     @Test
-    private void controlloAdd()
+    public void controlloAdd()
     {
         ItemStack t = new ItemStack("prova",ItemType.ARMA, (byte) 1, (byte) 1, (byte) 1, null);
         t.addQuantity();
@@ -57,29 +57,30 @@ public class ItemStack_test {
 
     }
     @Test
-    private void controlloAddEccesso()
+    public void controlloAddEccesso()
     {
        // ItemStack t = new ItemStack("prova",ItemType.ARMA, (byte) 1, (byte) 255, (byte) 1, null);
        // non come sopra perché cambio valore alla quantità massima non funziona più
 
        ItemStack t = new ItemStack("prova",ItemType.ARMA, (byte) 1, (byte) 1, (byte) 1, null);
-       for(int i=0; ! t.addQuantity() && i<10000000; i++) ;  //continuo ad aumentare fino ad un valore impossibile
+       int i;
+       for(i=0; ! t.addQuantity() && i<10000000; i++) ;  //continuo ad aumentare fino ad un valore impossibile
 
         //se arrivo qui sicuramente sbagliato: lancia errore
-        Assert.assertEquals(true,false);
+        Assert.assertEquals(true,i<1000);
     }
     @Test
-    private void controlloRemove()
+    public void controlloRemove()
     {
         ItemStack t = new ItemStack("prova",ItemType.ARMA, (byte) 1, (byte) 2, (byte) 1, null);
         t.removeQuantity();
         Assert.assertEquals(1,t.getQuantity());
     }
     @Test
-    private void controlloRemoveEccesso()
+    public void controlloRemoveEccesso()
     {
         ItemStack t = new ItemStack("prova",ItemType.ARMA, (byte) 1, (byte) 1, (byte) 1, null);
-        Assert.assertEquals(true,t.removeQuantity());
+        Assert.assertEquals(true,t.removeQuantity());   //mi aspetto che mi segni che possono eliminare
     }
     
 
