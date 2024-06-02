@@ -33,6 +33,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     final int numberRows   =20;
     final int numberCols   =20; 
     final float fontSize   =16f;
+    public boolean isOutputReady=false;
     /**
      * Costruttore che genera il gameFrame, inizializza le compontenti, ne setta il background 
      * 
@@ -390,7 +391,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jButtonInvio.setText("Submit");
         jButtonInvio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                
+                isOutputReady=true;
                 try {
                     if(jTextComandi.getText().contains("Open"))
                     {
@@ -427,6 +428,18 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         addComponents2();
         pack();
     }// </editor-fold>
+    /**
+     * For busy waiting 
+     * @return If the button has been pressed return that value, otherwise return null 
+     */
+    public String waitInput()
+    {
+        if(isOutputReady){ isOutputReady=false; return jTextComandi.getText();}
+        int i;
+        return null; 
+       
+    }
+    
 
 
 
