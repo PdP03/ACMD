@@ -126,13 +126,19 @@ public /*abstract*/ class ItemStack
        // return (--quantity) == 0;         no perché essendo che modifica continuando a richiamare può andare in overflow
    //         else throw new noItem_Exception();
 
-        if( quantity > 1 )      //si elimina quando è l'ultimo, quindi 1 no 0
+      /*  if( quantity > 1 )      //si elimina quando è l'ultimo, quindi 1 no 0
         {
             --quantity;
             return false;
         }
 
-        return true;
+        return true;        funziona ma rimane 1*/
+
+        --quantity;
+        if(quantity==0) return true;
+        if(quantity<0) ++quantity;      //in teoria non si avvera mai, e non servirebbe, ma previene overflow da --quantity
+                                        //questo INSEGNA che per fare le cose fatte bene ci sono le classi che rappresentano gli oggetti che non dovrebbero fare sti controlli a volte, e ci dovrebbe essere un gestore ad occuparsene
+        return false;
      }
 
 
