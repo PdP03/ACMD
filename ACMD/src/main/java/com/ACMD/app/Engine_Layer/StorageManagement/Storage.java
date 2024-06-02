@@ -73,7 +73,7 @@ public abstract class Storage
                 System.out.println( items.get(i) );
         }*/
 
-            System.out.println(this);
+          //  System.out.println(this);
 
         //_l'oggetto esiste, ora se è l'ultimo devo eliminarlo
         t = items.get(pos);

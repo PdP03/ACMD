@@ -356,7 +356,7 @@ public class GameEngine{
         
         p.addItem(it);
         c.remove(it);
-        System.out.println("\n\nè stato rimosso?: "+c.searchFor(item).getQuantity()+"\n\n");
+      //  System.out.println("\n\nè stato rimosso?: "+c.searchFor(item).getQuantity()+"\n\n");
     }
 
     /**
