@@ -19,7 +19,10 @@ public class main {
         reader = new xmlReader(StorageDir, fileName);
         Vector<ItemStack> items = reader.getAllItemStack();
 
+      
+
         engine.runSetup("Marriconda");
+        new GameFrame().setVisible(true);
         //vado a trovare coboldo FUNZIONA CORRETTAMNETE
         engine.lookAround();
         System.out.println(engine.getBuffer());

@@ -88,7 +88,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
             }
             jInternalFrame1.add(jLabelMap);
             jInternalFrame1.setVisible(true);
-            }catch(Exception e){System.err.println("Errore");}
+            }catch(Exception e){System.err.println("Errore ");}
         }
 
         /**
@@ -420,7 +420,11 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jTextStory.setFont(jTextStory.getFont().deriveFont(fontSize)); 
         jTextStory.setColumns(20);
         jTextStory.setRows(5);
-        jTextStory.setText(MapGraph.getAllIcons());
+        for(int i=0; i<splitLorem.length; i++)
+        {
+            jTextStory.append(splitLorem[i]+"\n");
+        }
+        
         jScrollPane1.setViewportView(jTextStory);
 
         jTextComandi.setText("Enter your answer");
@@ -435,7 +439,6 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     public String waitInput()
     {
         if(isOutputReady){ isOutputReady=false; return jTextComandi.getText();}
-        int i;
         return null; 
        
     }
@@ -463,8 +466,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      private javax.swing.JToolBar jToolBar1;
      private JButton key;
      // End of variables declaration      
-}    
+    public final String lorem ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus ligula arcu, facilisis bibendum orci sagittis ac. Vestibulum maximus odio quis lobortis condimentum. Cras nisi mauris, suscipit non mauris quis, rhoncus vulputate leo. Fusce leo neque, mollis nec lectus et, ornare eleifend velit. Praesent sagittis, nulla a varius accumsan, nisi sem tempus lectus, quis vehicula dui risus vel leo. Cras ante sem, porta quis aliquam sit amet, ultrices a ipsum. Quisque libero elit, accumsan a est congue, finibus rhoncus elit. Ut mattis commodo sapien, in scelerisque tellus molestie eu";
+    public final String[] splitLorem = lorem.split(" ");
 
-
-
-
+}
