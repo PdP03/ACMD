@@ -101,9 +101,9 @@
   </room>
 
   <room>
-    <positionPlayer>2,4</positionPlayer>
+    <position>2,4</position>
     <mtype>ARMATURA</mtype>
-    <position>10,8</position>
+    <positionPlayer>10,8</positionPlayer>
     <path_image>ArmorMap.png</path_image>
     <isRoom>true</isRoom>
   </room>

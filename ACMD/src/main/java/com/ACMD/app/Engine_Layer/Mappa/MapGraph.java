@@ -434,6 +434,17 @@ public class MapGraph {
          }
     }
 
+    public static void printAllDirection()
+    {
+        for(NODE n: nodes)
+        {
+            System.out.println("NODO"+n.getCoord());
+            if(n.getNorth()!=null) System.out.println("\tA nord ha"+n.getNorth());
+            if(n.getSouth()!=null) System.out.println("\tA sud ha"+n.getSouth());
+            if(n.getEast()!=null) System.out.println("\tA est ha"+n.getEast());
+            if(n.getWest()!=null) System.out.println("\tA West ha"+n.getWest());
+        }
+    }
     
 }
 

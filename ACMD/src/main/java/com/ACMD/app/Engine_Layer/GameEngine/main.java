@@ -4,20 +4,22 @@ import java.util.Vector;
 
 import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Engine_Layer.Mappa.Direction;
+import com.ACMD.app.Engine_Layer.Mappa.MapGraph;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
+import com.ACMD.app.Graphic_Layer.GUI.GameFrame;
 
 public class main {
     static xmlReader reader;
     final static String StorageDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\StorageManagement\\";
     static final String fileName = "ItemStackConfig.xml";
     public static void main(String[] args){
+      
         GameEngine engine = new GameEngine();
 
         reader = new xmlReader(StorageDir, fileName);
         Vector<ItemStack> items = reader.getAllItemStack();
 
         engine.runSetup("Marriconda");
-        
         //vado a trovare coboldo FUNZIONA CORRETTAMNETE
         engine.lookAround();
         System.out.println(engine.getBuffer());
@@ -128,7 +130,7 @@ public class main {
 
     /**
      * Sposta il player per andare verso coboldo SI ASSUME CHE IL PAYER INIZIALMENTE ALLE CORDINATE (1,19)
-     * stampa cosa avveie
+     * stampa cosa avviene
      * @param engine
      */
     public static void movePlayerToCoboldo(GameEngine engine){
@@ -173,7 +175,7 @@ public class main {
         engine.movePlayer(Direction.NORTH);
         engine.lookAround();
         System.out.println(engine.getBuffer());
-        engine.movePlayer(Direction.WEST);
+        engine.movePlayer(Direction.EAST);
         engine.lookAround();
         System.out.println(engine.getBuffer());
     }
