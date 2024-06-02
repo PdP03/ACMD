@@ -25,7 +25,6 @@ import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
  */
 public class GameEngine{
     final byte MAX_POTION_USAGE = 4;
-    final byte INSTANT_POTION_USAGE = 1;
     byte level;
     ItemFactory factory;
     Player p;
@@ -382,7 +381,8 @@ public class GameEngine{
 
     /**
      * Prende un item al interno del inventario e gli applica l'effetto, se item non
-     * viene trovato viene lanciata noItem_Exception
+     * viene trovato viene lanciata noItem_Exception.
+     * L'item viene tolto dal inventario automaticamente dopo l'uso
      * @param item
      */
     public void playerUse(String item)throws noItem_Exception, IllegalArgumentException{
@@ -591,6 +591,8 @@ public class GameEngine{
         lose = false;
         buffer = "";
         potionsActiveted = new HashMap<ItemType, Byte>();
+        playerStack = new Stack<Coordinates>();
+        level = p.getLv();
     }
 
     /**
