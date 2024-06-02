@@ -10,3 +10,4 @@ public class ConnectionValues {
     public int x2,y2;
     public Direction direction1, direction2;
 }
+

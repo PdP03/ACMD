@@ -5,6 +5,7 @@ import java.beans.PropertyChangeSupport;
 import com.ACMD.app.Engine_Layer.StorageManagement.Inventario;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
+import com.google.gson.annotations.Expose;
 
 
 /**
@@ -16,10 +17,14 @@ import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
  */
 public class Player extends Entity{
     //handler degli observer
+    
     private PropertyChangeSupport observerHandler;
     
     //variabili del player
+    @Expose
     protected Inventario inv = new Inventario();
+
+    
     private final byte MAX_INVENTORY_WEIGHT = 10;
     private final byte BASE_ATTACK = 1;
     private final byte BASE_ARMOR = 1;
@@ -34,6 +39,7 @@ public class Player extends Entity{
      * Inizializza un giocatore con i parametri di default
      * @param name nome del player
      */
+    
     public Player(String name){
         super.level = BASE_LEVEL;
         super.maxHealth = BASE_HEALTH;

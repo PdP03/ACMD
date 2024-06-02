@@ -4,13 +4,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 
 public class JsonParser {
 
     static private final String FILENAME = "Savefile.json";
-    static private Gson gson = new Gson();
+    static private Gson gson = new GsonBuilder()
+        .setPrettyPrinter()
+        .excludeFieldsWithoutExposeAnnotation()
+        .create();
     
     public static void WriteSavefile(Object obj){
 

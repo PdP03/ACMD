@@ -22,6 +22,7 @@ public class AdapterSalvataggioTest {
 
             Gson gson = new Gson();
             FileReader reader = new FileReader("Savefile.json");
+            
             JsonObject obj = gson.fromJson("Savefile.json", JsonObject.class);
             JsonObject requestedObj = obj.getAsJsonObject("Player");
             Player player2 = new Player(requestedObj.get("name").toString());

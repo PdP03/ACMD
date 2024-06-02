@@ -11,9 +11,9 @@ public class AdapterSalvataggio {
         JsonParser.WriteSavefile(player);
     }
 
-    public void Save(){
-
-    }
+    /*public void Save(Map mappa){
+        JsonParser.WriteSavefile(mappa)
+    }*/
 
     public static Player setPlayerFromFile() throws IOException{
         JsonObject j = JsonParser.ReadSavefile("Player");
