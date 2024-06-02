@@ -436,7 +436,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      * For busy waiting 
      * @return If the button has been pressed return that value, otherwise return null 
      */
-    public String waitInput()
+    public String textInput()
     {
         if(isOutputReady){ isOutputReady=false; return jTextComandi.getText();}
         return null; 
