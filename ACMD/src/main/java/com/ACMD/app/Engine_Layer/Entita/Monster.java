@@ -121,6 +121,11 @@ public abstract class Monster extends Entity implements PropertyChangeListener {
 
     //modifica il livello di monster
     public void setLv(byte l) throws IllegalArgumentException{
+        if(super.health <= 0){
+            return;
+        }
+        changeHealth((short)100);
+
         byte val;
         if(l < 1)
             throw new IllegalArgumentException("Il lv. "+ l +" non esiste");

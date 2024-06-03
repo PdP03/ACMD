@@ -6,6 +6,10 @@ import java.util.Vector;
 
 import com.ACMD.app.Engine_Layer.xmlReader;
 
+//NOTA: non posso metterli come metodi statici, in quanto sarebbero relegati alla classe, e quindi non necessario richiamare
+//  il costruttore. Però devo richiamare il costruttore altrimenti non potrei istanziarli.. peccato
+// In realtà potrei farlo, ma poi se qualcuno non istanzia finisce per trovarsi delle eccezioni strane, e magari non capisce perché in quanto appunto quei metodi dovrebbero essere statici
+
 public class ItemFactory
 {
 
@@ -30,6 +34,10 @@ public class ItemFactory
         //this.ordinaPerNome();     //se c'è tempo e voglia si può fare mergesort rispetto nome per ceracre nomi in binary-search
     }
 
+    /*static */public int getSize()     //purtroppo non può essere staic in quanto è legato a dei dati interni dell'oggetto, altrimenti sarebbe strana come cosa.. anche se io lo farei. Ma forse sta cosa è una paranoia mia perché il codice non dovrebbe essere riprodotto per ogni oggetto
+    {
+        return itemConfigurazione.size();   //solo una comodità per i test
+    }
 
     //  ## Metodi Pubblici ##
 
@@ -38,12 +46,27 @@ public class ItemFactory
         return itemConfigurazione.get( (int)(Math.random() * itemConfigurazione.size() ) );
     }
 
-    public ItemStack getItem(ItemType t)
+    /**
+     * 
+     * Se ci sono più elementi dello stesso tipo, ne prende a caso
+     * 
+     * @param type
+     * @return null se non trova nulla
+     * 
+     */
+    public ItemStack getItem(ItemType type) //NOTA: sarebbe più efficiente con altra struttura dati in grado di distinguere già le tipologie
      {
-        for(int i=0; i<itemConfigurazione.size(); i++)
-            if( t == (itemConfigurazione.get(i) ).getType() ) return itemConfigurazione.get(i);
+        Vector<Integer> itemListPosition= new Vector<Integer>();
 
-        return null;
+        for(int i=0; i<itemConfigurazione.size(); i++)
+            if( type == (itemConfigurazione.get(i) ).getType() ) itemListPosition.add( i );
+
+        return itemListPosition.size() == 0 ?           //? questo controllo rispetto < o > di zero è più efficiente? Perché in teoria c'è già un flag in assembly che si occupa di questo, quindi magari non deve fare controlli sul sengno
+               null :   //nessun oggetto
+               itemConfigurazione.get(
+                        itemListPosition.get(
+                         (int)( Math.random() * itemListPosition.size()) )); //oggetto casuale da questa lista
+
      }
 
     public ItemStack getItem(String name)

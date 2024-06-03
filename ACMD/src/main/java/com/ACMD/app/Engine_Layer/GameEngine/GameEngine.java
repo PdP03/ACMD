@@ -24,8 +24,7 @@ import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
  * - buffer, stringa che contine il testo da stampare
  */
 public class GameEngine{
-    final byte MAX_POTION_USAGE = 3;
-    final byte INSTANT_POTION_USAGE = 1;
+    final byte MAX_POTION_USAGE = 4;
     byte level;
     ItemFactory factory;
     Player p;
@@ -83,6 +82,7 @@ public class GameEngine{
     public static final String ANSI_CYAN = "\u001B[36m";    //setta il colore a ciano
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_BLUE_BOLD = "\033[1;34m";   // blu in grassetto
 
     private static String format(String str, String colorTAG){
@@ -177,7 +177,7 @@ public class GameEngine{
         if(lose){
             throw new DeathException();
         }
-
+        
         Coordinates cord = map.getPlayerPos();
         if(!map.isStanza(cord))
             throw new IllegalArgumentException("Player si trova nel nodo: " + cord + " non sono presenti nemici\n");
@@ -187,7 +187,7 @@ public class GameEngine{
             throw new IllegalArgumentException("Il mostro è morto non puoi ancora attaccarlo");
         }
         if(!map.isFreeRoomAt(cord)){
-            
+            potionsActiveted.forEach((key, value)->{potionsActiveted.put(key, --value);});
             short val = playerAttack(m);
             buffer+="["+format("INFO", ANSI_CYAN)+"]"+p.getName()+" hai attaccato "+ m.getName() +" infliggendo il danno "+(-val)+format(" (la vita del mostro è "+m.getLife()+")\n", ANSI_YELLOW);
             if(m.getLife() > 0){
@@ -218,8 +218,10 @@ public class GameEngine{
         if(uses < 0){
             return 0;
         }
-        buffer += "Stai usando pozione "+ t.name();
-        return (byte)factory.getItem(t).getValue();
+
+        ItemStack potion = factory.getItem(t);
+        buffer += "["+format("MODIFICATORI", ANSI_PURPLE)+"]Stai usando pozione "+ potion.getName()+"\n";
+        return (byte)potion.getValue();
     }
 
     /**
@@ -356,7 +358,6 @@ public class GameEngine{
         
         p.addItem(it);
         c.remove(it);
-      //  System.out.println("\n\nè stato rimosso?: "+c.searchFor(item).getQuantity()+"\n\n");
     }
 
     /**
@@ -367,7 +368,7 @@ public class GameEngine{
      * -maxvita
      */
     public void onlyForDebugging(){
-        System.out.print(" armor:"+p.getArmor()+" attack:"+p.getAttack()+" life:"+p.getLife()+" max life"+p.getMaxLife());
+        System.out.println(" armor:"+p.getArmor()+" attack:"+p.getAttack()+" life:"+p.getLife()+" max life"+p.getMaxLife());
     }
 
     /**
@@ -380,7 +381,8 @@ public class GameEngine{
 
     /**
      * Prende un item al interno del inventario e gli applica l'effetto, se item non
-     * viene trovato viene lanciata noItem_Exception
+     * viene trovato viene lanciata noItem_Exception.
+     * L'item viene tolto dal inventario automaticamente dopo l'uso
      * @param item
      */
     public void playerUse(String item)throws noItem_Exception, IllegalArgumentException{
@@ -399,13 +401,13 @@ public class GameEngine{
         if(type == null){
             throw new IllegalArgumentException("Questo item: "+it.getName()+" non può essere usato");
         }
+        
         if(potionsActiveted.get(type) != null){//se il player vuole attivare 2 pozioni dello stesso tipo la 2 NON viene usata
             return;
         }
 
         applayPotion(it);
         p.removeItem(it);
-        //System.out.println("\n\nè ancora presente l'item:"+p.getInv().existItem(it));
         if(p.getLife() < 0){
             throw new DeathException();
         }
@@ -589,6 +591,8 @@ public class GameEngine{
         lose = false;
         buffer = "";
         potionsActiveted = new HashMap<ItemType, Byte>();
+        playerStack = new Stack<Coordinates>();
+        level = p.getLv();
     }
 
     /**

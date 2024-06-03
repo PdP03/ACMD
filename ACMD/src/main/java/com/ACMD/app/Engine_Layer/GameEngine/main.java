@@ -35,26 +35,24 @@ public class main {
         engine.lookAround();
         System.out.println(engine.getBuffer());
 
-        //TODO: CONTROLLARE engine.playerTake()
-        engine.playerTake("pozione_cura");
-        System.out.println("n\n\nPLAYER PRENDE CURA: "+engine.playerHave("pozione_cura")+"\n\n\n");
-        engine.playerUse("pozione_cura");
-
-        engine.lookAround();
-        System.out.println(engine.getBuffer());
-        /*
+       
+        engine.onlyForDebugging();
+        
+         
+       
+        
         String itemChoiche = getItemNameFromChest(items, engine);
         System.out.println("selezionato: "+itemChoiche);
         if(itemChoiche != ""){
             engine.playerTake(itemChoiche);
-        } */
+        } 
         engine.onlyForDebugging();
         //controllo che sia stato eliminato l'item dalla chest
-        /* 
+        
         engine.lookAround();
         System.out.println(engine.getBuffer());
-
-        
+ 
+        /* 
         //torno idietro
         movePlayerBack(engine, 4);
 
@@ -63,7 +61,6 @@ public class main {
         //vado a trovare mare
         engine.lookAround();
         System.out.println(engine.getBuffer());
-        //TODO: qua player va fino a (7,7) ma non c'è nessuna stanza è continua in loop a farmi adare ad est riportandomi pero sempre a (7, 7) PROBLEMA DI MAPPA
         movePlayerToMare(engine);
         
         //torno indietro
@@ -91,7 +88,25 @@ public class main {
 
         System.out.println(engine.getBuffer());
         //--------------------------------------------------- NON FUNZIONA DA CONTROLLARE 2---------------------------------------------------
-         
+           //torno idietro
+         movePlayerBack(engine, 4);
+
+        //vado a trovare mago oscuro FUNZIONA CORRETTAMNETE
+        movePlayerToMagoOscuro(engine);
+
+        //Player attacca
+        PlayerAttacca(engine, 5);
+        engine.lookAround();
+        System.out.println(engine.getBuffer());
+
+        //torna indietro
+        movePlayerBack(engine, 4);
+
+        engine.lookAround();
+        System.out.println(engine.getBuffer());
+
+        engine.lookAround();
+        System.out.println(engine.getBuffer());
         */
     }
 
