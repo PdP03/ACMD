@@ -20,7 +20,7 @@ import com.ACMD.app.Engine_Layer.StorageManagement.ItemFactory;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 
 
-
+//TODO gestire vittoria e drago: attualmente sconfiggeere 4 mostri e drago = reset di tutta la mappa 
 public class MapGraph {
     Random randomGen;
     ItemFactory itemFacry;
@@ -414,21 +414,15 @@ public class MapGraph {
         //Cambia tutti i percorsi della mappa mettendo quelli con il drago
         for(NODE s:nodes)
         {
-            if(!s.isRoom())
+            if(s.pathImg.contains("Definitiva"))
             {
                 s.pathImg="Mappa_Drago.png";
             }                
         
         }
          //Aggiungo il drago
-         nodes.add(new NODE(dragonX,dragonY));
          for(NODE s:nodes)
          {
-            if(s.getCoord().getX()==dragonX && s.getCoord().getY() == dragonY)
-            {
-                s.setWest(new Coordinates(toTheDragonX,toTheDragonY));
-                s.setPathImage("Mappa_DefinitivaOpen.png");
-            }
             if(s.getCoord().getX() == toTheDragonX && s.getCoord().getY() == toTheDragonY)
             {
                 s.setSouth(new Coordinates(dragonX, dragonY));

@@ -47,7 +47,7 @@ public class TitleFrame extends JFrame implements Frame{
             }
         });
              // Avvia il timer
-             timer.start();
+        timer.start();
 
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);

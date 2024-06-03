@@ -1,5 +1,5 @@
 package com.ACMD.app.Graphic_Layer.GUI;
-
+//TODO: Cancellare questa classe, è obsoleta
 import javax.swing.Icon;
 import javax.swing.JButton;
 import java.awt.Graphics;

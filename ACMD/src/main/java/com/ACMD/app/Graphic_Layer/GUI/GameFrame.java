@@ -6,7 +6,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.*;
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import com.ACMD.app.Engine_Layer.ParsePath;
 import com.ACMD.app.Engine_Layer.Mappa.Coordinates;
@@ -15,6 +18,10 @@ import com.ACMD.app.Engine_Layer.Mappa.MapGraph;
 
 public class GameFrame extends javax.swing.JFrame implements Frame {
     //Inizializzazione delle variabili del frame ( per altre, più complesse guardare initComponents() )
+
+    // =======================================
+    // | Variabili create per l'uso          |
+    // =======================================
     int globalRiga=0; //Usate per il test
     int globalColonna=0; // Usate per i test
     
@@ -34,6 +41,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     final int numberCols   =20; 
     final float fontSize   =16f;
     public boolean isOutputReady=false;
+    private final int delay = 100; 
     /**
      * Costruttore che genera il gameFrame, inizializza le compontenti, ne setta il background 
      * 
@@ -60,7 +68,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jInternalFrame1.remove(jLabelMap); //jInternalFrame è il frame in cui c'è la mappa
         jLabelMap=new JLabel("");
         try
-        { //TODO: Spostare il numero di chiavi a 4 
+        {                        //TODO: Spostare il numero di chiavi a 4 
             if(MapGraph.keys==2) //TODO Se ho 4 chiavi allora devo aprire la porta del drago spostare 2 a 4 
             {
                 MapGraph.setDragon();
@@ -305,15 +313,15 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
        key.setOpaque(false);
        add(key);
 
-       CircleButton JButtonMusic=new CircleButton("");
+       MyRoundButton JButtonMusic=new MyRoundButton("");
        //JButtonMusic.setContentAreaFilled(false);
        JButtonMusic.setFocusPainted(false);
        JButtonMusic.setBorderPainted(false);
-       JButtonMusic.setSize(120,70);
+       JButtonMusic.setSize(70,70);
        imageIcon2 = new ImageIcon(musicIcon); // load the image to a imageIcon
        
        image2 = imageIcon2.getImage(); // transform it 
-       newimg2 = image2.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+       newimg2 = image2.getScaledInstance(60, 60,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
        imageIcon2 = new ImageIcon(newimg2);  // transform it back
        JButtonMusic.setIcon( imageIcon2); 
 
@@ -408,6 +416,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                     int y=Integer.parseInt(t[1]);
                     move(new Coordinates(x,y));
                     updateGraphics(new Coordinates(x,y));
+                    writeOnConsole(lorem);
                 }catch (Exception e ){}
                 
                 SwingUtilities.updateComponentTreeUI(jInternalFrame1);
@@ -441,6 +450,46 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         if(isOutputReady){ isOutputReady=false; return jTextComandi.getText();}
         return null; 
        
+    }
+    /**
+     * 
+     * @param s testo da visualizzare. Nota: la console VIENE PULITA prima del reset, per non pulirla usare il metodo 
+     * "appendOnConsole" che non pulisce
+     */
+    public void writeOnConsole(String s)
+    {
+        /*
+        int count =0;
+        String[] message = s.split(" ");
+        jTextStory.setText("");
+        for(String i:message){
+        jTextStory.append(""+i+" ");
+        if(count==10){jTextStory.append("\n"); count=0;}
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        }
+        */
+        jTextStory.setText(s);
+    }
+    /**
+     * 
+     * @param s testo da visualizzare. Nota: la console NON VIENE PULITA prima del reset, per non pulirla usare il metodo 
+     * "writeOnConsole" che pulisce
+     */
+    public void appendOnConsole(String s)
+    {
+        jTextStory.append(s);
+    }
+    /**
+     * Pulisce la console: 
+     */
+    public void resetConsole()
+    {
+        jTextStory.setText("");
     }
     
 
