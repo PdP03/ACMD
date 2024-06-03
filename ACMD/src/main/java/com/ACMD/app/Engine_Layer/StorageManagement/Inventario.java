@@ -17,11 +17,15 @@ public Inventario()
 
 public boolean add(ItemStack t)
 {
-    super.add(t);
-    totalWeight+= t.getWeight();
+    if(super.add(t) )
+    {
+        totalWeight+= t.getWeight();
+        return true;
+    }
         // if(totalWeight<0) throw new IllegalArgumentException("Il peso lanciato è troppo");
-    return true;
-}
+
+        return false;
+    }
 
 /**
  * @return False se non è trovato in inventario

@@ -30,6 +30,11 @@ Meglio idea1 e se bisogna apportare delle modifiche fare un override sugli ogget
 public abstract class Storage
 {
 
+// NOTA PER IL FUTURO: Non è necessario che storage faccia solo da storage, si possono mettere dei metodi di comodo
+//      per esempio secondo me dall'esterno è leggermente scomodo fare il passaggio tra storage (es:chest ed inventario)
+//      per controllare tipo se è pieno: quindi sarebbe più bello un "metodo di comodo" che si chiede a storage
+//      di fare lo scambio, basta un metodo statico in cui si passano come parametri gli storage e l'oggetto
+
 //    final int n = 10;
     private LinkedList<ItemStack> items;
 
@@ -45,16 +50,17 @@ public abstract class Storage
 //  ## Metodi Public ##
 
     /**
-     * @return Ritorna sempre true
+     * @return Ritorna false se era pieno e quindi non ha potuto inserire
      */
     public boolean add(ItemStack t)
     {
         //_sfrutto che si usa la shallow copy
         int pos = items.indexOf(t) ;
 
-        return !( (pos<0) ?     // ottengo true se pieno, quindi restituisco negato
-             items.add(t) :
-            (items.get(pos)).addQuantity() );// ottengo la posizione, mi faccio dare l'elemento e aggiungo uno
+        return    (pos<0) ?
+             items.add(t) :     //true
+           !(items.get(pos)).addQuantity();// ottengo la posizione, mi faccio dare l'elemento e aggiungo uno
+                                           //ottengo true se pieno, quindi restituisco negato
 
         //return true;        //#CHIEDERE : perché avevamo messo booleano : ora lo so, per l'eccesso
     }

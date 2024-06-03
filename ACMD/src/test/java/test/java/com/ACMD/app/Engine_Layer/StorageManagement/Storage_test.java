@@ -38,6 +38,12 @@ public class Storage_test {     // utilizzando inventario perché storage è ast
     {
         ItemStack t   = new ItemStack("prova", ItemType.ARMA,(byte)1, (byte)1, (byte)1, null);
         Storage items = new Inventario();
+
+        int i;
+        for(i=0; items.add(t) && i<100000; i++);
+
+        System.out.println("VALORE DI I: "+i);
+        Assert.assertEquals(true, i< 1000 && i>0);  //controllare almeno una volta viene eseguito
     }
     @Test
     public void remove_removeEccesso()
