@@ -1,6 +1,6 @@
 
 <BattleMenu>
-
+<!--
  <menuvoice>
   <command> attack </command>
   <description> Usi il turno per attaccare con una certa probabilità </description>
@@ -10,7 +10,7 @@
   <command> use </command>
   <description> (-String) Scrivendo il nome dell'oggetto lo equipaggi o usi </description>
  </menuvoice>
-
+-->
  <menuvoice>
   <command> look </command>
   <description> DESCRIZIONE MANCANTE </description>
@@ -34,8 +34,8 @@
  </menuvoice>
 
  <menuvoice>
-  <command> exitroom </command>
-  <description> DESCRIZIONE MANCANTE </description>
+  <command> back </command>
+  <description> Uscire da stanza </description>
  </menuvoice>
 
  <menuvoice>
@@ -51,8 +51,7 @@
  </menuvoice>
 
  <menuvoice>
-  <command> back </command>
-  <description> Fuggi dalla stanza </description>
- </menuvoice>
+  <command> help </command>
+  <description> Descrizione </description>
 
 </BattleMenu>
