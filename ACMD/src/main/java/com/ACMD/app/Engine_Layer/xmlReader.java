@@ -352,7 +352,7 @@ public class xmlReader{
      */
 
     /**
-     * Restituisce la hashmap contente (comando, descrizione) lette da un file di configurazione
+     * Restituisce la Vector<MenuValues> contente (comando, descrizione) lette da un file di configurazione
      * @return map mappa con i valori letti
      */
     public Vector<MenuValues> getMenuItems(){
@@ -373,8 +373,10 @@ public class xmlReader{
     }
 
 
-    /**
-     * 
+   /**
+     * Legge i valori di una voce del menu da un nodo di tipo element 
+     * @param eAttribute nodo in cui sono specificati i valori da leggere
+     * @return MenuValues struct contenente i valori
      */
     private MenuValues getMenuItemFrom(Element eAttribute){
         MenuValues mValues = new MenuValues();
