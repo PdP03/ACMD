@@ -1,0 +1,14 @@
+
+<ExitMenu>
+
+ <menuvoice>
+  <command> quit </command>
+  <description>  </description>
+ </menuvoice>
+
+ <menuvoice>
+  <command>  </command>
+  <description>  </description>
+ </menuvoice>
+
+</ExitMenu>

@@ -21,7 +21,7 @@ public abstract class Menu
         Command defaultVal = null;      //null perché non ha ancora un comando
 
         for(int i=0; i<menuItems.size(); i++)
-         commandMap.put( menuItems.get(i), defaultVal);
+         commandMap.put( menuItems.get(i), defaultVal); //carico nomi e descrizioni nelle mappe
     }
   
     public Vector<String> getElement()
@@ -34,13 +34,14 @@ public abstract class Menu
         Set<MenuValues> keys = commandMap.keySet();
 
         for(int i=0; i<keys.size(); i++)
-         s+= keys.toString();
+         s+= keys.toString() +'\n';
         
         return s;
     }
 
     // ## Metodi Private
-    protected abstract void loadMethods();  //saranno le singole classi a pensare a caricare i comandi corrispondeti con degli switch
+    protected abstract void loadMethods();
+    //saranno le singole classi a pensare a caricare i comandi corrispondeti con degli switch
 
     // ## classe privata per comodità
 /* 

@@ -2,9 +2,11 @@ package com.ACMD.app.Kernel_Layer.Menu;
 
 public class ExitMenu extends Menu
 {
+    private static final String fileName = "ExitMenu.xml";
+
     public ExitMenu()
     {
-        super(null);
+        super(fileName);
     }
 
     @Override
