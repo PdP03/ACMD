@@ -364,7 +364,7 @@ public class xmlReader{
         Node attribute;
         for(int j = 0; j < menuItems.getLength(); j++){
             attribute = menuItems.item(j);
-            if(attribute.getNodeType() == Node.ELEMENT_NODE && attribute.getNodeName() == "item"){
+            if(attribute.getNodeType() == Node.ELEMENT_NODE && attribute.getNodeName() == "menu_voice"){
                 values.add(getMenuItemFrom((Element) attribute));
             }
         }
@@ -383,11 +383,11 @@ public class xmlReader{
         MenuValues mValues = new MenuValues();
         Node n;
 
-        n = eAttribute.getElementsByTagName("commando").item(0);
+        n = eAttribute.getElementsByTagName("command").item(0);
         throwExeptionIfNull(n, "[FATAL] Manca il tag <command>");
         mValues.cmdName = n.getTextContent();
-        n = eAttribute.getElementsByTagName("descrizione").item(0);
-        throwExeptionIfNull(n, "[FATAL] Manca il tag <descrizione>");
+        n = eAttribute.getElementsByTagName("description").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <description>");
         mValues.cmdDescription = n.getTextContent();
 
         return mValues;
