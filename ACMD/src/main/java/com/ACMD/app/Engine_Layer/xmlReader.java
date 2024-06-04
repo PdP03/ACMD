@@ -17,6 +17,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Vector;
 
 public class xmlReader{
@@ -339,6 +340,54 @@ public class xmlReader{
         throwExeptionIfNull(n, "[FATAL] Manca il tag <isRoom>");
         rValues.isRoom=Boolean.parseBoolean(n.getTextContent());
         return rValues;
+    }
+
+
+
+    /* --------------------------------------------------------------------------------------------------------------
+     * |                                                                                                            |
+     * |                                         METODI PER MENU                                                    |
+     * |                                                                                                            |
+     * --------------------------------------------------------------------------------------------------------------
+     */
+
+    /**
+     * Restituisce la hashmap contente (comando, descrizione) lette da un file di configurazione
+     * @return map mappa con i valori letti
+     */
+    public Vector<MenuValues> getMenuItems(){
+        Vector<MenuValues> values = new Vector<MenuValues>();
+
+        NodeList menuItems = docXml.getElementsByTagName("menu").item(0).getChildNodes(); //lista dei nodi position
+
+        Node attribute;
+        for(int j = 0; j < menuItems.getLength(); j++){
+            attribute = menuItems.item(j);
+            if(attribute.getNodeType() == Node.ELEMENT_NODE && attribute.getNodeName() == "item"){
+                values.add(getMenuItemFrom((Element) attribute));
+            }
+        }
+
+
+        return values;
+    }
+
+
+    /**
+     * 
+     */
+    private MenuValues getMenuItemFrom(Element eAttribute){
+        MenuValues mValues = new MenuValues();
+        Node n;
+
+        n = eAttribute.getElementsByTagName("commando").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <command>");
+        mValues.cmdName = n.getTextContent();
+        n = eAttribute.getElementsByTagName("descrizione").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <descrizione>");
+        mValues.cmdDescription = n.getTextContent();
+
+        return mValues;
     }
 
 }

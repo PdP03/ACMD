@@ -16,13 +16,17 @@ import com.ACMD.app.Graphic_Layer.GUI.GameFrame;
 public class main {
     static xmlReader reader;
     final static String StorageDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\StorageManagement\\";
+    
     static final String fileName = "ItemStackConfig.xml";
     public static void main(String[] args){
       
         GameEngine engine = new GameEngine();
 
         reader = new xmlReader(StorageDir, fileName);
+       
         Vector<ItemStack> items = reader.getAllItemStack();
+
+        
 
       
 
