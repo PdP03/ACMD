@@ -66,10 +66,11 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     public GameFrame() {
                     this.getContentPane().setBackground(backGround);
                     initComponents(); // Crea la finestra vuota, senza aggiugnere la mappa          
-                    //addMapPicture(mapIconPath); // Aggiunge l'immagine (grafica)
-                    //addPlayerPosition(1,19,playerIcon); 
                     move(new Coordinates(1,19));
                     updateGraphics(new Coordinates(1,19));
+                    setPlayerHealth(100);
+                    setEnemyHealth(100);
+                    setPeso(100);
     }                   
     /**
      * Moves the player position from the current one to the desired one: 
@@ -79,6 +80,24 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      */
     public void move (Coordinates c) throws IllegalArgumentException
     {
+        //===================================================================
+        // Voglio spostare il player nel posto giusto se entra in una stanza
+        // NON FUNZIONA 
+        // ==================================================================
+        /*
+                if(MapGraph.isStanza(c))
+                {
+                    int x,y;
+                    Coordinates temp = MapGraph.getPlayerPositionOf(c);
+                    x=temp.getX();
+                    y=temp.getY();
+                    System.out.println("Ti sposto in" +x+y);
+                    move(x,y);
+                    return;
+                }
+        */
+        //FINE NON FUNZIONA
+        //=================================
         int x=c.getX(); 
         int y=c.getY();
         if(x <0 || x>19 || y<0 || y>19 ) throw new IllegalArgumentException("either x or y values not between 0-19 ");
@@ -124,24 +143,6 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          * note: Questo metodo è ora oblsoleto
         */
 
-        private void addPlayerPosition(int x, int y, String PlayerImage) {
-
-
-           // ImageIcon imageIcon = new ImageIcon("C:\\Users\\Matteo\\Desktop\\Prova mappa\\PersonIcon.jpg"); // load the image to a imageIcon
-            // Image image = imageIcon.getImage(); // transform it 
-            // Image newimg = image.getScaledInstance(25, 25,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-             //imageIcon = new ImageIcon(newimg);  // transform it back
-
-           //  jButtonPlayer.setIcon(imageIcon);
-             try {
-              //  addMapPicture(MapGraph.getPathImage(new Coordinates(x,y)));
-                move(new Coordinates(x,y));
-            } catch (RuntimeException e) {
-                e.printStackTrace();
-            }
-            SwingUtilities.updateComponentTreeUI(jInternalFrame1); //Update del frame
-        }
-        
         /**
          * 
          * @param c the node you want the image of 
@@ -388,6 +389,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jBarVitaNemico.setBackground(lightBackground);
         jBarVitaNemico.setForeground(new Color(255,0,0));
         jBarVitaPlayer.setBackground(lightBackground);
+        jBarVitaPlayer.setForeground(Color.red);
         jBarVitaNemico.setForeground(new Color(255,0,0));
 
         jBarPeso.setForeground(new java.awt.Color(0, 255, 0));

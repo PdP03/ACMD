@@ -29,8 +29,6 @@ public class main {
         engine.runSetup("Marriconda");
         GameFrame g = new GameFrame();
         g.setVisible(true);
-        g.writeRedOnConsole("Scrivimi rosso");
-        g.writeBlueOnConsole(" Scrivimi blu ");
         //vado a trovare coboldo FUNZIONA CORRETTAMNETE
         engine.lookAround();
         System.out.println(engine.getBuffer());

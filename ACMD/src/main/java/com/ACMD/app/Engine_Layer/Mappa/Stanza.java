@@ -8,7 +8,7 @@ import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 
 public class Stanza extends NODE
 {
-    Coordinates playerPosition; 
+    static Coordinates playerPosition; 
     Monster monster; 
     Chest chest; 
     boolean isFree=false;
@@ -24,6 +24,7 @@ public class Stanza extends NODE
     public Monster getMonster(){return monster;}
     public boolean isRoom(){return true;}
     public boolean isStanza(){return true;}
+    public static Coordinates getPlayerPosition(){return playerPosition;}
 
     
     /**

@@ -22,12 +22,15 @@ import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 
 //TODO gestire vittoria e drago: attualmente sconfiggeere 4 mostri e drago = reset di tutta la mappa 
 public class MapGraph {
+    // =========
+    // Variabili
+    // =========
     Random randomGen;
     ItemFactory itemFacry;
     private SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge> map;
     private Coordinates[] directions;
     private static ArrayList<NODE> nodes;
-    private ArrayList<Stanza> chambers;
+    private static ArrayList<Stanza> chambers; //TODO: Attenzione che lo ho messo statico 
     private ArrayList<Coordinates> playerRoute; 
     private Coordinates PlayerPosition =new Coordinates(1,19); //default player postion  
     public static int keys=0;
@@ -50,6 +53,15 @@ public class MapGraph {
             return s.pathImg;
         }
         throw new NoSuchElementException("Immagine del nodo" +of.getX()+","+of.getY()+"non trovata");
+    }
+    public static Coordinates getPlayerPositionOf(Coordinates c)
+    {
+        for(Stanza s:chambers) 
+        {
+            if(s.getCoord().getX() == c.getX() && s.getCoord().getY() == c.getY())
+                return s.playerPosition;
+        }
+        throw new NoSuchElementException("Non verrò mai lanciata");
     }
     /**
      * Costruttore che prende direttamente l'xml
@@ -375,7 +387,7 @@ public class MapGraph {
         }
         throw new NoSuchElementException("Elemento non trovato");
     }
-    public boolean isStanza(Coordinates coord) throws NoSuchElementException
+    public static boolean isStanza(Coordinates coord) throws NoSuchElementException
     {
         for(Stanza s : chambers)
         {
