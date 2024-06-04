@@ -1,13 +1,28 @@
 package com.ACMD.app.Kernel_Layer.Menu;
 
 import java.util.Map;
+ import java.util.Set;
 import java.util.Vector;        //comodità per ottenere i dati
 
+import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Kernel_Layer.Prompt.CommandPattern.Command;
 
 public abstract class Menu 
 {
-    private Map<MenuVoice, Command> commandMap; //chiave: nome comando ; valore: descrizione
+    protected Map<MenuValues, Command> commandMap; //chiave: nome comando, valore: il metodo da richiamare
+    final String thisDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Kernel_Layer\\Menu\\";
+
+    public Menu(String fileDati)
+    {
+        xmlReader readerMenu = new xmlReader(thisDir, fileDati);
+
+        //_carica solo i nomi e le relative descrizioni ; ai comandi ci pensa la singola classe
+        Vector<MenuValues> menuItems = readerMenu.getMenuItems();
+        Command defaultVal = null;      //null perché non ha ancora un comando
+
+        for(int i=0; i<menuItems.size(); i++)
+         commandMap.put( menuItems.get(i), defaultVal);
+    }
   
     public Vector<String> getElement()
     {
@@ -16,14 +31,19 @@ public abstract class Menu
     public String toString()
     {
         String s="";
+        Set<MenuValues> keys = commandMap.keySet();
 
-        Object keys[]= (commandMap.keySet() ).toArray();
-
-        for(int i=0; i<keys.length; i++)    //stupidi noi che vogliamo usare una mappa al posto di un array con 2 stringhe -> e infatti cosa abbiamo finito per fare? Una mappa ancora più complessa che usa una classe a 2 entrate
-         s+= (String)(keys[i])+'\n';        //? perché sta volta non rompre per il cast
+        for(int i=0; i<keys.size(); i++)
+         s+= keys.toString();
+        
         return s;
     }
 
+    // ## Metodi Private
+    protected abstract void loadMethods();  //saranno le singole classi a pensare a caricare i comandi corrispondeti con degli switch
+
+    // ## classe privata per comodità
+/* 
     private class MenuVoice
     {
         String voice, description;      //dei comandi
@@ -31,5 +51,9 @@ public abstract class Menu
         {
             return voice.hashCode();    //i comandi devono essere unici, quindi nessun problema di conflitti
         }
-    }
+        public String toString()
+        {
+            return voice + "\n  " + description; 
+        }
+    }*/
 }

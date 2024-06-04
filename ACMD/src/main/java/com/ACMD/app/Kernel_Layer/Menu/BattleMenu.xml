@@ -1,0 +1,14 @@
+
+<BattleMenu>
+
+    <attack> Usi il turno per attaccare con una certa probabilità </attack>
+    <use> (-String) Scrivendo il nome dell'oggetto lo equipaggi o usi </use>
+    <look> DESCRIZIONE MANCANTE </look>
+    <openchest> Funziona solo una volta sconfitto il mostro </openchest>
+    <take> (-Stringa) Quando baule aperto si può scrivere nome oggetti si vogliono </take>
+    <trashit> (-String) Se si vuole buttare via qualcosa da inventario </trashit>
+    <exitroom> DESCRIZIONE MANCANTE </exitroom>
+    <showinventario> DESCRIZIONE MANCANTE </showinventario>
+    <showchest> DESCRIZIONE MANCANTE </showchest>
+
+</BattleMenu>
