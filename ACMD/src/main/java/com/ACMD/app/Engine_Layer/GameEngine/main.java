@@ -1,6 +1,11 @@
 package com.ACMD.app.Engine_Layer.GameEngine;
 
+import java.io.File;
 import java.util.Vector;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Engine_Layer.Mappa.Direction;
@@ -22,7 +27,10 @@ public class main {
       
 
         engine.runSetup("Marriconda");
-        new GameFrame().setVisible(true);
+        GameFrame g = new GameFrame();
+        g.setVisible(true);
+        g.writeRedOnConsole("Scrivimi rosso");
+        g.writeBlueOnConsole(" Scrivimi blu ");
         //vado a trovare coboldo FUNZIONA CORRETTAMNETE
         engine.lookAround();
         System.out.println(engine.getBuffer());
@@ -222,7 +230,5 @@ public class main {
 
         return "";
     }
-
-    
-    
+   
 }

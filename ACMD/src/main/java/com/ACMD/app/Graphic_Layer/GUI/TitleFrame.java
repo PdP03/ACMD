@@ -118,7 +118,7 @@ public class TitleFrame extends JFrame implements Frame{
     
 
 
-         // Impostazione delle dimensioni del frame e visualizzazione
+    public void actionPerformed(java.awt.event.ActionEvent evt) {}
 
 
     // Variables declaration - do not modify                     

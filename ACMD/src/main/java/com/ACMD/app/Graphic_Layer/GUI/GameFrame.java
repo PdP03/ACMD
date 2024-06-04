@@ -6,9 +6,18 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.*;
+import java.io.File;
+import java.awt.*;
+import java.text.NumberFormat.Style;
 import java.util.concurrent.TimeUnit;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 import javax.swing.border.Border;
 
 import com.ACMD.app.Engine_Layer.ParsePath;
@@ -29,11 +38,11 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     Color lightBackground = new Color(204, 204, 204);
 
     ParsePath pathParser=new ParsePath();
+
     final String imageDirPath = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Graphic_Layer\\Images\\";
     boolean youWin=false;
     String mapIconPath     = ParsePath.getPath(imageDirPath, "Mappa_Definitiva.png");
     String mapIconPathOpen = ParsePath.getPath(imageDirPath, "Mappa_DefinitivaOpen.png");
-    
     String playerIcon      = ParsePath.getPath(imageDirPath,"PersonIcon.jpg");
     String keyIcon         = ParsePath.getPath(imageDirPath,"Key.jpg");
     String musicIcon       = ParsePath.getPath(imageDirPath,"Music.png");
@@ -42,6 +51,14 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     final float fontSize   =16f;
     public boolean isOutputReady=false;
     private final int delay = 100; 
+    // ====================
+    // Stili per la shell
+    /// ====================
+
+
+
+
+    
     /**
      * Costruttore che genera il gameFrame, inizializza le compontenti, ne setta il background 
      * 
@@ -313,7 +330,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
        key.setOpaque(false);
        add(key);
 
-       MyRoundButton JButtonMusic=new MyRoundButton("");
+       JButtonMusic=new MyRoundButton("");
        //JButtonMusic.setContentAreaFilled(false);
        JButtonMusic.setFocusPainted(false);
        JButtonMusic.setBorderPainted(false);
@@ -354,7 +371,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jButtonInvio = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextStory = new javax.swing.JTextArea();
-        jTextComandi = new javax.swing.JTextField();
+        jTextComandi = new javax.swing.JTextPane();
 
         jToolBar1.setRollover(true);
 
@@ -397,48 +414,21 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
 
 
         jButtonInvio.setText("Submit");
-        jButtonInvio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                isOutputReady=true;
-                try {
-                    if(jTextComandi.getText().contains("Open"))
-                    {
-                        String[] t=jTextComandi.getText().split(",");
-                        int x=Integer.parseInt(t[0]);
-                        int y=Integer.parseInt(t[1]);
-                        MapGraph.setBeaten(new Coordinates(x,y));
-                        key.setVisible(false);
-                        key.setText(MapGraph.keys+"");
-                        key.setVisible(true);                        
-                    }
-                    String[] t=jTextComandi.getText().split(",");
-                    int x=Integer.parseInt(t[0]);
-                    int y=Integer.parseInt(t[1]);
-                    move(new Coordinates(x,y));
-                    updateGraphics(new Coordinates(x,y));
-                    writeOnConsole(lorem);
-                }catch (Exception e ){}
-                
-                SwingUtilities.updateComponentTreeUI(jInternalFrame1);
-                
-           }
-        });
+        jButtonInvio.addActionListener(this);
+        
 
         jTextStory.setBackground(new Color(0,0,0));
         jTextStory.setForeground(new Color (255,255,255));
         jTextStory.setFont(jTextStory.getFont().deriveFont(fontSize)); 
         jTextStory.setColumns(20);
         jTextStory.setRows(5);
-        for(int i=0; i<splitLorem.length; i++)
-        {
-            jTextStory.append(splitLorem[i]+"\n");
-        }
-        
         jScrollPane1.setViewportView(jTextStory);
 
         jTextComandi.setText("Enter your answer");
 
         addComponents2();
+
+        JButtonMusic.addActionListener(this);
         pack();
     }// </editor-fold>
     /**
@@ -474,6 +464,19 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         }
         */
         jTextStory.setText(s);
+        SwingUtilities.updateComponentTreeUI(jTextStory);
+}
+    public void writeRedOnConsole(String s)
+    {
+        jTextStory.setForeground(Color.red);
+        jTextStory.append(s);
+        SwingUtilities.updateComponentTreeUI(jTextStory);
+    }
+    public void writeBlueOnConsole(String s)
+    {
+        jTextStory.setForeground(Color.blue);
+        jTextStory.append(s);
+        SwingUtilities.updateComponentTreeUI(jTextStory);
     }
     /**
      * 
@@ -510,12 +513,50 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      private javax.swing.JRadioButton jButtonPlayer;
      private javax.swing.JScrollPane jScrollPane1;
      private javax.swing.JScrollPane jScrollPane4;
-     private javax.swing.JTextField jTextComandi;
+     private javax.swing.JTextPane jTextComandi;
      private javax.swing.JTextArea jTextStory;
      private javax.swing.JToolBar jToolBar1;
      private JButton key;
+     private MyRoundButton JButtonMusic;
      // End of variables declaration      
     public final String lorem ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus ligula arcu, facilisis bibendum orci sagittis ac. Vestibulum maximus odio quis lobortis condimentum. Cras nisi mauris, suscipit non mauris quis, rhoncus vulputate leo. Fusce leo neque, mollis nec lectus et, ornare eleifend velit. Praesent sagittis, nulla a varius accumsan, nisi sem tempus lectus, quis vehicula dui risus vel leo. Cras ante sem, porta quis aliquam sit amet, ultrices a ipsum. Quisque libero elit, accumsan a est congue, finibus rhoncus elit. Ut mattis commodo sapien, in scelerisque tellus molestie eu";
     public final String[] splitLorem = lorem.split(" ");
+    
+    // ================
+    // Gestione musica
+    //==================
+     
+    // =====================
+    // Gestione bottoni
+    // =====================
+    public void actionPerformed(java.awt.event.ActionEvent evt) 
+            {
+                if(evt.getSource()==jButtonInvio)
+                {
+                    isOutputReady=true;
+                try {
+                    if(jTextComandi.getText().contains("Open"))
+                    {
+                        String[] t=jTextComandi.getText().split(",");
+                        int x=Integer.parseInt(t[0]);
+                        int y=Integer.parseInt(t[1]);
+                        MapGraph.setBeaten(new Coordinates(x,y));
+                        key.setVisible(false);
+                        key.setText(MapGraph.keys+"");
+                        key.setVisible(true);                        
+                    }
+                    String[] t=jTextComandi.getText().split(",");
+                    int x=Integer.parseInt(t[0]);
+                    int y=Integer.parseInt(t[1]);
+                    move(new Coordinates(x,y));
+                    updateGraphics(new Coordinates(x,y));
+                    //writeOnConsole(lorem);
+                }catch (Exception e ){}
+                
+                SwingUtilities.updateComponentTreeUI(jInternalFrame1);
+                }
+            }
+
+    
 
 }
