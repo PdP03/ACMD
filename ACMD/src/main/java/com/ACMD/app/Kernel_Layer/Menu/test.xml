@@ -1,0 +1,22 @@
+<!--
+  Per inserire una nuova voce del menu si usa il tag item con al iterno i vari parametri
+
+  Bisogna specificare i campi obbligatori:
+  - <commando>...</commando>
+  - <descrizione>..</descrizione>
+  
+-->
+
+<menu>
+  <item>
+    <commando>Comando 1</commando>
+    <descrizione>Descrizione 1</descrizione>
+  </item>
+
+  <item>
+    <commando>Comando 2</commando>
+    <descrizione>Descrizione 2</descrizione>
+  </item>
+
+
+</menu>
