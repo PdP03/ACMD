@@ -43,9 +43,16 @@
   <description> DESCRIZIONE MANCANTE </description>
  </menuvoice>
 
+
+
  <menuvoice>
   <command> showinventario </command>
   <description> DESCRIZIONE MANCANTE </description>
+ </menuvoice>
+
+ <menuvoice>
+  <command> back </command>
+  <description> Fuggi dalla stanza </description>
  </menuvoice>
 
 </BattleMenu>

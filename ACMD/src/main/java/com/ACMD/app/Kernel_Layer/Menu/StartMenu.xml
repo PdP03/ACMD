@@ -1,0 +1,19 @@
+
+<StartMenu>
+
+ <menuvoice>
+  <command> start </command>
+  <description>  </description>
+ </menuvoice>
+
+ <menuvoice>
+  <command> exit </command>
+  <description>  </description>
+ </menuvoice>
+
+<menuvoice>
+  <command> load </command>
+  <description>  </description>
+ </menuvoice>
+
+</StartMenu>

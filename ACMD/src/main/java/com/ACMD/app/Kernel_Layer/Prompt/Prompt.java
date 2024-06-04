@@ -4,8 +4,8 @@ package com.ACMD.app.Kernel_Layer.Prompt;
 import java.util.HashMap;
 
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
+import com.ACMD.app.Graphic_Layer.GUI.GameFrame;
 import com.ACMD.app.Kernel_Layer.Menu.*;
-import com.ACMD.app.Kernel_Layer.Prompt.CommandPattern.Command;
 
 
 /*
@@ -33,14 +33,35 @@ public class Prompt
 {
 
     boolean engineLinked = false;
+    Menu mn;
+    GameFrame gmf;
+    Command cmmd;
 
     //## Costruttore ##
 
-    public Prompt(GameEngine gme, StartMenu firstMenu)
+    public void linkEngine(GameEngine g)
     {
-        //istanzia una sola volta la grafica di input
+        if( g==null ) throw new IllegalArgumentException("Serve un riferimento");
+
+        engineLinked = true;
     }
 
+    public Prompt(GameEngine gme, StartMenu firstMenu, GameFrame gmf)
+    {
+        //istanzia una sola volta la grafica di input
+        linkEngine(gme);
+        
+        if( firstMenu == null || gmf == null) throw new IllegalArgumentException();
+         mn = firstMenu;
+         gmf = this.gmf;
+    }
+    public Prompt(StartMenu firstMenu, GameFrame gmf)
+    {
+         if( firstMenu == null || gmf == null) throw new IllegalArgumentException();
+         mn = firstMenu;
+         gmf = this.gmf;
+
+    }
 
 
     //## Metodi Public ##
@@ -48,27 +69,30 @@ public class Prompt
     public BackStateGame_Enum waitInput()
     {//:richiama la grafica di input, aspetta il comando, fa le verifiche necessarie 
 
+        if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
+
+        String s;
+        while( (s= gmf.textInput()) == null );
+
+        changeCommand(null);
+
+        cmmd.execute();
+
         return null;
-    }
-
-    public void linkEngine(GameEngine g)
-    {
-
     }
     
 
 
     //## Metodi Private ##
 
-    private String checkSintax(String str)
+    /*private String checkSintax(String str)
     {
         return null;
-    }
-
-    private void changeCommand(Command cmmd)
-    {
-        
-    }
+    }*/
 
     //## Metodi Command-Pattern ##
+    private void changeCommand(Command cmmd)
+    {
+        cmmd= 
+    }
 }

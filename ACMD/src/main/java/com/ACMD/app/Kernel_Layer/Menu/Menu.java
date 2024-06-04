@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Vector;        //comodità per ottenere i dati
 
 import com.ACMD.app.Engine_Layer.xmlReader;
-import com.ACMD.app.Kernel_Layer.Prompt.CommandPattern.Command;
+import com.ACMD.app.Kernel_Layer.Prompt.Command;
 
 public abstract class Menu 
 {
@@ -24,10 +24,10 @@ public abstract class Menu
          commandMap.put( menuItems.get(i), defaultVal); //carico nomi e descrizioni nelle mappe
     }
   
-    public Vector<String> getElement()
+   /* public Vector<String> getElement()
     {
         return null;
-    }
+    }*/
     public String toString()
     {
         String s="";

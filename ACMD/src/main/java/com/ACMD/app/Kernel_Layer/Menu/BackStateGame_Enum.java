@@ -15,6 +15,7 @@ public enum BackStateGame_Enum
     UPDATE,         //aggiornamento generico
     UPDATE_ENTITY,  //alle barre della vita
     UPDATE_MAP,     //cambio della stanza
+    ERROR_DIGIT,    //se il comando inserito non esiste
     YN              //booleano per le scelte sì-no come se vuole salvare
 ;
 }

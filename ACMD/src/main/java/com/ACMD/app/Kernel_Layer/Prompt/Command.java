@@ -1,5 +1,5 @@
 
-package com.ACMD.app.Kernel_Layer.Prompt.CommandPattern;
+package com.ACMD.app.Kernel_Layer.Prompt;
 
 public interface Command{
 

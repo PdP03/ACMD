@@ -2,7 +2,7 @@
 <ExitMenu>
 
  <menuvoice>
-  <command> quit </command>
+  <command> exit </command>
   <description>  </description>
  </menuvoice>
 
