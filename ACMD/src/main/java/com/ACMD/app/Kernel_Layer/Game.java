@@ -24,7 +24,7 @@ public class Game{
             }
 
             menu = getMenuFrom(ret);
-            p.stateMenu(menu);
+            p.changeMenu(menu);
 
 
         }
