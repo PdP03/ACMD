@@ -8,6 +8,8 @@ public class MenuValues {
     public String cmdName;                  //? se no pubbliche rome xmlReader
     public String cmdDescription;
 
+    public MenuValues() //per compatibilità
+     {}
     public MenuValues(String cmdName, String cmdDescription)
     {
         this.cmdName= cmdName;

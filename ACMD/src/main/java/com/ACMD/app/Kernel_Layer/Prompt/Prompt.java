@@ -33,18 +33,20 @@ import com.ACMD.app.Kernel_Layer.Menu.*;
 public class Prompt
 {
 
-    boolean engineLinked = false;
+   // boolean engineLinked = false;
     Menu mn;
     GameFrame gmf;
+    GameEngine gme;
     Command cmmd;
 
     //## Costruttore ##
-
+/*
     public void linkEngine(GameEngine g)
     {
         if( g==null ) throw new IllegalArgumentException("Serve un riferimento");
 
         engineLinked = true;
+        gme = g;
     }
 
     public Prompt(GameEngine gme, StartMenu firstMenu, GameFrame gmf)
@@ -62,6 +64,14 @@ public class Prompt
          mn = firstMenu;
          gmf = this.gmf;
 
+    }*/
+
+    //_istanzio anche
+    public Prompt()
+    {
+        mn= new StartMenu();
+        gmf= new GameFrame();
+        gme= new GameEngine();
     }
 
 
@@ -70,16 +80,17 @@ public class Prompt
     public BackStateGame_Enum waitInput()
     {//:richiama la grafica di input, aspetta il comando, fa le verifiche necessarie 
 
-        if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
+      //  if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
 
         String s;
         while( (s= gmf.textInput()) == null );
 
-        //_split comando da parametri
+        //:split comando da parametri
         Vector<String> ary= removeDoubleSpaces(s);
+            //_input è vector di stringhe non vuote
         changeCommand(ary.get(0));
 
-        return cmmd.execute(ary);
+        return cmmd.execute(ary);   //passo tutti i parametri
     }
     
 
@@ -88,13 +99,14 @@ public class Prompt
 
     private static Vector<String> removeDoubleSpaces(String str)
     {
-        String[] sAry = str.split(" ");             //possono rimanere spazi doppi
+        String[] sAry = str.split(" ");             //possono rimanere spazi doppi : allora locazione array vuoto
         Vector<String> s2= new Vector<String>();
 
         //_rimuovo tutte istanze vuote
         for(int i=0; i<sAry.length; i++)
         {
-            if( s2.get(i) == " " ) s2.add( sAry[i] );
+            //se non vuoto, allora posso aggiungere
+            if( sAry[i] != "" ) s2.add( sAry[i] );            //#TESTARE : fatto in locale, posso metterlo nel test con tutti i casi
         }
         return s2;
     }

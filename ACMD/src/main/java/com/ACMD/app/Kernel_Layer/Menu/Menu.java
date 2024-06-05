@@ -28,7 +28,9 @@ public abstract class Menu
     public Command checkInTheMap(String cmmdName)
     {
         Command cmd= commandMap.get( new MenuValues(cmmdName,null) );    //controllo solo tramite il nome e non la descrizione
-        return cmd == null ? new ErroreInput() : cmd;   //se non è stato trovato
+        return cmd == null ?
+                new ErroreInput() :     //se non è stato trovato
+                cmd;
     }
     public String toString()
     {
