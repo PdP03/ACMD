@@ -1,5 +1,6 @@
 package com.ACMD.app.Engine_Layer.GameEngine;
 
+import java.io.File;
 import java.util.Vector;
 
 import com.ACMD.app.Engine_Layer.ParsePath;
@@ -26,6 +27,15 @@ public class main2 {
                     System.out.println(menuItem.cmdName);
                 }
             }
+        }
+
+        String dir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Entita\\";
+        String thisDir = ParsePath.getPath(dir, "");
+        Vector<String> files = ParsePath.getFilesNameIn(dir);
+
+        for(String file: files){
+            System.out.println(file);
+            System.out.println((new File(thisDir+file)).exists());
         }
 
     }

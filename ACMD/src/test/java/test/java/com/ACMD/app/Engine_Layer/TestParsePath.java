@@ -1,4 +1,7 @@
 package test.java.com.ACMD.app.Engine_Layer;
+import java.io.File;
+import java.util.Vector;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,9 +26,18 @@ public class TestParsePath {
         }
         else{
             Assert.assertTrue(path.contains("\\ACMD\\main\\test"));
-        }
+        } 
+    }
 
-        
+    @Test
+    public void testGetFilesNameIn(){
+        String dir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Entita\\";
+        String thisDir = ParsePath.getPath(dir, "");
+        Vector<String> files = ParsePath.getFilesNameIn(dir);
+
+        for(String file: files){
+            Assert.assertTrue(new File(thisDir+file).exists());
+        }
     }
     
 }
