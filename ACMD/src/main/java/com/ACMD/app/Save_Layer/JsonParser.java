@@ -54,10 +54,10 @@ public class JsonParser {
     }
 
     /**
-     * Read and update the object from a JSON file.
+     * Read the object from a JSON file.
      * 
      * @param obj The object to update.
-     * @return The updated object.
+     * @return The object.
      * @throws IOException If an I/O error occurs.
      */
     public static Object read(Object obj) throws IOException {

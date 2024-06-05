@@ -1,77 +1,111 @@
 <!--
-  Per inserire un nuovo nodo è sufficente aggiungere una voce <position>x,y</position> nel tag node
-  dove x e y sono valori interi.
+  Per inserire un nuovo nodo bisogna specificare i campi obbligatori:
+  - <position>...</position>
+  - <isRoom>...</isRoom>
+  - <path_image>...</path_image>
+  Mentre se omessi i tag nord, sud, est, ovest per default sono null
+  
 
-  Per creare una nuova connessione tra due nodi del grafo bisogna inserire:
-  - position_start, nodo di partenza da dove parte il collegamento (i valory sono x,y come per position)
-  - position_end, nodo di arrivo (i valory sono x,y come per position)
-  - direction1, prima direzione
-  - direction2, seconda direzione
+  Per inserire una nuova stanza bisogna specificare i campi obbligatori:
+  - <mtype>...</mtype>
+  - <positionPlayer>...</positionPlayer>
+  - <path_image>...</path_image>
+  - <isRoom>...</isRoom>
+  - <position>...</position>
+  
+  NB: i tag position e positionPlayer hanno formato x,y (es. 1,2 -> cord. x = 1, cord. y = 2)
 -->
 
 <mappa>
   <node>
     <position>1,19</position>
-    <position>8,13</position>
-    <position>16,18</position>
-    <position>2,11</position>
-    <position>17,2</position>
-    <position>2,3</position>
+    <nord>8,13</nord>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Definitiva.png</path_image>
   </node>
-  
-  <connessione>
-    <position_start>1,19</position_start>
-    <position_end>8,13</position_end>
-    <direction1>nord</direction1>
-    <direction2>sud</direction2>
-  </connessione>
 
-  <connessione>
-    <position_start>2,11</position_start>
-    <position_end>8,13</position_end>
-    <direction1>est</direction1>
-    <direction2>ovest</direction2>
-  </connessione>
+  <node>
+    <position>8,13</position>
+    <nord>7,7</nord>
+    <est>17,2</est>
+    <ovest>2,11</ovest>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Definitiva.png</path_image>
+  </node>
 
-  <connessione>
-    <position_start>16,18</position_start>
-    <position_end>8,13</position_end>
-    <direction1>est</direction1>
-    <direction2>sud</direction2>
-  </connessione>
+  <node>
+    <position>7,7</position>
+    <est>8,7</est>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Definitiva.png</path_image>
+  </node>
 
-  <connessione>
-    <position_start>17,2</position_start>
-    <position_end>8,13</position_end>
-    <direction1>sud</direction1>
-    <direction2>est</direction2>
-  </connessione>
+  <node>
+    <position>17,2</position>
+    <nord>17,1</nord>
+    <sud>8,13</sud>
+    <ovest>4,4</ovest>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Definitiva.png</path_image>
+  </node>
 
-  <connessione>
-    <position_start>17,2</position_start>
-    <position_end>2,3</position_end>
-    <direction1>ovest</direction1>
-    <direction2>est</direction2>
-  </connessione>
+  <node>
+    <position>4,4</position>
+    <est>17,2</est>
+    <ovest>2,4</ovest>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Definitiva.png</path_image>
+  </node>
 
-  <connessione>
-    <position_start>8,13</position_start>
-    <position_end>2,3</position_end>
-    <direction1>ovest</direction1>
-    <direction2>est</direction2>
-  </connessione>
+  <node>
+    <position>2,11</position>
+    <est>8,13</est>
+    <ovest>1,11</ovest>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Definitiva.png</path_image>
+  </node>
 
-   <connessione>
-    <position_start>16,18</position_start>
-    <position_end>8,13</position_end>
-    <direction1>nord</direction1>
-    <direction2>sud</direction2>
-  </connessione>
 
-   <connessione>
-    <position_start>2,3</position_start>
-    <position_end>17,2</position_end>
-    <direction1>est</direction1>
-    <direction2>ovest</direction2>
-  </connessione>
+
+
+  <room>
+    <position>8,7</position>
+    <mtype>MOSTRO_MARINO</mtype>
+    <positionPlayer>3,8</positionPlayer>
+    <path_image>SeaMap.png</path_image>
+    <isRoom>true</isRoom>
+  </room>
+
+  <room>
+    <position>12,18</position>
+    <mtype>BOSS_DRAGO</mtype>
+    <positionPlayer>12,18</positionPlayer>
+    <path_image>Mappa_Drago.png</path_image>
+    <isRoom>true</isRoom>
+  </room>
+
+  <room>
+    <position>1,11</position>
+    <mtype>COBOLDO</mtype>
+    <positionPlayer>2,11</positionPlayer>
+    <path_image>Mappa_Kobold.png</path_image>
+    <isRoom>true</isRoom>
+  </room>
+
+  <room>
+    <position>17,1</position>
+    <mtype>MAGO_OSCURO</mtype>
+    <positionPlayer>8,8</positionPlayer>
+    <path_image>Mappa_Elfo.png</path_image>
+    <isRoom>true</isRoom>
+  </room>
+
+  <room>
+    <position>2,4</position>
+    <mtype>ARMATURA</mtype>
+    <positionPlayer>10,8</positionPlayer>
+    <path_image>ArmorMap.png</path_image>
+    <isRoom>true</isRoom>
+  </room>
+
 </mappa>

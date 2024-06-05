@@ -25,7 +25,6 @@ public class ParsePath {
         */
         String[] splitted = rootDir.split("ACMD");
         rootDir = splitted[0]+"ACMD";
-
         String fileDir = rootDir+packagePath+fileName;
         //check sul SO in uso poichè Unix usa / come separatore mentre windws \
         String SOtype = System.getProperty("os.name");

@@ -6,7 +6,7 @@ import java.util.Vector;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.ACMD.app.Engine_Layer.ConnectionValues;
+import com.ACMD.app.Engine_Layer.RoomValues;
 import com.ACMD.app.Engine_Layer.MonsterValues;
 import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Engine_Layer.Entita.MType;
@@ -79,18 +79,18 @@ public class TestXMLreader {
             cord = n.getCoord();
             Assert.assertTrue((Object)cord.getX() instanceof Integer);
             Assert.assertTrue((Object)cord.getY() instanceof Integer);
+            Assert.assertTrue((Object)n.isRoom() instanceof Boolean);
+            Assert.assertTrue((Object)n.getPathImage() instanceof String);
         }
 
         // ---------- TEST LETTURA DELLE CONNESSIONE DA FILE ----------
-        ArrayList<ConnectionValues> connections = reader.getAllConnection();
-        for(ConnectionValues c: connections){
-            Assert.assertTrue(c.direction1 instanceof Direction);
-            Assert.assertTrue(c.direction2 instanceof Direction);
-            Assert.assertTrue((Object)c.x instanceof Integer);
-            Assert.assertTrue(((Object)c.y) instanceof Integer);
-            Assert.assertTrue(((Object)c.x2) instanceof Integer);
-            Assert.assertTrue(((Object)c.y2) instanceof Integer);
-
+        ArrayList<RoomValues> rooms = reader.getAllRoom();
+        for(RoomValues c: rooms){
+            Assert.assertTrue(c.mtype instanceof MType);
+            Assert.assertTrue((Object)c.PlayerX instanceof Integer);
+            Assert.assertTrue((Object)c.PlayerY instanceof Integer);
+            Assert.assertTrue((Object)c.StanzaX instanceof Integer);
+            Assert.assertTrue((Object)c.StanzaY instanceof Integer);
         }
     } 
 }

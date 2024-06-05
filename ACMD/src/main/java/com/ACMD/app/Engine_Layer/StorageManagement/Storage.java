@@ -5,6 +5,8 @@ package com.ACMD.app.Engine_Layer.StorageManagement;
 //import java.util.HashMap;
 import java.util.LinkedList;
 
+    //NOTA: a causa di vari cambiamenti, è rimasto che gestisce stack di oggetti, e non oggetti     #FUTURO: pensare prima a classi che possono rappresentare oggetti del mondo reale, e quelle sono solo come le strutture in C, contenitori per dati
+
 /*
     Si tratta del gestore degli oggetti.
     Viene passato il nome dell'oggetto e poi si arrangia a memorizzarlo.
@@ -50,12 +52,11 @@ public abstract class Storage
         //_sfrutto che si usa la shallow copy
         int pos = items.indexOf(t) ;
 
-        if(pos<0)
-         items.add(t);
-        else
-        (items.get(pos)).addQuantity();// ottengo la posizione, mi faccio dare l'elemento e aggiungo uno
+        return !( (pos<0) ?     // ottengo true se pieno, quindi restituisco negato
+             items.add(t) :
+            (items.get(pos)).addQuantity() );// ottengo la posizione, mi faccio dare l'elemento e aggiungo uno
 
-        return true;        //#CHIEDERE : perché avevamo messo booleano
+        //return true;        //#CHIEDERE : perché avevamo messo booleano : ora lo so, per l'eccesso
     }
     //possibilità sottoclassi di scegliere se esiste un valore massimo alla quantità di oggetti che si possono portare <- invece no, perché basta richiamare con super
 
@@ -65,12 +66,19 @@ public abstract class Storage
     public boolean remove(ItemStack t)
     {//_true se la rimozione si è potuta fare, false per evitare di lanciare un'eccezione <- non accade nulla, non è così grave da bloccarsi.. a meno che non restituisca anche il dato
         int pos;
-        if( (pos= items.indexOf(t)) <0) return false;
-         
+        if( (pos= items.indexOf(t)) <0) return false;   //numero negativo se non trovato
+/*
+        for(int i=0; i<items.size(); i++)
+        {
+                System.out.println( items.get(i) );
+        }*/
+
+          //  System.out.println(this);
+
         //_l'oggetto esiste, ora se è l'ultimo devo eliminarlo
         t = items.get(pos);
-        if( t.removeQuantity() )
-            items.remove(pos);
+        if( t.removeQuantity() )    //rimuovo la quantità
+            items.remove(pos);      //se vale 0 allora lo devo rimuovere
         
         return true;
     }
@@ -125,7 +133,8 @@ public abstract class Storage
             s+= it.getName()+
                 ":\n  Peso: "+it.getWeight()+
                  "\n  Valore: "+it.getValue()+
-                 //"\n  Descrizione: "+it.get 
+                 "\n Quantità:"+it.getQuantity()+
+                 //"\n  Descrizione: "+it.getDescription() +
                  "\n";
         }
 

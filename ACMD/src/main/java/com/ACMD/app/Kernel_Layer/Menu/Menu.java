@@ -5,7 +5,7 @@ import java.util.Vector;
 
 public abstract class Menu 
 {
-    Map<String, String> commandMap;
+    private Map<String, String> commandMap; //chiave: nome comando ; valore: descrizione
   
     public Vector<String> getElement()
     {
@@ -13,6 +13,12 @@ public abstract class Menu
     }
     public String toString()
     {
-        return null;
+        String s="";
+
+        Object keys[]= (commandMap.keySet() ).toArray();
+
+        for(int i=0; i<keys.length; i++)    //stupidi noi che vogliamo usare una mappa al posto di un array con 2 stringhe
+         s+= (String)(keys[i])+'\n';        //? perché sta volta non rompre per il cast
+        return s;
     }
 }

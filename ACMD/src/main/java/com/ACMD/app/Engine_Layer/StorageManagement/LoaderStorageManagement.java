@@ -10,6 +10,6 @@ public class LoaderStorageManagement
      {		//#UML : correggere il nome in UML
 
      }
-    public Vector<ItemStack> getInventory()
+    public Vector<ItemStack> loadItems()
      {return null;}
 }

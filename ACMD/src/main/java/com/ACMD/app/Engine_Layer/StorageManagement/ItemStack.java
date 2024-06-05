@@ -13,12 +13,12 @@ package com.ACMD.app.Engine_Layer.StorageManagement;
 
 public /*abstract*/ class ItemStack
 {
-    String name;
-    byte weight;
-    byte quantity;           //oggetti si possono impilare
-    byte value;
-    ItemType tipology;
-    String description;
+    private String name;
+    private byte weight;
+    private byte quantity;           //oggetti si possono impilare
+    private byte value;
+    private ItemType tipology;
+    private String description;
 
     final int VALORE_DEFAULT_QUANTITA = 1;
 
@@ -62,23 +62,29 @@ public /*abstract*/ class ItemStack
            value = v;
         description = descr;
 
-        exceptionLauncher();    //si potrebbe per rendere più efficiente l'esecuzione fare questi controlli dentro il factory, al massimo andrebbe a rendere più pesante il caricamento: però si può pensare di fare i controlli solo sugli oggetti
+//        exceptionLauncher(); SPOSTATA NEL FACTORY, QUINDI NON VENGONO PIÙ FATTI CONTROLLI QUI
+                            //vantaggio anche ora chi usa può non impazzire passando degli int, ma poi sarà il factory ad usare byte
+        //si potrebbe per rendere più efficiente l'esecuzione fare questi controlli dentro il factory, al massimo andrebbe a rendere più pesante il caricamento: però si può pensare di fare i controlli solo sugli oggetti
         //che sono istanziati da salvataggi e che non si trovano nella hashtable
     }
 
 //  ## Metodi Private ##
-
+/*
     private void exceptionLauncher()
     {
-        if( weight<0)
-         throw new IllegalArgumentException("Peso non può essere negativo");
+        if( weight<=0)
+         throw new IllegalArgumentException("Peso non può essere negativo o nullo");
         if(name=="" || name==null)
          throw new IllegalArgumentException("Il nome dell'oggetto non è valido");
         if(quantity <=0)
          throw new IllegalArgumentException("La quantità non è positiva");
+        if(value<=0)
+         throw new IllegalArgumentException("Il valore deve essere positivo");
+        if(tipology==null)
+         throw new IllegalArgumentException("Deve avere un tipo");
             //anche se prima avevo messo queste condizioni nei singoli costruttori in modo da evitare il controllo sulla quantità che non serve.. e forse è più sensato perché non si tratta di un metodo che può essere utile all'esterno
     }
-
+*/
 
 //  ## Metodi Public ##
 
@@ -96,18 +102,37 @@ public /*abstract*/ class ItemStack
     public ItemStack clone()
     {
         return new ItemStack(this.name,this.tipology,this.weight,this.quantity,this.value,this.description); //che bello che non servano i metodi, perché è dentro la stessa classe, quindi accetta
+                // non passo per il facotry perché sto copiando un oggetto che deve essere già in stato valido
     }
 
-    public void addQuantity()
-     { ++quantity; }
+    /**
+     * @return true se finito lo spazio ; false se non ci sono problemi
+     * In questo modo se qualcuno da fuori deve fare un controllo in caso di errore, può usare il valore direttamente
+     *  senza negare il return
+     */
+    public boolean addQuantity()   //true finito spazio
+     {
+        if( quantity> ItemFactory.MAXVALUE ) return true;
+ 
+        ++quantity;
+        return false;
+     }
 
     /**
-     * @return Ritorna vero se si può eliminare
+     * @return Ritorna vero se si può eliminare definitivamente
      */
     public boolean removeQuantity()
      {
-        return (--quantity) == 0;
+       // return (--quantity) == 0;         no perché essendo che modifica continuando a richiamare può andare in overflow
    //         else throw new noItem_Exception();
+
+        if( quantity > 1 )      //si elimina quando è l'ultimo, quindi 1 no 0
+        {
+            --quantity;
+            return false;
+        }
+
+        return true;
      }
 
 

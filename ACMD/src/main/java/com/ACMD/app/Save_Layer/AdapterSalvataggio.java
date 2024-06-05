@@ -8,11 +8,11 @@ import com.google.gson.JsonObject;
 
 
 public class AdapterSalvataggio {
-    public static void Save(Player player){
+    public static void save(Player player){
         JsonParser.save(player);
     }
 
-    public static void Save (MapGraph map){
+    public static void save (MapGraph map){
         JsonParser.save(map);
     }
 
@@ -20,8 +20,8 @@ public class AdapterSalvataggio {
         JsonParser.WriteSavefile(mappa)
     }*/
 
-    public static Player setPlayerFromFile() throws IOException{
-        JsonObject j = JsonParser.ReadSavefile("Player");
+    public static Player retrivePlayer() throws IOException{
+        JsonObject j = JsonParser.readSavefile("Player");
         Player p = new Player(j.get("name").toString());
         return p;
     }

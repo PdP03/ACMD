@@ -3,7 +3,6 @@ package com.ACMD.app.Engine_Layer.Mappa;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
-import com.ACMD.app.Engine_Layer.Mappa.MapGraph.DIRECTION;
 import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
 
 /**
@@ -11,10 +10,27 @@ import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
  * Nel momento in cui si usano i relativi getter e setter sono invece settati (ovviamente)
  */
 public class NODE{
-    private Coordinates coord, north=null, south=null, east=null, west=null;
-    private Stanza s; //Stanza associata al nodo
-    public NODE(int x,int y){this.coord = new Coordinates(x,y); }
-
+    protected Coordinates coord, north=null, south=null, east=null, west=null;
+    protected String pathImg;
+    protected boolean isRoom;
+    /**
+     * Costruttore che definisce un nodo, pathImage è definito vuoto e isRoom è falso 
+     * @param x la componente x
+     * @param y la componente y
+     */
+    public NODE(int x,int y){this.coord = new Coordinates(x,y); pathImg = ""; isRoom = false;}
+    /**
+     * Costruttore vuoto
+     */
+    public NODE(){}
+    /**
+     * Costruttore con tutti i parametri
+     * @param x la x [0,19]
+     * @param y la y [0.19]
+     * @param pathImg Il nome del file immagine partendo dalla cartella "Images" presente in Graphic_Layer
+     * @param isRoom Se è una stanza 
+     */
+    public NODE(int x, int y, String pathImg, boolean isRoom){this.coord = new Coordinates(x,y); this.pathImg =pathImg ; this.isRoom = isRoom;}
     public Coordinates getCoord() {
         return coord;
     }
@@ -32,6 +48,23 @@ public class NODE{
     public void setCoord(Coordinates coord) {
         this.coord = coord;
     }
+
+    public void setPathImage(String s) {
+        pathImg = s;
+    }
+
+    public void setIsRoom(boolean b) {
+        isRoom = b;
+    }
+
+    public boolean isRoom(){
+        return false;
+    }
+
+    public String getPathImage(){
+        return pathImg;
+    }
+
     /**
      * 
      * @return Il nodo a nord rispetto a quello considerato 
@@ -112,7 +145,7 @@ public class NODE{
      * @return the node at the direction 
      * @throws IOException thrown if direction is not N/S/E/W/O O stands for "Ovest"
      */
-    public Coordinates getDirection(DIRECTION direction) throws IOException, NoSuchElementException{
+    public Coordinates getDirection(Direction direction) throws IOException, NoSuchElementException{
         switch (direction) {
          case NORTH:
             if (north==null){ System.out.println("North null"); throw new NoSuchElementException("North is null");} 
@@ -127,9 +160,13 @@ public class NODE{
         if (west==null) {System.out.println("W null");throw new NoSuchElementException("West is null"); }
             return west; 
         default: 
-        System.out.println("Input non valido per getDirection (class Node)");
         throw new IOException("Input non valido"); 
         }
      }
+    public boolean isFree() { 
+        return false; 
+    }
+    public void setFree(){}
+    public boolean isStanza(){return false;}
      
 }

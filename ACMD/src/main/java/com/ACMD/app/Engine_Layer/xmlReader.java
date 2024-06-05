@@ -7,6 +7,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 import com.ACMD.app.Engine_Layer.Entita.MType;
+import com.ACMD.app.Engine_Layer.Mappa.Coordinates;
 import com.ACMD.app.Engine_Layer.Mappa.Direction;
 import com.ACMD.app.Engine_Layer.Mappa.NODE;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
@@ -37,7 +38,7 @@ public class xmlReader{
             docXml = builder.parse(xml);
         }
         catch(Exception e){
-            System.err.println("errore nella lettura");
+            throw new IllegalArgumentException("Errore nella lettura del file xml");
         }
     }
 
@@ -57,12 +58,8 @@ public class xmlReader{
         for(int j = 0; j < monsterAttribute.getLength(); j++){
             attribute = monsterAttribute.item(j);
 
-            
             if(attribute.getNodeType() == Node.ELEMENT_NODE){
-                type = getMTypeBy(attribute.getNodeName());
-                if(type == null){
-                    return null;
-                }
+                type = MType.valueOf(attribute.getNodeName());
                 
                 mValues = getMonsterValuesFrom((Element)attribute);
                 defaultValues.set(type.getId(), mValues);
@@ -79,41 +76,50 @@ public class xmlReader{
      */
     private static MonsterValues getMonsterValuesFrom(Element eAttribute){
         MonsterValues mValues = new MonsterValues();
+        Node n;
 
         // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
-        mValues.healthMul = Byte.parseByte(eAttribute.getElementsByTagName("health_multiplier").item(0).getTextContent());
-        mValues.damageMul = Byte.parseByte(eAttribute.getElementsByTagName("damage_multiplier").item(0).getTextContent());
-        mValues.armorMul = Byte.parseByte(eAttribute.getElementsByTagName("armor_multiplier").item(0).getTextContent());
-        mValues.level = Byte.parseByte(eAttribute.getElementsByTagName("base_level").item(0).getTextContent());
-        mValues.health = Byte.parseByte(eAttribute.getElementsByTagName("base_health").item(0).getTextContent());
-        mValues.armor = Byte.parseByte(eAttribute.getElementsByTagName("base_armor").item(0).getTextContent());
-        mValues.damage = Byte.parseByte(eAttribute.getElementsByTagName("base_damage").item(0).getTextContent());
+        n = eAttribute.getElementsByTagName("health_multiplier").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <health_multiplier>");
+        mValues.healthMul = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("damage_multiplier").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <damage_multiplier>");
+        mValues.damageMul = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("armor_multiplier").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <armor_multiplier>");
+        mValues.armorMul = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("base_level").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <base_level>");
+        mValues.level = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("base_health").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <base_health>");
+        mValues.health = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("base_armor").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <base_armor>");
+        mValues.armor = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("base_damage").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <base_damage>");
+        mValues.damage = Byte.parseByte(n.getTextContent());
 
         return mValues;
     }
 
+
     /**
-     * Metodo di supporto per tradurre un nome di un mostro nel rispettivo tipo. Se non ci sono
-     * corrispondenze alla ritorna null
-     * @param name nome da controllare
-     * @return MType
+     * Metodo di utilita usato per lanciare un eccezione se n == null
+     * Definizione dei colori usando le secquenze di escape ANSI vedi:
+     * @see https://en.wikipedia.org/wiki/ANSI_escape_code
+     * @see https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
+     * @param n Node da controllare rappresenta il singolo tag
+     * @param str String da stampare nel errore
+     * @throws IllegalArgumentException
      */
-    private static MType getMTypeBy(String name){
-        //IMPORTANTE nei case il nome deve corrispondere a quello del file xml
-        switch(name){
-            case "mago_nero":
-                return MType.MAGO_OSCURO;
-            case "armatura":
-                return MType.ARMATURA;
-            case "coboldo":
-                return MType.COBOLDO;
-            case "boss_drago":
-                return MType.BOSS_DRAGO;
-            case "mostro_marino":
-                return MType.MOSTRO_MARINO;
-            default:
-                return null;
-        }
+    public static final String ANSI_RESET = "\u001B[0m";    //resetta il colore
+    public static final String ANSI_RED = "\u001B[31m";     //setta il colore a rosso
+
+    private static void throwExeptionIfNull(Node n, String str) throws IllegalArgumentException{
+        if(n == null)
+            throw new IllegalArgumentException(ANSI_RED+str+ANSI_RESET);
     }
 
     /* --------------------------------------------------------------------------------------------------------------
@@ -156,49 +162,30 @@ public class xmlReader{
      */
     private static ItemValues getItemValuesFrom(Element eAttribute){
         ItemValues iValues = new ItemValues();
+        Node n;
 
         // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
-        iValues.description = eAttribute.getElementsByTagName("description").item(0).getTextContent();
-        iValues.type = getITypeBy(eAttribute.getElementsByTagName("type").item(0).getTextContent());
-        iValues.weight = Byte.parseByte(eAttribute.getElementsByTagName("weight").item(0).getTextContent());
-        iValues.quantity = Byte.parseByte(eAttribute.getElementsByTagName("quantity").item(0).getTextContent());
-        iValues.value = Byte.parseByte(eAttribute.getElementsByTagName("value").item(0).getTextContent());
+        n = eAttribute.getElementsByTagName("description").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <description>");
+        iValues.description = n.getTextContent();
+        n = eAttribute.getElementsByTagName("type").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <type>");
+        iValues.type = ItemType.valueOf(n.getTextContent());
+        n = eAttribute.getElementsByTagName("weight").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <weight>");
+        iValues.weight = Byte.parseByte(n.getTextContent());
+        n = eAttribute.getElementsByTagName("quantity").item(0);
+        if(n == null){
+            iValues.quantity = 1;
+        }
+        else{
+            iValues.quantity = Byte.parseByte(n.getTextContent());
+        }
+        n = eAttribute.getElementsByTagName("value").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <value>");
+        iValues.value = Byte.parseByte(n.getTextContent());
 
         return iValues;
-    }
-
-    /**
-     * Metodo di supporto per tradurre il tipo(Stringa) di un item nel rispettivo tipo(ItemType). Se non ci sono
-     * corrispondenze alla ritorna null
-     * @param name nome da controllare
-     * @return ItemType
-     */
-    private static ItemType getITypeBy(String tipo){
-        //IMPORTANTE nei case il nome deve corrispondere a quello del file xml
-        switch(tipo){
-            case "arma":
-                return ItemType.ARMA;
-            case "armatura":
-                return ItemType.ARMATURA;
-            case "cibo":
-                return ItemType.CIBO;
-            case "easter_egg":
-                return ItemType.EASTER_EGG;
-            case "pozione_cura":
-                return ItemType.POZIONE_CURA;
-            case "pozione_danno":
-                return ItemType.POZIONE_DANNO;
-            case "pozione_forza":
-                return ItemType.POZIONE_FORZA;
-            case "pozione_invalidita":
-                return ItemType.POZIONE_INVALIDITA;
-            case "pozione_resistenza":
-                return ItemType.POZIONE_RESISTENZA;
-            case "pozione_veleno":
-                return ItemType.POZIONE_VELENO;
-            default:
-                return null;
-        }
     }
 
     /* --------------------------------------------------------------------------------------------------------------
@@ -211,65 +198,111 @@ public class xmlReader{
 
     /**
      * Metodo che legge il file di configurazione e restituisce una lista con i nodi della mappa
-     * @return defaultValues un ArrayList<Node> contenente tutti i nodi
+     * @return defaultValues un ArrayList<NODE> contenente tutti i nodi
      */
     public ArrayList<NODE> getAllNode(){
         ArrayList<NODE> defaultValues = new ArrayList<NODE>();
-
-        NodeList cordList;
         NodeList itemAttribute = docXml.getElementsByTagName("mappa").item(0).getChildNodes(); //lista dei nodi position
         
         Node attribute;
-        Node val;
         for(int j = 0; j < itemAttribute.getLength(); j++){
             attribute = itemAttribute.item(j);
-            
-            if(attribute.getNodeName() == "node"){
-                
-                cordList = attribute.getChildNodes();
-                
-                for(int i = 0; i < cordList.getLength(); i++)
-                {
-                    val = cordList.item(i);
-                    if(val.getNodeType() == Node.ELEMENT_NODE){
-                        defaultValues.add(getPosition((Element)val));
-                    }
-                }
+            if(attribute.getNodeType() == Node.ELEMENT_NODE && attribute.getNodeName() == "node"){
+                defaultValues.add(getNODEFrom((Element) attribute));
             }
         }
+        
+        
         return defaultValues;
     }
 
     /**
-     * Legge le cordinate (x, y) da un nodo element (<position>)
-     * @param node nodo in cui sono specificati i valori da leggere
-     * @return NODE posizione inizializzata
+     * Legge i valori di un NODO da un nodo di tipo element 
+     * @param eAttribute nodo in cui sono specificati i valori da leggere
+     * @return NODE nodo inizializzato
      */
-    private static NODE getPosition(Node node){
-        String str;
-        String[] splitted;
+    private static NODE getNODEFrom(Element eAttribute){
+        NODE node;
+        Node n;
+       
         // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
-        str = node.getTextContent();
-        splitted = str.split(",");
+        //TAG POSITION
+        n = eAttribute.getElementsByTagName("position").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <position>");
+        Coordinates c = getCord(n.getTextContent());
+        node = new NODE(c.getX(), c.getY());
 
-        return new NODE(Integer.parseInt(splitted[0]), Integer.parseInt(splitted[1]));
+        //TAG NORD
+        n = eAttribute.getElementsByTagName("nord").item(0);
+        if(n != null){
+            node.setNorth(getCord(n.getTextContent()));
+        }
+        else{
+            node.setNorth(null);
+        }
+
+        //TAG SUD
+        n = eAttribute.getElementsByTagName("sud").item(0);
+        if(n != null){
+            node.setSouth(getCord(n.getTextContent()));
+        }
+        else{
+            node.setSouth(null);
+        }
+
+        //TAG EST
+        n = eAttribute.getElementsByTagName("est").item(0);
+        if(n != null){
+            node.setEast(getCord(n.getTextContent()));
+        }
+        else{
+            node.setEast(null);
+        }
+
+        //TAG OVEST
+        n = eAttribute.getElementsByTagName("ovest").item(0);
+        if(n != null){
+            node.setWest(getCord(n.getTextContent()));
+        }
+        else{
+            node.setWest(null);
+        }
+
+        n = eAttribute.getElementsByTagName("path_image").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <path_image>");
+        node.setPathImage(n.getTextContent());
+        n = eAttribute.getElementsByTagName("isRoom").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <isRoom>");
+        node.setIsRoom(Boolean.parseBoolean(n.getTextContent()));
+        
+        return node;
     }
 
     /**
-     * Metodo che legge il file di configurazione e restituisce una lista con i nodi della mappa
-     * @return defaultValues un ArrayList<ConnectionValues> contenente tutti i valori delle connessioni
+     * ottiene le cordinate x,y da una stringa con il formato: "x,y" (es. "1,2")
+     * @param str
      */
-    public ArrayList<ConnectionValues> getAllConnection(){
-        ArrayList<ConnectionValues> defaultValues = new ArrayList<ConnectionValues>();
+    private static Coordinates getCord(String str){
+        String[] splitted;
+
+        splitted = str.split(",");
+        return new Coordinates(Integer.parseInt(splitted[0]), Integer.parseInt(splitted[1]));
+    }
+
+    /**
+     * Metodo che legge il file di configurazione e restituisce una lista con i valori delle stanze
+     * @return defaultValues un ArrayList<RoomValues> contenente tutti i valori delle stanze
+     */
+    public ArrayList<RoomValues> getAllRoom(){
+        ArrayList<RoomValues> defaultValues = new ArrayList<RoomValues>();
 
         NodeList itemAttribute = docXml.getElementsByTagName("mappa").item(0).getChildNodes(); //lista dei nodi position
-
+        
         Node attribute;
         for(int j = 0; j < itemAttribute.getLength(); j++){
             attribute = itemAttribute.item(j);
-            if(attribute.getNodeName() == "connessione"){
-                defaultValues.add(getConnectionValuesFrom((Element) attribute));
-            
+            if(attribute.getNodeType() == Node.ELEMENT_NODE && attribute.getNodeName() == "room"){
+                defaultValues.add(getRoomValuesFrom((Element) attribute));
             }
         }
 
@@ -277,51 +310,35 @@ public class xmlReader{
     }
 
     /**
-     * Legge i valori di una connessione da un nodo di tipo element 
+     * Legge i valori di una stanza da un nodo di tipo element 
      * @param eAttribute nodo in cui sono specificati i valori da leggere
-     * @return ConnectionValues struct contenente i valori
+     * @return RoomValues struct contenente i valori
      */
-    private static ConnectionValues getConnectionValuesFrom(Element eAttribute){
-        ConnectionValues cValues = new ConnectionValues();
-        String str;
-        String splitted[];
+    private static RoomValues getRoomValuesFrom(Element eAttribute){
+        RoomValues rValues = new RoomValues();
+        Node n;
 
         // ---------------- LETTURA PARAMETRI DA FILE IN BASE AL TAG ----------------
-        str = eAttribute.getElementsByTagName("position_start").item(0).getTextContent();
-        splitted = str.split(",");
-        cValues.x = Integer.parseInt(splitted[0]);
-        cValues.y = Integer.parseInt(splitted[1]); 
-
-        str = eAttribute.getElementsByTagName("position_end").item(0).getTextContent();
-        splitted = str.split(",");
-        cValues.x2 = Integer.parseInt(splitted[0]);
-        cValues.y2 = Integer.parseInt(splitted[1]); 
-        cValues.direction1 = getDirectionBy(eAttribute.getElementsByTagName("direction1").item(0).getTextContent());
-        cValues.direction2 = getDirectionBy(eAttribute.getElementsByTagName("direction2").item(0).getTextContent());
-
-        return cValues;
-    }
-
-    /**
-     * Metodo di supporto per tradurre la direction(Stringa) in Direction(enum) . Se non ci sono
-     * corrispondenze alla ritorna null
-     * @param dir direzione da controllare
-     * @return Direction
-     */
-    private static Direction getDirectionBy(String dir){
-        //IMPORTANTE nei case il nome deve corrispondere a quello del file xml
-        switch(dir){
-            case "est":
-                return Direction.EAST;
-            case "ovest":
-                return Direction.WEST;
-            case "sud":
-                return Direction.SOUTH;
-            case "nord":
-                return Direction.NORTH;
-            default:
-                return null;
-        }
+        n = eAttribute.getElementsByTagName("mtype").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <mtype>");
+        rValues.mtype = MType.valueOf(n.getTextContent());
+        n = eAttribute.getElementsByTagName("positionPlayer").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <positionPlayer>");
+        Coordinates c = getCord(n.getTextContent());
+        rValues.PlayerX = c.getX();
+        rValues.PlayerY = c.getY();
+        n = eAttribute.getElementsByTagName("position").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <position>");
+        Coordinates c2 = getCord(n.getTextContent());
+        rValues.StanzaX = c2.getX();
+        rValues.StanzaY = c2.getY();
+        n = eAttribute.getElementsByTagName("path_image").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <path_image>");
+        rValues.path =n.getTextContent();
+        n = eAttribute.getElementsByTagName("isRoom").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <isRoom>");
+        rValues.isRoom=Boolean.parseBoolean(n.getTextContent());
+        return rValues;
     }
 
 }

@@ -5,7 +5,7 @@ class ItemFactory      /'alloca oggetti prendendo da caratteristiche da file di 
   ItemStack getRandomItem();
   ItemStack getRandom(ItemType t);
   ItemStack getItem(String name);
-  ItemStack createItem(String name, ItemType t, byte value, byte weight, byte quantity, String description); /'nel save si deve aggiungere questo dato'/
+  ItemStack createItemTemplate(String name, ItemType t, int value, int weight, int quantity, String description); /'nel save si deve aggiungere questo dato'/
 }
 
 class LoaderItem{ /'crea stuttura comoda con tutta configurazione per il factory'/
@@ -78,7 +78,7 @@ class Chest{
   
   void lock();
   void unlock()
-  boolean getLock(); /'o meglio chiamarlo getState?'/
+  boolean isClosed(); /'o meglio chiamarlo getState?'/
 
 }
 

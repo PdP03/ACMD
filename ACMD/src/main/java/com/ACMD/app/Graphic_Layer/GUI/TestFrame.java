@@ -2,12 +2,8 @@ package com.ACMD.app.Graphic_Layer.GUI;
 
 import com.ACMD.app.Engine_Layer.Mappa.*;
 
-import software.amazon.awssdk.services.s3.model.CORSConfiguration;
 
 import java.io.IOException;
-import java.util.NoSuchElementException;
-
-import org.apache.http.conn.params.ConnConnectionParamBean;
 
 
 public class TestFrame{
@@ -67,17 +63,8 @@ public class TestFrame{
         });
         */
      //   new MyTree();
-     
-      // new GameFrame().setVisible(true); 
-        MapGraph m = new MapGraph("C:\\Users\\Matteo\\Desktop\\Prova mappa\\Map.txt"); 
-        
-        m.printAllNodes();
-        try {
-            Coordinates[] a = new Coordinates[4];
-            a=m.getDirections(new Coordinates(8,13));
-            System.out.println(a[0]+" "+a[1]+ " "+a[2]+" "+a[3]);
-            }
-        catch(NoSuchElementException e ){System.out.println("NoSUCH");}; 
+      MapGraph m2= new MapGraph();
+      new GameFrame().setVisible(true); 
         }   
 
 }

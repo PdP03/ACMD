@@ -3,6 +3,7 @@ package com.ACMD.app.Engine_Layer.Entita;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import com.ACMD.app.Engine_Layer.StorageManagement.Inventario;
+import com.ACMD.app.Engine_Layer.StorageManagement.InventoryOutOfBound_Exception;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 import com.google.gson.annotations.Expose;
@@ -26,7 +27,7 @@ public class Player extends Entity{
 
     
     private final byte MAX_INVENTORY_WEIGHT = 10;
-    private final byte BASE_ATTACK = 1;
+    private final byte BASE_ATTACK = 2;
     private final byte BASE_ARMOR = 1;
     private final byte BASE_HEALTH = 5;
     private final byte BASE_LEVEL = 1;
@@ -73,7 +74,11 @@ public class Player extends Entity{
         observerHandler.removePropertyChangeListener(listener);
     }
 
-    //imposta il nuovo livello e aggiorna la vita max
+    /**
+     * Imposta il livello al player aggiornando maxHealt, armor, damage e notifica
+     * tutti gli observer. Lancia IllegalArgumentException se il livello non è valido
+     * @param l livello da impostare
+     */
     public void setLv(byte l) throws IllegalArgumentException{
         byte val;
         if(l < 1)
@@ -93,7 +98,7 @@ public class Player extends Entity{
             throw new IllegalArgumentException("Overflow di damage (livello troppo alto): "+val);
         super.attack += val;
         
-        //richiamat tutti gli observer che è avvenuto "levelChange" con oldValue=level e newValue=l
+        //segnala tutti gli observer che è avvenuto "levelChange" con oldValue=level e newValue=l
         observerHandler.firePropertyChange("levelChange", (Byte)level, (Byte)l);
         level = l;
     }
@@ -108,16 +113,15 @@ public class Player extends Entity{
     }
 
     /**
-     * Rimuove un item dall'inventario del player. Lancia IllegalArgumentException se l'inventario è vuoto
+     * Rimuove un item dall'inventario del player.
      * @param i item da eliminare
-     * @return boolean true se è stato eliminato 
+     * @return boolean true se è stato eliminato false se l'item non esiste
      */
-    public boolean removeItem(ItemStack i) throws IllegalArgumentException{
+    public boolean removeItem(ItemStack i){
         if(!inv.remove(i)){
-            throw new IllegalArgumentException("L'elemento non esiste");
+            return false;
         }
         
-        //il player può avere una sola arma è una sola armatura
         switch(i.getType()){
             case ARMA:
                 super.safeDecrementDamage((byte)i.getValue());
@@ -127,22 +131,24 @@ public class Player extends Entity{
                 super.safeDecrementArmor((byte)i.getValue());
                 return true;
 
-            default:        //neccessario poichè lo switch vuole tutti i case definiti nella enum
+            default:
                 return true;
         }
     }
 
     /**
-     * Aggiunge un item nel inventario del player. Lancia IllegalArgumentException se l'inventario e pieno.
+     * Aggiunge un item nel inventario del player. Lancia InventoryOutOfBound_Exception se l'item non può
+     * stare nel inventario perchè raggiunge MAX_INVENTORY_WEIGHT.
+     * Il player può portare una sola arma mentre può portare più pezzi di armatura purchè abbiano nome
+     * diverso
      * @param i item da aggiungere
      * @return boolean true se è stato inserito false se l'item è gia presente e non può essere inserito
      */
-    public boolean addItem(ItemStack i) throws IllegalArgumentException{
+    public boolean addItem(ItemStack i) throws InventoryOutOfBound_Exception{
         if(doesFillInv(i)){
-            throw new IllegalArgumentException("Questo oggetto è troppo grande (inventario pieno)");
+            throw new InventoryOutOfBound_Exception();
         }
         
-        //il player può avere una sola arma è una sola armatura
         switch(i.getType()){
             case ARMA:
                 if(inv.searchFor(ItemType.ARMA) != null){
@@ -153,14 +159,14 @@ public class Player extends Entity{
                 return true;
 
             case ARMATURA:
-                if(inv.searchFor(i.toString()) != null){
+                if(inv.searchFor(i.getName()) != null){
                     return false;
                 }
                 inv.add(i);
                 super.safeIncrementArmor((byte)i.getValue());
                 return true;
 
-            default:        //neccessario poichè lo switch vuole tutti i case definiti nella enum
+            default:
                 inv.add(i);
                 return true;
         }

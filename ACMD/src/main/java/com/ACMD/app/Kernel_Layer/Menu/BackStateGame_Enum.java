@@ -8,13 +8,13 @@ package com.ACMD.app.Kernel_Layer.Menu;
 
 public enum BackStateGame_Enum
 {
-    START,
-    QUIT,
-    COMBACT,
-    MOVE,
-    UPDATE,
-    UPDATE_ENTITY,
-    UPDATE_MAP,
+    START,          //inizia
+    QUIT,           //stacca stacca ; ma prima chiedi se bisogna salvare
+    COMBACT,        //attaccatto nemico
+    MOVE,           //movimento in corridoio
+    UPDATE,         //aggiornamento generico
+    UPDATE_ENTITY,  //alle barre della vita
+    UPDATE_MAP,     //cambio della stanza
     YN              //booleano per le scelte sì-no come se vuole salvare
 ;
 }

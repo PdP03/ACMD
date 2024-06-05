@@ -3,7 +3,7 @@ package com.ACMD.app.Engine_Layer.StorageManagement;
 
 public class Inventario extends Storage
 {
-    int totalWeight=0;
+    private int totalWeight=0;
 
 //  ## Costruttori ##
 
