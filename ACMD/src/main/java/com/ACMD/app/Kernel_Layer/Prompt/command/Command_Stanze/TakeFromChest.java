@@ -15,12 +15,18 @@ public class TakeFromChest implements Command
         gme= g;
     }
 
+    /**
+     * Da dentro la stanza
+     */
     @Override
-    public BackStateGame_Enum execute(Vector<String> direction)
+    public BackStateGame_Enum execute(Vector<String> struments)
     {
-        if( nothing.size() > 1 )
+        if( struments.size() > 2 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
-        return null;
+       // if(  )
+         
+
+        return BackStateGame_Enum.UPDATE_STORAGE;
     }   
 }

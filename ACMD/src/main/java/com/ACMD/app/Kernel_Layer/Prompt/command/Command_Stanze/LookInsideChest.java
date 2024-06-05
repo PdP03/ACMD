@@ -16,7 +16,7 @@ public class LookInsideChest implements Command
     }
 
     @Override
-    public BackStateGame_Enum execute(Vector<String> direction)
+    public BackStateGame_Enum execute(Vector<String> nothing)
     {
         if( nothing.size() > 1 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
