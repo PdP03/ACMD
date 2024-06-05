@@ -551,7 +551,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                     updateGraphics(new Coordinates(x,y));
                     //writeOnConsole(lorem);
                 }catch (Exception e ){}
-                
+                if(jTextComandi.getText().contains("Player")) {writeOnConsole("20"); System.out.println("cambio");}
                 SwingUtilities.updateComponentTreeUI(jInternalFrame1);
                 }
             }

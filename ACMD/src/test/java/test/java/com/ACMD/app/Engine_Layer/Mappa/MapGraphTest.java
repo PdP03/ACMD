@@ -165,14 +165,14 @@ public class MapGraphTest {
         Assert.assertEquals(m.isInChamber(new Coordinates(1,19)), true);
     }
 
-    @Test (expected = NoSuchElementException.class)
+    @Test 
     public void testIsStanza() 
     {
         MapGraph m=new MapGraph();
         Assert.assertEquals(m.isStanza(new Coordinates(1,19)), false);
         Assert.assertEquals(m.isStanza(new Coordinates(8,7)), true);
-        try {m.isStanza(new Coordinates(1,1));}
-        catch (NoSuchElementException e) {assertNotNull(e);}
+        Assert.assertEquals(m.isStanza(new Coordinates(1,1)), false);
+        
     }
 
     @Test

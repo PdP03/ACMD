@@ -22,7 +22,9 @@ public class Stanza extends NODE
     public void setCoordinates(Coordinates c){this.coord=c;}
     public Coordinates getCoordinates(){return coord;}
     public Monster getMonster(){return monster;}
+    @Override
     public boolean isRoom(){return true;}
+    @Override
     public boolean isStanza(){return true;}
     public static Coordinates getPlayerPosition(){return playerPosition;}
 

@@ -380,13 +380,14 @@ public class MapGraph {
         }
         throw new NoSuchElementException("Elemento non trovato");
     }
-    public static boolean isStanza(Coordinates coord) throws NoSuchElementException
+    public static boolean isStanza(Coordinates coord) //throws NoSuchElementException
     {
         for(Stanza s : chambers)
         {
             if(s.getCoord().getX() == coord.getX() && s.getCoord().getY() == coord.getY() ) return s.isRoom();
         }
-        throw new NoSuchElementException("Nodo non presente");
+        return false;
+       // throw new NoSuchElementException("Nodo non presente");
     }
     public static void printAllIcons()
     {
