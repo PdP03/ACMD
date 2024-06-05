@@ -24,8 +24,11 @@ public class TakeFromChest implements Command
         if( struments.size() > 2 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
-       // if(  )
-         
+       
+        if( gme.canPlayerTake(struments.elementAt(1)) )
+         {
+            gme.playerTake(struments.get(1));
+         }
 
         return BackStateGame_Enum.UPDATE_STORAGE;
     }   
