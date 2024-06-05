@@ -14,12 +14,14 @@ package "Game Engine Layer" #f5f5dc{
 /'-----------------    ADAPTER LAYER    -----------------'/
 package "Kernel Layer" #96ded1{
   [Prompt]
-  [Game]  
+  [Game]
+  [Menu]  
 }
 [Game] -> [Prompt]
-[Game] --> [GameEngine]
-[Prompt] -> [GameEngine]
+[Prompt] --> [GameEngine]
 [Prompt] --> [GraficaInput]
+[Prompt] -> [Menu]
+
 
 
 /'----------------- PERSISTANCE LAYER -----------------'/
@@ -35,6 +37,6 @@ package "Adapter Layer" #a65e2e{
 [Prompt] --> [AdapterSalvataggio]
 [AdapterSalvataggio] --> [Salvataggio]
 [AdapterGrafica] --> [GraficaOutput]
+[Prompt] --> [AdapterGrafica]
 
-[Game] --> [AdapterGrafica]
 @enduml

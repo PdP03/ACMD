@@ -30,7 +30,7 @@ public class GameEngine{
     Player p;
     Stack<Coordinates> playerStack;
     MapGraph map;
-    Boolean lose;
+    boolean lose;
     String buffer;
     Map<ItemType, Byte> potionsActiveted;
 
@@ -42,7 +42,7 @@ public class GameEngine{
         p = null;
         map = null;
         buffer = null;
-        lose = null;
+        lose = false;
         potionsActiveted = null;
         playerStack = null;
         factory = null;
