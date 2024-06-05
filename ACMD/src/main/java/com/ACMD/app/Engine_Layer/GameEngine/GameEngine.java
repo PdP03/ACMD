@@ -123,7 +123,7 @@ public class GameEngine{
     private String getRoomInfo(Coordinates c){
         String str = "";
         
-        if(map.isStanza(c)){
+        if(MapGraph.isStanza(c)){
             Monster m= map.getMonsterAt(c);
             Chest chest = map.getChestAt(c);
             if(chest.isClosed())
@@ -179,7 +179,7 @@ public class GameEngine{
         }
         
         Coordinates cord = map.getPlayerPos();
-        if(!map.isStanza(cord))
+        if(!MapGraph.isStanza(cord))
             throw new IllegalArgumentException("Player si trova nel nodo: " + cord + " non sono presenti nemici\n");
         
         Monster m = map.getMonsterAt(cord);
@@ -270,7 +270,7 @@ public class GameEngine{
      * @return boolean
      */
     public boolean playerCanAttack(){
-        if(!map.isStanza(map.getPlayerPos())){
+        if(!MapGraph.isStanza(map.getPlayerPos())){
             return false;
         }
 
@@ -295,13 +295,12 @@ public class GameEngine{
      * @param d Direction
      */
     public void movePlayer(Direction d) throws IllegalArgumentException{
-        Monster m;
         try{
             if(map.isValidDirectionTo(map.getPlayerPos(), d)){
                 playerStack.add(map.getPlayerPos());
                 map.movePlayerTo(d);
                 buffer += "["+format("INFO", ANSI_CYAN)+"]"+p.getName()+" si è spostato in direzione " + d+"\n";
-                if(map.isStanza(map.getPlayerPos())){
+                if(MapGraph.isStanza(map.getPlayerPos())){
                     buffer += "["+format("INFO", ANSI_CYAN)+"]"+p.getName()+" sei entrato in una stanza\n";
                 }
             }
@@ -339,7 +338,7 @@ public class GameEngine{
      */
 
     public boolean canPlayerTake(String item){
-        if(!map.isStanza(map.getPlayerPos())){
+        if(!MapGraph.isStanza(map.getPlayerPos())){
             return false;
         }
         
@@ -616,6 +615,4 @@ public class GameEngine{
     public void loadMap(MapGraph newMap){
         map = newMap;
     }
-
-
 }
