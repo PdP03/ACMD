@@ -4,6 +4,7 @@ package com.ACMD.app.Kernel_Layer.Prompt;
 import java.util.HashMap;
 import java.util.Vector;
 
+import com.ACMD.app.Adapter_Layer.GraphicAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Graphic_Layer.GUI.GameFrame;
 import com.ACMD.app.Kernel_Layer.Menu.*;
@@ -39,6 +40,8 @@ public class Prompt
     GameEngine gme;
     Command cmmd;
 
+    GraphicAdapter graphA;
+
     //## Costruttore ##
 /*
     public void linkEngine(GameEngine g)
@@ -69,28 +72,32 @@ public class Prompt
     //_istanzio anche
     public Prompt()
     {
-        mn= new StartMenu();
+        mn = new StartMenu();
         gmf= new GameFrame();
         gme= new GameEngine();
+
+        graphA = new GraphicAdapter(gmf);
     }
 
 
     //## Metodi Public ##
 
     public BackStateGame_Enum waitInput()
-    {//:richiama la grafica di input, aspetta il comando, fa le verifiche necessarie 
+    {//_richiama la grafica di input, aspetta il comando, fa le verifiche necessarie 
 
       //  if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
 
         String s;
         while( (s= gmf.textInput()) == null );
 
-        //:split comando da parametri
+        //_split comando da parametri
         Vector<String> ary= removeDoubleSpaces(s);
-            //_input è vector di stringhe non vuote
+            //STATO: input è vector di stringhe non vuote e toglie anche \n
         changeCommand(ary.get(0));
+        BackStateGame_Enum mem= cmmd.execute(ary);   //passo tutti i parametri, in quanto non so cosa gli serva
+        fromBufferToOut();                           //stampa tutti i messaggi
 
-        return cmmd.execute(ary);   //passo tutti i parametri
+        return mem;
     }
     
 
@@ -106,9 +113,24 @@ public class Prompt
         for(int i=0; i<sAry.length; i++)
         {
             //se non vuoto, allora posso aggiungere
-            if( sAry[i] != "" ) s2.add( sAry[i] );            //#TESTARE : fatto in locale, posso metterlo nel test con tutti i casi
+            if( sAry[i] != "" && sAry[i] != "\n" ) s2.add( sAry[i] );            //#TESTARE : fatto in locale, posso metterlo nel test con tutti i casi
         }
         return s2;
+    }
+
+    /**
+     * Istanzia il menù con i nuovi comandi
+     */
+    private void changeMenu()
+    {//: utile per passare da quello di start, a quello delle stanze a quello dei combattimenti
+
+    }
+    /**
+     * Porta dal buffer di engine all'adapter
+     */
+    private void fromBufferToOut()
+    {
+            gmf.writeOnConsole(null);
     }
 
     //## Metodi Command-Pattern ##

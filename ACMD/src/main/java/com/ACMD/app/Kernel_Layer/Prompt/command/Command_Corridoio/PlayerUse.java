@@ -16,8 +16,13 @@ public class PlayerUse implements Command
     }
 
     @Override
-    public BackStateGame_Enum execute(Vector<String> direction)
+    public BackStateGame_Enum execute(Vector<String> strument)
     {
-        return null;
+        if( strument.size() > 2 ) 
+         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
+         
+
+        gme.playerUse( strument.get(1) );
+        return BackStateGame_Enum.UPDATE_STORAGE;
     }  
 }
