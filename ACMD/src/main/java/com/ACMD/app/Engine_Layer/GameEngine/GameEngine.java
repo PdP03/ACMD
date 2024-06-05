@@ -24,13 +24,13 @@ import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
  * - buffer, stringa che contine il testo da stampare
  */
 public class GameEngine{
-    final byte MAX_POTION_USAGE = 4;
+    final byte MAX_POTION_USAGE = 3;
     byte level;
     ItemFactory factory;
     Player p;
     Stack<Coordinates> playerStack;
     MapGraph map;
-    Boolean lose;
+    boolean lose;
     String buffer;
     Map<ItemType, Byte> potionsActiveted;
 
@@ -42,7 +42,7 @@ public class GameEngine{
         p = null;
         map = null;
         buffer = null;
-        lose = null;
+        lose = false;
         potionsActiveted = null;
         playerStack = null;
         factory = null;
@@ -123,7 +123,7 @@ public class GameEngine{
     private String getRoomInfo(Coordinates c){
         String str = "";
         
-        if(map.isStanza(c)){
+        if(MapGraph.isStanza(c)){
             Monster m= map.getMonsterAt(c);
             Chest chest = map.getChestAt(c);
             if(chest.isClosed())
@@ -179,7 +179,7 @@ public class GameEngine{
         }
         
         Coordinates cord = map.getPlayerPos();
-        if(!map.isStanza(cord))
+        if(!MapGraph.isStanza(cord))
             throw new IllegalArgumentException("Player si trova nel nodo: " + cord + " non sono presenti nemici\n");
         
         Monster m = map.getMonsterAt(cord);
@@ -211,7 +211,7 @@ public class GameEngine{
         if(uses == null){
             return 0;
         }
-        uses--;
+        
         if(uses == 0){
             potionsActiveted.remove(t);
         }
@@ -270,7 +270,7 @@ public class GameEngine{
      * @return boolean
      */
     public boolean playerCanAttack(){
-        if(!map.isStanza(map.getPlayerPos())){
+        if(!MapGraph.isStanza(map.getPlayerPos())){
             return false;
         }
 
@@ -295,13 +295,12 @@ public class GameEngine{
      * @param d Direction
      */
     public void movePlayer(Direction d) throws IllegalArgumentException{
-        Monster m;
         try{
             if(map.isValidDirectionTo(map.getPlayerPos(), d)){
                 playerStack.add(map.getPlayerPos());
                 map.movePlayerTo(d);
                 buffer += "["+format("INFO", ANSI_CYAN)+"]"+p.getName()+" si è spostato in direzione " + d+"\n";
-                if(map.isStanza(map.getPlayerPos())){
+                if(MapGraph.isStanza(map.getPlayerPos())){
                     buffer += "["+format("INFO", ANSI_CYAN)+"]"+p.getName()+" sei entrato in una stanza\n";
                 }
             }
@@ -309,6 +308,20 @@ public class GameEngine{
         catch(Exception e){
             e.printStackTrace();
             throw new IllegalArgumentException("Sono un' eccezione inutile che non dovrebbe mia essere lanciata");
+        }
+    }
+
+    /**
+     * Restituisce true se il player può adare verso quella direzione
+     * @param d direzione da controllare
+     * @return Boolean true/false
+     */
+    public boolean canPlayerGo(Direction d){
+        try{
+            return map.isValidDirectionTo(map.getPlayerPos(), d);
+        }
+        catch(Exception e){
+            return false;
         }
     }
 
@@ -325,7 +338,7 @@ public class GameEngine{
      */
 
     public boolean canPlayerTake(String item){
-        if(!map.isStanza(map.getPlayerPos())){
+        if(!MapGraph.isStanza(map.getPlayerPos())){
             return false;
         }
         
@@ -344,11 +357,14 @@ public class GameEngine{
     }
 
     /**
-     * ottiene rimuove l'item dalla chest e lo inserisce nel inventario del 
+     * rimuove l'item dalla chest e lo inserisce nel inventario del 
      * player se l'oggetto non esiste allora viene lanciata noItem_Exception
+     * Se non è possibile inserire l'oggetto nel inventario di player allora viene 
+     * scritto nel buffer la motivazione
      * @param item nome del item da prendere
      */
     public void playerTake(String item)throws noItem_Exception{
+        boolean taked;
         if(!canPlayerTake(item)){
             throw new noItem_Exception();
         }
@@ -356,8 +372,13 @@ public class GameEngine{
         Chest c = map.getChestAt(map.getPlayerPos());
         ItemStack it = c.searchFor(item);
         
-        p.addItem(it);
-        c.remove(it);
+        taked = p.addItem(it);
+        if(taked){
+            c.remove(it);
+        }
+        else{
+            buffer += "["+format("INFO", ANSI_CYAN)+"]Non puoi prendere questo oggetto poichè nel inventario ne hai gia uno dello stesso tipo!\n";
+        }
     }
 
     /**
@@ -602,6 +623,4 @@ public class GameEngine{
     public void loadMap(MapGraph newMap){
         map = newMap;
     }
-
-
 }

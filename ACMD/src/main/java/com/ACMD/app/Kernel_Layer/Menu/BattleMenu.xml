@@ -1,0 +1,58 @@
+
+<BattleMenu>
+<!--
+ <menuvoice>
+  <command> attack </command>
+  <description> Usi il turno per attaccare con una certa probabilità </description>
+ </menuvoice>
+
+ <menuvoice>
+  <command> use </command>
+  <description> (-String) Scrivendo il nome dell'oggetto lo equipaggi o usi </description>
+ </menuvoice>
+-->
+ <menuvoice>
+  <command> look </command>
+  <description> DESCRIZIONE MANCANTE </description>
+ </menuvoice>
+
+ <menuvoice>
+  <command> openchest </command>
+  <description> Funziona solo una volta sconfitto il mostro </description>
+ </menuvoice>
+
+
+
+ <menuvoice>
+  <command> take </command>
+  <description> (-Stringa) Quando baule aperto si può scrivere nome oggetti si vogliono </description>
+ </menuvoice>
+
+ <menuvoice>
+  <command> trashit </command>
+  <description> (-String) Se si vuole buttare via qualcosa da inventario </description>
+ </menuvoice>
+
+ <menuvoice>
+  <command> back </command>
+  <description> Uscire da stanza </description>
+ </menuvoice>
+
+ <menuvoice>
+  <command> showchest </command>
+  <description> DESCRIZIONE MANCANTE </description>
+ </menuvoice>
+
+
+
+ <menuvoice>
+  <command> showinventario </command>
+  <description> DESCRIZIONE MANCANTE </description>
+ </menuvoice>
+
+ <menuvoice>
+  <command> help </command>
+  <description> Descrizione </description>
+</menuvoice>
+
+</BattleMenu>

@@ -2,7 +2,7 @@
 Text based game for software eng.
 
 # START POINT
-Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/main/src/Game.java) il quale andra a richiamare tutti i metodi/classi che servono per:
+Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/dev/ACMD/src/main/java/com/ACMD/app/Kernel_Layer/Game.java) il quale andra a richiamare tutti i metodi/classi che servono per:
 * Avvio del gioco ("start")
 * Caricare una partita gia salvata("load")
 

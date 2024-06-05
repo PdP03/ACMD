@@ -2,10 +2,17 @@
 package com.ACMD.app.Kernel_Layer.Menu;
 
 public class MovementMenu extends Menu
-{/* 
-    Start,
-    Combact,
-    Move,
-    YN              //booleano per le scelte sì-no come se vuole salvare
-;*/
+{
+    private static final String fileName = "MovementMenu.xml";
+
+    public MovementMenu()
+    {
+        super(fileName);
+    }
+
+    @Override
+    protected void loadMethods()
+    {
+
+    }
 }

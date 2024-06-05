@@ -2,10 +2,11 @@
 package com.ACMD.app.Kernel_Layer.Prompt;
 
 import java.util.HashMap;
+import java.util.Vector;
 
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
+import com.ACMD.app.Graphic_Layer.GUI.GameFrame;
 import com.ACMD.app.Kernel_Layer.Menu.*;
-import com.ACMD.app.Kernel_Layer.Prompt.CommandPattern.Command;
 
 
 /*
@@ -32,15 +33,46 @@ import com.ACMD.app.Kernel_Layer.Prompt.CommandPattern.Command;
 public class Prompt
 {
 
-    boolean engineLinked = false;
+   // boolean engineLinked = false;
+    Menu mn;
+    GameFrame gmf;
+    GameEngine gme;
+    Command cmmd;
 
     //## Costruttore ##
-
-    public Prompt(GameEngine gme, StartMenu firstMenu)
+/*
+    public void linkEngine(GameEngine g)
     {
-        //istanzia una sola volta la grafica di input
+        if( g==null ) throw new IllegalArgumentException("Serve un riferimento");
+
+        engineLinked = true;
+        gme = g;
     }
 
+    public Prompt(GameEngine gme, StartMenu firstMenu, GameFrame gmf)
+    {
+        //istanzia una sola volta la grafica di input
+        linkEngine(gme);
+        
+        if( firstMenu == null || gmf == null) throw new IllegalArgumentException();
+         mn = firstMenu;
+         gmf = this.gmf;
+    }
+    public Prompt(StartMenu firstMenu, GameFrame gmf)
+    {
+         if( firstMenu == null || gmf == null) throw new IllegalArgumentException();
+         mn = firstMenu;
+         gmf = this.gmf;
+
+    }*/
+
+    //_istanzio anche
+    public Prompt()
+    {
+        mn= new StartMenu();
+        gmf= new GameFrame();
+        gme= new GameEngine();
+    }
 
 
     //## Metodi Public ##
@@ -48,27 +80,40 @@ public class Prompt
     public BackStateGame_Enum waitInput()
     {//:richiama la grafica di input, aspetta il comando, fa le verifiche necessarie 
 
-        return null;
-    }
+      //  if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
 
-    public void linkEngine(GameEngine g)
-    {
+        String s;
+        while( (s= gmf.textInput()) == null );
 
+        //:split comando da parametri
+        Vector<String> ary= removeDoubleSpaces(s);
+            //_input è vector di stringhe non vuote
+        changeCommand(ary.get(0));
+
+        return cmmd.execute(ary);   //passo tutti i parametri
     }
     
 
 
     //## Metodi Private ##
 
-    private String checkSintax(String str)
+    private static Vector<String> removeDoubleSpaces(String str)
     {
-        return null;
-    }
+        String[] sAry = str.split(" ");             //possono rimanere spazi doppi : allora locazione array vuoto
+        Vector<String> s2= new Vector<String>();
 
-    private void changeCommand(Command cmmd)
-    {
-        
+        //_rimuovo tutte istanze vuote
+        for(int i=0; i<sAry.length; i++)
+        {
+            //se non vuoto, allora posso aggiungere
+            if( sAry[i] != "" ) s2.add( sAry[i] );            //#TESTARE : fatto in locale, posso metterlo nel test con tutti i casi
+        }
+        return s2;
     }
 
     //## Metodi Command-Pattern ##
+    private void changeCommand(String input)
+    {
+        cmmd= mn.checkInTheMap(input);
+    }
 }

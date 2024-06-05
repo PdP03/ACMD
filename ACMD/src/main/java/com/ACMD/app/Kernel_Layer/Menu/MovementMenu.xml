@@ -1,0 +1,24 @@
+
+<MovementMenu>
+
+ <menuvoice>
+  <command> move </command>
+  <description> (-String) La direzione: Nord,Sud,Est,Ovest (la l'iniziale) </description>
+ </menuvoice>
+
+ <menuvoice>
+  <command> attack </command>
+  <description> Per entrare nella stanza ed attaccare il mostro </description>
+ </menuvoice>
+
+ <menuvoice>
+  <command> exit </command>
+  <description> Per uscire, dà un remind </description>
+ </menuvoice>
+
+ <menuvoice>
+  <command>  </command>
+  <description>  </description>
+ </menuvoice>
+
+</MovementMenu>

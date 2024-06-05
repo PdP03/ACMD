@@ -1,22 +1,22 @@
 <!--
-  Per inserire una nuova voce del menu si usa il tag item con al iterno i vari parametri
+  Per inserire una nuova voce del menu si usa il tag menu_voice con al iterno i vari parametri
 
   Bisogna specificare i campi obbligatori:
-  - <commando>...</commando>
-  - <descrizione>..</descrizione>
+  - <command>...</command>
+  - <description>..</description>
   
 -->
 
 <menu>
-  <item>
-    <commando>Comando 1</commando>
-    <descrizione>Descrizione 1</descrizione>
-  </item>
+  <menu_voice>
+    <command>Comando 1</command>
+    <description>Descrizione 1</description>
+  </menu_voice>
 
-  <item>
-    <commando>Comando 2</commando>
-    <descrizione>Descrizione 2</descrizione>
-  </item>
+  <menu_voice>
+    <command>Comando 2</command>
+    <description>Descrizione 2</description>
+  </menu_voice>
 
 
 </menu>

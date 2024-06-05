@@ -8,20 +8,20 @@ import org.w3c.dom.NodeList;
 
 import com.ACMD.app.Engine_Layer.Entita.MType;
 import com.ACMD.app.Engine_Layer.Mappa.Coordinates;
-import com.ACMD.app.Engine_Layer.Mappa.Direction;
 import com.ACMD.app.Engine_Layer.Mappa.NODE;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
+import com.ACMD.app.Kernel_Layer.Menu.MenuValues;
 
 import org.w3c.dom.Node; 
 import org.w3c.dom.Element;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Vector;
 
 public class xmlReader{
     Document docXml;
+    String name;
 
     /**
      * Inizializza il reader caricando il file 
@@ -29,6 +29,7 @@ public class xmlReader{
      */
     public xmlReader(String entityDir, String fileName){
         String fileDir = ParsePath.getPath(entityDir, fileName);
+        name = fileName;
 
         //Creazione del oggetto che rappresenta il file (non interagisce con il sistema operativo)
         File xml = new File(fileDir);
@@ -352,18 +353,18 @@ public class xmlReader{
      */
 
     /**
-     * Restituisce la hashmap contente (comando, descrizione) lette da un file di configurazione
+     * Restituisce la Vector<MenuValues> contente (comando, descrizione) lette da un file di configurazione
      * @return map mappa con i valori letti
      */
     public Vector<MenuValues> getMenuItems(){
         Vector<MenuValues> values = new Vector<MenuValues>();
 
-        NodeList menuItems = docXml.getElementsByTagName("menu").item(0).getChildNodes(); //lista dei nodi position
+        NodeList menuItems = docXml.getElementsByTagName(name.split(".xml")[0]).item(0).getChildNodes(); //lista dei nodi position
 
         Node attribute;
         for(int j = 0; j < menuItems.getLength(); j++){
             attribute = menuItems.item(j);
-            if(attribute.getNodeType() == Node.ELEMENT_NODE && attribute.getNodeName() == "item"){
+            if(attribute.getNodeType() == Node.ELEMENT_NODE && attribute.getNodeName() == "menuvoice"){
                 values.add(getMenuItemFrom((Element) attribute));
             }
         }
@@ -373,18 +374,20 @@ public class xmlReader{
     }
 
 
-    /**
-     * 
+   /**
+     * Legge i valori di una voce del menu da un nodo di tipo element 
+     * @param eAttribute nodo in cui sono specificati i valori da leggere
+     * @return MenuValues struct contenente i valori
      */
     private MenuValues getMenuItemFrom(Element eAttribute){
         MenuValues mValues = new MenuValues();
         Node n;
 
-        n = eAttribute.getElementsByTagName("commando").item(0);
+        n = eAttribute.getElementsByTagName("command").item(0);
         throwExeptionIfNull(n, "[FATAL] Manca il tag <command>");
         mValues.cmdName = n.getTextContent();
-        n = eAttribute.getElementsByTagName("descrizione").item(0);
-        throwExeptionIfNull(n, "[FATAL] Manca il tag <descrizione>");
+        n = eAttribute.getElementsByTagName("description").item(0);
+        throwExeptionIfNull(n, "[FATAL] Manca il tag <description>");
         mValues.cmdDescription = n.getTextContent();
 
         return mValues;

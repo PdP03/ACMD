@@ -1,24 +1,64 @@
 package com.ACMD.app.Kernel_Layer.Menu;
 
 import java.util.Map;
-import java.util.Vector;
+ import java.util.Set;
+import java.util.Vector;        //comodità per ottenere i dati
+
+import com.ACMD.app.Engine_Layer.xmlReader;
+import com.ACMD.app.Kernel_Layer.Prompt.Command;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale.ErroreInput;
 
 public abstract class Menu 
 {
-    private Map<String, String> commandMap; //chiave: nome comando ; valore: descrizione
-  
-    public Vector<String> getElement()
+    protected Map<MenuValues, Command> commandMap; //chiave: nome comando, valore: il metodo da richiamare
+    final String thisDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Kernel_Layer\\Menu\\";
+
+    public Menu(String fileDati)
     {
-        return null;
+        xmlReader readerMenu = new xmlReader(thisDir, fileDati);
+
+        //_carica solo i nomi e le relative descrizioni ; ai comandi ci pensa la singola classe
+        Vector<MenuValues> menuItems = readerMenu.getMenuItems();
+        Command defaultVal = null;      //null perché non ha ancora un comando
+
+        for(int i=0; i<menuItems.size(); i++)
+         commandMap.put( menuItems.get(i), defaultVal); //carico nomi e descrizioni nelle mappe
+    }
+  
+    public Command checkInTheMap(String cmmdName)
+    {
+        Command cmd= commandMap.get( new MenuValues(cmmdName,null) );    //controllo solo tramite il nome e non la descrizione
+        return cmd == null ?
+                new ErroreInput() :     //se non è stato trovato
+                cmd;
     }
     public String toString()
     {
         String s="";
+        Set<MenuValues> keys = commandMap.keySet();
 
-        Object keys[]= (commandMap.keySet() ).toArray();
-
-        for(int i=0; i<keys.length; i++)    //stupidi noi che vogliamo usare una mappa al posto di un array con 2 stringhe
-         s+= (String)(keys[i])+'\n';        //? perché sta volta non rompre per il cast
+        for(int i=0; i<keys.size(); i++)
+         s+= keys.toString() +'\n';
+        
         return s;
     }
+
+    // ## Metodi Private
+    protected abstract void loadMethods();
+    //saranno le singole classi a pensare a caricare i comandi corrispondeti con degli switch
+
+    // ## classe privata per comodità
+/* 
+    private class MenuVoice
+    {
+        String voice, description;      //dei comandi
+        public int hashCode()
+        {
+            return voice.hashCode();    //i comandi devono essere unici, quindi nessun problema di conflitti
+        }
+        public String toString()
+        {
+            return voice + "\n  " + description; 
+        }
+    }*/
 }

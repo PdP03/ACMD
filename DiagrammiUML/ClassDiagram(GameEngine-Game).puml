@@ -2,30 +2,53 @@
 /'organizzatore e gestore degli eventi del gioco'/
 class GameEngine{
   Player p;
-  Mappa m;
-  String buffer
+  MapGraph map;
+  String buffer;
+  byte level;
+  ItemFactory factory;
+  boolean lose;
+  Map<ItemType, Byte> potionsActiveted;
+  Stack<Coordinates> playerStack;
 
   /'metodo per l'inizializzazione(di player e mappa)'/
-  void runSetup();
+  void runSetup(String playerName);
   Vector<Object> save();
+  
+  /'metodi privati'/
+  private String format(String str, String colorTAG);
+  private String getRoomInfo(Coordinates c);
+  private String getNearDirection(Coordinates c);
+  private byte getPotionValue(ItemType t);
+  private ItemType getPotion(ItemStack item);
+  private void applayPotion(ItemStack item);
+  private short playerAttack(Monster m);
+  private short monsterAttack(Monster m);
+
 
   /'metodo richiamati durante il gioco '/
   void lookAround();
+  boolean playerIsAlive();
   void attack();
   void movePlayerBack();
   void movePlayer(Direction d);
+  boolean canPlayerGo(Direction d);
+  boolean canPlayerTake(String item);
+  boolean playerHave(String item);
   void playerTake(String item);
   void playerUse(String item);
   void playerRemove(String item);        /'aggiunge nel buffer una info degli oggetti eliminati'/
   void playerRemoveStack(String items);/'toglie tutto lo stack di item'/
+  boolean playerCanAttack()
 
-  /'metodi usati per aggiornare la grafica richiamati da Game'/
+  /'metodi usati per aggiornare la grafica'/
   String getPlayerInv();
+  short getPlayerMaxLife();
   byte getPlayerLife();
   byte getPlayerLv();
+  short getMonsterMaxLife();
   byte getMonsterLife();
-  boolean PlayerIsFighting();
   String getBuffer();
+  
 
   /'metodi usati nel load di un partita'/
   void loadPlayer(Player f);
@@ -37,5 +60,3 @@ class Game{
 public void main();
 
 }
-
-Game -> GameEngine
