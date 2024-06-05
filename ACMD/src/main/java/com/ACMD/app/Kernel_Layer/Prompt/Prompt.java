@@ -2,6 +2,7 @@
 package com.ACMD.app.Kernel_Layer.Prompt;
 
 import java.util.HashMap;
+import java.util.Vector;
 
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Graphic_Layer.GUI.GameFrame;
@@ -74,25 +75,33 @@ public class Prompt
         String s;
         while( (s= gmf.textInput()) == null );
 
-        changeCommand(null);
+        //_split comando da parametri
+        Vector<String> ary= removeDoubleSpaces(s);
+        changeCommand(ary.get(0));
 
-        cmmd.execute();
-
-        return null;
+        return cmmd.execute(ary);
     }
     
 
 
     //## Metodi Private ##
 
-    /*private String checkSintax(String str)
+    private static Vector<String> removeDoubleSpaces(String str)
     {
-        return null;
-    }*/
+        String[] sAry = str.split(" ");             //possono rimanere spazi doppi
+        Vector<String> s2= new Vector<String>();
+
+        //_rimuovo tutte istanze vuote
+        for(int i=0; i<sAry.length; i++)
+        {
+            if( s2.get(i) == " " ) s2.add( sAry[i] );
+        }
+        return s2;
+    }
 
     //## Metodi Command-Pattern ##
-    private void changeCommand(Command cmmd)
+    private void changeCommand(String input)
     {
-        cmmd= 
+        cmmd= mn.checkInTheMap(input);
     }
 }
