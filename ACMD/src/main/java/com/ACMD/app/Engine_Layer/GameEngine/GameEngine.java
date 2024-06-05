@@ -24,7 +24,7 @@ import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
  * - buffer, stringa che contine il testo da stampare
  */
 public class GameEngine{
-    final byte MAX_POTION_USAGE = 4;
+    final byte MAX_POTION_USAGE = 3;
     byte level;
     ItemFactory factory;
     Player p;
@@ -211,7 +211,7 @@ public class GameEngine{
         if(uses == null){
             return 0;
         }
-        uses--;
+        
         if(uses == 0){
             potionsActiveted.remove(t);
         }
