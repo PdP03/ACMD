@@ -18,7 +18,7 @@ public class AdapterSalvataggioTest {
     @Test
     public void TestParseToPlayer() throws IOException {
         Player player = new Player("Lello");
-        AdapterSalvataggio.Save(player);
+        AdapterSalvataggio.save(player);
 
             Gson gson = new Gson();
             FileReader reader = new FileReader("Savefile.json");
