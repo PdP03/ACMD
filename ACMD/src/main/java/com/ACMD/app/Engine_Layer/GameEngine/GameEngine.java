@@ -313,6 +313,20 @@ public class GameEngine{
     }
 
     /**
+     * Restituisce true se il player può adare verso quella direzione
+     * @param d direzione da controllare
+     * @return Boolean true/false
+     */
+    public boolean canPlayerGo(Direction d){
+        try{
+            return map.isValidDirectionTo(map.getPlayerPos(), d);
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+
+    /**
      * Restituisce true se item può essere preso dal player ovvero se le seguenti condizioni sono verificate:
      * <ul>
      *      <li>player è in una stana</li>
