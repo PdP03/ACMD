@@ -53,4 +53,11 @@ public class Coordinates
      * Empty constructor for good habits 
      *  */ 
     public Coordinates(){}
+
+    @Override 
+    public boolean equals(Object cc)
+    {
+        Coordinates c= (Coordinates) cc;
+        return c.getX()==this.getX() && c.getY()==this.getY();
+    }
 }

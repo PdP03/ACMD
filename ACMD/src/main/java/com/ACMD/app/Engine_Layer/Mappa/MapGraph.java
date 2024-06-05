@@ -122,7 +122,7 @@ public class MapGraph {
         for(NODE n:nodes)
         {
             if(n.getCoord().getX() == c.getX() && n.getCoord().getY()==c.getY())
-            n.setFree(); 
+            setBeaten(new Coordinates(c.getX(), c.getY())); 
         }
     }
     /*
@@ -328,15 +328,6 @@ public class MapGraph {
     public List<NODE> getNodes() {
         return nodes;
     }
-    public void setMap(SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge> map) {
-        this.map = map;
-    }
-    public void setDirections(Coordinates[] directions) {
-        this.directions = directions;
-    }
-    public void setNodes(ArrayList<NODE> nodes) {
-        this.nodes = nodes;
-    }
    
 
     public boolean isValidDirectionTo(Coordinates c, Direction dir) throws IOException
@@ -373,8 +364,10 @@ public class MapGraph {
         }
         return null;
     }
+    
     public boolean isInChamber(Coordinates cord ){return true; }
-        
+    /**
+     * Metodo usato per praticità durante dei test, di questo metodo non è presente il relativo @test */     
     public void printAllNodes(){
         for(NODE s : nodes) System.out.println(s.getCoord());
     }
@@ -393,7 +386,7 @@ public class MapGraph {
         {
             if(s.getCoord().getX() == coord.getX() && s.getCoord().getY() == coord.getY() ) return s.isRoom();
         }
-        return false;
+        throw new NoSuchElementException("Nodo non presente");
     }
     public static void printAllIcons()
     {

@@ -193,11 +193,9 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
 
 
 
-
- 
-
-
-
+        //============================
+        //       Black box
+        //===========================
         /**
          * Adds some components
          * Note: this method is black box generated 
@@ -497,11 +495,10 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jTextStory.setText("");
     }
     
-
-
-
-     // Variables declaration - do not modify                     
-     private javax.swing.JProgressBar jBarPeso;
+    // ==================================
+    // Dichiarazione variabili del frame
+    // ==================================
+    private javax.swing.JProgressBar jBarPeso;
      private javax.swing.JProgressBar jBarVitaNemico;
      private javax.swing.JProgressBar jBarVitaPlayer;
      private javax.swing.JButton jButtonInvio;

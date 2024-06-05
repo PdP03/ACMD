@@ -12,6 +12,7 @@ import com.ACMD.app.Engine_Layer.Mappa.Direction;
 import com.ACMD.app.Engine_Layer.Mappa.MapGraph;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 import com.ACMD.app.Graphic_Layer.GUI.GameFrame;
+import com.ACMD.app.Graphic_Layer.GUI.TitleFrame;
 
 public class main {
     static xmlReader reader;
@@ -31,7 +32,7 @@ public class main {
       
 
         engine.runSetup("Marriconda");
-        GameFrame g = new GameFrame();
+        TitleFrame g = new TitleFrame();
         g.setVisible(true);
         //vado a trovare coboldo FUNZIONA CORRETTAMNETE
         engine.lookAround();

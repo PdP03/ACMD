@@ -145,5 +145,17 @@ public abstract class Monster extends Entity implements PropertyChangeListener {
         super.attack += val;
 
         level = l;
-    }
+      }
+      @Override
+      public boolean equals(Object o)
+      {
+        Monster a=(Monster) o;
+        return 
+        a.level == this.level && 
+        a.maxHealth ==this.maxHealth &&
+        a.health == this.health&&
+        a.attack == this.attack&&
+        a.armor == this.armor&&
+        a.name ==this.name;      
+      } 
 }

@@ -13,6 +13,7 @@ public class NODE{
     protected Coordinates coord, north=null, south=null, east=null, west=null;
     protected String pathImg;
     protected boolean isRoom;
+    protected boolean isFree;
     /**
      * Costruttore che definisce un nodo, pathImage è definito vuoto e isRoom è falso 
      * @param x la componente x
@@ -166,7 +167,7 @@ public class NODE{
     public boolean isFree() { 
         return false; 
     }
-    public void setFree(){}
+    public void setFree(){isFree=true;}
     public boolean isStanza(){return false;}
      
 }
