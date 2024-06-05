@@ -1,5 +1,6 @@
 package test.java.com.ACMD.app.Engine_Layer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -8,13 +9,14 @@ import org.junit.Test;
 
 import com.ACMD.app.Engine_Layer.RoomValues;
 import com.ACMD.app.Engine_Layer.MonsterValues;
+import com.ACMD.app.Engine_Layer.ParsePath;
 import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Engine_Layer.Entita.MType;
 import com.ACMD.app.Engine_Layer.Mappa.NODE;
 import com.ACMD.app.Engine_Layer.Mappa.Coordinates;
-import com.ACMD.app.Engine_Layer.Mappa.Direction;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
+import com.ACMD.app.Kernel_Layer.Menu.MenuValues;
 
 public class TestXMLreader {
     @Test
@@ -92,5 +94,25 @@ public class TestXMLreader {
             Assert.assertTrue((Object)c.StanzaX instanceof Integer);
             Assert.assertTrue((Object)c.StanzaY instanceof Integer);
         }
-    } 
+    }
+    
+    @Test
+    public void testGetMenuItems(){
+        final String MenuDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Kernel_Layer\\Menu\\";
+        Vector<String> fileNames = ParsePath.getFilesNameIn(MenuDir);
+
+        xmlReader reader;
+        for(String name: fileNames){
+            if(name.contains(".xml") && name.contains("Menu")){
+                reader = new xmlReader(MenuDir, name);
+
+                Vector<MenuValues> values = reader.getMenuItems();
+                for(MenuValues menuItem: values){
+                    Assert.assertTrue(menuItem.cmdDescription instanceof String);
+                    Assert.assertTrue(menuItem.cmdName instanceof String);
+                }
+            }
+        }
+         
+    }
 }

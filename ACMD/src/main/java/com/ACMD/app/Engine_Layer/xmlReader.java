@@ -21,6 +21,7 @@ import java.util.Vector;
 
 public class xmlReader{
     Document docXml;
+    String name;
 
     /**
      * Inizializza il reader caricando il file 
@@ -28,6 +29,7 @@ public class xmlReader{
      */
     public xmlReader(String entityDir, String fileName){
         String fileDir = ParsePath.getPath(entityDir, fileName);
+        name = fileName;
 
         //Creazione del oggetto che rappresenta il file (non interagisce con il sistema operativo)
         File xml = new File(fileDir);
@@ -357,12 +359,12 @@ public class xmlReader{
     public Vector<MenuValues> getMenuItems(){
         Vector<MenuValues> values = new Vector<MenuValues>();
 
-        NodeList menuItems = docXml.getElementsByTagName("menu").item(0).getChildNodes(); //lista dei nodi position
+        NodeList menuItems = docXml.getElementsByTagName(name.split(".xml")[0]).item(0).getChildNodes(); //lista dei nodi position
 
         Node attribute;
         for(int j = 0; j < menuItems.getLength(); j++){
             attribute = menuItems.item(j);
-            if(attribute.getNodeType() == Node.ELEMENT_NODE && attribute.getNodeName() == "menu_voice"){
+            if(attribute.getNodeType() == Node.ELEMENT_NODE && attribute.getNodeName() == "menuvoice"){
                 values.add(getMenuItemFrom((Element) attribute));
             }
         }

@@ -1,4 +1,8 @@
 package com.ACMD.app.Engine_Layer;
+
+import java.io.File;
+import java.util.Vector;
+
 /**
  * Questa è una classe di utilità, data una path con root la directory ACMD
  * restituisce una stringa formattata per il specifico SO, generalmente la root è 
@@ -36,6 +40,23 @@ public class ParsePath {
         }
 
         return fileDir;
+    }
+
+    /**
+     * Restituisce tutti i nomi dei file al interno del packagePath passato NON è ricorsiva
+     * @param packagePath path da cui parte la lettura (la root è il nome del progetto)
+     * @return fileNames un Vector<String> contente i nomi dei file;
+     */
+    public static Vector<String> getFilesNameIn(String packagePath){
+        Vector<String> fileNames = new Vector<String>();
+        File dirPath = new File(getPath(packagePath,""));
+
+        File[] list = dirPath.listFiles();
+        for(File f: list){
+            fileNames.add(f.getName());
+        }
+
+        return fileNames;
     }
     
 }
