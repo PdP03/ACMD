@@ -15,12 +15,16 @@ public class LookAround implements Command
         gme= g;
     }
 
-    @Override
+    /**
+     * @Override
+     * Vedere posizioni vicine nei corridoi
+     */
     public BackStateGame_Enum execute(Vector<String> nothing)
     {
-        if( nothing.size() > 1 ) 
+        if( nothing.size() > 1 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
-        return null;
+        gme.lookAround();
+        return BackStateGame_Enum.UPDATE;
     }   
 }

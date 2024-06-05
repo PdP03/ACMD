@@ -121,9 +121,11 @@ public class Prompt
     /**
      * Istanzia il menù con i nuovi comandi
      */
-    private void changeMenu()
+    public void changeMenu(Menu mn)
     {//: utile per passare da quello di start, a quello delle stanze a quello dei combattimenti
 
+        if( mn==null ) throw new IllegalArgumentException("Menu non esiste");
+        this.mn = mn;
     }
     /**
      * Porta dal buffer di engine all'adapter

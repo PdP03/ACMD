@@ -16,7 +16,10 @@ public class Load implements Command
     }
 
     @Override
-    public BackStateGame_Enum execute(Vector<String> direction)
+    /**
+     * Tutti i metodi necessari per comunicare con layer di salvataggio
+     */
+    public BackStateGame_Enum execute(Vector<String> nomeSalvataggio)
     {
         return null;
     }   

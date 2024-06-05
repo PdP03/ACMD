@@ -110,7 +110,7 @@ public class GameEngine{
     public void lookAround(){
         Coordinates cord = map.getPlayerPos();
         buffer += "["+format("INFO", ANSI_CYAN)+"]";
-        buffer+="Attualmente "+p.getName()+" sei nella posizione " + format(cord.toString(), ANSI_GREEN)+"\n";
+        buffer += "Attualmente "+p.getName()+" sei nella posizione " + format(cord.toString(), ANSI_GREEN)+"\n";
         buffer += getNearDirection(cord);
         buffer += getRoomInfo(cord);
     }
