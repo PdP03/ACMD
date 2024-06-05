@@ -599,6 +599,23 @@ public class GameEngine{
     }
 
     /**
+     * Restituisce true se il player è entrato in una stanza
+     * @return boolean
+     */
+    public boolean isPlayerInRoom(){
+        return MapGraph.isStanza(map.getPlayerPos());
+    }
+
+    /**
+     * Aggiunge al buffer la stringa str 
+     * NB: va a capo in automatico dopo la fine di str
+     * @param str
+     */
+    public void addBuffer(String str){
+        buffer+=str+"\n";
+    }
+
+    /**
      * Carica un nuovo player con i settaggi passati
      * @param newPlayer
      */
