@@ -13,7 +13,9 @@ public abstract class Entity {
     @Expose
     protected String name;
     protected String history;
+    @Expose
     protected short health, maxHealth;
+    @Expose
     protected byte attack, armor, level;
 
     /**
