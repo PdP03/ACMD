@@ -25,24 +25,32 @@ public class Move implements Command
         if( direction.size() > 2 ) 
          return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
+        Direction d;
+
         switch( direction.get(1) )
         {           //#TERMINARE : manca il controllo se la direzione è possibile
             case "Nord":
             case "N":
             case "NORD":
-                gme.movePlayer(Direction.NORTH);
+            case "North":
+            case "NORTH":
+                d = Direction.NORTH;
              break;
 
             case "Sud":
             case "S":
             case "SUD":
-                gme.movePlayer(Direction.SOUTH);
+            case "South":
+            case "SOUTH":
+                d = Direction.SOUTH;
             break;
 
             case "Est":         // destra
             case "E":
             case "EST":
-                gme.movePlayer(Direction.EAST);
+            case "East":
+            case "EAST":
+                d = Direction.EAST;
             break;
 
             case "Ovest":       // sinistra
@@ -51,11 +59,15 @@ public class Move implements Command
             case "West":
             case "W":
             case "WEST":
-                gme.movePlayer(Direction.WEST);
-            break;
+                d = Direction.WEST;
+           break;
 
             default: return BackStateGame_Enum.ERROR_DIGIT;
         }
+
+        if( gme.canPlayerGo(d) )
+         gme.movePlayer(d);
+       // else          #FORSE: necesario mettere in buffer errore
 
         return BackStateGame_Enum.MOVE;
     }

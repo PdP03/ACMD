@@ -10,4 +10,10 @@ public class NoCommandExistException extends RuntimeException
         System.out.println("Nel controllo della sintassi è passato un comando che non è stato però trovato un corrispondente funzione : verificare che tutti i comandi siano stati implementati o di aver rimosso dai file gli alias del comando non trovato");
         System.exit(1);
     }
+
+    public NoCommandExistException(String err)
+    {
+        System.out.println(err);
+        System.exit(1);
+    }
 }

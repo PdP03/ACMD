@@ -16,13 +16,19 @@ public class PlayerUse implements Command
     }
 
     @Override
+    /**
+     * Utilizzare degli oggetti
+     */
     public BackStateGame_Enum execute(Vector<String> strument)
     {
         if( strument.size() > 2 ) 
          return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
          
 
-        gme.playerUse( strument.get(1) );
+        if( gme.playerHave(strument.get(1)) )
+         gme.playerUse( strument.get(1) );
+        //else ;        #FORSE  bisogna segnalare il problema o capisce da solo?
+
         return BackStateGame_Enum.UPDATE_STORAGE;
     }  
 }

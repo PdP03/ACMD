@@ -1,4 +1,4 @@
-package com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze;
+package com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio;
 
 import java.util.Vector;
 

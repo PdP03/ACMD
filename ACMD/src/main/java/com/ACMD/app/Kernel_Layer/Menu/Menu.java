@@ -30,7 +30,7 @@ public abstract class Menu
         Command cmd= commandMap.get( new MenuValues(cmmdName,null) );    //controllo solo tramite il nome e non la descrizione
         
         if(cmd==null)
-         new ErroreInput();     //se non è stato trovato
+         new ErroreInput(null);     //se non è stato trovato
 
         return cmd;
     }
@@ -46,8 +46,9 @@ public abstract class Menu
     }
 
     // ## Metodi Private
-    protected abstract void loadMethods();
+    protected abstract void loadMethods(String nomeComando, Command c);
     //saranno le singole classi a pensare a caricare i comandi corrispondeti con degli switch
+    //devo passare anche il Command su cui istanziare i metodi
 
     // ## classe privata per comodità
 /* 

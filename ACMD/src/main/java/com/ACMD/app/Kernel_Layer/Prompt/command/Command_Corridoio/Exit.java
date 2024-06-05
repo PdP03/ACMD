@@ -16,6 +16,9 @@ public class Exit implements Command
     }
 
     @Override
+    /**
+     * Chiede di uscire dalla stana
+     */
     public BackStateGame_Enum execute(Vector<String> nothing)
     {   //#TERMINARE: manca il salvataggio
         return BackStateGame_Enum.QUIT;
