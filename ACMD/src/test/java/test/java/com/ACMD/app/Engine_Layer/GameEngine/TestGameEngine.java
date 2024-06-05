@@ -13,7 +13,6 @@ import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Engine_Layer.Mappa.Coordinates;
 import com.ACMD.app.Engine_Layer.Mappa.Direction;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
-import com.ACMD.app.Engine_Layer.GameEngine.DeathException;
 
 public class TestGameEngine {
     GameEngine engine;

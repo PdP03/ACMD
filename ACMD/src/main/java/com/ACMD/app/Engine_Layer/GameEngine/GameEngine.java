@@ -357,11 +357,14 @@ public class GameEngine{
     }
 
     /**
-     * ottiene rimuove l'item dalla chest e lo inserisce nel inventario del 
+     * rimuove l'item dalla chest e lo inserisce nel inventario del 
      * player se l'oggetto non esiste allora viene lanciata noItem_Exception
+     * Se non è possibile inserire l'oggetto nel inventario di player allora viene 
+     * scritto nel buffer la motivazione
      * @param item nome del item da prendere
      */
     public void playerTake(String item)throws noItem_Exception{
+        boolean taked;
         if(!canPlayerTake(item)){
             throw new noItem_Exception();
         }
@@ -369,8 +372,13 @@ public class GameEngine{
         Chest c = map.getChestAt(map.getPlayerPos());
         ItemStack it = c.searchFor(item);
         
-        p.addItem(it);
-        c.remove(it);
+        taked = p.addItem(it);
+        if(taked){
+            c.remove(it);
+        }
+        else{
+            buffer += "["+format("INFO", ANSI_CYAN)+"]Non puoi prendere questo oggetto poichè nel inventario ne hai gia uno dello stesso tipo!\n";
+        }
     }
 
     /**
