@@ -1,4 +1,4 @@
-package com.ACMD.app.Engine_Layer.Mappa;
+package test.java.com.ACMD.app.Engine_Layer.Mappa;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -17,6 +17,9 @@ import org.junit.Test;
 import com.ACMD.app.Engine_Layer.Entita.MType;
 import com.ACMD.app.Engine_Layer.Entita.Monster;
 import com.ACMD.app.Engine_Layer.Entita.MonsterFactory;
+import com.ACMD.app.Engine_Layer.Mappa.Coordinates;
+import com.ACMD.app.Engine_Layer.Mappa.Direction;
+import com.ACMD.app.Engine_Layer.Mappa.MapGraph;
 
 
 public class MapGraphTest {
