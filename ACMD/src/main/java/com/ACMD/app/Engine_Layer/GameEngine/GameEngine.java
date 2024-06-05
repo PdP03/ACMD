@@ -110,7 +110,7 @@ public class GameEngine{
     public void lookAround(){
         Coordinates cord = map.getPlayerPos();
         buffer += "["+format("INFO", ANSI_CYAN)+"]";
-        buffer+="Attualmente "+p.getName()+" sei nella posizione " + format(cord.toString(), ANSI_GREEN)+"\n";
+        buffer += "Attualmente "+p.getName()+" sei nella posizione " + format(cord.toString(), ANSI_GREEN)+"\n";
         buffer += getNearDirection(cord);
         buffer += getRoomInfo(cord);
     }
@@ -596,6 +596,23 @@ public class GameEngine{
         String s = buffer;
         buffer = "";
         return s;
+    }
+
+    /**
+     * Restituisce true se il player è entrato in una stanza
+     * @return boolean
+     */
+    public boolean isPlayerInRoom(){
+        return MapGraph.isStanza(map.getPlayerPos());
+    }
+
+    /**
+     * Aggiunge al buffer la stringa str 
+     * NB: va a capo in automatico dopo la fine di str
+     * @param str
+     */
+    public void addBuffer(String str){
+        buffer+=str+"\n";
     }
 
     /**

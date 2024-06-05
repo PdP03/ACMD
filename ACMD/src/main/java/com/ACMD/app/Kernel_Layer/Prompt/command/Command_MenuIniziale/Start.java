@@ -16,8 +16,16 @@ public class Start implements Command
     }
 
     @Override
-    public BackStateGame_Enum execute(Vector<String> direction)
+    /**
+     * Carica il menù dei corridoi ed inizializza la mappa
+     */
+    public BackStateGame_Enum execute(Vector<String> nothing)
     {
-        return null;
+        if( nothing.size() > 1 )
+         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
+
+         //ci pensa Game a cambiare lo stato
+
+        return BackStateGame_Enum.START;
     }   
 }

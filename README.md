@@ -8,10 +8,9 @@ Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/dev/ACMD/src/m
 
 # ENGINE ([GameEngine.java](https://github.com/PdP03/ACMD/blob/dev/ACMD/src/main/java/com/ACMD/app/Engine_Layer/GameEngine/GameEngine.java))
 È la classe che implementa la logia del gioco ovvero:
-* Attacca una Entity
-* Carica la mappa e gli oggetti
-* Istanzia i Nemici
-* Gestisce interazioni Player-Mappa (Player raccoglie oggetti, Player usa Pozioni, Player prende i drop da un Mostro...)
+* Gestione dei combattimenti
+* Carica la mappa (quindi anche Stanze, Mostri e Chest)
+* Gestisce interazioni Player-Mappa (Player raccoglie oggetti, Player usa Pozioni...)
 
 # LAYER DIAGRAM
 ![LayerDiagram](https://github.com/PdP03/ACMD/blob/dev/DiagrammiUML/LayerDiagram.svg)

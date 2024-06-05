@@ -17,8 +17,14 @@ public class PlayerRemoveItemStack implements Command
     }
 
     @Override
-    public BackStateGame_Enum execute(Vector<String> direction)
+    public BackStateGame_Enum execute(Vector<String> struments)
     {
+        if( struments.size() > 2 )
+        return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
+
+        try{ gme.playerRemove( struments.get(1) ); }
+        catch(IllegalArgumentException e){ return BackStateGame_Enum.ERROR_DIGIT; }
+
         return null;
     }   
 

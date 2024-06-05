@@ -1,4 +1,4 @@
-package com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze;
+package com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale;
 
 import java.util.Vector;
 
@@ -6,17 +6,21 @@ import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 
-public class Back implements Command
+
+public class Save implements Command
 {
-    private GameEngine gme;
-    public Back(GameEngine g)
+        private GameEngine gme;
+    public Save(GameEngine g)
     {
         if(g==null) throw new IllegalArgumentException();
         gme= g;
     }
 
     @Override
-    public BackStateGame_Enum execute(Vector<String> direction)
+    /**
+     * Tutti i metodi necessari per comunicare con layer 
+     */
+    public BackStateGame_Enum execute(Vector<String> nomeSalvataggio)
     {
         return null;
     }   

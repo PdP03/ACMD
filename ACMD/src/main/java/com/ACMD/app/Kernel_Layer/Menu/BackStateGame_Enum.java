@@ -12,7 +12,9 @@ public enum BackStateGame_Enum
     QUIT,           //stacca stacca ; ma prima chiedi se bisogna salvare
     COMBACT,        //attaccatto nemico
     MOVE,           //movimento in corridoio
+    MOVE_INVALID,   //provato un'azione non valida
     UPDATE,         //aggiornamento generico
+    UPDATE_STORAGE, //un inventario o cassa
     UPDATE_ENTITY,  //alle barre della vita
     UPDATE_MAP,     //cambio della stanza
     ERROR_DIGIT,    //se il comando inserito non esiste

@@ -17,7 +17,7 @@ public class Exit implements Command
 
     @Override
     public BackStateGame_Enum execute(Vector<String> nothing)
-    {
+    {   //#TERMINARE: manca il salvataggio
         return BackStateGame_Enum.QUIT;
     }
 }
