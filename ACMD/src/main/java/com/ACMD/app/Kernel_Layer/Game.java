@@ -22,6 +22,9 @@ public class Game{
             if(ret == BackStateGame_Enum.QUIT){
                 exit = true;
             }
+            else if(ret == BackStateGame_Enum.RESTART){
+                p = new Prompt();
+            }
 
             menu = getMenuFrom(ret);
             if(menu != null){

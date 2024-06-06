@@ -18,6 +18,7 @@ public enum BackStateGame_Enum
     UPDATE_ENTITY,  //alle barre della vita
     UPDATE_MAP,     //cambio della stanza
     ERROR_DIGIT,    //se il comando inserito non esiste
+    RESTART,        //riavvia il gioco nel caso player muore
     YN              //booleano per le scelte sì-no come se vuole salvare
 ;
 }
