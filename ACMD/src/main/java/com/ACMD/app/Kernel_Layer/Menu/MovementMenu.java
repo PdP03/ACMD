@@ -4,6 +4,11 @@ package com.ACMD.app.Kernel_Layer.Menu;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.NoCommandExistException;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.Exit;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.HelpCorridoio;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.LookAround;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.Move;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.MoveBack;
 
 public class MovementMenu extends Menu
 {
@@ -17,10 +22,12 @@ public class MovementMenu extends Menu
         {
             //: oridne alfabetico
             //loadMethods("", new );
-            loadMethods("back", new );
-            loadMethods("exit", new );
-            loadMethods("help", new );
-            loadMethods("looknearsnodes", new );
+            loadMethods("back", new MoveBack(generateMethods));
+            loadMethods("exit", new Exit(generateMethods));
+            loadMethods("help", new HelpCorridoio(generateMethods));
+
+            loadMethods("looknearsnodes", new LookAround(generateMethods));
+            loadMethods("move", new Move(generateMethods));
 
             if( commandMap.containsValue(null) )
              throw new NoCommandExistException("Esiste ancora una voce che non ha un comando associato");
