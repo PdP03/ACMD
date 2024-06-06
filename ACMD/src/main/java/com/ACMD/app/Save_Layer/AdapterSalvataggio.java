@@ -21,8 +21,9 @@ public class AdapterSalvataggio {
     }*/
 
     public static Player retrivePlayer() throws IOException{
-        JsonObject j = JsonParser.readSavefile("Player");
-        Player p = new Player(j.get("name").toString());
+        Player p;
+        JsonObject j = JsonParser.read(p);
+        p.setName(j.get("name").toString());
         return p;
     }
 }

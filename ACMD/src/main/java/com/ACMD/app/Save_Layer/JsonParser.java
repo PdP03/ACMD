@@ -60,12 +60,12 @@ public class JsonParser {
      * @return The object.
      * @throws IOException If an I/O error occurs.
      */
-    public static Object read(Object obj) throws IOException {
+    public static Object read(Object obj) {
         Gson gson = new Gson();
         try (FileReader reader = new FileReader(FILE_NAME)) {
-            Object objFromJson = gson.fromJson(reader, obj.class);
+            JsonObject objFromJson = gson.fromJson(reader, obj.getClass());
             // Update other fields if necessary
-            return obj;
+            return objFromJson;
         }
     }
 

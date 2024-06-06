@@ -187,4 +187,9 @@ public class Player extends Entity{
     public String showInv(){
         return inv.toString();
     }
+
+    /*----- TEST ----- */
+    public void setName(String name){
+        this.name = name;
+    }
 }
