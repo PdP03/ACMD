@@ -70,12 +70,13 @@ public class Prompt
     }*/
 
     //_istanzio anche
-    public Prompt()
+    public Prompt(GameEngine engine)
     {
-        mn = new StartMenu();
+       // mn = new StartMenu();
+       //engine.runSetup("s");
         gmf= new GameFrame();
         gmf.setVisible(true);;
-        gme= new GameEngine();
+        gme= engine;
 
         graphA = new GraphicAdapter(gmf);
     }

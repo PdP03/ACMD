@@ -1,5 +1,6 @@
 package com.ACMD.app.Kernel_Layer;
 
+import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
 import com.ACMD.app.Kernel_Layer.Menu.BattleMenu;
 import com.ACMD.app.Kernel_Layer.Menu.Menu;
@@ -12,8 +13,10 @@ import com.ACMD.app.Kernel_Layer.Prompt.Prompt;
  * 
  */
 public class Game{
+    private static GameEngine engine = new GameEngine();
     public static void main(String[] args){
-        Prompt p = new Prompt();
+        
+        Prompt p = new Prompt(engine);
         Boolean exit = false;
         Menu menu;
 
@@ -23,7 +26,7 @@ public class Game{
                 exit = true;
             }
             else if(ret == BackStateGame_Enum.RESTART){
-                p = new Prompt();
+                p = new Prompt(engine);
             }
 
             menu = getMenuFrom(ret);
@@ -43,9 +46,9 @@ public class Game{
     private static Menu getMenuFrom(BackStateGame_Enum e){
         switch(e){
             case START:
-                return new MovementMenu();
+                return new MovementMenu(engine);
             case UPDATE_MAP:
-                return new BattleMenu();
+                return new BattleMenu(engine);
             default:
                 return null;
         }

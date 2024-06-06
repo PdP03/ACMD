@@ -3,8 +3,10 @@ package com.ACMD.app.Kernel_Layer.Menu;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.NoCommandExistException;
-import com.ACMD.app.Kernel_Layer.Prompt.command.*;
-import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze.BackFromRoom;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.*;
+//import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.PlayerRemoveItemStack;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze.*;
+//import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze.LookInsideChest;
 
 public class BattleMenu extends Menu
 {
@@ -17,13 +19,14 @@ public class BattleMenu extends Menu
         if( !charged )
         {
             //: oridne alfabetico
-            loadMethods("back", new BackFromRoom(generateMethods));
-            loadMethods("help",c);
-            loadMethods("look",c);
-            loadMethods("openchest",c);
-            loadMethods("showchest",c);
-            loadMethods("showinventario",c);
-            loadMethods("trashit",c);
+            loadMethods("back",          new BackFromRoom(generateMethods));
+            loadMethods("help",          new HelpStanze(generateMethods) );
+           // loadMethods("look", new LookInsideChest(generateMethods));
+            loadMethods("openchest",     new LookInsideChest(generateMethods));
+           // loadMethods("showchest",c);
+            loadMethods("showinventario",new ShowInventario(generateMethods));
+            loadMethods("trashit",       new PlayerRemoveItem(generateMethods));
+            loadMethods("trashstack",    new PlayerRemoveItemStack(generateMethods));
 
             if( commandMap.containsValue(null) )
              throw new NoCommandExistException("Esiste ancora una voce che non ha un comando associato");

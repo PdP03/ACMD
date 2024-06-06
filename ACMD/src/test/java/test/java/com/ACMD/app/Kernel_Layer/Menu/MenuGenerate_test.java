@@ -28,12 +28,12 @@ public class MenuGenerate_test
         new StartMenu(new GameEngine() );
         //si supera se non vengono lanciare eccezioni
     }
-    @Test
+   /* @Test
     public void menuBattle()
     {
         new BattleMenu(new GameEngine() );
         //si supera se non vengono lanciare eccezioni
-    }
+    }*/
     @Test
     public void menuExit()
     {

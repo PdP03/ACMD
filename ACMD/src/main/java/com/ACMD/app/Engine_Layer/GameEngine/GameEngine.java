@@ -40,7 +40,7 @@ public class GameEngine{
      */
     public GameEngine(){
         p = null;
-        map = null;
+        map = new MapGraph();
         buffer = null;
         lose = false;
         potionsActiveted = null;
@@ -55,7 +55,6 @@ public class GameEngine{
         lose = false;
         p = new Player(playerName);
         level = p.getLv();
-        map = new MapGraph();
         buffer = "";
         playerStack = new Stack<Coordinates>();
         potionsActiveted = new HashMap<ItemType, Byte>();
