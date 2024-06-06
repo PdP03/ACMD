@@ -2,6 +2,7 @@ package com.ACMD.app.Save_Layer;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
 
 import com.google.gson.*;
@@ -24,9 +25,12 @@ public class JsonParser {
 
         try (FileWriter writer = new FileWriter(FILE_NAME)) {
             gson.toJson(obj, writer);
+            File file = new File(FILE_NAME);
+            awsClient.Upload(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public static <T> T read(Class<T> type) {
