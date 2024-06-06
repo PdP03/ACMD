@@ -24,7 +24,10 @@ public class Game{
             }
 
             menu = getMenuFrom(ret);
-            p.changeMenu(menu);
+            if(menu != null){
+                p.changeMenu(menu);
+            }
+            
 
 
         }
