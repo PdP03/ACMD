@@ -18,7 +18,7 @@ public class MenuValues {
 
     @Override
     public int hashCode()
-        {
+        {       System.out.println( cmdName.hashCode() );
             return cmdName.hashCode();    //i comandi devono essere unici, quindi nessun problema di conflitti
         }
         @Override

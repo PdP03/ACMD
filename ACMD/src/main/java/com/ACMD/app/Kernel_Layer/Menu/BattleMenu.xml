@@ -13,7 +13,7 @@
 -->
  <menuvoice>
   <command> look </command>
-  <description> DESCRIZIONE MANCANTE </description>
+  <description> DESCRIZIONE MANCANTE look </description>
  </menuvoice>
 
  <menuvoice>
@@ -34,25 +34,30 @@
  </menuvoice>
 
  <menuvoice>
+  <command> trashstack </command>
+  <description> (-String) Se si vuole buttare via qualcosa da inventario </description>
+ </menuvoice>
+
+ <menuvoice>
   <command> back </command>
   <description> Uscire da stanza </description>
  </menuvoice>
 
+
+
  <menuvoice>
   <command> showchest </command>
-  <description> DESCRIZIONE MANCANTE </description>
+  <description> Mostra la chest </description>
  </menuvoice>
-
-
 
  <menuvoice>
   <command> showinventario </command>
-  <description> DESCRIZIONE MANCANTE </description>
+  <description> Mostra il proprio inventario </description>
  </menuvoice>
 
  <menuvoice>
   <command> help </command>
-  <description> Descrizione </description>
+  <description> Elenco e descirizione di cosa ci può essere </description>
 </menuvoice>
 
 </BattleMenu>
