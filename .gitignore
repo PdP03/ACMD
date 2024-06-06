@@ -7,7 +7,8 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-Test.json
+*.json
+
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 
@@ -18,5 +19,4 @@ Test.json
 .classpath
 .vscode
 .class
-ACMD/ACMD/src/main/java/com/ACMD/app/Engine_Layer/testLocaleCarloStorageManagement
-#ACMD/ACMD/target/surefire-reports
+
