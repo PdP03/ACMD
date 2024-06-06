@@ -3,6 +3,7 @@ package com.ACMD.app.Kernel_Layer.Menu;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.NoCommandExistException;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.Exit;
 
 
 
@@ -17,14 +18,13 @@ public class ExitMenu extends Menu
         if( !charged )
         {
             //: oridne alfabetico
-            loadMethods("exit",          new );
-            loadMethods("help",          new );
+            loadMethods("exit", new Exit(generateMethods));
+            //loadMethods("help", new );
 
-            loadMethods("q",     new );
-            loadMethods("Q",new );
+            //loadMethods("q",    new );
+            //loadMethods("Q",    new );
 
-            loadMethods("",       new );
-            loadMethods("",    new );
+
 
             if( commandMap.containsValue(null) )
              throw new NoCommandExistException("Esiste ancora una voce che non ha un comando associato");

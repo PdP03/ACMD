@@ -72,7 +72,7 @@ public class Prompt
     //_istanzio anche
     public Prompt(GameEngine engine)
     {
-        mn = new StartMenu();
+       // mn = new StartMenu();
         gmf= new GameFrame();
         gmf.setVisible(true);;
         gme= engine;
