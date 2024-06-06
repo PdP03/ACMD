@@ -1,5 +1,7 @@
 package com.ACMD.app.Kernel_Layer.Menu;
 
+import java.util.Set;
+
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.NoCommandExistException;
@@ -39,7 +41,10 @@ public class BattleMenu extends Menu
     protected void loadMethods(String nomeComando, Command c)
     {
         if( ! commandMap.containsKey( new MenuValues(nomeComando,null) ) )
-            throw new MenuVoiceNotFound();
+            {
+                debugMethod();
+                throw new MenuVoiceNotFound(nomeComando);
+            }
             //per avere un debug ogni volta che si avvvia, che almeno tutte le voci che appaiano nel menù facciano qualcosa
 
            // Command cmd;
@@ -65,4 +70,19 @@ public class BattleMenu extends Menu
         //hash non fatto sulla descrizione
     }
 
+
+    private void debugMethod()
+    {
+        System.out.println( commandMap );
+        System.out.println( commandMap.containsKey( new MenuValues("back","") ) );
+       // System.out.println( commandMap.containsValue( "back" ) );
+
+        System.out.println("    Set di chiavi: ");
+        Set<MenuValues> keys = commandMap.keySet();
+        System.out.println( keys.contains("back") ? "Trovata" : "Non trovata" );
+        System.out.println( keys.contains( new MenuValues("back","") ) ? "Trovata" : "Non trovata" );
+
+        System.out.println( keys );
+        System.out.println( keys.hashCode() );
+    }
 }
