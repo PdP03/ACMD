@@ -16,7 +16,7 @@ public class Game{
     private static GameEngine engine = new GameEngine();
     public static void main(String[] args){
         
-        Prompt p = new Prompt();
+        Prompt p = new Prompt(engine);
         Boolean exit = false;
         Menu menu;
 
@@ -26,7 +26,7 @@ public class Game{
                 exit = true;
             }
             else if(ret == BackStateGame_Enum.RESTART){
-                p = new Prompt();
+                p = new Prompt(engine);
             }
 
             menu = getMenuFrom(ret);
