@@ -5,6 +5,7 @@ import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.NoCommandExistException;
 import com.ACMD.app.Kernel_Layer.Prompt.command.*;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze.BackFromRoom;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze.LookInsideChest;
 
 public class BattleMenu extends Menu
 {
@@ -18,11 +19,11 @@ public class BattleMenu extends Menu
         {
             //: oridne alfabetico
             loadMethods("back", new BackFromRoom(generateMethods));
-            loadMethods("help",c);
-            loadMethods("look",c);
-            loadMethods("openchest",c);
-            loadMethods("showchest",c);
-            loadMethods("showinventario",c);
+            loadMethods("help", null );     //TERMINARE
+           // loadMethods("look", new LookInsideChest(generateMethods));
+            loadMethods("openchest",new LookInsideChest(generateMethods));
+           // loadMethods("showchest",c);
+            loadMethods("showinventario",);
             loadMethods("trashit",c);
 
             if( commandMap.containsValue(null) )
