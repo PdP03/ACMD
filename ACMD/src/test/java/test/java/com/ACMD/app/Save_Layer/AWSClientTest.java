@@ -15,11 +15,7 @@ import com.ACMD.app.Save_Layer.awsClient;
  */
 public class AWSClientTest 
 {
-    /**
-     * Rigorous Test :-)
-     * Simple test to check upload on aws
-     * Why does it want Upload static??? 
-     */
+
     @Test
     public void UploadTest(){
         
@@ -28,7 +24,6 @@ public class AWSClientTest
             f.createNewFile();
             awsClient.Upload(f);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         awsClient.Upload(f);
