@@ -39,6 +39,11 @@ public class awsClient {
     private final static S3Client client = S3Client.builder().region(region)
             .credentialsProvider(StaticCredentialsProvider.create(awsCreds)).build();
 
+        /**
+     * Uploads a file to the configured S3 bucket.
+     *
+     * @param file The file to upload.
+     */
     public static void Upload(File file) {
 
         DateTimeFormatter dt = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH-mm");
@@ -53,10 +58,15 @@ public class awsClient {
             client.close();
         }
     }
+        /**
+     * Downloads a file from the configured S3 bucket.
+     *
+     * @param index The index of the file to download. Passed from Graphics 
+     */
 
     public void Download(int index) {
         List<String> saveFiles = GetUploadedFiles();
-        if (CheckSum(index)) {
+        if (!CheckSum(index)) {
             try {
                 GetObjectRequest request = GetObjectRequest.builder().bucket(bucketName).key(saveFiles.get(index))
                         .build();
@@ -68,6 +78,11 @@ public class awsClient {
             }
         }
     }
+        /**
+     * Retrieves the list of the names of the uploaded files from the configured S3 bucket.
+     *
+     * @return A list of file names.
+     */
 
     public List<String> GetUploadedFiles() {
         ListObjectsV2Request listRequest = ListObjectsV2Request.builder().bucket(bucketName).build();
@@ -76,6 +91,13 @@ public class awsClient {
 
         return listResponse.contents().stream().map(S3Object::key).collect(Collectors.toList());
     }
+
+        /**
+     * Compares the checksum of the local and the remote file.
+     *
+     * @param index The index of the file to check.
+     * @return True if the checksum matches, otherwise false.
+     */
 
     private boolean CheckSum(int index) {
         List<String> saveFiles = GetUploadedFiles();
