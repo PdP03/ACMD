@@ -73,7 +73,7 @@ public class Prompt
     public Prompt(GameEngine engine)
     {
        // mn = new StartMenu();
-       engine.runSetup("s");
+       //engine.runSetup("s");
         gmf= new GameFrame();
         gmf.setVisible(true);;
         gme= engine;
