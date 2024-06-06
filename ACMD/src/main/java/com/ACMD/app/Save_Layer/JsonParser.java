@@ -7,65 +7,35 @@ import java.io.IOException;
 import com.google.gson.*;
 
 public class JsonParser {
-    /*
-     * static private final String FILENAME = "Savefile.json";
-     * static private Gson gson = new GsonBuilder()
-     * .setPrettyPrinting()
-     * .excludeFieldsWithoutExposeAnnotation()
-     * .create();
-     * 
-     * public static void WriteSavefile(Object obj){
-     * 
-     * try {
-     * FileWriter writer = new FileWriter(FILENAME);
-     * gson.toJson(obj, writer);
-     * writer.close();
-     * } catch (IOException e) {
-     * e.printStackTrace();
-     * 
-     * }
-     * 
-     * }
-     * 
-     * //Fare nell'adapter un metodo che parsa il json object nell'object
-     * desiderato?
-     * public static JsonObject ReadSavefile(String objtype) throws IOException{
-     * FileReader reader = new FileReader(FILENAME);
-     * JsonObject obj = gson.fromJson(FILENAME, JsonObject.class);
-     * JsonObject requestedObj = obj.getAsJsonObject(objtype);
-     * reader.close();
-     * return requestedObj;
-     * }
-     */
 
     private static final String FILE_NAME = "Savefile.json";
+
+    static private Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .excludeFieldsWithoutExposeAnnotation()
+            .create();
 
     /**
      * Save the object to a JSON file.
      * 
      * @param obj The object to save.
-     * @throws IOException If an I/O error occurs.
      */
-    public static void save(Object obj) throws IOException {
-        Gson gson = new Gson();
+    public static void save(Object obj) {
+
         try (FileWriter writer = new FileWriter(FILE_NAME)) {
             gson.toJson(obj, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    /**
-     * Read the object from a JSON file.
-     * 
-     * @param obj The object to update.
-     * @return The object.
-     * @throws IOException If an I/O error occurs.
-     */
-    public static Object read(Object obj) {
-        Gson gson = new Gson();
+    public static <T> T read(Class<T> type) {
         try (FileReader reader = new FileReader(FILE_NAME)) {
-            JsonObject objFromJson = gson.fromJson(reader, obj.getClass());
-            // Update other fields if necessary
+            T objFromJson = gson.fromJson(reader, type);
             return objFromJson;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

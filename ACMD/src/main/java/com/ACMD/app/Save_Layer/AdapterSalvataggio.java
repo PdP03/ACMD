@@ -16,14 +16,14 @@ public class AdapterSalvataggio {
         JsonParser.save(map);
     }
 
-    /*public void Save(Map mappa){
-        JsonParser.WriteSavefile(mappa)
-    }*/
-
-    public static Player retrivePlayer() throws IOException{
-        Player p;
-        JsonObject j = JsonParser.read(p);
-        p.setName(j.get("name").toString());
-        return p;
+    public static Player retrivePlayer(){
+        Player player = JsonParser.read(Player.class);
+        return player;
     }
+
+    public static MapGraph retriveMap(){
+        MapGraph map = JsonParser.read(MapGraph.class);
+        return map;
+    }
+
 }
