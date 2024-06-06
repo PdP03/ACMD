@@ -2,7 +2,6 @@ package com.ACMD.app.Save_Layer;
 
 import java.io.IOException;
 
-
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.regions.Region;
@@ -17,8 +16,6 @@ import software.amazon.awssdk.services.s3.model.ObjectAttributes;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.model.S3Object;
 import software.amazon.awssdk.core.sync.RequestBody;
-
-
 
 import java.io.File;
 import java.io.InputStream;
@@ -59,13 +56,16 @@ public class awsClient {
 
     public void Download(int index) {
         List<String> saveFiles = GetUploadedFiles();
-        try {
-            GetObjectRequest request = GetObjectRequest.builder().bucket(bucketName).key(saveFiles.get(index)).build();
-            client.getObject(request);
+        if (CheckSum(index)) {
+            try {
+                GetObjectRequest request = GetObjectRequest.builder().bucket(bucketName).key(saveFiles.get(index))
+                        .build();
+                client.getObject(request);
 
-        } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            client.close();
+            } catch (S3Exception e) {
+                System.err.println(e.awsErrorDetails().errorMessage());
+                client.close();
+            }
         }
     }
 
@@ -80,8 +80,8 @@ public class awsClient {
     private boolean CheckSum(int index) {
         List<String> saveFiles = GetUploadedFiles();
 
-        GetObjectAttributesRequest attrReq = GetObjectAttributesRequest.builder().bucket(bucketName).key(saveFiles.get(index))
-                .objectAttributes(ObjectAttributes.E_TAG).build();
+        GetObjectAttributesRequest attrReq = GetObjectAttributesRequest.builder().bucket(bucketName)
+                .key(saveFiles.get(index)).objectAttributes(ObjectAttributes.E_TAG).build();
 
         GetObjectAttributesResponse attrRes = client.getObjectAttributes(attrReq);
 
@@ -89,7 +89,7 @@ public class awsClient {
         try (InputStream is = Files.newInputStream(Paths.get("Savefile.json"))) {
             String localMD5 = DigestUtils.md5Hex(is);
             return localMD5.equals(remoteMD5);
-        } catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
