@@ -8,7 +8,7 @@ import com.ACMD.app.Kernel_Layer.Prompt.Command;
 
 public class Start implements Command
 {
-    private GameEngine gme;
+    private GameEngine gme;         //non necessario
     public Start(GameEngine g)
     {
         if(g==null) throw new IllegalArgumentException();

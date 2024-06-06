@@ -4,6 +4,7 @@ import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.NoCommandExistException;
 import com.ACMD.app.Kernel_Layer.Prompt.command.*;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze.BackFromRoom;
 
 public class BattleMenu extends Menu
 {
@@ -16,7 +17,7 @@ public class BattleMenu extends Menu
         if( !charged )
         {
             //: oridne alfabetico
-            loadMethods("back", new );
+            loadMethods("back", new BackFromRoom(generateMethods));
             loadMethods("help",c);
             loadMethods("look",c);
             loadMethods("openchest",c);
@@ -38,7 +39,7 @@ public class BattleMenu extends Menu
             throw new MenuVoiceNotFound();
             //per avere un debug ogni volta che si avvvia, che almeno tutte le voci che appaiano nel menù facciano qualcosa
 
-            Command cmd;
+           // Command cmd;
             /*
         switch (nomeComando) {
             case "help":        cmd= ; break;
@@ -57,7 +58,8 @@ public class BattleMenu extends Menu
             //per avere un debug ogni volta che si avvvia, che almeno tutte le voci che appaiano nel menù facciano qualcosa
         }
 */
-        commandMap.put( new MenuValues(nomeComando,null),  cmd);
+        commandMap.put( new MenuValues(nomeComando,null),  c);
+        //hash non fatto sulla descrizione
     }
 
 }

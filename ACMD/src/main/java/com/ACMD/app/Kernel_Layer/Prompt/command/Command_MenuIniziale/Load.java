@@ -21,6 +21,6 @@ public class Load implements Command
      */
     public BackStateGame_Enum execute(Vector<String> nomeSalvataggio)
     {
-        return null;
+        return null;        //#TERMINARE
     }   
 }

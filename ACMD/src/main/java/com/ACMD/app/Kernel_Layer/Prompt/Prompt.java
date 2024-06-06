@@ -74,6 +74,7 @@ public class Prompt
     {
         mn = new StartMenu();
         gmf= new GameFrame();
+        gmf.setVisible(true);;
         gme= new GameEngine();
 
         graphA = new GraphicAdapter(gmf);
@@ -94,8 +95,8 @@ public class Prompt
         Vector<String> ary= removeDoubleSpaces(s);
             //STATO: input è vector di stringhe non vuote e toglie anche \n
         changeCommand(ary.get(0));
-        BackStateGame_Enum mem= cmmd.execute(ary);   //passo tutti i parametri, in quanto non so cosa gli serva
-        fromBufferToOut();                           //stampa tutti i messaggi
+        BackStateGame_Enum mem= cmmd.execute(ary);    //passo tutti i parametri, in quanto non so cosa gli serva
+        graphA.fromBufferToGraphic( gme.getBuffer() );//stampa tutti i messaggi
 
         return mem;
     }
@@ -127,13 +128,7 @@ public class Prompt
         if( mn==null ) throw new IllegalArgumentException("Menu non esiste");
         this.mn = mn;
     }
-    /**
-     * Porta dal buffer di engine all'adapter
-     */
-    private void fromBufferToOut()
-    {
-            gmf.writeOnConsole(null);
-    }
+    
 
     //## Metodi Command-Pattern ##
     private void changeCommand(String input)
