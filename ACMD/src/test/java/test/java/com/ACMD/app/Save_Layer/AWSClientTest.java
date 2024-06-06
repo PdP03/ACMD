@@ -13,7 +13,7 @@ import com.ACMD.app.Save_Layer.awsClient;
 /**
  * Unit test for simple App.
  */
-public class AppTest 
+public class AWSClientTest 
 {
     /**
      * Rigorous Test :-)
@@ -21,7 +21,7 @@ public class AppTest
      * Why does it want Upload static??? 
      */
     @Test
-    public void evaluatesExpression(){
+    public void UploadTest(){
         
         File f = new File("Test.json");
         try {

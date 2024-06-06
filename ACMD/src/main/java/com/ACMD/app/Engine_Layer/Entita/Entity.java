@@ -1,5 +1,7 @@
 package com.ACMD.app.Engine_Layer.Entita;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Classe che rappresenta una generica entità (Player o Mostro). Viene rappresentata dai parametri:
  * - health, vita del entità
@@ -8,9 +10,12 @@ package com.ACMD.app.Engine_Layer.Entita;
  * - name, nome del entità
  */
 public abstract class Entity {
+    @Expose
     protected String name;
     protected String history;
+    @Expose
     protected short health, maxHealth;
+    @Expose
     protected byte attack, armor, level;
 
     /**
