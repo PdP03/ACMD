@@ -59,7 +59,7 @@ public class awsClient {
         }
     }
         /**
-     * Downloads a file from the configured S3 bucket.
+     * Downloads a file from the configured S3 bucket, only if the checksums do not match. 
      *
      * @param index The index of the file to download. Passed from Graphics 
      */

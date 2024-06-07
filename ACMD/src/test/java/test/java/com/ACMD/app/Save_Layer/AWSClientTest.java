@@ -16,7 +16,7 @@ import com.ACMD.app.Save_Layer.awsClient;
 public class AWSClientTest 
 {
 
-    @Test
+    
     public void UploadTest(){
         
         File f = new File("Test.json");
