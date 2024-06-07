@@ -655,4 +655,12 @@ public class GameEngine{
     public MapGraph getMap(){
         return map;
     }
+
+    /**
+     * Restituisce le cordinate di player
+     * @return Coordinates
+     */
+    public Coordinates getPlayerCord(){
+        return map.getPlayerPos();
+    }
 }
