@@ -29,10 +29,10 @@ public class Game{
                 p = new Prompt(engine);
             }
 
-            menu = getMenuFrom(ret);
+          /*   menu = getMenuFrom(ret);                     spostato in prompt per evitare di dover passare anche gameframe
             if(menu != null){
                 p.changeMenu(menu);
-            }
+            }*/
             
 
 

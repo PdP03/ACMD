@@ -2,22 +2,27 @@ package com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze;
 
 import java.util.Vector;
 
+import com.ACMD.app.Adapter_Layer.GraphicAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 
-public class BackFromRoom implements Command
+//import ; //altrimenti non si ha il tempo di vedere le barre aggiornarsi
+
+public class Attack implements Command
 {
     private GameEngine gme;
-    public BackFromRoom(GameEngine g)
+    private GraphicAdapter gra;         //per aggiornare run time
+    public Attack(GameEngine g, GraphicAdapter a)
     {
         if(g==null) throw new IllegalArgumentException();
         gme= g;
+        gra= a;
     }
 
     @Override
     /**
-     * Per uscire dalla stanza
+     * Per avviare il combattimento automatico
      */
     public BackStateGame_Enum execute(Vector<String> nothing)
     {
@@ -30,7 +35,11 @@ public class BackFromRoom implements Command
             System.exit(1);
         }
 
-        gme.movePlayerBack();
+        try
+        { Thread.sleep(200); }
+        catch(InterruptedException e) { System.out.println( "Problemi con l'attacco" ); e.getStackTrace(); }
+
+        gme.attack();       //#TERMINARE : tutta la parte sui controlli sul fatto che deve attaccare
         return BackStateGame_Enum.UPDATE_MAP;
     }   
 }

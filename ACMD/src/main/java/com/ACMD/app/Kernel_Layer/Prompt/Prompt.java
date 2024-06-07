@@ -7,7 +7,9 @@ import java.util.Vector;
 import com.ACMD.app.Adapter_Layer.GraphicAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Graphic_Layer.GUI.GameFrame;
+
 import com.ACMD.app.Kernel_Layer.Menu.*;
+
 
 
 /*
@@ -44,19 +46,9 @@ public class Prompt
 
     //## Costruttore ##
 
-
-    public Prompt(StartMenu firstMenu, GameFrame gmf)
-    {
-         if( firstMenu == null || gmf == null) throw new IllegalArgumentException();
-         mn = firstMenu;
-         gmf = this.gmf;
-
-    }
-
-    //_istanzio anche
     public Prompt(GameEngine engine)
     {
-       // mn = new StartMenu();
+        mn = new StartMenu(gme);
        //engine.runSetup("s");
         gmf= new GameFrame();
         gmf.setVisible(true);;
@@ -80,8 +72,11 @@ public class Prompt
         //_split comando da parametri
         Vector<String> ary= removeDoubleSpaces(s);
             //STATO: input è vector di stringhe non vuote e toglie anche \n
-        //changeCommand(ary.get(0));
+        changeCommand(ary.get(0));
         BackStateGame_Enum mem= cmmd.execute(ary);    //passo tutti i parametri, in quanto non so cosa gli serva
+        
+        //_dopo aver eseguito, faccio gli aggiornamenti necessari
+        chooseUpdate(mem);
         graphA.fromBufferToGraphic( gme.getBuffer() );//stampa tutti i messaggi
 
         return mem;
@@ -108,11 +103,30 @@ public class Prompt
     /**
      * Istanzia il menù con i nuovi comandi
      */
-    public void changeMenu(Menu mn)
+    private void changeMenu(Menu mn)
     {//: utile per passare da quello di start, a quello delle stanze a quello dei combattimenti
 
         if( mn==null ) throw new IllegalArgumentException("Menu non esiste");
         this.mn = mn;
+    }
+
+    /**
+     * uno switch per controllare le varie enum e decidere cosa aggiornare
+     */
+    private void chooseUpdate(BackStateGame_Enum state)
+    {
+        switch(state)
+        {
+            case MOVE:
+            case UPDATE_MAP:
+              //  gmf.move(  );
+            break;
+            case UPDATE_ENTITY:
+                graphA.reScaleEnemyBar( gme.getMonsterLife(), gme.getMonsterMaxLife() );
+                graphA.reScaleLifeBar( gme.getPlayerLife(), gme.getPlayerMaxLife() );
+            break;
+            
+        }
     }
     
 
@@ -140,4 +154,15 @@ public class Prompt
         if( firstMenu == null || gmf == null) throw new IllegalArgumentException();
          mn = firstMenu;
          gmf = this.gmf;
-    }*/
+    }
+    
+
+    public Prompt(StartMenu firstMenu, GameFrame gmf)
+    {
+         if( firstMenu == null || gmf == null) throw new IllegalArgumentException();
+         mn = firstMenu;
+         gmf = this.gmf;
+
+    }
+    
+    */
