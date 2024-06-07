@@ -75,8 +75,8 @@ public class Prompt
       //  if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
 
       String s;
-        while( (s= gmf.textInput()) == null );
-        System.out.println("Il prompt dice che il comando è stato ricevuto");
+        while( (s= gmf.textInput()) == null ){}
+        System.out.println("Il prompt dice che il comando è stato ricevuto: il comando è: "+s);
         gme.addBuffer("DEBUG"); graphA.fromBufferToGraphic( gme.getBuffer() );
 
         //_split comando da parametri
