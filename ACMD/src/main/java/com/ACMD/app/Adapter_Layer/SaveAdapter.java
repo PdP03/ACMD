@@ -39,7 +39,7 @@ public class SaveAdapter
      * @return The player.
      */
 
-    public static Player retrivePlayer(){
+    public static Player retrievePlayer(){
         Player player = JsonParser.read(Player.class);
         return player;
     }
@@ -49,7 +49,7 @@ public class SaveAdapter
      * This method retrieves the map from the Json file.
      * @return The map.
      */
-    public static MapGraph retriveMap(){
+    public static MapGraph retrieveMap(){
         MapGraph map = JsonParser.read(MapGraph.class);
         return map;
     }

@@ -12,8 +12,7 @@ import com.ACMD.app.Engine_Layer.Entita.Player;
 import com.ACMD.app.Engine_Layer.Mappa.MapGraph;
 import com.ACMD.app.Adapter_Layer.SaveAdapter;
 import com.google.gson.*;
-import org.junit.Assert;
-import org.junit.Test;
+
 
 
 
@@ -32,6 +31,7 @@ public class SalvataggioTest {
      */
     @Test
     public void ParsePlayer() throws IOException {
+        Gson gson = new Gson();
         Player player = new Player("Lello");
         SaveAdapter.save(player);
 
@@ -52,7 +52,7 @@ public class SalvataggioTest {
     @Test
     public void SaveAdapterTest() {
         Player player = new Player("Lello");
-        SaveAdapter.savePlayer(player);
+        SaveAdapter.save(player);
         Player player2 = SaveAdapter.retrievePlayer();
         Assert.assertEquals(player.getName(), player2.getName());
     }
@@ -82,8 +82,8 @@ public class SalvataggioTest {
         public void savePlayerMultipleTimesTest() {
             Player player1 = new Player("Lello");
             Player player2 = new Player("Mario");
-            SaveAdapter.savePlayer(player1);
-            SaveAdapter.savePlayer(player2);
+            SaveAdapter.save(player1);
+            SaveAdapter.save(player2);
             Player savedPlayer = SaveAdapter.retrievePlayer();
             Assert.assertEquals(player2.getName(), savedPlayer.getName());
         }
