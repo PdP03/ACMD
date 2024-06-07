@@ -21,14 +21,14 @@ public class BattleMenu extends Menu
         if( !charged )
         {
             //: oridne alfabetico
-            loadMethods("back",          new BackFromRoom(generateMethods));
-            loadMethods("help",          new HelpStanze(generateMethods) );
-           // loadMethods("look", new LookInsideChest(generateMethods));
-            loadMethods("openchest",     new LookInsideChest(generateMethods));
+           // loadMethods("back",          new BackFromRoom(generateMethods));
+           // loadMethods("help",          new HelpStanze(generateMethods) );
+            loadMethods("look", new LookInsideChest(generateMethods));
+            //loadMethods("openchest",     new LookInsideChest(generateMethods));
            // loadMethods("showchest",c);
-            loadMethods("showinventario",new ShowInventario(generateMethods));
-            loadMethods("trashit",       new PlayerRemoveItem(generateMethods));
-            loadMethods("trashstack",    new PlayerRemoveItemStack(generateMethods));
+            //loadMethods("showinventario",new ShowInventario(generateMethods));
+            //loadMethods("trashit",       new PlayerRemoveItem(generateMethods));
+            //loadMethods("trashstack",    new PlayerRemoveItemStack(generateMethods));
 
             if( commandMap.containsValue(null) )
              throw new NoCommandExistException("Esiste ancora una voce che non ha un comando associato");
@@ -44,7 +44,7 @@ public class BattleMenu extends Menu
         MenuValues voceCercare = new MenuValues(nomeComando,null);
         if( ! super.commandMap.containsKey( voceCercare ) )
             {
-                System.out.println("a"+nomeComando+"a");
+                System.out.println("a"+nomeComando+"a");    //vedere se ha vicino caratteri strani
                 debugMethod();
                 throw new MenuVoiceNotFound(nomeComando);
             }
@@ -99,8 +99,8 @@ public class BattleMenu extends Menu
         System.out.println( keys.contains( new MenuValues("back","DESCRIZIONE MANCANTE look") ) );
 
         System.out.println( super.commandMap.containsValue(null) );
-        System.out.println( this.checkInTheMap( "back" ) );
-        System.out.println( this.checkInTheMap( "non esiste" ) );
+     //   System.out.println( this.checkInTheMap( "back" ) );
+     //   System.out.println( this.checkInTheMap( "non esiste" ) );
         //System.out.println( ( (String)null ) );
     }
 }

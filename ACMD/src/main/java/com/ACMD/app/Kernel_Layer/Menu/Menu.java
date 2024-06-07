@@ -26,6 +26,13 @@ public abstract class Menu
 
         for(int i=0; i<menuItems.size(); i++)
          commandMap.put( menuItems.get(i), defaultVal); //carico nomi e descrizioni nelle mappe
+
+         if( ! commandMap.containsKey( menuItems.get(0) ) ) { System.out.println("Fatale"); System.exit(1); }
+          else
+            {
+                System.out.println("Menu"+menuItems.get(0)+"Menu");
+                System.out.println( menuItems.get(0).equals( new MenuValues( "look","" ) ) );
+            }
     }
   
     public Command checkInTheMap(String cmmdName)
@@ -42,10 +49,10 @@ public abstract class Menu
         String s="";
         Set<MenuValues> keys = commandMap.keySet();
 
-        for(int i=0; i<keys.size(); i++)
-         s+= keys.toString() +'\n';
+     /*    for(int i=0; i<keys.size(); i++)
+         s+= keys..toString() +'\n';*/
         
-        return s;
+        return keys.toString()+"\n";
     }
 
     // ## Metodi Private
