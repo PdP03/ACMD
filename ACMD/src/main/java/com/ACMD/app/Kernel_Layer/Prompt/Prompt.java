@@ -75,14 +75,12 @@ public class Prompt
       //  if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
 
       String s;
-        while( (s= gmf.textInput()) == null ){}
-        System.out.println("Il prompt dice che il comando è stato ricevuto: il comando è: "+s);
-        gme.addBuffer("DEBUG"); graphA.fromBufferToGraphic( gme.getBuffer() );
+        while( (s= gmf.textInput()) == null );
 
         //_split comando da parametri
         Vector<String> ary= removeDoubleSpaces(s);
             //STATO: input è vector di stringhe non vuote e toglie anche \n
-        changeCommand(ary.get(0));
+        //changeCommand(ary.get(0));
         BackStateGame_Enum mem= cmmd.execute(ary);    //passo tutti i parametri, in quanto non so cosa gli serva
         graphA.fromBufferToGraphic( gme.getBuffer() );//stampa tutti i messaggi
 

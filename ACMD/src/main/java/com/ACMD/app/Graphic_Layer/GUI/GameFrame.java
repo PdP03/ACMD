@@ -439,11 +439,9 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     public String textInput()
     {
         System.out.printf("");
-        if(isOutputReady)
-        {
+        if(isOutputReady){
             isOutputReady=false;
-            return jTextComandi.getText();
-        }
+            return jTextComandi.getText();}
         return null; 
        
     }
