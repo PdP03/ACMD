@@ -79,6 +79,7 @@ public class Prompt
 
         //_dopo aver eseguito, faccio gli aggiornamenti necessari
         chooseUpdate(mem);
+        gme.addBuffer( mn.toString() );//DEBUG
         graphA.fromBufferToGraphic( gme.getBuffer() );//stampa tutti i messaggi
 
         return mem;
@@ -144,6 +145,8 @@ public class Prompt
             case START:
                 changeMenu( new MovementMenu(gme) );
             break;
+
+            default: break;
         }
     }
     

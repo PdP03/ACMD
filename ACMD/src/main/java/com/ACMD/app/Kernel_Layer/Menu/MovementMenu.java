@@ -27,7 +27,6 @@ public class MovementMenu extends Menu
             //: oridne alfabetico
             //loadMethods("", new );
             loadMethods("back", new MoveBack(generateMethods));
-            loadMethods("exit", new Exit(generateMethods));
 
             loadMethods("help", new HelpCorridoio(generateMethods,commandMap));
             loadMethods("looknearnodes", new LookAround(generateMethods));
@@ -36,6 +35,9 @@ public class MovementMenu extends Menu
 
             loadMethods("trashstack",    new PlayerRemoveItemStack(generateMethods));
             loadMethods("use",           new PlayerUse(generateMethods));
+
+            //ultimo così ha caricato tutti i metodi
+            loadMethods("exit", new Exit(generateMethods));
 
             if( super.commandMap.containsValue(null) )
             {

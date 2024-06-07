@@ -17,6 +17,7 @@ public class ErroreInput implements Command
     @Override
     public BackStateGame_Enum execute(Vector<String> s)
     {
+        if(true) throw new IllegalAccessError("Queta classe non deve più essere usata");
         gme.addBuffer("Comando non valido");
         return BackStateGame_Enum.ERROR_DIGIT;
     }

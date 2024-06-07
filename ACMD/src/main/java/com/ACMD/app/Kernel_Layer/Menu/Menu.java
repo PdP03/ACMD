@@ -41,7 +41,7 @@ public abstract class Menu
     }
     public String toString()
     {
-        String s="";
+       // String s="";
         Set<MenuValues> keys = commandMap.keySet();
 
      /*    for(int i=0; i<keys.size(); i++)

@@ -429,7 +429,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
 
         addComponents2();
 
-        JButtonMusic.addActionListener(this);
+       // JButtonMusic.addActionListener(this);
         pack();
     }// </editor-fold>
     /**
