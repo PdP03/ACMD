@@ -79,6 +79,7 @@ public class Prompt
         gme= engine;
 
         graphA = new GraphicAdapter(gmf);
+        //System.out.println("Creato prompt"); gme.addBuffer("Prompt creato"); graphA.fromBufferToGraphic( gme.getBuffer() );//DEBUG: vedere se creato
     }
 
 
@@ -89,8 +90,9 @@ public class Prompt
 
       //  if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
 
-        String s;
-        while( (s= gmf.textInput()) == null );
+      String s;
+        while( (s= gmf.textInput()) == null ) {gme.addBuffer("DEBUG"); graphA.fromBufferToGraphic( gme.getBuffer() );
+    }
 
         //_split comando da parametri
         Vector<String> ary= removeDoubleSpaces(s);
