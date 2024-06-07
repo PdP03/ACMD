@@ -49,7 +49,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     final int numberRows   =20;
     final int numberCols   =20; 
     final float fontSize   =16f;
-    public boolean isOutputReady=false;
+    public boolean isOutputReady;
     private final int delay = 100; 
     // ====================
     // Stili per la shell
@@ -71,6 +71,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                     setPlayerHealth(100);
                     setEnemyHealth(100);
                     setPeso(100);
+                    isOutputReady=false;
     }                   
     /**
      * Moves the player position from the current one to the desired one: 
@@ -437,6 +438,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      */
     public String textInput()
     {
+        System.out.println("Alla chiamata di textInput() isOutputReady è "+isOutputReady);
         if(isOutputReady){ isOutputReady=false; return jTextComandi.getText();}
         return null; 
        
@@ -531,6 +533,8 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     public void actionPerformed(java.awt.event.ActionEvent evt) 
             {
                 if(evt.getSource()==jButtonInvio)
+                isOutputReady=true;
+                System.out.println("Hai premuto il bottone: isOutputReady è " + isOutputReady);
                 {
                     isOutputReady=true;
                 try {

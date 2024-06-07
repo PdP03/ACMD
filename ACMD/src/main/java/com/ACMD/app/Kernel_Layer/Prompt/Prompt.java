@@ -76,6 +76,7 @@ public class Prompt
 
       String s;
         while( (s= gmf.textInput()) == null );
+        System.out.println("Il prompt dice che il comando è stato ricevuto");
         gme.addBuffer("DEBUG"); graphA.fromBufferToGraphic( gme.getBuffer() );
 
         //_split comando da parametri
