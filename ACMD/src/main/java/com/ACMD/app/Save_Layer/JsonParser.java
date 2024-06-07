@@ -32,6 +32,14 @@ public class JsonParser {
         }
 
     }
+    
+    /**
+     * Read the object from the JSON file.
+     * 
+     * @param <T> The type of the object to read.
+     * @param type The class of the object to read.
+     * @return The object read from the JSON file.
+     */
 
     public static <T> T read(Class<T> type) {
         try (FileReader reader = new FileReader(FILE_NAME)) {
