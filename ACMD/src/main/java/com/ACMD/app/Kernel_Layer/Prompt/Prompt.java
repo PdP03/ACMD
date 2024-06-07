@@ -50,11 +50,10 @@ public class Prompt
 
     public Prompt(GameEngine engine)
     {
-        mn = new StartMenu(gme);
-       //engine.runSetup("s");
         gmf= new GameFrame();
         gmf.setVisible(true);;
         gme= engine;
+        mn = new StartMenu(gme);
 
         graphA = new GraphicAdapter(gmf);
         //System.out.println("Creato prompt"); gme.addBuffer("Prompt creato"); graphA.fromBufferToGraphic( gme.getBuffer() );//DEBUG: vedere se creato
@@ -74,8 +73,10 @@ public class Prompt
         Vector<String> ary= removeDoubleSpaces(s);
             //STATO: input è vector di stringhe non vuote e toglie anche \n
         changeCommand(ary.get(0));
-        BackStateGame_Enum mem= cmmd.execute(ary);    //passo tutti i parametri, in quanto non so cosa gli serva
-        
+        BackStateGame_Enum mem = cmmd != null ?
+                cmmd.execute(ary) :   //passo tutti i parametri, in quanto non so cosa gli serva
+                BackStateGame_Enum.ERROR_DIGIT;
+
         //_dopo aver eseguito, faccio gli aggiornamenti necessari
         chooseUpdate(mem);
         graphA.fromBufferToGraphic( gme.getBuffer() );//stampa tutti i messaggi
@@ -140,7 +141,6 @@ public class Prompt
             case ERROR_DIGIT:
                 gme.addBuffer("Comando non riconosciuto");
             break;
-            
         }
     }
     

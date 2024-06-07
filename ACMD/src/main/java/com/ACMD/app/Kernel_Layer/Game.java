@@ -2,7 +2,7 @@ package com.ACMD.app.Kernel_Layer;
 
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
-import com.ACMD.app.Kernel_Layer.Menu.BattleMenu;
+//import com.ACMD.app.Kernel_Layer.Menu.BattleMenu;
 import com.ACMD.app.Kernel_Layer.Menu.Menu;
 import com.ACMD.app.Kernel_Layer.Menu.MovementMenu;
 import com.ACMD.app.Kernel_Layer.Prompt.Prompt;
@@ -19,7 +19,7 @@ public class Game{
         
         Prompt p = new Prompt(engine);
         Boolean exit = false;
-        Menu menu;
+      //  Menu menu;
 
         while(!exit){
             BackStateGame_Enum ret = p.waitInput();

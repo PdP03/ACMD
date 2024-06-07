@@ -3,17 +3,17 @@
 
  <menuvoice>
   <command>start</command>
-  <description>  </description>
+  <description> Iniziare una nuova partita </description>
  </menuvoice>
 
  <menuvoice>
   <command>exit</command>
-  <description>  </description>
+  <description> Uscire dal gioco </description>
  </menuvoice>
 
 <menuvoice>
   <command>load</command>
-  <description>  </description>
+  <description> Caricare una partita salvata precedentemente </description>
  </menuvoice>
 
 </StartMenu>

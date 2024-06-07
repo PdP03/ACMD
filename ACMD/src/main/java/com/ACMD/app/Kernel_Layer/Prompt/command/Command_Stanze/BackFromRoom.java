@@ -29,7 +29,7 @@ public class BackFromRoom implements Command
             System.out.println("DEBUG: la voce è disponibile quando non si è in una stanza");
             System.exit(1);
         }
-
+//#TERMINARE : bisogna fare il controllo se era l'ultimo boss per aprire il cancello; e controllare se si ha sconfitto il boss finale
         gme.movePlayerBack();
         return BackStateGame_Enum.UPDATE_MAP;
     }   
