@@ -9,7 +9,7 @@ import javax.xml.crypto.dsig.spec.HMACParameterSpec;
 import com.ACMD.app.Engine_Layer.ParsePath;
 import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Kernel_Layer.Menu.MenuValues;
-
+/*
 public class main2 {
     public static void main(String[] args){
         final String MenuDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Kernel_Layer\\Menu\\";
@@ -79,3 +79,4 @@ class entry{
         return s1.hashCode();
     }
 }
+*/
