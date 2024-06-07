@@ -66,7 +66,7 @@ public class SalvataggioTest {
         @Test
         public void savePlayerNullTest() {
             Player player = null;
-         //   SaveAdapter.savePlayer(player);
+            SaveAdapter.save(player);
             Player savedPlayer = SaveAdapter.retrievePlayer();
             Assert.assertNull(savedPlayer);
         }
