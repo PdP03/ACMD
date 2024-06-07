@@ -72,6 +72,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                     setEnemyHealth(100);
                     setPeso(100);
                     isOutputReady=false;
+                    jTextStory.setEnabled(false);       // by Carlo from Matteo
     }                   
     /**
      * Moves the player position from the current one to the desired one: 
