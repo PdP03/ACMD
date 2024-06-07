@@ -43,31 +43,15 @@ public class Prompt
     GraphicAdapter graphA;
 
     //## Costruttore ##
-/*
-    public void linkEngine(GameEngine g)
-    {
-        if( g==null ) throw new IllegalArgumentException("Serve un riferimento");
 
-        engineLinked = true;
-        gme = g;
-    }
 
-    public Prompt(GameEngine gme, StartMenu firstMenu, GameFrame gmf)
-    {
-        //istanzia una sola volta la grafica di input
-        linkEngine(gme);
-        
-        if( firstMenu == null || gmf == null) throw new IllegalArgumentException();
-         mn = firstMenu;
-         gmf = this.gmf;
-    }
     public Prompt(StartMenu firstMenu, GameFrame gmf)
     {
          if( firstMenu == null || gmf == null) throw new IllegalArgumentException();
          mn = firstMenu;
          gmf = this.gmf;
 
-    }*/
+    }
 
     //_istanzio anche
     public Prompt(GameEngine engine)
@@ -91,8 +75,8 @@ public class Prompt
       //  if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
 
       String s;
-        while( (s= gmf.textInput()) == null ) {gme.addBuffer("DEBUG"); graphA.fromBufferToGraphic( gme.getBuffer() );
-    }
+        while( (s= gmf.textInput()) == null );
+        gme.addBuffer("DEBUG"); graphA.fromBufferToGraphic( gme.getBuffer() );
 
         //_split comando da parametri
         Vector<String> ary= removeDoubleSpaces(s);
@@ -139,3 +123,22 @@ public class Prompt
         cmmd= mn.checkInTheMap(input);
     }
 }
+
+
+    /*public void linkEngine(GameEngine g)
+    {
+        if( g==null ) throw new IllegalArgumentException("Serve un riferimento");
+
+        engineLinked = true;
+        gme = g;
+    }
+
+    public Prompt(GameEngine gme, StartMenu firstMenu, GameFrame gmf)
+    {
+        //istanzia una sola volta la grafica di input
+        linkEngine(gme);
+        
+        if( firstMenu == null || gmf == null) throw new IllegalArgumentException();
+         mn = firstMenu;
+         gmf = this.gmf;
+    }*/
