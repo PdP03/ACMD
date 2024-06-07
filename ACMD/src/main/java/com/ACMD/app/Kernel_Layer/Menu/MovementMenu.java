@@ -9,6 +9,10 @@ import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.HelpCorridoio;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.LookAround;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.Move;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.MoveBack;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.PlayerUse;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.PlayerRemoveItem;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.PlayerRemoveItemStack;
+
 
 public class MovementMenu extends Menu
 {
@@ -24,10 +28,14 @@ public class MovementMenu extends Menu
             //loadMethods("", new );
             loadMethods("back", new MoveBack(generateMethods));
             loadMethods("exit", new Exit(generateMethods));
-            loadMethods("help", new HelpCorridoio(generateMethods,commandMap));
 
+            loadMethods("help", new HelpCorridoio(generateMethods,commandMap));
             loadMethods("looknearnodes", new LookAround(generateMethods));
-            loadMethods("move", new Move(generateMethods));
+            loadMethods("move",          new Move(generateMethods));
+            loadMethods("trashitem",     new PlayerRemoveItem(generateMethods));
+
+            loadMethods("trashstack",    new PlayerRemoveItemStack(generateMethods));
+            loadMethods("use",           new PlayerUse(generateMethods));
 
             if( super.commandMap.containsValue(null) )
             {

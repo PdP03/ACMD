@@ -1,5 +1,6 @@
 package com.ACMD.app.Adapter_Layer;
 
+import com.ACMD.app.Engine_Layer.Mappa.Coordinates;
 import com.ACMD.app.Graphic_Layer.GUI.GameFrame;
 
 public class GraphicAdapter
@@ -21,7 +22,10 @@ public class GraphicAdapter
     public void reScaleWeightBar(double percentile){ gmf.setPlayerHealth( (int)percentile*100 ); } //0 a 100
 
     public void fromBufferToGraphic(String textOUT)
-    {
-        gmf.writeBlueOnConsole(textOUT);
-    }
+     { gmf.writeBlueOnConsole(textOUT); }
+    public void move(Coordinates coord)
+     { gmf.move( coord ); }
+    public String busyWaitInput()
+     { String s; while( (s= gmf.textInput()) == null ); return s;}
+    
 }

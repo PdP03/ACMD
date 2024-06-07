@@ -17,11 +17,6 @@
  </menuvoice>
 
  <menuvoice>
-  <command>attack</command>
-  <description> Per entrare nella stanza ed attaccare il mostro </description>
- </menuvoice>
-
- <menuvoice>
   <command>exit</command>
   <description> Per uscire, dà un remind </description>
  </menuvoice>
@@ -37,7 +32,7 @@
  </menuvoice>
 
  <menuvoice>
-  <command>trashit</command>
+  <command>trashitem</command>
   <description> (String) Butta un oggetto da inventario </description>
  </menuvoice>
 

@@ -3,6 +3,7 @@ package test.java.com.ACMD.app.Kernel_Layer.Menu;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.ACMD.app.Adapter_Layer.GraphicAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Menu.BattleMenu;
 import com.ACMD.app.Kernel_Layer.Menu.ExitMenu;
@@ -24,7 +25,7 @@ public class MenuGenerate_test
     @Test
     public void menuBattle()
     {
-        new BattleMenu(new GameEngine() );
+        new BattleMenu(new GameEngine(),new GraphicAdapter(null));
         //si supera se non vengono lanciare eccezioni
     }
     @Test

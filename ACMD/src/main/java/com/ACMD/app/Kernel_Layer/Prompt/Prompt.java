@@ -1,14 +1,16 @@
 
 package com.ACMD.app.Kernel_Layer.Prompt;
 
-import java.util.HashMap;
 import java.util.Vector;
 
 import com.ACMD.app.Adapter_Layer.GraphicAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Graphic_Layer.GUI.GameFrame;
-
-import com.ACMD.app.Kernel_Layer.Menu.*;
+import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
+import com.ACMD.app.Kernel_Layer.Menu.BattleMenu;
+import com.ACMD.app.Kernel_Layer.Menu.Menu;
+import com.ACMD.app.Kernel_Layer.Menu.MovementMenu;
+import com.ACMD.app.Kernel_Layer.Menu.StartMenu;
 
 
 
@@ -66,8 +68,7 @@ public class Prompt
 
       //  if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
 
-      String s;
-        while( (s= gmf.textInput()) == null );
+      String s = graphA.busyWaitInput();
 
         //_split comando da parametri
         Vector<String> ary= removeDoubleSpaces(s);
@@ -82,7 +83,17 @@ public class Prompt
         return mem;
     }
     
-
+    /**
+     * Statico per dare la possibilità ai metodi del command patter di aggiornare la grafica
+     * @param gme       GameEngine
+     * @param graphA    Graphic Adapter
+     */
+    public static void updateBars(GameEngine gme, GraphicAdapter graphA)
+    {
+        graphA.reScaleEnemyBar( gme.getMonsterLife(), gme.getMonsterMaxLife() );
+        graphA.reScaleLifeBar(  gme.getPlayerLife(), gme.getPlayerMaxLife() );
+        graphA.reScaleWeightBar(gme.getPlayerWeight(), gme.getPlayerMaxWeight());
+    }
 
     //## Metodi Private ##
 
@@ -111,19 +122,23 @@ public class Prompt
     }
 
     /**
-     * uno switch per controllare le varie enum e decidere cosa aggiornare
+     * uno switch per controllare le varie enum e decidere cosa aggiornare a schermo, ed i menù
      */
     private void chooseUpdate(BackStateGame_Enum state)
     {
         switch(state)
         {
-            case MOVE:
             case UPDATE_MAP:
-              //  gmf.move(  );
+                if( gme.isPlayerInRoom() ) changeMenu( new BattleMenu(gme,graphA) );
+                 else changeMenu( new MovementMenu(gme) );    //cambio il menù
+            case MOVE:
+                graphA.move( gme.getPlayerCord() );
             break;
             case UPDATE_ENTITY:
-                graphA.reScaleEnemyBar( gme.getMonsterLife(), gme.getMonsterMaxLife() );
-                graphA.reScaleLifeBar( gme.getPlayerLife(), gme.getPlayerMaxLife() );
+                updateBars(gme, graphA);
+            break;
+            case ERROR_DIGIT:
+                gme.addBuffer("Comando non riconosciuto");
             break;
             
         }
@@ -136,33 +151,3 @@ public class Prompt
         cmmd= mn.checkInTheMap(input);
     }
 }
-
-
-    /*public void linkEngine(GameEngine g)
-    {
-        if( g==null ) throw new IllegalArgumentException("Serve un riferimento");
-
-        engineLinked = true;
-        gme = g;
-    }
-
-    public Prompt(GameEngine gme, StartMenu firstMenu, GameFrame gmf)
-    {
-        //istanzia una sola volta la grafica di input
-        linkEngine(gme);
-        
-        if( firstMenu == null || gmf == null) throw new IllegalArgumentException();
-         mn = firstMenu;
-         gmf = this.gmf;
-    }
-    
-
-    public Prompt(StartMenu firstMenu, GameFrame gmf)
-    {
-         if( firstMenu == null || gmf == null) throw new IllegalArgumentException();
-         mn = firstMenu;
-         gmf = this.gmf;
-
-    }
-    
-    */

@@ -27,12 +27,17 @@
 
 
  <menuvoice>
+  <command>attack</command>
+  <description> Confermare di voler attaccare il mostro </description>
+ </menuvoice>
+
+ <menuvoice>
   <command>take</command>
   <description> (-Stringa) Quando baule aperto si può scrivere nome oggetti si vogliono </description>
  </menuvoice>
 
  <menuvoice>
-  <command>trashit</command>
+  <command>trashitem</command>
   <description> (-String) Se si vuole buttare via qualcosa da inventario </description>
  </menuvoice>
 

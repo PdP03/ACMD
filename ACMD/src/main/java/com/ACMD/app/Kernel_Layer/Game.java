@@ -18,7 +18,7 @@ public class Game{
         
         Prompt p = new Prompt(engine);
         Boolean exit = false;
-        Menu menu;
+        Menu\ menu;
 
         while(!exit){
             BackStateGame_Enum ret = p.waitInput();
@@ -48,7 +48,7 @@ public class Game{
             case START:
                 return new MovementMenu(engine);
             case UPDATE_MAP:
-                return new BattleMenu(engine);
+              //  return new BattleMenu(engine); by Carlo   perché non istanzia più la grafica
             default:
                 return null;
         }

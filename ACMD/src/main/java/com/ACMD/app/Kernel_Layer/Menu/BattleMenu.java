@@ -2,6 +2,7 @@ package com.ACMD.app.Kernel_Layer.Menu;
 
 import java.util.Set;
 
+import com.ACMD.app.Adapter_Layer.GraphicAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.NoCommandExistException;
@@ -15,12 +16,14 @@ public class BattleMenu extends Menu
     private static final String fileName = "BattleMenu.xml";
     private boolean charged= false;     //evitare carichi una seconda volta
 
-    public BattleMenu(GameEngine generateMethods)
+    public BattleMenu(GameEngine generateMethods, GraphicAdapter gr)
     {
         super(fileName);
         if( !charged )
         {
             //: oridne alfabetico
+            //loadMethods("", new );
+            loadMethods("attack",        new Attack(generateMethods, gr));
             loadMethods("back",          new BackFromRoom(generateMethods));
             loadMethods("help",          new HelpStanze(generateMethods,commandMap) );
                     // loadMethods("look", new );
@@ -28,7 +31,7 @@ public class BattleMenu extends Menu
             loadMethods("showchest",     new LookInsideChest(generateMethods) );
             loadMethods("showinventario",new ShowInventario(generateMethods));
             loadMethods("take",          new TakeFromChest(generateMethods));
-            loadMethods("trashit",       new PlayerRemoveItem(generateMethods));
+            loadMethods("trashitem",     new PlayerRemoveItem(generateMethods));
             loadMethods("trashstack",    new PlayerRemoveItemStack(generateMethods));
 
             if( super.commandMap.containsValue(null) )

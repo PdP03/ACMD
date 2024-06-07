@@ -3,11 +3,12 @@ package com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze;
 import java.util.Vector;
 
 import com.ACMD.app.Adapter_Layer.GraphicAdapter;
+import com.ACMD.app.Engine_Layer.GameEngine.DeathException;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
+import com.ACMD.app.Kernel_Layer.Prompt.Prompt;
 
-//import ; //altrimenti non si ha il tempo di vedere le barre aggiornarsi
 
 public class Attack implements Command
 {
@@ -35,11 +36,20 @@ public class Attack implements Command
             System.exit(1);
         }
 
-        try
-        { Thread.sleep(200); }
-        catch(InterruptedException e) { System.out.println( "Problemi con l'attacco" ); e.getStackTrace(); }
+    try{
+        while( true )
+        {
+            Thread.sleep(200);
+            gme.attack();
+            Prompt.updateBars(gme, gra);
+        }
+     }
+    catch(InterruptedException e) { System.out.println( "Problemi con l'attacco" ); e.getStackTrace(); }
+    catch(DeathException e) { /*#TERMINARE Schermata per aver perso */ }
+    catch(IllegalArgumentException e) {}
 
-        gme.attack();       //#TERMINARE : tutta la parte sui controlli sul fatto che deve attaccare
-        return BackStateGame_Enum.UPDATE_MAP;
+
+              //#TERMINARE : tutta la parte sui controlli sul fatto che deve attaccare: controllare se automatico e cosa accade in caso di morte
+        return BackStateGame_Enum.COMBACT;
     }   
 }
