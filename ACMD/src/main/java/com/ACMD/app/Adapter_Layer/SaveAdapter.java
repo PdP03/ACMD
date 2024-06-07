@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.ACMD.app.Engine_Layer.Entita.Player;
 import com.ACMD.app.Engine_Layer.Mappa.MapGraph;
+import com.ACMD.app.Save_Layer.awsClient;
 import com.ACMD.app.Save_Layer.JsonParser;
 import com.google.gson.JsonObject;
 
@@ -49,5 +50,13 @@ public class SaveAdapter
     public static MapGraph retriveMap(){
         MapGraph map = JsonParser.read(MapGraph.class);
         return map;
+    }
+    /**
+     * This method retrieves the name of the files uploaded to the S3 bucket.
+     * @return The list of the names of the files uploaded to the S3 bucket.
+     */
+
+    public static List<String> GetUploadedFiles(){
+        return awsClient.GetUploadedFiles();
     }
 }
