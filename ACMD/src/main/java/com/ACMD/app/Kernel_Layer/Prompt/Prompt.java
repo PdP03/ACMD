@@ -141,6 +141,9 @@ public class Prompt
             case ERROR_DIGIT:
                 gme.addBuffer("Comando non riconosciuto");
             break;
+            case START:
+                changeMenu( new MovementMenu(gme) );
+            break;
         }
     }
     

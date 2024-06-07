@@ -34,9 +34,9 @@ public abstract class Menu
     {
         Command cmd= commandMap.get( new MenuValues(cmmdName,null) );    //controllo solo tramite il nome e non la descrizione
         
-        if(cmd==null)
+      /*  if(cmd==null)
          new ErroreInput(null);     //se non è stato trovato
-
+*/
         return cmd;
     }
     public String toString()
