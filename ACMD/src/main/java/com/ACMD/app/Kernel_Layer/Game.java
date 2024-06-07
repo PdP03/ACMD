@@ -8,6 +8,7 @@ import com.ACMD.app.Kernel_Layer.Menu.MovementMenu;
 import com.ACMD.app.Kernel_Layer.Prompt.Prompt;
 
 /**
+ 
  * Questa classe fa partire il gioco richiamando prompt il quale andrà a gesire il 
  * gameEngine in base ai comandi scritti dal utente
  * 
@@ -18,7 +19,7 @@ public class Game{
         
         Prompt p = new Prompt(engine);
         Boolean exit = false;
-        Menu\ menu;
+        Menu menu;
 
         while(!exit){
             BackStateGame_Enum ret = p.waitInput();

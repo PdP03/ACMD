@@ -16,11 +16,12 @@ public class StartMenu extends Menu
         if( !charged )
         {
             //: oridne alfabetico
+            //loadMethods("", new );
+
             loadMethods("exit",  new ExitFromMenu(generateMethods));
             loadMethods("load",  new Load(generateMethods));
             loadMethods("start", new Start(generateMethods));
 
-            //loadMethods("",new );
 
             if( commandMap.containsValue(null) )
              throw new NoCommandExistException("Esiste ancora una voce che non ha un comando associato");
@@ -33,7 +34,7 @@ public class StartMenu extends Menu
     protected void loadMethods(String nomeComando, Command c)
     {
         if( ! commandMap.containsKey( new MenuValues(nomeComando,null) ) )
-            throw new MenuVoiceNotFound();
+         throw new MenuVoiceNotFound("Comando non trovato in file xml: "+nomeComando);
             //per avere un debug ogni volta che si avvvia, che almeno tutte le voci che appaiano nel menù facciano qualcosa
 
         commandMap.put( new MenuValues(nomeComando,null),  c);

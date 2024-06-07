@@ -2,17 +2,17 @@
 <StartMenu>
 
  <menuvoice>
-  <command> start </command>
+  <command>start</command>
   <description>  </description>
  </menuvoice>
 
  <menuvoice>
-  <command> exit </command>
+  <command>exit</command>
   <description>  </description>
  </menuvoice>
 
 <menuvoice>
-  <command> load </command>
+  <command>load</command>
   <description>  </description>
  </menuvoice>
 
