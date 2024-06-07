@@ -40,8 +40,11 @@ public class BattleMenu extends Menu
     @Override
     protected void loadMethods(String nomeComando, Command c)
     {
-        if( ! commandMap.containsKey( new MenuValues(nomeComando,null) ) )
+        
+        MenuValues voceCercare = new MenuValues(nomeComando,null);
+        if( ! super.commandMap.containsKey( voceCercare ) )
             {
+                System.out.println("a"+nomeComando+"a");
                 debugMethod();
                 throw new MenuVoiceNotFound(nomeComando);
             }
@@ -66,23 +69,38 @@ public class BattleMenu extends Menu
             //per avere un debug ogni volta che si avvvia, che almeno tutte le voci che appaiano nel menù facciano qualcosa
         }
 */
-        commandMap.put( new MenuValues(nomeComando,null),  c);
+        super.commandMap.put( new MenuValues(nomeComando,null),  c);
         //hash non fatto sulla descrizione
     }
 
 
     private void debugMethod()
     {
-        System.out.println( commandMap );
-        System.out.println( commandMap.containsKey( new MenuValues("back","") ) );
-       // System.out.println( commandMap.containsValue( "back" ) );
+       // System.out.println( commandMap );
+       // System.out.println( commandMap.containsKey( new MenuValues("back","") ) );
+       MenuValues mn1 = new MenuValues("back"," ") ,
+                  mn2 = new MenuValues("back","descrizione");
+        System.out.println( mn1 == mn2 );
+        System.out.println( mn1.equals(mn2) );
+
+        System.out.println( mn1.hashCode() );
+        System.out.println( mn2.hashCode() );
 
         System.out.println("    Set di chiavi: ");
-        Set<MenuValues> keys = commandMap.keySet();
-        System.out.println( keys.contains("back") ? "Trovata" : "Non trovata" );
-        System.out.println( keys.contains( new MenuValues("back","") ) ? "Trovata" : "Non trovata" );
+        Set<MenuValues> keys = super.commandMap.keySet();
+      //  System.out.println( keys.contains("back") ? "Trovata" : "Non trovata" );
+      //  System.out.println( keys.contains( new MenuValues("back",null) ) ? "Trovata" : "Non trovata" );
+      //  System.out.println( keys.contains( new MenuValues("back","Uscire da stanza") ) ? "Trovata" : "Non trovata" );
 
         System.out.println( keys );
-        System.out.println( keys.hashCode() );
+        System.out.println( keys.contains("back") );
+        System.out.println( keys.contains("look") );
+        System.out.println( keys.contains( new MenuValues("back",null) ) );
+        System.out.println( keys.contains( new MenuValues("back","DESCRIZIONE MANCANTE look") ) );
+
+        System.out.println( super.commandMap.containsValue(null) );
+        System.out.println( this.checkInTheMap( "back" ) );
+        System.out.println( this.checkInTheMap( "non esiste" ) );
+        //System.out.println( ( (String)null ) );
     }
 }

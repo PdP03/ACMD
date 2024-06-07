@@ -39,7 +39,7 @@
  </menuvoice>
 
  <menuvoice>
-  <command> back </command>
+  <command>back</command>
   <description> Uscire da stanza </description>
  </menuvoice>
 
