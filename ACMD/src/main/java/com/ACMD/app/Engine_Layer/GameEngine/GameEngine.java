@@ -639,4 +639,20 @@ public class GameEngine{
     public void loadMap(MapGraph newMap){
         map = newMap;
     }
+
+    /**
+     * Restituisce il player per effettuare il salvataggio su cloud
+     * @return Player
+     */
+    public Player getPlayer(){
+        return p;
+    }
+
+    /**
+     * Restituisce la mappa per effettuare il salvattaggio su cloud
+     * @return MapGraph
+     */
+    public MapGraph getMap(){
+        return map;
+    }
 }
