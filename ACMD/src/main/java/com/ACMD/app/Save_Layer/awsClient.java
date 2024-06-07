@@ -64,7 +64,7 @@ public class awsClient {
      * @param index The index of the file to download. Passed from Graphics 
      */
 
-    public void Download(int index) {
+    public static void Download(int index) {
         List<String> saveFiles = GetUploadedFiles();
         if (!CheckSum(index)) {
             try {
@@ -84,7 +84,7 @@ public class awsClient {
      * @return A list of file names.
      */
 
-    public List<String> GetUploadedFiles() {
+    public static List<String> GetUploadedFiles() {
         ListObjectsV2Request listRequest = ListObjectsV2Request.builder().bucket(bucketName).build();
 
         ListObjectsV2Response listResponse = client.listObjectsV2(listRequest);
@@ -99,7 +99,7 @@ public class awsClient {
      * @return True if the checksum matches, otherwise false.
      */
 
-    private boolean CheckSum(int index) {
+    private static boolean CheckSum(int index) {
         List<String> saveFiles = GetUploadedFiles();
 
         GetObjectAttributesRequest attrReq = GetObjectAttributesRequest.builder().bucket(bucketName)
