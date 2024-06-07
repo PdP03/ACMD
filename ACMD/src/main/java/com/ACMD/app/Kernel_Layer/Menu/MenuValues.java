@@ -30,6 +30,6 @@ public class MenuValues {
         public boolean equals(Object obj)
         {  // System.out.println("Verificato uguaglianza");
             MenuValues e = (MenuValues)obj;
-            return this.cmdName==e.cmdName;// && cmdDescription==e.cmdDescription;
+            return this.cmdName.equals(e.cmdName);// && this.cmdDescription.equals(e.cmdDescription) ; SOLO PER NOME COMANDO
         }
 }

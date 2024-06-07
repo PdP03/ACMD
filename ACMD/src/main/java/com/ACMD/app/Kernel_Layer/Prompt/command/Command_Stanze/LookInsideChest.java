@@ -27,7 +27,8 @@ public class LookInsideChest implements Command
             System.exit(1);
         }
         
-        //dire che chest è stata sbloccata perché termianto combattimento
+        //dire che chest è stata sbloccata perché termianto combattimento       <- scoperto che lo fa
+         gme.lookAround();
 
         return BackStateGame_Enum.UPDATE;
     }    

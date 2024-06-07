@@ -15,8 +15,8 @@ public class PlayerRemoveItem implements Command
         gme= g;
     }
 
+    @Override
     /**
-     * @Override
      * Nella chest:
      *  rimuovere oggetti 
      */
@@ -28,6 +28,6 @@ public class PlayerRemoveItem implements Command
         try { gme.playerRemove( struments.get(1) ); }
         catch(IllegalArgumentException e) { return BackStateGame_Enum.ERROR_DIGIT; }
 
-        return null;
+        return BackStateGame_Enum.UPDATE_STORAGE;
     }   
 }

@@ -27,38 +27,26 @@ public class Move implements Command
 
         Direction d;
 
-        switch( direction.get(1) )
-        {           //#TERMINARE : manca il controllo se la direzione è possibile
-            case "Nord":
-            case "N":
-            case "NORD":
-            case "North":
-            case "NORTH":
+        String dir = direction.get(1).toLowerCase();
+        switch( dir )
+        {
+            case "nord":
+            case "north":
                 d = Direction.NORTH;
              break;
 
-            case "Sud":
-            case "S":
-            case "SUD":
-            case "South":
-            case "SOUTH":
+            case "sud":
+            case "south":
                 d = Direction.SOUTH;
             break;
 
-            case "Est":         // destra
-            case "E":
-            case "EST":
-            case "East":
-            case "EAST":
+            case "est":         // destra
+            case "east":
                 d = Direction.EAST;
             break;
 
-            case "Ovest":       // sinistra
-            case "O":
-            case "OVEST":
-            case "West":
-            case "W":
-            case "WEST":
+            case "ovest":       // sinistra
+            case "west":
                 d = Direction.WEST;
            break;
 

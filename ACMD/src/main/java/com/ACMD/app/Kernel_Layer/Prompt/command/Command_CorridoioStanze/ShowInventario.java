@@ -17,13 +17,12 @@ public class ShowInventario implements Command
     }
 
     @Override
-    public BackStateGame_Enum execute(Vector<String> struments)
+    public BackStateGame_Enum execute(Vector<String> nothing)
     {
-        if( struments.size() > 2 )
+        if( nothing.size() > 1 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
-        try{ gme.playerRemove( struments.get(1) ); }
-        catch(IllegalArgumentException e){ return BackStateGame_Enum.ERROR_DIGIT; }
+        gme.getPlayerInv();
 
         return null;
     }   

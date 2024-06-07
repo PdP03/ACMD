@@ -21,18 +21,21 @@ public class BattleMenu extends Menu
         if( !charged )
         {
             //: oridne alfabetico
-           // loadMethods("back",          new BackFromRoom(generateMethods));
-           // loadMethods("help",          new HelpStanze(generateMethods) );
-            loadMethods("look", new LookInsideChest(generateMethods));
-            //loadMethods("openchest",     new LookInsideChest(generateMethods));
-           // loadMethods("showchest",c);
-            //loadMethods("showinventario",new ShowInventario(generateMethods));
-            //loadMethods("trashit",       new PlayerRemoveItem(generateMethods));
-            //loadMethods("trashstack",    new PlayerRemoveItemStack(generateMethods));
+            loadMethods("back",          new BackFromRoom(generateMethods));
+            loadMethods("help",          new HelpStanze(generateMethods,commandMap) );
+                    // loadMethods("look", new );
+                    // loadMethods("openchest",     new LookInsideChest(generateMethods));
+            loadMethods("showchest",     new LookInsideChest(generateMethods) );
+            loadMethods("showinventario",new ShowInventario(generateMethods));
+            loadMethods("take",          new TakeFromChest(generateMethods));
+            loadMethods("trashit",       new PlayerRemoveItem(generateMethods));
+            loadMethods("trashstack",    new PlayerRemoveItemStack(generateMethods));
 
-            if( commandMap.containsValue(null) )
-             throw new NoCommandExistException("Esiste ancora una voce che non ha un comando associato");
-
+            if( super.commandMap.containsValue(null) )
+            {
+                System.out.println( commandMap+"\n" );
+                throw new NoCommandExistException("Esiste ancora una voce che non ha un comando associato");
+            }
             charged= true;
         }
     }
@@ -44,9 +47,9 @@ public class BattleMenu extends Menu
         MenuValues voceCercare = new MenuValues(nomeComando,null);
         if( ! super.commandMap.containsKey( voceCercare ) )
             {
-                System.out.println("a"+nomeComando+"a");    //vedere se ha vicino caratteri strani
-                debugMethod();
-                throw new MenuVoiceNotFound(nomeComando);
+               // System.out.println("a"+nomeComando+"a");    //vedere se ha vicino caratteri strani
+               // debugMethod();
+                throw new MenuVoiceNotFound("Comando non trovato in file xml: "+nomeComando);
             }
             //per avere un debug ogni volta che si avvvia, che almeno tutte le voci che appaiano nel menù facciano qualcosa
 

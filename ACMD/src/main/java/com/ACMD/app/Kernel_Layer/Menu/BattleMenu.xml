@@ -1,4 +1,7 @@
 
+
+<!-- IMPORTANTE: non mettere li spazi su comandi, altrimenti vede 2 stringhe diverse: si può sistemare nel xml reader --> 
+
 <BattleMenu>
 <!--
  <menuvoice>
@@ -10,31 +13,31 @@
   <command> use </command>
   <description> (-String) Scrivendo il nome dell'oggetto lo equipaggi o usi </description>
  </menuvoice>
--->
+
  <menuvoice>
   <command>look</command>
   <description> DESCRIZIONE MANCANTE LOOK </description>
  </menuvoice>
 
  <menuvoice>
-  <command> openchest </command>
+  <command>openchest</command>
   <description> Funziona solo una volta sconfitto il mostro </description>
  </menuvoice>
-
+-->
 
 
  <menuvoice>
-  <command> take </command>
+  <command>take</command>
   <description> (-Stringa) Quando baule aperto si può scrivere nome oggetti si vogliono </description>
  </menuvoice>
 
  <menuvoice>
-  <command> trashit </command>
+  <command>trashit</command>
   <description> (-String) Se si vuole buttare via qualcosa da inventario </description>
  </menuvoice>
 
  <menuvoice>
-  <command> trashstack </command>
+  <command>trashstack</command>
   <description> (-String) Se si vuole buttare via qualcosa da inventario </description>
  </menuvoice>
 
@@ -46,18 +49,30 @@
 
 
  <menuvoice>
-  <command> showchest </command>
-  <description> Mostra la chest </description>
+  <command>showchest</command>
+  <description> Mostra la chest: solo dopo aver sconfitto il mostro</description>
  </menuvoice>
 
  <menuvoice>
-  <command> showinventario </command>
+  <command>showinventario</command>
   <description> Mostra il proprio inventario </description>
  </menuvoice>
 
+<menuvoice>
+  <command>help</command>
+  <description> Informazioni sui comandi disponibili in questo momento\n Alcuni comandi vogliono dei parametri </description>
+ </menuvoice>
+
+<!--          se avanza tempo, perché bisogna fare dei controlli sul peso del plyer, e per ora mancano i metodi per controllare
+<menuvoice>
+  <command>takeall</command>
+  <description> Prende tutti oggetti dalla chest </description>
+ </menuvoice>
+
  <menuvoice>
-  <command> help </command>
-  <description> Elenco e descirizione di cosa ci può essere </description>
-</menuvoice>
+  <command>takestack</command>
+  <description> Prende tutti oggetti di un tipo dalla chest </description>
+ </menuvoice>
+-->
 
 </BattleMenu>

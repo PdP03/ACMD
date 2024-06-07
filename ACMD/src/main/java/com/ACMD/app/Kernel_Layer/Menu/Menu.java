@@ -27,12 +27,7 @@ public abstract class Menu
         for(int i=0; i<menuItems.size(); i++)
          commandMap.put( menuItems.get(i), defaultVal); //carico nomi e descrizioni nelle mappe
 
-         if( ! commandMap.containsKey( menuItems.get(0) ) ) { System.out.println("Fatale"); System.exit(1); }
-          else
-            {
-                System.out.println("Menu"+menuItems.get(0)+"Menu");
-                System.out.println( menuItems.get(0).equals( new MenuValues( "look","" ) ) );
-            }
+         //debugMethod( menuItems );
     }
   
     public Command checkInTheMap(String cmmdName)
@@ -60,18 +55,16 @@ public abstract class Menu
     //saranno le singole classi a pensare a caricare i comandi corrispondeti con degli switch
     //devo passare anche il Command su cui istanziare i metodi
 
-    // ## classe privata per comodità
-/* 
-    private class MenuVoice
+    private void debugMethod( Vector<MenuValues> menuItems )
     {
-        String voice, description;      //dei comandi
-        public int hashCode()
-        {
-            return voice.hashCode();    //i comandi devono essere unici, quindi nessun problema di conflitti
-        }
-        public String toString()
-        {
-            return voice + "\n  " + description; 
-        }
-    }*/
+        if( ! commandMap.containsKey( menuItems.get(0) ) ) { System.out.println("Fatale"); System.exit(1); }
+          else
+            {
+                System.out.println("Menu"+menuItems.get(0)+"Menu");
+                System.out.println( menuItems.get(0).equals( new MenuValues( "look","" ) ) );
+                System.out.println( (menuItems.get(0).cmdName).length() );
+                System.out.println( (menuItems.get(0).cmdName).matches( "look" ) );
+
+            }
+    }
 }

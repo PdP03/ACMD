@@ -24,14 +24,16 @@ public class MovementMenu extends Menu
             //loadMethods("", new );
             loadMethods("back", new MoveBack(generateMethods));
             loadMethods("exit", new Exit(generateMethods));
-            loadMethods("help", new HelpCorridoio(generateMethods));
+            loadMethods("help", new HelpCorridoio(generateMethods,commandMap));
 
-            loadMethods("looknearsnodes", new LookAround(generateMethods));
+            loadMethods("looknearnodes", new LookAround(generateMethods));
             loadMethods("move", new Move(generateMethods));
 
-            if( commandMap.containsValue(null) )
-             throw new NoCommandExistException("Esiste ancora una voce che non ha un comando associato");
-
+            if( super.commandMap.containsValue(null) )
+            {
+                System.out.println( commandMap +"\n");
+                throw new NoCommandExistException("Esiste ancora una voce che non ha un comando associato");
+            }
             charged= true;
         }
     }
@@ -40,8 +42,8 @@ public class MovementMenu extends Menu
     protected void loadMethods(String nomeComando, Command c)
     {
         if( ! commandMap.containsKey( new MenuValues(nomeComando,null) ) )
-            throw new MenuVoiceNotFound();
-            //per avere un debug ogni volta che si avvvia, che almeno tutte le voci che appaiano nel menù facciano qualcosa
+         throw new MenuVoiceNotFound("Comando non trovato in file xml: "+nomeComando);
+        //per avere un debug ogni volta che si avvvia, che almeno tutte le voci che appaiano nel menù facciano qualcosa
 
         commandMap.put( new MenuValues(nomeComando,null),  c);
         //hash non fatto sulla descrizione
