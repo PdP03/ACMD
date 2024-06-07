@@ -663,4 +663,20 @@ public class GameEngine{
     public Coordinates getPlayerCord(){
         return map.getPlayerPos();
     }
+
+    /**
+     * restituisce il peso massimo del player
+     * @return byte peso
+     */
+    public byte getPlayerMaxWeight(){
+        return p.getMaxWeight();
+    }
+
+    /**
+     * Restituisce il peso del inventario di player
+     * @return byte peso
+     */
+    public byte getPlayerWeight(){
+        return p.getWeight();
+    }
 }

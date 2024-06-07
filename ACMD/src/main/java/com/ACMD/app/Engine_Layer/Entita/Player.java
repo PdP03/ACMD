@@ -180,4 +180,20 @@ public class Player extends Entity{
     public String showInv(){
         return inv.toString();
     }
+
+    /**
+     * restituisce il peso massimo del player
+     * @return byte peso
+     */
+    public byte getMaxWeight(){
+        return MAX_INVENTORY_WEIGHT;
+    }
+
+    /**
+     * Restituisce il peso del inventario di player
+     * @return byte peso
+     */
+    public byte getWeight(){
+        return (byte)inv.getTotalWeight();
+    }
 }
