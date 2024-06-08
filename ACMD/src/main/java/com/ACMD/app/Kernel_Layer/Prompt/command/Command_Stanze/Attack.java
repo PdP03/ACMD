@@ -63,6 +63,6 @@ public class Attack implements Command
 
 
               //#TERMINARE : tutta la parte sui controlli sul fatto che deve attaccare: controllare se automatico e cosa accade in caso di morte
-        return BackStateGame_Enum.COMBACT;
+        return BackStateGame_Enum.UPDATE_MAP;
     }   
 }

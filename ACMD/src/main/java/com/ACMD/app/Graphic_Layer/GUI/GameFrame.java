@@ -70,7 +70,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                     updateGraphics(new Coordinates(1,19));
                     setPlayerHealth(100);
                     setEnemyHealth(100);
-                    setPeso(100);
+                    setPeso(0);
                     isOutputReady=false;
                     jTextStory.setEnabled(false);       // by Carlo from Matteo
     }                   
@@ -115,8 +115,8 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
 
         jLabelMap=new JLabel("");
         try
-        {                        //TODO: Spostare il numero di chiavi a 4 
-            if(MapGraph.keys==2) //TODO Se ho 4 chiavi allora devo aprire la porta del drago spostare 2 a 4 
+        {                         
+            if(MapGraph.keys==4) 
             {
                 MapGraph.setDragon();
             }  

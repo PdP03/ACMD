@@ -22,12 +22,13 @@ public class TakeFromChest implements Command
     public BackStateGame_Enum execute(Vector<String> struments)
     {
         if( struments.size() > 2 )
-        return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
+        return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non va
 
        
         if( gme.canPlayerTake(struments.elementAt(1)) )
          {
             gme.playerTake(struments.get(1));
+            System.out.println("An element has beed added to the Inv.");
             gme.addBuffer("Hai inserito in inventario "+ struments.get(1));
          }
         

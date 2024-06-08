@@ -344,6 +344,7 @@ public class GameEngine{
      */
 
     public boolean canPlayerTake(String item){
+      
         if(!MapGraph.isStanza(map.getPlayerPos())){
             return false;
         }
