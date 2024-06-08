@@ -1,6 +1,7 @@
 package com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze;
 
 import java.util.HashMap;
+ import java.util.Set;
 import java.util.Vector;
 
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
@@ -28,7 +29,9 @@ public class HelpStanze implements Command
         if( nothing.size() > 1 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
-       
+        Set keys= memMap.keySet();
+        gme.addBuffer( keys.toString() );
+
         return BackStateGame_Enum.UPDATE_MAP;
     }   
 }

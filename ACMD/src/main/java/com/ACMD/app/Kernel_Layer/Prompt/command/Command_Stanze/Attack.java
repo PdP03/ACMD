@@ -30,23 +30,33 @@ public class Attack implements Command
         if( nothing.size() > 1 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
-        if( gme.isPlayerInRoom() )  //controllo non necessario, ma se per qualche motivo accade c'è un problema
+        if( ! gme.isPlayerInRoom() )  //controllo non necessario, ma se per qualche motivo accade c'è un problema
         {                           //tanto sarebbe una azione rara, quindi non importa per il controllo... se è per una cosa così critica  (altrimenti dovrei cercare di stare sempre in stati validi ed evitare if che possono cambiare)
             System.out.println("DEBUG: la voce è disponibile quando non si è in una stanza");
             System.exit(1);
         }
 
-    try{
-        while( true )
+        if( gme.playerCanAttack() )
         {
-            Thread.sleep(200);
-            gme.attack();
-            Prompt.updateBars(gme, gra);
+            gra.fromBufferToGraphic( "Ti scagli all'attacco" );
+
+            try{
+                while( true )
+                {
+                    Thread.sleep(200);
+                    gme.attack();
+                    Prompt.updateBars(gme, gra);
+                }
+             }
+            catch(InterruptedException e) { System.out.println( "Problemi con nella classe attacco" ); e.getStackTrace(); }
+            catch(DeathException e) { /*#TERMINARE Schermata per aver perso */ }
+            catch(IllegalArgumentException e) {}
         }
-     }
-    catch(InterruptedException e) { System.out.println( "Problemi con l'attacco" ); e.getStackTrace(); }
-    catch(DeathException e) { /*#TERMINARE Schermata per aver perso */ }
-    catch(IllegalArgumentException e) {}
+        else
+         gra.fromBufferToGraphic( "La stanza è vuota" );
+
+
+    
 
 
               //#TERMINARE : tutta la parte sui controlli sul fatto che deve attaccare: controllare se automatico e cosa accade in caso di morte

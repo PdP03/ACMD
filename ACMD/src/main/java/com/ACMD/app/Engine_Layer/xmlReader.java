@@ -33,7 +33,6 @@ public class xmlReader{
 
         //Creazione del oggetto che rappresenta il file (non interagisce con il sistema operativo)
         File xml = new File(fileDir);
-
         //inizializzazione del parser e lettura del file xml
         try{
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();

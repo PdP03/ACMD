@@ -136,12 +136,12 @@ System.out.println( mem );
         switch(state)
         {
             case UPDATE_MAP:
+            case MOVE:
                 if( gme.isPlayerInRoom() )
                     changeMenu( new BattleMenu(gme,graphA) );
                 else
                     changeMenu( new MovementMenu(gme) );    //cambio il menù
             //nessun break: continua eseguendo move
-            case MOVE:
                 graphA.move( gme.getPlayerCord() );
             break;
             case UPDATE_ENTITY:
