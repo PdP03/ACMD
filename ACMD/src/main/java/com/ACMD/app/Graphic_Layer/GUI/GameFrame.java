@@ -179,6 +179,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          */
         public void setPlayerHealth(int amount ) throws RuntimeException
         {
+            System.out.println("Vita "+amount );
             if(amount>100) throw new RuntimeException("value greater than 100 ");
             if (amount <0) amount =0; 
             jBarVitaPlayer.setValue(amount);
@@ -190,6 +191,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          */
         public void setEnemyHealth(int amount ) throws RuntimeException
         {
+            System.out.println("Enemy "+amount );
             if(amount>100) throw new RuntimeException("value greater than 100 ");
             if (amount <0) amount =0; 
             jBarVitaNemico.setValue(amount);
@@ -201,6 +203,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          */
         public void setPeso(int amount) throws RuntimeException
         {
+            System.out.println("Peso "+amount );
             if(amount>100) throw new RuntimeException("value greater than 100 ");
             if (amount <0) amount =0; 
             jBarPeso.setValue(amount);

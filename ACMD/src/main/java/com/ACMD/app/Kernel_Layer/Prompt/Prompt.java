@@ -96,7 +96,7 @@ int cont=0;
     {
         graphA.reScaleEnemyBar( gme.getMonsterLife(), gme.getMonsterMaxLife() );
         graphA.reScaleLifeBar(  gme.getPlayerLife(), gme.getPlayerMaxLife() );
-        graphA.reScaleWeightBar(gme.getPlayerWeight(), gme.getPlayerMaxWeight());
+        
     }
 
     //## Metodi Private ##
