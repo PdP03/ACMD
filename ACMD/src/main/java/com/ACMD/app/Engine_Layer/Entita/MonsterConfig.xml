@@ -59,7 +59,7 @@ i tag obbligatori sono:
     <base_level>1</base_level>
     <armor_multiplier>1</armor_multiplier>
     <damage_multiplier>1</damage_multiplier>
-    <health_multiplier>2</health_multiplier>
+    <health_multiplier>4</health_multiplier>
   </MOSTRO_MARINO>
 
 </monster>

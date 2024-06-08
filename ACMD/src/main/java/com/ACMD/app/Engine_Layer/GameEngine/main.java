@@ -32,25 +32,63 @@ public class main {
       
 
         engine.runSetup("Marriconda");
-        TitleFrame g = new TitleFrame();
-        g.setVisible(true);
+        //TitleFrame g = new TitleFrame();
+        //g.setVisible(true);
         //vado a trovare coboldo FUNZIONA CORRETTAMNETE
         engine.lookAround();
         System.out.println(engine.getBuffer());
         movePlayerToCoboldo(engine);
         
         //Player attacca
-        PlayerAttacca(engine, 3);
+        PlayerAttacca(engine);
 
         //stampo la chest
         engine.lookAround();
         System.out.println(engine.getBuffer());
+        engine.playerTake("pozione_cura");
+        engine.playerTake("pozione_");
+        engine.playerUse("pozione_cura");
+        engine.playerUse("pozione_");
 
        
         engine.onlyForDebugging();
-        
+         //stampo la chest dopo aver preso oggetti
+         engine.lookAround();
+         System.out.println(engine.getBuffer());
+
+
+         //sposto indietro il player
+         movePlayerBack(engine, 3);
          
-       
+
+         movePlayerToArmatura(engine);
+         
+         PlayerAttacca(engine);
+         engine.lookAround();
+         System.out.println(engine.getBuffer());
+
+         engine.playerTake("pozione_cura");
+         engine.playerUse("pozione_cura");
+
+         movePlayerBack(engine, 4);
+
+         movePlayerToMagoOscuro(engine);
+         PlayerAttacca(engine);
+         engine.lookAround();
+         System.out.println(engine.getBuffer());
+         engine.playerTake("pozione_cura");
+         engine.playerUse("pozione_cura");
+         engine.playerTake("pozione_");
+         engine.playerUse("pozione_");
+         movePlayerBack(engine, 3);
+
+         movePlayerToMare(engine);
+
+         PlayerAttacca(engine);
+         engine.lookAround();
+         System.out.println(engine.getBuffer());
+
+       /*
         
         String itemChoiche = getItemNameFromChest(items, engine);
         System.out.println("selezionato: "+itemChoiche);
@@ -62,7 +100,7 @@ public class main {
         
         engine.lookAround();
         System.out.println(engine.getBuffer());
- 
+  */
         /* 
         //torno idietro
         movePlayerBack(engine, 4);
@@ -126,10 +164,11 @@ public class main {
      * @param engine
      * @param i volte che il player attacca
      */
-    public static void PlayerAttacca(GameEngine engine, int i){
-        for(int j = 0; j < i; j++){
+    public static void PlayerAttacca(GameEngine engine){
+        while(engine.playerCanAttack()){
             engine.attack();
-        System.out.println(engine.getBuffer());
+            //engine.lookAround();
+            System.out.println(engine.getBuffer());
         }
     }
 
