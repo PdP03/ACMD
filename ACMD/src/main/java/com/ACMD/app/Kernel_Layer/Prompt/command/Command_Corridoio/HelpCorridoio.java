@@ -30,6 +30,6 @@ public class HelpCorridoio implements Command
 
         gme.addBuffer( mapMem.keySet().toString() );
        
-        return BackStateGame_Enum.UPDATE_MAP;
+        return BackStateGame_Enum.UPDATE;
     }   
 }

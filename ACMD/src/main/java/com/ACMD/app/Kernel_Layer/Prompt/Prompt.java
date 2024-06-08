@@ -71,6 +71,7 @@ cont++;
 System.out.println(cont+" "+s);
         //_split comando da parametri
         Vector<String> ary= removeDoubleSpaces(s);
+
             //STATO: input è vector di stringhe non vuote e toglie anche \n
         changeCommand(ary.get(0));
         BackStateGame_Enum mem = cmmd != null ?
@@ -147,6 +148,9 @@ System.out.println(cont+" "+s);
             break;
             case START:
                 changeMenu( new MovementMenu(gme) );
+            break;
+            case QUIT:
+                gmf.dispose();
             break;
 
             default: break;

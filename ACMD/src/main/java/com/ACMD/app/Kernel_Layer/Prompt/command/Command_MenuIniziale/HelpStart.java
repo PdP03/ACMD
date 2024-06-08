@@ -11,12 +11,12 @@ import com.ACMD.app.Kernel_Layer.Prompt.Command;
 public class HelpStart implements Command
 {
     private GameEngine gme;
-    private HashMap<MenuValues,Command> memMap;
+    private HashMap<MenuValues,Command> mapMem;
     public HelpStart(GameEngine g, HashMap<MenuValues,Command> memMap)
     {
         if(g==null) throw new IllegalArgumentException();
         gme= g;
-        this.memMap = memMap;
+        this.mapMem = memMap;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class HelpStart implements Command
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
         
-        gme.addBuffer( memMap.toString() );
+        gme.addBuffer( mapMem.keySet().toString() );
         return BackStateGame_Enum.UPDATE;
     }   
 }
