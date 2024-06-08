@@ -69,29 +69,29 @@
 
   <node>
     <position>3,8</position>
-    <isRoom>false</isRoom>
+    <isRoom>true</isRoom>
     <path_image>SeaMap.png</path_image>
   </node>
 
    <node>
     <position>12,8</position>
-    <isRoom>false</isRoom>
+    <isRoom>true</isRoom>
     <path_image>Mappa_Drago.png</path_image>
   </node>
 
   <node>
     <position>3,11</position>
-    <isRoom>false</isRoom>
+    <isRoom>true</isRoom>
     <path_image>Mappa_Kobold.png</path_image>
   </node>
   <node>
     <position>8,8</position>
-    <isRoom>false</isRoom>
+    <isRoom>true</isRoom>
     <path_image>Mappa_Elfo.png</path_image>
   </node>
     <node>
     <position>10,8</position>
-    <isRoom>false</isRoom>
+    <isRoom>true</isRoom>
     <path_image>ArmorMap.png</path_image>
   </node>
 

@@ -84,7 +84,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     {
         //===================================================================
         // Voglio spostare il player nel posto giusto se entra in una stanza
-        // NON FUNZIONA 
+        //
         // ==================================================================
         
         if(MapGraph.isStanza(c))
@@ -105,9 +105,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                 jInternalFrame1.setVisible(true);
                 return;
             }
-        
-        //FINE NON FUNZIONA
-        //=================================
+
         int x=c.getX(); 
         int y=c.getY();
         if(x <0 || x>19 || y<0 || y>19 ) throw new IllegalArgumentException("either x or y values not between 0-19 ");

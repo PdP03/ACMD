@@ -83,7 +83,8 @@ public class MapGraph {
 
         //Aggiunta NODI
         Coordinates cord;
-        for(NODE n: nodes){
+        for(NODE n: nodes)
+        {
             cord = n.getCoord();
         }
         //Aggiunta STANZE
@@ -91,14 +92,11 @@ public class MapGraph {
         for(RoomValues r:rooms)
         {
             ches = getRandomChest();
-           // System.out.println("Nel costruttore stanza playerXY " + r.PlayerX +" " +r.PlayerY);
             // Coordinate stanza , coord player, mostro, percorso
             nodes.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), factory.create(r.mtype), r.path, ches)); //Coordinate, 
             chambers.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), factory.create(r.mtype), r.path, ches));
         }
-        
-        
-
+        prinAllisRoom();
     }
 
     /**
@@ -383,9 +381,11 @@ public class MapGraph {
     }
     public static boolean isStanza(Coordinates coord) //throws NoSuchElementException
     {
+       
         for(Stanza s : chambers)
         {
-            if(s.getCoord().getX() == coord.getX() && s.getCoord().getY() == coord.getY() ) return s.isRoom();
+            
+            if(s.getPlayerPosition().getX() == coord.getX() && s.getPlayerPosition().getY() == coord.getY() ) return s.isRoom();
         }
         return false;
        // throw new NoSuchElementException("Nodo non presente");
@@ -452,7 +452,14 @@ public class MapGraph {
     {
         for(Stanza n: chambers)
         {
-            System.out.println("Il nodo" + n.getCoord().getX() +" " +n.getCoord().getY() + "ha" + n.playerPosition.getX() + " "+n.playerPosition.getY());
+            System.out.println("Il nodo " + n.getCoord().getX() +" " +n.getCoord().getY() + " ha " + n.playerPosition.getX() + " "+n.playerPosition.getY());
+        }
+    }
+    public void prinAllisRoom()
+    {
+        for(NODE n:nodes)
+        {
+            System.out.println("Il nodo"+ n.getCoord().toString()+" è stanza: "+n.isStanza());
         }
     }
     
