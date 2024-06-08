@@ -86,24 +86,33 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         // Voglio spostare il player nel posto giusto se entra in una stanza
         // NON FUNZIONA 
         // ==================================================================
-        /*
-                if(MapGraph.isStanza(c))
-                {
-                    int x,y;
-                    Coordinates temp = MapGraph.getPlayerPositionOf(c);
-                    x=temp.getX();
-                    y=temp.getY();
-                    System.out.println("Ti sposto in" +x+y);
-                    move(x,y);
-                    return;
-                }
-        */
+        
+        if(MapGraph.isStanza(c))
+            {
+                int x,y;
+                Coordinates temp = MapGraph.getPlayerPositionOf(c);
+                x=temp.getX();
+                y=temp.getY();
+                System.out.println("Ti sposto in" +x+y);
+                move(new Coordinates(x,y));
+                String iconPath = MapGraph.getIconOf(new Coordinates(x,y));
+                iconPath=ParsePath.getPath(imageDirPath,iconPath);
+                ImageIcon theIcon = new ImageIcon(iconPath); 
+                jLabelMap.setIcon(theIcon);
+                SwingUtilities.updateComponentTreeUI(jLabelMap);
+                jInternalFrame1.add(jLabelMap);
+    
+                jInternalFrame1.setVisible(true);
+                return;
+            }
+        
         //FINE NON FUNZIONA
         //=================================
         int x=c.getX(); 
         int y=c.getY();
         if(x <0 || x>19 || y<0 || y>19 ) throw new IllegalArgumentException("either x or y values not between 0-19 ");
         jInternalFrame1.remove(jLabelMap); //jInternalFrame è il frame in cui c'è la mappa
+
         jLabelMap=new JLabel("");
         try
         {                        //TODO: Spostare il numero di chiavi a 4 
@@ -126,13 +135,20 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                         jLabelMap.add(jButtonPlayer);
                     }else
                     {
-                        JLabel l=new JLabel(i+""+ii);
+                        JLabel l=new JLabel("");
                         l.setForeground(Color.RED);
                         jLabelMap.add(l);
                     }
                 }
             }
+            
+            String iconPath = MapGraph.getIconOf(new Coordinates(x,y));
+            iconPath=ParsePath.getPath(imageDirPath,iconPath);
+            ImageIcon theIcon = new ImageIcon(iconPath); 
+            jLabelMap.setIcon(theIcon);
+            SwingUtilities.updateComponentTreeUI(jLabelMap);
             jInternalFrame1.add(jLabelMap);
+
             jInternalFrame1.setVisible(true);
             }catch(Exception e){System.err.println("Errore ");}
         }
@@ -439,11 +455,12 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      */
     public String textInput()
     {
-         System.out.printf("");
+        System.out.printf("");
         if(isOutputReady){
             isOutputReady=false;
             String theInput = jTextComandi.getText();
-            jTextComandi.setText("");
+            jTextComandi.setText(null);
+
             return theInput;}
         return null; 
        

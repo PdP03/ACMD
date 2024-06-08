@@ -25,6 +25,7 @@ public class GraphicAdapter
      { gmf.writeBlueOnConsole(textOUT); }
     public void move(Coordinates coord)
      { gmf.move( coord ); }
+     //TODO: controlla stringa vuota
     public String busyWaitInput()
      { String s; while( (s= gmf.textInput()) == null ); return s;}
     

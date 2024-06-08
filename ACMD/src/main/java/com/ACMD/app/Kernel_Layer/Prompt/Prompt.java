@@ -68,11 +68,11 @@ int cont=0;
 
       //  if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
 cont++;
-      String s = graphA.busyWaitInput();
-System.out.println(cont+" "+s);
-        //_split comando da parametri
-        Vector<String> ary= removeDoubleSpaces(s);
 
+      String s = graphA.busyWaitInput();
+      if(s.equals("")) return BackStateGame_Enum.UPDATE;
+        //_split comando da parametri
+        Vector<String> ary= removeDoubleSpaces(s);  
             //STATO: input è vector di stringhe non vuote e toglie anche \n
         changeCommand(ary.get(0));
         BackStateGame_Enum mem = 
