@@ -13,7 +13,7 @@ public class GraphicAdapter
     }
 
     public void reScaleLifeBar(int min, int max) { reScaleLifeBar(((double)min)/max); }            //0 a 100
-    public void reScaleLifeBar(double percentile){ gmf.setPlayerHealth( (int)percentile*100 ); }   //0 a 100
+    public void reScaleLifeBar(double percentile){ gmf.setPlayerHealth( (int)(percentile*100 ) ); }   //0 a 100
 
     public void reScaleEnemyBar(int min, int max) { reScaleEnemyBar(((double)min)/max); }          //0 a 100
     public void reScaleEnemyBar(double percentile){ gmf.setEnemyHealth( (int)(percentile*100) ); }//0 a 100
