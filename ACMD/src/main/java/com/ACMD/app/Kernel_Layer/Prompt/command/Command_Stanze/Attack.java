@@ -36,19 +36,27 @@ public class Attack implements Command
             System.exit(1);
         }
 
-        gme.playerCanAttack();
-
-    try{
-        while( true )
+        if( gme.playerCanAttack() )
         {
-            Thread.sleep(200);
-            gme.attack();
-            Prompt.updateBars(gme, gra);
+            gra.fromBufferToGraphic( "Ti scagli all'attacco" );
+
+            try{
+                while( true )
+                {
+                    Thread.sleep(200);
+                    gme.attack();
+                    Prompt.updateBars(gme, gra);
+                }
+             }
+            catch(InterruptedException e) { System.out.println( "Problemi con nella classe attacco" ); e.getStackTrace(); }
+            catch(DeathException e) { /*#TERMINARE Schermata per aver perso */ }
+            catch(IllegalArgumentException e) {}
         }
-     }
-    catch(InterruptedException e) { System.out.println( "Problemi con l'attacco" ); e.getStackTrace(); }
-    catch(DeathException e) { /*#TERMINARE Schermata per aver perso */ }
-    catch(IllegalArgumentException e) {}
+        else
+         gra.fromBufferToGraphic( "La stanza è vuota" );
+
+
+    
 
 
               //#TERMINARE : tutta la parte sui controlli sul fatto che deve attaccare: controllare se automatico e cosa accade in caso di morte
