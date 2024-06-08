@@ -57,6 +57,13 @@ public class Move implements Command
          gme.movePlayer(d);
        // else          #FORSE: necesario mettere in buffer errore
 
+       if(gme.isPlayerInRoom())
+       {
+        System.out.println("DEBUG: Entrato nella stanza");
+        return BackStateGame_Enum.UPDATE_MAP;
+        }
+        else System.out.println("DEBUG: non ancora in una stanza");
+
         return BackStateGame_Enum.MOVE;
     }
 }

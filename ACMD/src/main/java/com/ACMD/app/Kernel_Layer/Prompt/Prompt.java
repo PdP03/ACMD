@@ -67,10 +67,9 @@ int cont=0;
     {//_richiama la grafica di input, aspetta il comando, fa le verifiche necessarie 
 
       //  if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
-cont++;
 
       String s = graphA.busyWaitInput();
-      if(s.equals("")) return BackStateGame_Enum.UPDATE;
+                                                    //DEBUG if(s.equals("")) return BackStateGame_Enum.UPDATE;
         //_split comando da parametri
         Vector<String> ary= removeDoubleSpaces(s);  
             //STATO: input è vector di stringhe non vuote e toglie anche \n
@@ -79,8 +78,6 @@ cont++;
                 cmmd != null ?
                 cmmd.execute(ary) :   //passo tutti i parametri, in quanto non so cosa gli serva
                 BackStateGame_Enum.ERROR_DIGIT;
-
-System.out.println( mem );
 
         //_dopo aver eseguito, faccio gli aggiornamenti necessari
         chooseUpdate(mem);
@@ -140,8 +137,9 @@ System.out.println( mem );
                 if( gme.isPlayerInRoom() )
                     changeMenu( new BattleMenu(gme,graphA) );
                 else
-                    changeMenu( new MovementMenu(gme) );    //cambio il menù
-            //nessun break: continua eseguendo move
+                    changeMenu( new MovementMenu(gme) );  //cambio il menù
+            //nessun break: continua eseguendo MOVE:
+            
                 graphA.move( gme.getPlayerCord() );
             break;
             case UPDATE_ENTITY:
@@ -166,6 +164,6 @@ System.out.println( mem );
     private void changeCommand(String input)
     {
         cmmd= mn.checkInTheMap(input);
-        graphA.fromBufferToGraphic( gme.getBuffer() );
+       // graphA.fromBufferToGraphic( gme.getBuffer() );
     }
 }
