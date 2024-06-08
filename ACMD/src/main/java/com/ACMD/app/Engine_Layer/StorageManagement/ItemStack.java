@@ -95,7 +95,7 @@ public /*abstract*/ class ItemStack
     public boolean equals(Object o)
      {
         ItemStack i= (ItemStack)o;
-        return this.tipology==i.tipology && this.name==i.name && this.value==i.value && this.weight==i.weight;
+        return this.tipology==i.tipology && this.name.equals(i.name) && this.value==i.value && this.weight==i.weight;
 //interessante che non segna errore su o anche se non esiste in Object la variabile tipology
      }
 
