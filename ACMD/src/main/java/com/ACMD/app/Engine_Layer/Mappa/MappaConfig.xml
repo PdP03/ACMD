@@ -100,8 +100,8 @@
   <room>
     <position>8,7</position>
     <mtype>MOSTRO_MARINO</mtype>
-    <positionPlayer>2,11</positionPlayer>
-    <path_image>Mappa_Kobold.png</path_image>
+    <positionPlayer>3,8</positionPlayer>
+    <path_image>SeaMap.png</path_image>
     <isRoom>true</isRoom>
   </room>
 
