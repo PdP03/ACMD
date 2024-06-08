@@ -16,10 +16,10 @@ public class GraphicAdapter
     public void reScaleLifeBar(double percentile){ gmf.setPlayerHealth( (int)(percentile*100) ); } //0 a 100
 
     public void reScaleEnemyBar(int min, int max) { reScaleEnemyBar(((double)min)/max); }          //0 a 100
-    public void reScaleEnemyBar(double percentile){ gmf.setPlayerHealth( (int)(percentile*100) ); }//0 a 100
+    public void reScaleEnemyBar(double percentile){ gmf.setEnemyHealth( (int)(percentile*100) ); }//0 a 100
 
     public void reScaleWeightBar(int min, int max) { reScaleWeightBar(((double)min)/max); }         //0 a 100
-    public void reScaleWeightBar(double percentile){ gmf.setPlayerHealth( (int)(percentile*100) ); }//0 a 100
+    public void reScaleWeightBar(double percentile){ gmf.setPeso( (int)(percentile*100) ); }//0 a 100
 
     public void fromBufferToGraphic(String textOUT)
      { gmf.writeBlueOnConsole(textOUT); }
