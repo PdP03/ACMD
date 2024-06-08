@@ -574,9 +574,6 @@ public class GameEngine{
      * @return short vita massima
      */
     public short getMonsterMaxLife() throws IllegalAccessError{
-        if(!playerCanAttack()){
-            throw new IllegalAccessError(); 
-        }
 
         return map.getMonsterAt(map.getPlayerPos()).getMaxLife();
     }
@@ -587,9 +584,6 @@ public class GameEngine{
      * @return short vita attuale
      */
     public short getMonsterLife() throws IllegalAccessError{
-        if(!playerCanAttack()){
-            throw new IllegalAccessError(); 
-        }
 
         return map.getMonsterAt(map.getPlayerPos()).getLife();
     }
