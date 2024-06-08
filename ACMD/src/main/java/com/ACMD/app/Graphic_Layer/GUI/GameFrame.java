@@ -126,7 +126,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                         jLabelMap.add(jButtonPlayer);
                     }else
                     {
-                        JLabel l=new JLabel(" ");
+                        JLabel l=new JLabel(i+""+ii);
                         l.setForeground(Color.RED);
                         jLabelMap.add(l);
                     }
@@ -442,7 +442,9 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          System.out.printf("");
         if(isOutputReady){
             isOutputReady=false;
-            return jTextComandi.getText();}
+            String theInput = jTextComandi.getText();
+            jTextComandi.setText("");
+            return theInput;}
         return null; 
        
     }
