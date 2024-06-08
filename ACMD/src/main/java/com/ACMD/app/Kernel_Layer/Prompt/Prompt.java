@@ -53,6 +53,7 @@ int cont=0;
         gmf= new GameFrame();
         gmf.setVisible(true);;
         gme= engine;
+        gme.runSetup("Brico");
         mn = new StartMenu(gme);
 
         graphA = new GraphicAdapter(gmf);
