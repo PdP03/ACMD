@@ -22,9 +22,9 @@ public class ShowInventario implements Command
         if( nothing.size() > 1 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
-        gme.getPlayerInv();
+        gme.addBuffer( gme.getPlayerInv() );
 
-        return null;
+        return BackStateGame_Enum.UPDATE_STORAGE;
     }   
 
 }

@@ -29,6 +29,7 @@ public class TakeFromChest implements Command
          {
             gme.playerTake(struments.get(1));
          }
+        
 
         return BackStateGame_Enum.UPDATE_STORAGE;
     }   
