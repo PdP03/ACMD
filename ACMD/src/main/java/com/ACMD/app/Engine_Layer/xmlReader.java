@@ -37,7 +37,7 @@ public class xmlReader{
         //inizializzazione del parser e lettura del file xml
         try{
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            docXml = builder.parse( );
+            docXml = builder.parse( xml );
         }
         catch(Exception e){
             e.printStackTrace();
