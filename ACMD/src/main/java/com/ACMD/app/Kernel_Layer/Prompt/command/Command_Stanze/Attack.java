@@ -41,12 +41,15 @@ public class Attack implements Command
             gra.fromBufferToGraphic( "Ti scagli all'attacco" );
 
             try{
-                while( true )
+                while( gme.playerCanAttack() )
                 {
                     Thread.sleep(200);
                     gme.attack();
                     Prompt.updateBars(gme, gra);
                 }
+                //gra.fromBufferToGraphic( "Sconfitto" );
+
+                
              }
             catch(InterruptedException e) { System.out.println( "Problemi con nella classe attacco" ); e.getStackTrace(); }
             catch(DeathException e) { /*#TERMINARE Schermata per aver perso */ }
