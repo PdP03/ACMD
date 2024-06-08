@@ -43,9 +43,9 @@ public class Attack implements Command
             try{
                 while( gme.playerCanAttack() )
                 {
-                    Thread.sleep(200);
+                    Thread.sleep(350);
+                    Prompt.updateBars(gme, gra);    //invertito per non avere i problemi che cancellava gli oggetti
                     gme.attack();
-                    Prompt.updateBars(gme, gra);
                 }
                 //gra.fromBufferToGraphic( "Sconfitto" );
 
