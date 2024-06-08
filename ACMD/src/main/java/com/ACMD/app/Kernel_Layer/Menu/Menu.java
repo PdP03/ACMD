@@ -32,12 +32,14 @@ public abstract class Menu
   
     public Command checkInTheMap(String cmmdName)
     {
-        Command cmd= commandMap.get( new MenuValues(cmmdName,null) );    //controllo solo tramite il nome e non la descrizione
+        //Command cmd=
+        return commandMap.get( new MenuValues(cmmdName,null) );
+            //controllo solo tramite il nome e non la descrizione
         
       /*  if(cmd==null)
          new ErroreInput(null);     //se non è stato trovato
 */
-        return cmd;
+        //return cmd;
     }
     public String toString()
     {

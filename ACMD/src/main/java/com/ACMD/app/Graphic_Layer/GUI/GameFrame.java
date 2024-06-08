@@ -439,7 +439,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      */
     public String textInput()
     {
-        System.out.printf("");
+         System.out.printf("");
         if(isOutputReady){
             isOutputReady=false;
             return jTextComandi.getText();}

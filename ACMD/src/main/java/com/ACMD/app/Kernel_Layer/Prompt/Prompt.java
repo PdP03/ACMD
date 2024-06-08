@@ -74,13 +74,16 @@ System.out.println(cont+" "+s);
 
             //STATO: input è vector di stringhe non vuote e toglie anche \n
         changeCommand(ary.get(0));
-        BackStateGame_Enum mem = cmmd != null ?
+        BackStateGame_Enum mem = 
+                cmmd != null ?
                 cmmd.execute(ary) :   //passo tutti i parametri, in quanto non so cosa gli serva
                 BackStateGame_Enum.ERROR_DIGIT;
 
+System.out.println( mem );
+
         //_dopo aver eseguito, faccio gli aggiornamenti necessari
         chooseUpdate(mem);
-        gme.addBuffer( mn.toString() );//DEBUG
+       // gme.addBuffer( mn.toString() );//DEBUG
         graphA.fromBufferToGraphic( gme.getBuffer() );//stampa tutti i messaggi
 
         return mem;
@@ -162,5 +165,6 @@ System.out.println(cont+" "+s);
     private void changeCommand(String input)
     {
         cmmd= mn.checkInTheMap(input);
+        graphA.fromBufferToGraphic( gme.getBuffer() );
     }
 }
