@@ -29,8 +29,17 @@ public class HelpStanze implements Command
         if( nothing.size() > 1 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
-        Set keys= memMap.keySet();
-        gme.addBuffer( keys.toString() );
+        if( ! gme.isPlayerInRoom() )  //controllo non necessario, ma se per qualche motivo accade c'è un problema
+        {                           //tanto sarebbe una azione rara, quindi non importa per il controllo... se è per una cosa così critica  (altrimenti dovrei cercare di stare sempre in stati validi ed evitare if che possono cambiare)
+            System.out.println("DEBUG: la voce è disponibile quando non si è in una stanza");
+            System.exit(1);
+        }
+
+        Object[] ary = memMap.keySet().toArray();
+        String s="";
+        for(int i=0; i<ary.length; i++)
+            s+= ary[i].toString()+"\n";
+        gme.addBuffer( s );
 
         return BackStateGame_Enum.UPDATE_MAP;
     }   

@@ -28,8 +28,12 @@ public class HelpStart implements Command
         if( nothing.size() > 1 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
-        
-        gme.addBuffer( mapMem.keySet().toString() );
+        Object[] ary = mapMem.keySet().toArray();
+        String s="";
+        for(int i=0; i<ary.length; i++)
+            s+= ary[i].toString()+"\n";
+        gme.addBuffer( s );
+
         return BackStateGame_Enum.UPDATE;
     }   
 }
