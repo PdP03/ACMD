@@ -58,10 +58,12 @@ public class MapGraph {
     {
         for(Stanza s:chambers) 
         {
-            if(s.getCoord().getX() == c.getX() && s.getCoord().getY() == c.getY())
+            if(s.getPlayerPosition().getX() == c.getX() && s.getPlayerPosition().getY() == c.getY() )
                 return s.playerPosition;
+          
         }
-        throw new NoSuchElementException("Non verrò mai lanciata");
+        //throw new NoSuchElementException("Non verrò mai lanciata");
+        return c; 
     }
     /**
      * Costruttore che prende direttamente l'xml
@@ -385,7 +387,7 @@ public class MapGraph {
         for(Stanza s : chambers)
         {
             
-            if(s.getPlayerPosition().getX() == coord.getX() && s.getPlayerPosition().getY() == coord.getY() ) return s.isRoom();
+            if(s.getPlayerPosition().getX() == coord.getX() && s.getPlayerPosition().getY() == coord.getY() || s.getCoord().getX() == coord.getX() && s.getCoord().getY() == coord.getY() ) return s.isStanza();
         }
         return false;
        // throw new NoSuchElementException("Nodo non presente");

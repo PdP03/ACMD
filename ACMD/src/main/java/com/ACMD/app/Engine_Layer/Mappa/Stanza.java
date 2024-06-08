@@ -23,9 +23,9 @@ public class Stanza extends NODE
     public Coordinates getCoordinates(){return coord;}
     public Monster getMonster(){return monster;}
     @Override
-    public boolean isRoom(){return true;}
+    public boolean isRoom(){return isRoom;}
     @Override
-    public boolean isStanza(){return true;}
+    public boolean isStanza(){return isRoom;}
     public Coordinates getPlayerPosition(){return playerPosition;}
 
     

@@ -82,18 +82,20 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      */
     public void move (Coordinates c) throws IllegalArgumentException
     {
+        System.out.println("move chiamato con" + c.toString());
         //===================================================================
         // Voglio spostare il player nel posto giusto se entra in una stanza
         //
         // ==================================================================
         
-        if(MapGraph.isStanza(c))
+        /*if(MapGraph.isStanza(c))
             {
                 int x,y;
                 Coordinates temp = MapGraph.getPlayerPositionOf(c);
                 x=temp.getX();
                 y=temp.getY();
                 System.out.println("Ti sposto in" +x+y);
+                if(MapGraph.getPlayerPositionOf(c).getX()==c.getX() && MapGraph.getPlayerPositionOf(c).getY() == c.getY()) return;
                 move(new Coordinates(x,y));
                 String iconPath = MapGraph.getIconOf(new Coordinates(x,y));
                 iconPath=ParsePath.getPath(imageDirPath,iconPath);
@@ -105,7 +107,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                 jInternalFrame1.setVisible(true);
                 return;
             }
-
+        */
         int x=c.getX(); 
         int y=c.getY();
         if(x <0 || x>19 || y<0 || y>19 ) throw new IllegalArgumentException("either x or y values not between 0-19 ");

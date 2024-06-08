@@ -70,7 +70,7 @@
   <node>
     <position>3,8</position>
     <isRoom>true</isRoom>
-    <path_image>SeaMap.png</path_image>
+    <path_image>MostroMarino.png</path_image>
   </node>
 
    <node>
@@ -87,7 +87,7 @@
   <node>
     <position>8,8</position>
     <isRoom>true</isRoom>
-    <path_image>Mappa_Elfo.png</path_image>
+    <path_image>ElfMap.png</path_image>
   </node>
     <node>
     <position>10,8</position>
@@ -101,7 +101,7 @@
     <position>8,7</position>
     <mtype>MOSTRO_MARINO</mtype>
     <positionPlayer>3,8</positionPlayer>
-    <path_image>SeaMap.png</path_image>
+    <path_image>MostroMarino.png</path_image>
     <isRoom>true</isRoom>
   </room>
 
@@ -125,7 +125,7 @@
     <position>17,1</position>
     <mtype>MAGO_OSCURO</mtype>
     <positionPlayer>8,8</positionPlayer>
-    <path_image>Mappa_Elfo.png</path_image>
+    <path_image>ElfMap.png</path_image>
     <isRoom>true</isRoom>
   </room>
 
