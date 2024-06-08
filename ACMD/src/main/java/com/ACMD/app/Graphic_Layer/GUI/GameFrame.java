@@ -556,7 +556,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
             {
                 if(evt.getSource()==jButtonInvio)
                 isOutputReady=true;
-                System.out.println("Hai premuto il bottone: isOutputReady è " + isOutputReady);
+                //System.out.println("Hai premuto il bottone: isOutputReady è " + isOutputReady);
                 {
                     isOutputReady=true;
                 try {

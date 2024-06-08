@@ -42,6 +42,7 @@ public class GameEngine{
     public GameEngine(boolean enableColor){
         p = null;
         map = new MapGraph();
+        map.printAllPlayerPosition();
         buffer = null;
         lose = false;
         potionsActiveted = null;

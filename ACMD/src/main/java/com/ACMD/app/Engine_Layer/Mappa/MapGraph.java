@@ -91,6 +91,7 @@ public class MapGraph {
         for(RoomValues r:rooms)
         {
             ches = getRandomChest();
+           // System.out.println("Nel costruttore stanza playerXY " + r.PlayerX +" " +r.PlayerY);
             // Coordinate stanza , coord player, mostro, percorso
             nodes.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), factory.create(r.mtype), r.path, ches)); //Coordinate, 
             chambers.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), factory.create(r.mtype), r.path, ches));
@@ -444,6 +445,14 @@ public class MapGraph {
             if(n.getSouth()!=null) System.out.println("\tA sud ha"+n.getSouth());
             if(n.getEast()!=null) System.out.println("\tA est ha"+n.getEast());
             if(n.getWest()!=null) System.out.println("\tA West ha"+n.getWest());
+        }
+    }
+
+    public void printAllPlayerPosition()
+    {
+        for(Stanza n: chambers)
+        {
+            System.out.println("Il nodo" + n.getCoord().getX() +" " +n.getCoord().getY() + "ha" + n.playerPosition.getX() + " "+n.playerPosition.getY());
         }
     }
     

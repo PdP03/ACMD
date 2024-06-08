@@ -36,6 +36,7 @@
   <node>
     <position>7,7</position>
     <est>8,7</est>
+    <sud>8,13</sud>
     <isRoom>false</isRoom>
     <path_image>Mappa_Definitiva.png</path_image>
   </node>
@@ -65,14 +66,41 @@
     <path_image>Mappa_Definitiva.png</path_image>
   </node>
 
+  <node>
+    <position>3,8</position>
+    <isRoom>false</isRoom>
+    <path_image>SeaMap.png</path_image>
+  </node>
+
+   <node>
+    <position>12,8</position>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Drago.png</path_image>
+  </node>
+
+  <node>
+    <position>3,11</position>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Kobold.png</path_image>
+  </node>
+  <node>
+    <position>8,8</position>
+    <isRoom>false</isRoom>
+    <path_image>Mappa_Elfo.png</path_image>
+  </node>
+    <node>
+    <position>10,8</position>
+    <isRoom>false</isRoom>
+    <path_image>ArmorMap.png</path_image>
+  </node>
 
 
 
   <room>
     <position>8,7</position>
     <mtype>MOSTRO_MARINO</mtype>
-    <positionPlayer>3,8</positionPlayer>
-    <path_image>SeaMap.png</path_image>
+    <positionPlayer>2,11</positionPlayer>
+    <path_image>Mappa_Kobold.png</path_image>
     <isRoom>true</isRoom>
   </room>
 
@@ -87,7 +115,7 @@
   <room>
     <position>1,11</position>
     <mtype>COBOLDO</mtype>
-    <positionPlayer>2,11</positionPlayer>
+    <positionPlayer>3,11</positionPlayer>
     <path_image>Mappa_Kobold.png</path_image>
     <isRoom>true</isRoom>
   </room>
