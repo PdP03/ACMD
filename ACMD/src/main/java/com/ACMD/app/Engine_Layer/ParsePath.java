@@ -29,7 +29,9 @@ public class ParsePath {
         */
         String[] splitted = rootDir.split("ACMD");
         rootDir = splitted[0]+"ACMD";
-        String fileDir = rootDir+packagePath+fileName;
+        //Test di path relativa, uncommentare per ritornare alla path assoluta
+        //String fileDir = rootDir+packagePath+fileName;
+        String fileDir = packagePath+fileName;
         //check sul SO in uso poichè Unix usa / come separatore mentre windws \
         String SOtype = System.getProperty("os.name");
         if(SOtype.contains("Linux")){
