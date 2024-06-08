@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Per inserire nuovi item e sufficente aggiungere una voce con il nome del item (per inserire un item con nome sciabola e sufficente 
+<?xml version="1.0" encoding="UTF-8"?>!-- Per inserire nuovi item e sufficente aggiungere una voce con il nome del item (per inserire un item con nome sciabola e sufficente 
     definire <sciabola>...</sciabola>)
     I tag obbligatori sono:
     - <description>
