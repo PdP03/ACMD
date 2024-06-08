@@ -25,25 +25,25 @@ public class MenuGenerate_test
     @Test
     public void menuBattle()
     {
-        new BattleMenu(new GameEngine(),new GraphicAdapter(null));
+        new BattleMenu(new GameEngine(false),new GraphicAdapter(null));
         //si supera se non vengono lanciare eccezioni
     }
     @Test
     public void menuMovement()
     {
-        new MovementMenu(new GameEngine() );
+        new MovementMenu(new GameEngine(false) );
         //si supera se non vengono lanciare eccezioni
     }
     @Test
     public void menuStart()
     {
-        new StartMenu(new GameEngine() );
+        new StartMenu(new GameEngine(false) );
         //si supera se non vengono lanciare eccezioni
     }
     @Test
     public void menuExit()
     {
-        new ExitMenu(new GameEngine() );
+        new ExitMenu(new GameEngine(false) );
         //si supera se non vengono lanciare eccezioni
     }
 

@@ -33,12 +33,13 @@ public class GameEngine{
     boolean lose;
     String buffer;
     Map<ItemType, Byte> potionsActiveted;
+    static boolean enableFormatted;
 
     /**
      * Costruttore di default istanzia solo GameEngine non è possibile utilizzarla
      * se prima non si richiama runSetup(String)
      */
-    public GameEngine(){
+    public GameEngine(boolean enableColor){
         p = null;
         map = new MapGraph();
         buffer = null;
@@ -46,6 +47,7 @@ public class GameEngine{
         potionsActiveted = null;
         playerStack = null;
         factory = null;
+        enableFormatted = enableColor;
     }
 
     /**
@@ -85,7 +87,11 @@ public class GameEngine{
     public static final String ANSI_BLUE_BOLD = "\033[1;34m";   // blu in grassetto
 
     private static String format(String str, String colorTAG){
-        return colorTAG+str+ANSI_RESET;
+        if(enableFormatted){
+            return colorTAG+str+ANSI_RESET;
+        }
+
+        return str;
     }
 
     /**
