@@ -19,7 +19,7 @@ public class TestGameEngine {
 
     @Before
     public void startup(){
-        engine = new GameEngine();
+        engine = new GameEngine(false);
         engine.runSetup("prova");
     }
 

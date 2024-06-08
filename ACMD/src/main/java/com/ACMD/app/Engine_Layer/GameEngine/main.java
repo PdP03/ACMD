@@ -21,7 +21,7 @@ public class main {
     static final String fileName = "ItemStackConfig.xml";
     public static void main(String[] args){
       
-        GameEngine engine = new GameEngine();
+        GameEngine engine = new GameEngine(true);
 
         reader = new xmlReader(StorageDir, fileName);
        

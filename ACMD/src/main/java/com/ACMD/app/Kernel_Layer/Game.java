@@ -14,9 +14,8 @@ import com.ACMD.app.Kernel_Layer.Prompt.Prompt;
  * 
  */
 public class Game{
-    private static GameEngine engine = new GameEngine();
-    public static void main(String[] args)
-    {
+    private static GameEngine engine = new GameEngine(false);
+    public static void main(String[] args){
         
         Prompt p = new Prompt(engine);
         Boolean exit = false;
