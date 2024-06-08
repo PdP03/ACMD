@@ -24,6 +24,11 @@ public class TakeFromChest implements Command
         if( struments.size() > 2 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non va
 
+        if( ! gme.isPlayerInRoom() )  //controllo non necessario, ma se per qualche motivo accade c'è un problema
+        {                           //tanto sarebbe una azione rara, quindi non importa per il controllo... se è per una cosa così critica  (altrimenti dovrei cercare di stare sempre in stati validi ed evitare if che possono cambiare)
+            System.out.println("DEBUG: la voce è disponibile quando non si è in una stanza");
+            System.exit(1);
+        }
        
         if( gme.canPlayerTake(struments.elementAt(1)) )
          {

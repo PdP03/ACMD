@@ -72,7 +72,7 @@ public class ItemFactory
     public ItemStack getItem(String name)
     {
         for(int i=0; i<itemConfigurazione.size(); i++)
-            if( name == (itemConfigurazione.get(i) ).getName() ) return itemConfigurazione.get(i);
+            if( name.equals( (itemConfigurazione.get(i) ).getName() ) ) return itemConfigurazione.get(i);
 
         return null;
     }
