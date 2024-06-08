@@ -22,7 +22,7 @@
  </menuvoice>
 
  <menuvoice>
-  <command>looknearnodes</command>
+  <command>look</command>
   <description> Mostra le posizioni vicine disponibili </description>
  </menuvoice>
 

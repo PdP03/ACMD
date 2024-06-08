@@ -29,7 +29,7 @@ public class MovementMenu extends Menu
             loadMethods("back", new MoveBack(generateMethods));
 
             loadMethods("help", new HelpCorridoio(generateMethods,commandMap));
-            loadMethods("looknearnodes", new LookAround(generateMethods));
+            loadMethods("look", new LookAround(generateMethods));
             loadMethods("move",          new Move(generateMethods));
             loadMethods("trashitem",     new PlayerRemoveItem(generateMethods));
 
