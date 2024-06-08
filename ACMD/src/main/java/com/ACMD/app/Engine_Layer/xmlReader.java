@@ -30,7 +30,6 @@ public class xmlReader{
     public xmlReader(String entityDir, String fileName){
         String fileDir = ParsePath.getPath(entityDir, fileName);
         name = fileName;
-
         //Creazione del oggetto che rappresenta il file (non interagisce con il sistema operativo)
         File xml = new File(fileDir);
         //inizializzazione del parser e lettura del file xml

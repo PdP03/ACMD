@@ -74,7 +74,7 @@ public class MapGraph {
         randomGen = new Random(System.currentTimeMillis());
         chambers = new ArrayList<>();
         MonsterFactory factory = new MonsterFactory();
-        final String entityDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Mappa\\";
+        final String entityDir = "ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Mappa\\";
         xmlReader reader = new xmlReader(entityDir, "MappaConfig.xml");
 
         nodes = reader.getAllNode();

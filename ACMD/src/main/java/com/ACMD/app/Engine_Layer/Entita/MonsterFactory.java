@@ -7,7 +7,7 @@ import com.ACMD.app.Engine_Layer.MonsterValues;
 import com.ACMD.app.Engine_Layer.xmlReader;
 
 public class MonsterFactory {
-    final String entityDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Entita\\";
+    final String entityDir = "ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Entita\\";
     final String fileName = "MonsterConfig.xml";
     Random generator;
     Vector<MonsterValues> defaultValues;
