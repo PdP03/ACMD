@@ -35,8 +35,11 @@ public class HelpStanze implements Command
             System.exit(1);
         }
 
-        Set keys= memMap.keySet();
-        gme.addBuffer( keys.toString() );
+        Object[] ary = memMap.keySet().toArray();
+        String s="";
+        for(int i=0; i<ary.length; i++)
+            s+= ary[i].toString()+"\n";
+        gme.addBuffer( s );
 
         return BackStateGame_Enum.UPDATE_MAP;
     }   
