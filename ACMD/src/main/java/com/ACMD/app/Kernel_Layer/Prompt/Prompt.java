@@ -45,7 +45,7 @@ public class Prompt
     Command cmmd;
 
     GraphicAdapter graphA;
-
+int cont=0;
     //## Costruttore ##
 
     public Prompt(GameEngine engine)
@@ -66,9 +66,9 @@ public class Prompt
     {//_richiama la grafica di input, aspetta il comando, fa le verifiche necessarie 
 
       //  if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
-
+cont++;
       String s = graphA.busyWaitInput();
-
+System.out.println(cont+" "+s);
         //_split comando da parametri
         Vector<String> ary= removeDoubleSpaces(s);
             //STATO: input è vector di stringhe non vuote e toglie anche \n
@@ -131,8 +131,11 @@ public class Prompt
         switch(state)
         {
             case UPDATE_MAP:
-                if( gme.isPlayerInRoom() ) changeMenu( new BattleMenu(gme,graphA) );
-                 else changeMenu( new MovementMenu(gme) );    //cambio il menù
+                if( gme.isPlayerInRoom() )
+                    changeMenu( new BattleMenu(gme,graphA) );
+                else
+                    changeMenu( new MovementMenu(gme) );    //cambio il menù
+            //nessun break: continua eseguendo move
             case MOVE:
                 graphA.move( gme.getPlayerCord() );
             break;

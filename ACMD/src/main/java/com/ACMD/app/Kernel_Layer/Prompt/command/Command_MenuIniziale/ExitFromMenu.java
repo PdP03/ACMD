@@ -20,6 +20,7 @@ public class ExitFromMenu implements Command
         if( nothing.size() > 1 )
          return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
+         //#TERMINARE: remind di salvataggio
         return BackStateGame_Enum.QUIT;
     }
 }
