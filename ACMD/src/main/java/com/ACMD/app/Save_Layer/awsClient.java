@@ -52,7 +52,7 @@ public class awsClient {
             PutObjectRequest request = PutObjectRequest.builder().bucket(bucketName).key(dt.format(LocalDateTime.now()))
                     .build();
             client.putObject(request, RequestBody.fromFile(file));
-            client.close();
+            //client.close();
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             client.close();
