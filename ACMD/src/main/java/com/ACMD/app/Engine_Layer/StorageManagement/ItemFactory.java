@@ -13,7 +13,7 @@ import com.ACMD.app.Engine_Layer.xmlReader;
 public class ItemFactory
 {
 
-    final String StorageDir = "ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\StorageManagement\\";
+    final String StorageDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\StorageManagement\\";
     xmlReader reader;
     static Vector<ItemStack> itemConfigurazione;
     static final String fileName = "ItemStackConfig.xml";

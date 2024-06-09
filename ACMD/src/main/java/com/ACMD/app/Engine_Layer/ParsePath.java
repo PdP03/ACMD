@@ -32,7 +32,7 @@ public class ParsePath {
 
         //Uso di path relativa, uncommentare per ritornare alla path assoluta
         //String fileDir = rootDir+packagePath+fileName;
-        String fileDir = packagePath+fileName;
+        String fileDir = rootDir+packagePath+fileName;
 
         //check sul SO in uso poichè Unix usa / come separatore mentre windws \
         String SOtype = System.getProperty("os.name");
