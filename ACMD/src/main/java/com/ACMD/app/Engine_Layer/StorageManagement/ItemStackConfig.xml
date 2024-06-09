@@ -88,46 +88,46 @@
     <value>10</value>
   </pozione_cura>
 
-  <pozione_>
+  <pozione_danno>
     <description>f</description>
     <type>POZIONE_DANNO</type>
     <weight>1</weight>
     <quantity>1</quantity>
     <value>8</value>
-  </pozione_>
+  </pozione_danno>
 
-  <pozione_>
+  <pozione_forza>
     <description>f</description>
     <type>POZIONE_FORZA</type>
     <weight>1</weight>
     <quantity>1</quantity>
     <value>4</value>
-  </pozione_>
+  </pozione_forza>
 
-  <pozione_>
+  <pozione_resistenza>
     <description>f</description>
     <type>POZIONE_RESISTENZA</type>
     <weight>1</weight>
     <quantity>1</quantity>
     <value>4</value>
-  </pozione_>
+  </pozione_resistenza>
 
-  <pozione_>
+  <pozione_veleno>
     <description>f</description>
     <type>POZIONE_VELENO</type>
     <weight>1</weight>
     <quantity>1</quantity>
     <value>2</value>
-  </pozione_>
+  </pozione_veleno>
 
-  <pozione_>
+  <pozione_invalidita>
     <description>1</description>
     <type>POZIONE_INVALIDITA</type>
     <weight>1</weight>
     <quantity>1</quantity>
     <value>1</value>                    <!-- purtroppo devo mettere un valore: quinidi per il futuro la pozione da usare su se stessi o da lanciare;
                                               quelle con effetto come valore e quelle che hanno un effetto particolare (es:invisibilità)-->
-  </pozione_>
+  </pozione_invalidita>
 
   <!-- ALTRO-->
 
