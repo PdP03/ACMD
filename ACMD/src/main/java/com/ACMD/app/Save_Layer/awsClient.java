@@ -66,7 +66,7 @@ public class awsClient {
 
     public static void Download(int index) {
         List<String> saveFiles = GetUploadedFiles();
-        if (!CheckSum(index)) {
+        if (!CheckSum(index)) {     //(bravo         by Carlo)
             try {
                 GetObjectRequest request = GetObjectRequest.builder().bucket(bucketName).key(saveFiles.get(index))
                         .build();

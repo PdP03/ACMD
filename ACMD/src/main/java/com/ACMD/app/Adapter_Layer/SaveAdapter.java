@@ -61,4 +61,9 @@ public class SaveAdapter
     public static List<String> GetUploadedFiles(){
         return awsClient.GetUploadedFiles();
     }
+
+    public static void DownloadGame(int indexOfGame)
+    {
+        awsClient.Download(indexOfGame);
+    }
 }
