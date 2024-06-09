@@ -36,17 +36,17 @@ public class Attack implements Command
             System.exit(1);
         }
 
-        if( gme.playerCanAttack() )
+        if( gme.playerCanAttack() )     //? chissà se la predizione di un salto cambia da ciclo ad if, e quindi può essere più efficente fare un if e poi un ciclo piuttosto direttamente un ciclo
         {
             gra.fromBufferToGraphic( "Ti scagli all'attacco" );
 
             try{
-                while( gme.playerCanAttack() )
+                do
                 {
-                    Thread.sleep(350);
-                    Prompt.updateBars(gme, gra);    //invertito per non avere i problemi che cancellava gli oggetti
+                    Thread.sleep(500);
+                    Prompt.updateEntityBars(gme, gra);    //invertito per non avere i problemi che cancellava gli oggetti
                     gme.attack();
-                }
+                }while( gme.playerCanAttack() );
                 //gra.fromBufferToGraphic( "Sconfitto" );
 
                 
@@ -59,7 +59,7 @@ public class Attack implements Command
          gra.fromBufferToGraphic( "La stanza è vuota" );
 
 
-    
+         Prompt.updateEntityBars(gme, gra);
 
 
               //#TERMINARE : tutta la parte sui controlli sul fatto che deve attaccare: controllare se automatico e cosa accade in caso di morte

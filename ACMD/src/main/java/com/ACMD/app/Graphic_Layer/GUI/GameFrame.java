@@ -391,7 +391,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jButtonInvio = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextStory = new javax.swing.JTextArea();
-        jTextComandi = new javax.swing.JTextPane();
+        jTextComandi = new javax.swing.JTextField();
 
         jToolBar1.setRollover(true);
 
@@ -416,7 +416,17 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
 
 
         AddComponents1(); //Metodo black box
-        
+    // ================
+    // Gestione dell'invio
+    //==================
+    jTextComandi.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           
+            jButtonInvio.setEnabled(true);  // Attiva il pulsante quando si preme Invio
+            jButtonInvio.doClick(); } // Simula un click sul pulsante
+    });
+
         jTextComandi.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -432,6 +442,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                 }
             }
         });
+
 
 
         jButtonInvio.setText("Submit");
@@ -505,6 +516,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jTextStory.append(s);
         SwingUtilities.updateComponentTreeUI(jTextStory);
     }
+
     /**
      * 
      * @param s testo da visualizzare. Nota: la console NON VIENE PULITA prima del reset, per non pulirla usare il metodo 
@@ -539,7 +551,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      private javax.swing.JRadioButton jButtonPlayer;
      private javax.swing.JScrollPane jScrollPane1;
      private javax.swing.JScrollPane jScrollPane4;
-     private javax.swing.JTextPane jTextComandi;
+     private javax.swing.JTextField jTextComandi;
      private javax.swing.JTextArea jTextStory;
      private javax.swing.JToolBar jToolBar1;
      private JButton key;
@@ -548,9 +560,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     public final String lorem ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus ligula arcu, facilisis bibendum orci sagittis ac. Vestibulum maximus odio quis lobortis condimentum. Cras nisi mauris, suscipit non mauris quis, rhoncus vulputate leo. Fusce leo neque, mollis nec lectus et, ornare eleifend velit. Praesent sagittis, nulla a varius accumsan, nisi sem tempus lectus, quis vehicula dui risus vel leo. Cras ante sem, porta quis aliquam sit amet, ultrices a ipsum. Quisque libero elit, accumsan a est congue, finibus rhoncus elit. Ut mattis commodo sapien, in scelerisque tellus molestie eu";
     public final String[] splitLorem = lorem.split(" ");
     
-    // ================
-    // Gestione musica
-    //==================
+
      
     // =====================
     // Gestione bottoni
@@ -583,6 +593,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                 if(jTextComandi.getText().contains("Player")) {writeOnConsole("20"); System.out.println("cambio");}
                 SwingUtilities.updateComponentTreeUI(jInternalFrame1);
                 }
+
             }
 
     
