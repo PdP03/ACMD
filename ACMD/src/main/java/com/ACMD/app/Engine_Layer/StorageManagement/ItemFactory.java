@@ -43,7 +43,8 @@ public class ItemFactory
 
     public ItemStack getRandomItem()
     {
-        return itemConfigurazione.get( (int)(Math.random() * itemConfigurazione.size() ) );
+        int pos = (int)(Math.random() * itemConfigurazione.size()); //per facilitare la lettura
+        return (ItemStack)( itemConfigurazione.get(pos).clone() );
     }
 
     /**
@@ -62,18 +63,20 @@ public class ItemFactory
         for(int i=0; i<itemConfigurazione.size(); i++)
             if( type == (itemConfigurazione.get(i) ).getType() ) itemListPosition.add( i );
 
-        return itemListPosition.size() == 0 ?           //? questo controllo rispetto < o > di zero è più efficiente? Perché in teoria c'è già un flag in assembly che si occupa di questo, quindi magari non deve fare controlli sul sengno
+        ItemStack facilitaLettura;
+        facilitaLettura= itemListPosition.size() == 0 ?           //? questo controllo rispetto < o > di zero è più efficiente? Perché in teoria c'è già un flag in assembly che si occupa di questo, quindi magari non deve fare controlli sul sengno
                null :   //nessun oggetto
                itemConfigurazione.get(
                         itemListPosition.get(
                          (int)( Math.random() * itemListPosition.size()) )); //oggetto casuale da questa lista
 
+        return facilitaLettura.clone();
      }
 
     public ItemStack getItem(String name)
     {
         for(int i=0; i<itemConfigurazione.size(); i++)
-            if( name.equals( (itemConfigurazione.get(i) ).getName() ) ) return itemConfigurazione.get(i);
+            if( name.equals( (itemConfigurazione.get(i) ).getName() ) ) return itemConfigurazione.get(i).clone();
 
         return null;
     }
