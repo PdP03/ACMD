@@ -174,6 +174,15 @@ public class Player extends Entity{
     }
 
     /**
+     * Restituisce true se il player ha quel tipo di oggetto nel inventario
+     * @param type
+     * @return
+     */
+    public boolean have(ItemType type){
+        return inv.searchFor(type) != null;
+    }
+
+    /**
      * Restituisce una stringa che rappresenta l'inventario
      * @return inv String
      */

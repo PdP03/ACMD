@@ -393,6 +393,9 @@ public class GameEngine{
             buffer += "["+format("INFO", ANSI_CYAN)+"]l'item "+item+" non può essere preso dal player perchè troppo pesante\n";
             return false;
         }
+        if(p.have(it.getType())){
+            return false;
+        }
 
         return true;
     }
@@ -419,7 +422,6 @@ public class GameEngine{
         }
         else{
             buffer += "["+format("INFO", ANSI_CYAN)+"]Non puoi prendere questo oggetto poichè nel inventario ne hai gia uno dello stesso tipo!\n";
-            p.removeItem(it);
         }
     }
 
