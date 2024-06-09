@@ -2,6 +2,7 @@ package com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale;
 
 import java.util.Vector;
 
+import com.ACMD.app.Adapter_Layer.SaveAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
@@ -22,6 +23,15 @@ public class Save implements Command
      */
     public BackStateGame_Enum execute(Vector<String> nomeSalvataggio)
     {
-        return null;        //#TERMINARE
+        save();
+        return BackStateGame_Enum.SAVE;
     }   
+
+    private void save()
+    {
+        SaveAdapter.save( gme.getPlayer() );
+        SaveAdapter.save( gme.getMap() );
+
+        gme.addBuffer("Partita salvata");
+    }
 }

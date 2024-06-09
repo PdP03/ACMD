@@ -1,9 +1,10 @@
 package com.ACMD.app.Kernel_Layer.Menu;
 
+import com.ACMD.app.Adapter_Layer.GraphicAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.NoCommandExistException;
-import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.Exit;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.ExitAndSave;
 
 
 
@@ -12,7 +13,7 @@ public class ExitMenu extends Menu
     private static final String fileName = "ExitMenu.xml";
     private boolean charged= false;     //evitare carichi una seconda volta
 
-    public ExitMenu(GameEngine generateMethods)
+    public ExitMenu(GameEngine generateMethods,GraphicAdapter gra)
     {
         super(fileName);
         if( !charged )
@@ -20,7 +21,7 @@ public class ExitMenu extends Menu
             //: oridne alfabetico
             //loadMethods("", new );
 
-            loadMethods("exit", new Exit(generateMethods));
+            loadMethods("exit", new ExitAndSave(generateMethods,gra));
             //loadMethods("help", new );
 
             //loadMethods("q",    new );

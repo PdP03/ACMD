@@ -1,7 +1,9 @@
 package com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale;
 
+import java.util.List;
 import java.util.Vector;
 
+import com.ACMD.app.Adapter_Layer.SaveAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
@@ -21,6 +23,21 @@ public class Load implements Command
      */
     public BackStateGame_Enum execute(Vector<String> nomeSalvataggio)
     {
-        return null;        //#TERMINARE
-    }   
+        //_ottengo i nomi
+        List<String> salvataggi= SaveAdapter.GetUploadedFiles();
+
+        if( chooseFile() )
+        {
+            //_carico tutto
+            gme.loadPlayer( SaveAdapter.retrievePlayer() );
+            gme.loadMap(    SaveAdapter.retrieveMap() );
+        }
+
+        return BackStateGame_Enum.SAVE;
+    }
+
+    private boolean chooseFile()
+    {
+        return false;
+    }
 }

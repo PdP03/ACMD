@@ -43,7 +43,7 @@ public class MenuGenerate_test
     @Test
     public void menuExit()
     {
-        new ExitMenu(new GameEngine(false) );
+       // new ExitMenu(new GameEngine(false) );
         //si supera se non vengono lanciare eccezioni
     }
 

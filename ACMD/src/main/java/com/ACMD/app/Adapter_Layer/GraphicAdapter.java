@@ -12,6 +12,8 @@ public class GraphicAdapter
     {
         gmf = g;
     }
+    /*public GameFrame getGraphic()   //per avere più comodo il passaggio nei salvataggi
+     {return gmf;}*/
 
     public void reScaleLifeBar(int min, int max) { reScaleLifeBar(((double)min)/max); }            //0 a 100
     public void reScaleLifeBar(double percentile)

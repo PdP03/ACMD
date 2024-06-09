@@ -19,6 +19,7 @@ public enum BackStateGame_Enum
     UPDATE_MAP,     //cambio della stanza
     ERROR_DIGIT,    //se il comando inserito non esiste
     RESTART,        //riavvia il gioco nel caso player muore
+    SAVE,           //effettuato qualcosa su LOAD o SALVATAGGIO
     YN              //booleano per le scelte sì-no come se vuole salvare
 ;
 }

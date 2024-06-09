@@ -5,7 +5,7 @@ import com.ACMD.app.Adapter_Layer.GraphicAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.NoCommandExistException;
-import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.Exit;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.ExitAndSave;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.HelpCorridoio;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.LookAround;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.Move;
@@ -34,7 +34,7 @@ public class MovementMenu extends Menu
             //loadMethods("", new );
             loadMethods("back", new MoveBack(generateMethods));
             loadMethods("clear",new ClearConsole(gra));
-            loadMethods("exit", new Exit(generateMethods));
+            loadMethods("exit", new ExitAndSave(generateMethods,gra));
 
             loadMethods("help",          new HelpCorridoio(generateMethods,commandMap));
             loadMethods("look",          new LookAround(generateMethods));

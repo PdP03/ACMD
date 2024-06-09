@@ -88,6 +88,7 @@ public /*abstract*/ class ItemStack
 
 //  ## Metodi Public ##
 
+    @Override
     /**
      * @return Controlla tipologia, nome, valore, peso : no descrizione o quantità
      * Quindi possono esserci due oggetti uguali ma dove cambia solo la descrizione
@@ -99,6 +100,7 @@ public /*abstract*/ class ItemStack
 //interessante che non segna errore su o anche se non esiste in Object la variabile tipology
      }
 
+    @Override
     public ItemStack clone()
     {
         return new ItemStack(this.name,this.tipology,this.weight,this.quantity,this.value,this.description); //che bello che non servano i metodi, perché è dentro la stessa classe, quindi accetta
