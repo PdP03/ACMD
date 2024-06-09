@@ -379,6 +379,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jInternalFrame1 = new javax.swing.JInternalFrame("The cave");
         jButtonPlayer = new javax.swing.JRadioButton();
+       
         jLabelMap = new javax.swing.JLabel();
         jPanelProgressBars = new javax.swing.JPanel(); jPanelProgressBars.setBackground(backGround);
         jBarVitaNemico = new javax.swing.JProgressBar();
@@ -596,6 +597,16 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
 
             }
 
-    
+    public void removeEnemy()
+    {
+        jBarVitaNemico.setVisible(false);
+        jLabel1.setVisible(false);
+        
+    }
+    public void addEnemy()
+    {
+        jBarVitaNemico.setVisible(false);
+        jLabel1.setVisible(false);
+    }
 
 }
