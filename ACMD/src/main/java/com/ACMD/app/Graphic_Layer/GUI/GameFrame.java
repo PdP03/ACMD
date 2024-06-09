@@ -1,25 +1,9 @@
 package com.ACMD.app.Graphic_Layer.GUI;
-
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.*;
-import java.io.File;
-import java.awt.*;
-import java.text.NumberFormat.Style;
-import java.util.concurrent.TimeUnit;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.border.Border;
-
 import com.ACMD.app.Engine_Layer.ParsePath;
 import com.ACMD.app.Engine_Layer.Mappa.Coordinates;
 import com.ACMD.app.Engine_Layer.Mappa.MapGraph;
@@ -50,7 +34,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     final int numberCols   =20; 
     final float fontSize   =16f;
     public boolean isOutputReady;
-    private final int delay = 100; 
+    //private final int delay = 100; 
     // ====================
     // Stili per la shell
     /// ====================
@@ -168,7 +152,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         public void updateGraphics(Coordinates c )
         {
             String path = MapGraph.getIconOf(c); //Aggiungi il percorso del nuovo nodo per avere l'immagine corretta 
-                   path = pathParser.getPath(imageDirPath,path );
+                   path = ParsePath.getPath(imageDirPath,path );
                    jLabelMap.setIcon(new ImageIcon(path));
         }
 
@@ -596,17 +580,27 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                 }
 
             }
-
+    /**
+     * Metodo che la barra del nemico, essendo finita la battaglia aggiorna le chiavi
+     */
     public void removeEnemy()
     {
         jBarVitaNemico.setVisible(false);
         jLabel1.setVisible(false);
-        
+        updateKeys();
+
     }
     public void addEnemy()
     {
         jBarVitaNemico.setVisible(false);
         jLabel1.setVisible(false);
+
+    }
+    private void updateKeys()
+    {
+        key.setText(MapGraph.keys+"");
+        key.setVisible(false);
+        key.setVisible(true);
     }
 
 }
