@@ -52,4 +52,10 @@
   <description> Mostra il proprio inventario </description>
  </menuvoice>
 
+  <menuvoice>
+  <command>showme</command>
+  <description> Mostra le proprie statistiche </description>
+ </menuvoice>
+
+
 </MovementMenu>

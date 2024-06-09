@@ -74,6 +74,11 @@
   <description> Pulisce lo schermo </description>
  </menuvoice>
 
+ <menuvoice>
+  <command>showme</command>
+  <description> Mostra le proprie statistiche </description>
+ </menuvoice>
+
 <!--          se avanza tempo, perché bisogna fare dei controlli sul peso del plyer, e per ora mancano i metodi per controllare
 <menuvoice>
   <command>takeall</command>

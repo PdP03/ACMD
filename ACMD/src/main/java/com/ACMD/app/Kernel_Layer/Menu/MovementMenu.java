@@ -14,6 +14,7 @@ import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.PlayerUse;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.PlayerRemoveItem;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.PlayerRemoveItemStack;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.ShowInventario;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.Showme;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale.ClearConsole;
 
 
@@ -40,6 +41,7 @@ public class MovementMenu extends Menu
             loadMethods("look",          new LookAround(generateMethods));
             loadMethods("move",          new Move(generateMethods));
             loadMethods("showinventario",new ShowInventario(generateMethods));
+            loadMethods("showme",        new Showme(generateMethods));
 
             loadMethods("trashitem",     new PlayerRemoveItem(generateMethods));
             loadMethods("trashstack",    new PlayerRemoveItemStack(generateMethods));

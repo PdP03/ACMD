@@ -156,6 +156,7 @@ int cont=0;
             break;
             case UPDATE_STORAGE:
                 graphA.reScaleWeightBar( gme.getPlayerWeight() , gme.getPlayerMaxWeight());
+                graphA.reScaleLifeBar( gme.getPlayerLife(), gme.getPlayerMaxLife());    //per pozione di cura
             break;
             case START:
                 changeMenu( new MovementMenu(gme,graphA) );
