@@ -33,17 +33,17 @@
 
  <menuvoice>
   <command>take</command>
-  <description> (-Stringa) Quando baule aperto si può scrivere nome oggetti si vogliono </description>
+  <description> (String) Quando baule aperto si può scrivere nome oggetti si vogliono </description>
  </menuvoice>
 
  <menuvoice>
   <command>trashitem</command>
-  <description> (-String) Se si vuole buttare via qualcosa da inventario </description>
+  <description> (String) Se si vuole buttare via qualcosa da inventario </description>
  </menuvoice>
 
  <menuvoice>
   <command>trashstack</command>
-  <description> (-String) Se si vuole buttare via qualcosa da inventario </description>
+  <description> (String) Se si vuole buttare via qualcosa da inventario </description>
  </menuvoice>
 
  <menuvoice>

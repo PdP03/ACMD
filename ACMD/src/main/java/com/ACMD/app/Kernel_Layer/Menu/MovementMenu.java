@@ -13,6 +13,7 @@ import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.MoveBack;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.PlayerUse;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.PlayerRemoveItem;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.PlayerRemoveItemStack;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.ShowInventario;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale.ClearConsole;
 
 
@@ -35,11 +36,12 @@ public class MovementMenu extends Menu
             loadMethods("clear",new ClearConsole(gra));
             loadMethods("exit", new Exit(generateMethods));
 
-            loadMethods("help",          new HelpCorridoio(generateMethods,commandMap));
+            loadMethods("help",          new HelpCorridoio(commandMap));
             loadMethods("look",          new LookAround(generateMethods));
             loadMethods("move",          new Move(generateMethods));
-            loadMethods("trashitem",     new PlayerRemoveItem(generateMethods));
+            loadMethods("showinventario",new ShowInventario(generateMethods));
 
+            loadMethods("trashitem",     new PlayerRemoveItem(generateMethods));
             loadMethods("trashstack",    new PlayerRemoveItemStack(generateMethods));
             loadMethods("use",           new PlayerUse(generateMethods));
 

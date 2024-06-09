@@ -13,7 +13,7 @@
 
 <menuvoice>
   <command>load</command>
-  <description> Caricare una partita salvata precedentemente </description>
+  <description> (int) Caricare una partita salvata precedentemente\n Senza parametri mostra tutte le salvate </description>
  </menuvoice>
 
 <menuvoice>

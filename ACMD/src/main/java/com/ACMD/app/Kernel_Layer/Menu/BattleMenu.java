@@ -31,7 +31,7 @@ public class BattleMenu extends Menu
             loadMethods("attack",        new Attack(generateMethods, gra));
             loadMethods("back",          new BackFromRoom(generateMethods));
             loadMethods("clear",         new ClearConsole(gra));
-            loadMethods("help",          new HelpStanze(generateMethods,commandMap) );
+            loadMethods("help",          new HelpStanze(commandMap) );
                     // loadMethods("look", new );
                     // loadMethods("openchest",     new LookInsideChest(generateMethods));
             loadMethods("showchest",     new LookInsideChest(generateMethods) );

@@ -1,7 +1,6 @@
 package com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze;
 
 import java.util.HashMap;
- import java.util.Set;
 import java.util.Vector;
 
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
@@ -13,10 +12,8 @@ public class HelpStanze implements Command
 {
     private GameEngine gme;
     private HashMap<MenuValues,Command> memMap;
-    public HelpStanze(GameEngine g,HashMap<MenuValues,Command> map)
+    public HelpStanze(HashMap<MenuValues,Command> map)
     {
-        if(g==null) throw new IllegalArgumentException();
-        gme= g;
         memMap = map;
     }
 

@@ -12,10 +12,8 @@ public class HelpStart implements Command
 {
     private GameEngine gme;
     private HashMap<MenuValues,Command> mapMem;
-    public HelpStart(GameEngine g, HashMap<MenuValues,Command> memMap)
+    public HelpStart(HashMap<MenuValues,Command> memMap)
     {
-        if(g==null) throw new IllegalArgumentException();
-        gme= g;
         this.mapMem = memMap;
     }
 

@@ -27,7 +27,7 @@ public class StartMenu extends Menu
             loadMethods("load",  new Load(generateMethods));
             loadMethods("start", new Start(generateMethods));
 
-            loadMethods("help",  new HelpStart(generateMethods,commandMap));
+            loadMethods("help",  new HelpStart(commandMap));
 
             if( commandMap.containsValue(null) )
              throw new NoCommandExistException("Esiste ancora una voce che non ha un comando associato");

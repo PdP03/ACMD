@@ -34,21 +34,26 @@ public class Move implements Command
         {
             case "nord":
             case "north":
+            case "n":
                 d = Direction.NORTH;
              break;
 
             case "sud":
             case "south":
+            case "s":
                 d = Direction.SOUTH;
             break;
 
             case "est":         // destra
             case "east":
+            case "e":
                 d = Direction.EAST;
             break;
 
             case "ovest":       // sinistra
             case "west":
+            case "w":
+            case "o":
                 d = Direction.WEST;
            break;
 
