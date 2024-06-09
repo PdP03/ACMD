@@ -1,4 +1,4 @@
-package com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale;
+package com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio;
 
 import java.util.Vector;
 
@@ -30,6 +30,7 @@ public class Save implements Command
     private void save()
     {
         SaveAdapter.save( gme.getPlayer() );
+                     System.out.println(gme.getPlayer().getName());//DEBUG
         SaveAdapter.save( gme.getMap() );
 
         gme.addBuffer("Partita salvata");
