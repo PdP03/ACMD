@@ -6,6 +6,7 @@ import com.ACMD.app.Graphic_Layer.GUI.GameFrame;
 public class GraphicAdapter
 {
     private GameFrame gmf;
+    private final int limiteVita = 5;
 
     public GraphicAdapter(GameFrame g)
     {
@@ -16,21 +17,21 @@ public class GraphicAdapter
     public void reScaleLifeBar(double percentile)
     {
         int val = (int)(percentile*100);
-        gmf.setPlayerHealth( val < 1 ? 1 : val );
+        gmf.setPlayerHealth( val < limiteVita && val > 0 ? 1 : val );
     }   //0 a 100
 
     public void reScaleEnemyBar(int min, int max) { reScaleEnemyBar(((double)min)/max); }          //0 a 100
     public void reScaleEnemyBar(double percentile)
     {
         int val = (int)(percentile*100);
-        gmf.setEnemyHealth( val < 1 ? 1 : val );
+        gmf.setEnemyHealth( val < limiteVita && val > 0 ? 1 : val );
     }//0 a 100
 
     public void reScaleWeightBar(int min, int max) { reScaleWeightBar(((double)min)/max); }         //0 a 100
     public void reScaleWeightBar(double percentile)
     {
         int val = (int)(percentile*100);
-        gmf.setPeso( val < 1 ? 1 : val );
+        gmf.setPeso( val < limiteVita && val > 0 ? 1 : val );
     }//0 a 100
 
     public void fromBufferToGraphic(String textOUT)
