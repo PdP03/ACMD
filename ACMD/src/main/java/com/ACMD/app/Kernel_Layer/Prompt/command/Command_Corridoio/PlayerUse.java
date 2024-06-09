@@ -26,7 +26,10 @@ public class PlayerUse implements Command
          
 
         if( gme.playerHave(strument.get(1)) )
-         gme.playerUse( strument.get(1) );
+        {
+            gme.playerUse( strument.get(1) );
+            gme.addBuffer("Hai appena utilizzato l'oggetto: "+ strument.get(1).toString() );
+        }
         //else ;        #FORSE  bisogna segnalare il problema o capisce da solo?
 
         return BackStateGame_Enum.UPDATE_STORAGE;

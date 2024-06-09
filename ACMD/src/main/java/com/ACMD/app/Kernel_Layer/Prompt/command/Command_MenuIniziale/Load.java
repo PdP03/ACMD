@@ -55,19 +55,18 @@ public class Load implements Command
          gra.fromBufferToGraphic( ls.get(i)+"\n" );
 
         int numSalvataggio=-1;  //numero a caso
-        boolean valoreNonValido= true;
+       // boolean valoreNonValido= true;
         
-        do
-        {
+        //do{
             try
             {
                 numSalvataggio = Integer.parseInt( gra.busyWaitInput() );
-                valoreNonValido= false;
+                //valoreNonValido= false;
             }
             catch(NumberFormatException e)
             { gra.fromBufferToGraphic("Non esiste il salvataggio"); }
 
-        }while( valoreNonValido );
+       // }while( valoreNonValido );
 
         return numSalvataggio;
     }
