@@ -7,6 +7,7 @@ import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.NoCommandExistException;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.*;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale.ClearConsole;
 //import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.PlayerRemoveItemStack;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze.*;
 //import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze.LookInsideChest;
@@ -16,15 +17,16 @@ public class BattleMenu extends Menu
     private static final String fileName = "BattleMenu.xml";
     private boolean charged= false;     //evitare carichi una seconda volta
 
-    public BattleMenu(GameEngine generateMethods, GraphicAdapter gr)
+    public BattleMenu(GameEngine generateMethods, GraphicAdapter gra)
     {
         super(fileName);
         if( !charged )
         {
             //: oridne alfabetico
             //loadMethods("", new );
-            loadMethods("attack",        new Attack(generateMethods, gr));
+            loadMethods("attack",        new Attack(generateMethods, gra));
             loadMethods("back",          new BackFromRoom(generateMethods));
+            loadMethods("clear",         new ClearConsole(generateMethods, gra));
             loadMethods("help",          new HelpStanze(generateMethods,commandMap) );
                     // loadMethods("look", new );
                     // loadMethods("openchest",     new LookInsideChest(generateMethods));
@@ -37,7 +39,7 @@ public class BattleMenu extends Menu
             if( super.commandMap.containsValue(null) )
             {
                 System.out.println( commandMap+"\n" );
-                throw new NoCommandExistException("Esiste ancora una voce che non ha un comando associato");
+                throw new NoCommandExistException("BattleMenu: Esiste ancora una voce che non ha un comando associato");
             }
             charged= true;
         }

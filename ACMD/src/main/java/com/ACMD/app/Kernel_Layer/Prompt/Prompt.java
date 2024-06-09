@@ -54,7 +54,7 @@ int cont=0;
         gmf.setVisible(true);
         gme= engine;
         gme.runSetup("Brico");          //TODO: #TERMINARE: necessario che lo start chieda il nome
-        mn = new StartMenu(gme);
+        mn = new StartMenu(gme,graphA);
 
         graphA = new GraphicAdapter(gmf);
         graphA.reScaleEnemyBar(0, 1);       //per dire che non è presente un mostro
@@ -142,7 +142,7 @@ int cont=0;
                     changeMenu( new BattleMenu(gme,graphA) );
                    }
                 else
-                   { changeMenu( new MovementMenu(gme) ); }  //cambio il menù
+                   { changeMenu( new MovementMenu(gme,graphA) ); }  //cambio il menù
             //nessun break: continua eseguendo MOVE:
             
                 graphA.move( gme.getPlayerCord() );
@@ -157,7 +157,7 @@ int cont=0;
                 graphA.reScaleWeightBar( gme.getPlayerWeight() , gme.getPlayerMaxWeight());
             break;
             case START:
-                changeMenu( new MovementMenu(gme) );
+                changeMenu( new MovementMenu(gme,graphA) );
             break;
             case RESTART:
                 try{ Thread.sleep(750); }

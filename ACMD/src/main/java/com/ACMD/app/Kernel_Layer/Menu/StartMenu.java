@@ -1,5 +1,6 @@
 package com.ACMD.app.Kernel_Layer.Menu;
 
+import com.ACMD.app.Adapter_Layer.GraphicAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.NoCommandExistException;
@@ -10,7 +11,7 @@ public class StartMenu extends Menu
     private static final String fileName = "StartMenu.xml";
     private boolean charged= false;     //evitare carichi una seconda volta
 
-    public StartMenu(GameEngine generateMethods)
+    public StartMenu(GameEngine generateMethods, GraphicAdapter gra)
     {
         super(fileName);
         if( !charged )
@@ -19,6 +20,7 @@ public class StartMenu extends Menu
             //loadMethods("", new );
 
             loadMethods("exit",  new ExitFromMenu(generateMethods));
+            loadMethods("clear", new ClearConsole(generateMethods, gra));
             loadMethods("load",  new Load(generateMethods));
             loadMethods("start", new Start(generateMethods));
 

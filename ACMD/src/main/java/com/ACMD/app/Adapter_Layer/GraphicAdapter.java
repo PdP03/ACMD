@@ -45,4 +45,5 @@ public class GraphicAdapter
 
     public void showEnemyBar() { gmf.addEnemy(); }
     public void hideEnemyBar() { gmf.removeEnemy(); }
+    public void clearScreen()  { gmf.resetConsole();}
 }

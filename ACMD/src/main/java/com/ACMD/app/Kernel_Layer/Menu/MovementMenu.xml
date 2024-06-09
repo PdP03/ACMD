@@ -41,4 +41,9 @@
   <description> (String) Svuota tutto lo stack di un tipo di oggetto da inventario </description>
  </menuvoice>
 
+ <menuvoice>
+  <command>clear</command>
+  <description> Pulisce lo schermo </description>
+ </menuvoice>
+
 </MovementMenu>

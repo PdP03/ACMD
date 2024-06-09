@@ -1,6 +1,7 @@
 
 package com.ACMD.app.Kernel_Layer.Menu;
 
+import com.ACMD.app.Adapter_Layer.GraphicAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.NoCommandExistException;
@@ -12,6 +13,7 @@ import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.MoveBack;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio.PlayerUse;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.PlayerRemoveItem;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.PlayerRemoveItemStack;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale.ClearConsole;
 
 
 public class MovementMenu extends Menu
@@ -19,7 +21,7 @@ public class MovementMenu extends Menu
     private static final String fileName = "MovementMenu.xml";
     private boolean charged= false;     //evitare carichi una seconda volta
 
-    public MovementMenu(GameEngine generateMethods)
+    public MovementMenu(GameEngine generateMethods, GraphicAdapter gra)
     {
         super(fileName);
         if( !charged )
@@ -27,6 +29,7 @@ public class MovementMenu extends Menu
             //: oridne alfabetico
             //loadMethods("", new );
             loadMethods("back", new MoveBack(generateMethods));
+            loadMethods("clear",new ClearConsole(generateMethods, gra));
             loadMethods("exit", new Exit(generateMethods));
 
             loadMethods("help",          new HelpCorridoio(generateMethods,commandMap));

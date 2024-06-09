@@ -31,13 +31,13 @@ public class MenuGenerate_test
     @Test
     public void menuMovement()
     {
-        new MovementMenu(new GameEngine(false) );
+        new MovementMenu( new GameEngine(false),new GraphicAdapter(null) );
         //si supera se non vengono lanciare eccezioni
     }
     @Test
     public void menuStart()
     {
-        new StartMenu(new GameEngine(false) );
+        new StartMenu( new GameEngine(false),new GraphicAdapter(null) );
         //si supera se non vengono lanciare eccezioni
     }
     @Test
