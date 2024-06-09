@@ -39,7 +39,7 @@ public class ItemFactory
         return itemConfigurazione.size();   //solo una comodità per i test
     }
 
-    //  ## Metodi Pubblici ##
+    //  ## Metodi Pubblici ## 
 
     public ItemStack getRandomItem()
     {
