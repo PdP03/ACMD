@@ -31,7 +31,10 @@ public class SalvataggioTest {
      */
     @Test
     public void ParsePlayer() throws IOException {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+        .setPrettyPrinting()
+        .excludeFieldsWithoutExposeAnnotation()
+        .create();
         Player player = new Player("Lello");
         SaveAdapter.save(player);
 

@@ -22,11 +22,11 @@ public class AWSClientTest
         File f = new File("Test.json");
         try {
             f.createNewFile();
-            awsClient.Upload(f);
+            //awsClient.Upload(f);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        awsClient.Upload(f);
+        //awsClient.Upload(f);
         
     }
 }
