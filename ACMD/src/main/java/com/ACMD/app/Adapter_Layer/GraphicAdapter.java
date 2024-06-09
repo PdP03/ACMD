@@ -37,7 +37,7 @@ public class GraphicAdapter
     }//0 a 100
 
     public void fromBufferToGraphic(String textOUT)
-     { gmf.writeBlueOnConsole(textOUT); }
+     { gmf.appendOnConsole(textOUT); }
     public void move(Coordinates coord)
      { gmf.move( coord ); }
      //TODO: controlla stringa vuota
