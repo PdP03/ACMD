@@ -56,6 +56,7 @@ public class ItemFactory
      */
     public ItemStack getItem(ItemType type) //NOTA: sarebbe più efficiente con altra struttura dati in grado di distinguere già le tipologie
      {
+        //_creo una lista con robe adatte
         Vector<Integer> itemListPosition= new Vector<Integer>();
 
         for(int i=0; i<itemConfigurazione.size(); i++)

@@ -12,8 +12,10 @@ public class HelpCorridoio implements Command
 {
     private GameEngine gme;
     private HashMap<MenuValues,Command> mapMem;
-    public HelpCorridoio(HashMap<MenuValues,Command> commandMap)
+    public HelpCorridoio(GameEngine g, HashMap<MenuValues,Command> commandMap)
     {
+        if(g==null) throw new IllegalArgumentException();
+        gme= g;
         mapMem= commandMap;
     }
 

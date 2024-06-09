@@ -12,8 +12,10 @@ public class HelpStanze implements Command
 {
     private GameEngine gme;
     private HashMap<MenuValues,Command> memMap;
-    public HelpStanze(HashMap<MenuValues,Command> map)
+    public HelpStanze(GameEngine g,HashMap<MenuValues,Command> map)
     {
+        if(g==null) throw new IllegalArgumentException();
+        gme= g;
         memMap = map;
     }
 

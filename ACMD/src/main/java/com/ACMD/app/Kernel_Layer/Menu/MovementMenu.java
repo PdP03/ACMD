@@ -36,7 +36,7 @@ public class MovementMenu extends Menu
             loadMethods("clear",new ClearConsole(gra));
             loadMethods("exit", new Exit(generateMethods));
 
-            loadMethods("help",          new HelpCorridoio(commandMap));
+            loadMethods("help",          new HelpCorridoio(generateMethods,commandMap));
             loadMethods("look",          new LookAround(generateMethods));
             loadMethods("move",          new Move(generateMethods));
             loadMethods("showinventario",new ShowInventario(generateMethods));
