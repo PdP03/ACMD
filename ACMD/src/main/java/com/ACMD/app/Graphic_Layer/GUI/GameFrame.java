@@ -336,7 +336,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
        key.setOpaque(false);
        add(key);
 
-       JButtonMusic=new MyRoundButton("");
+       JButtonMusic=new JButton("");
        //JButtonMusic.setContentAreaFilled(false);
        JButtonMusic.setFocusPainted(false);
        JButtonMusic.setBorderPainted(false);
@@ -542,7 +542,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      private javax.swing.JTextArea jTextStory;
      private javax.swing.JToolBar jToolBar1;
      private JLabel key;
-     private MyRoundButton JButtonMusic;
+     private JButton JButtonMusic;
      // End of variables declaration      
     public final String lorem ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus ligula arcu, facilisis bibendum orci sagittis ac. Vestibulum maximus odio quis lobortis condimentum. Cras nisi mauris, suscipit non mauris quis, rhoncus vulputate leo. Fusce leo neque, mollis nec lectus et, ornare eleifend velit. Praesent sagittis, nulla a varius accumsan, nisi sem tempus lectus, quis vehicula dui risus vel leo. Cras ante sem, porta quis aliquam sit amet, ultrices a ipsum. Quisque libero elit, accumsan a est congue, finibus rhoncus elit. Ut mattis commodo sapien, in scelerisque tellus molestie eu";
     public final String[] splitLorem = lorem.split(" ");
