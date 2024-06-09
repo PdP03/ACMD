@@ -37,6 +37,13 @@ public class Player extends Entity{
     final String story ="Tutti danno la colpa a me è mi odiano perchè uso il METODO SCIENTIFICO. Dimostrero a loro che si sbagliano!!!";
 
     /**
+     * inizializza l'Handler per gli observer
+     */
+    public void initHandler(){
+        observerHandler = new PropertyChangeSupport(this);
+    }
+
+    /**
      * Inizializza un giocatore con i parametri di default
      * @param name nome del player
      */
@@ -51,7 +58,7 @@ public class Player extends Entity{
         super.history = story;
 
         //inizializzazione del handler
-        observerHandler = new PropertyChangeSupport(this);
+        initHandler();
     }
 
     /**

@@ -659,6 +659,7 @@ public class GameEngine{
      */
     public void loadPlayer(Player newPlayer){
         p = newPlayer;
+        p.initHandler();
         ArrayList<Monster> list = map.getAllMonster();
         for(Monster m: list){
             p.addObserver(m);
