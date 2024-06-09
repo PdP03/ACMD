@@ -32,7 +32,7 @@ public class Load implements Command
 
         //_ottengo i nomi
         List<String> salvataggi= SaveAdapter.GetUploadedFiles();
-        System.out.println( "Numero di salvataggi disponibili: "+salvataggi.size() );
+        System.out.println( "Numero di salvataggi disponibili: "+salvataggi.size() );//DEBUG
 
         if(salvataggi.size() > 0)
         {
@@ -54,9 +54,9 @@ public class Load implements Command
 
     private int chooseFile(List<String> ls)
     {
-        gra.fromBufferToGraphic("Salvataggi disponibili:\n");
+        gra.fromBufferToGraphic("Salvataggi disponibili, inserire indice:\n");
         for(int i=0; i<ls.size(); i++)
-         gra.fromBufferToGraphic( ls.get(i)+"\n" );
+         gra.fromBufferToGraphic( i+")"+ls.get(i)+"\n" );
 
         int numSalvataggio=-1;  //numero a caso
        // boolean valoreNonValido= true;
@@ -68,7 +68,7 @@ public class Load implements Command
                 //valoreNonValido= false;
             }
             catch(NumberFormatException e)
-            { gra.fromBufferToGraphic("Non esiste il salvataggio"); return ERRORE_INPUT; }
+            { gra.fromBufferToGraphic("Non esiste il salvataggio\n"); return ERRORE_INPUT; }
 
        // }while( valoreNonValido );
 

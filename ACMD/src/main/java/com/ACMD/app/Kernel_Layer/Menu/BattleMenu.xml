@@ -65,7 +65,8 @@
 
 <menuvoice>
   <command>help</command>
-  <description> Informazioni sui comandi disponibili in questo momento\n Alcuni comandi vogliono dei parametri </description>
+  <description> Informazioni sui comandi disponibili in questo momento
+  Alcuni comandi vogliono dei parametri </description>
  </menuvoice>
 
  <menuvoice>
