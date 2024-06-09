@@ -661,6 +661,17 @@ public class GameEngine{
     }
 
     /**
+     * Resetta la partita ripristinando player e mappa alle condizioni iniziali
+     * il nome del player non viene cambiato
+     */
+    public void reset(){
+        String name = p.getName();
+        runSetup(name);
+        map = new MapGraph();
+
+    }
+
+    /**
      * Carica una nuova mappa con i settaggi passati
      * @param newMap
      */
