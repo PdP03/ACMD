@@ -58,8 +58,9 @@ public class NODE{
         isRoom = b;
     }
 
-    public boolean isRoom(){
-        return false;
+    public boolean isRoom()
+    {
+        return isRoom;
     }
 
     public String getPathImage(){
@@ -168,6 +169,6 @@ public class NODE{
         return false; 
     }
     public void setFree(){isFree=true;}
-    public boolean isStanza(){return false;}
+    public boolean isStanza(){return isRoom;}
      
 }

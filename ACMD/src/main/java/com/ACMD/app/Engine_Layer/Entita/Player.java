@@ -181,6 +181,15 @@ public class Player extends Entity{
     }
 
     /**
+     * Restituisce true se il player ha quel tipo di oggetto nel inventario
+     * @param type
+     * @return
+     */
+    public boolean have(ItemType type){
+        return inv.searchFor(type) != null;
+    }
+
+    /**
      * Restituisce una stringa che rappresenta l'inventario
      * @return inv String
      */
@@ -188,4 +197,19 @@ public class Player extends Entity{
         return inv.toString();
     }
 
+    /**
+     * restituisce il peso massimo del player
+     * @return byte peso
+     */
+    public byte getMaxWeight(){
+        return MAX_INVENTORY_WEIGHT;
+    }
+
+    /**
+     * Restituisce il peso del inventario di player
+     * @return byte peso
+     */
+    public byte getWeight(){
+        return (byte)inv.getTotalWeight();
+    }
 }

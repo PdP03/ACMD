@@ -18,12 +18,18 @@ public class MenuValues {
 
     @Override
     public int hashCode()
-        {
+        {       //System.out.println( cmdName.hashCode() );
             return cmdName.hashCode();    //i comandi devono essere unici, quindi nessun problema di conflitti
         }
         @Override
         public String toString()
         {
-            return cmdName + "\n  " + cmdDescription; 
+            return cmdName + "  " + cmdDescription; 
+        }
+        @Override
+        public boolean equals(Object obj)
+        {  // System.out.println("Verificato uguaglianza");
+            MenuValues e = (MenuValues)obj;
+            return this.cmdName.equals(e.cmdName);// && this.cmdDescription.equals(e.cmdDescription) ; SOLO PER NOME COMANDO
         }
 }

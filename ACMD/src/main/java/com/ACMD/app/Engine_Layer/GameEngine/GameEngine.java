@@ -3,6 +3,7 @@ package com.ACMD.app.Engine_Layer.GameEngine;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Stack;
 
 import com.ACMD.app.Engine_Layer.Entita.Monster;
@@ -25,6 +26,8 @@ import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
  */
 public class GameEngine{
     final byte MAX_POTION_USAGE = 3;
+    final float PROBABILITY_ATTACK_MISTAKE = 0.2f;
+    Random generator;
     byte level;
     ItemFactory factory;
     Player p;
@@ -33,19 +36,22 @@ public class GameEngine{
     boolean lose;
     String buffer;
     Map<ItemType, Byte> potionsActiveted;
+    static boolean enableFormatted;
 
     /**
      * Costruttore di default istanzia solo GameEngine non è possibile utilizzarla
      * se prima non si richiama runSetup(String)
      */
-    public GameEngine(){
+    public GameEngine(boolean enableColor){
         p = null;
+        generator = null;
         map = new MapGraph();
         buffer = null;
         lose = false;
         potionsActiveted = null;
         playerStack = null;
         factory = null;
+        enableFormatted = enableColor;
     }
 
     /**
@@ -57,6 +63,7 @@ public class GameEngine{
         level = p.getLv();
         buffer = "";
         playerStack = new Stack<Coordinates>();
+        generator = new Random(System.currentTimeMillis());
         potionsActiveted = new HashMap<ItemType, Byte>();
         factory = new ItemFactory();
 
@@ -85,7 +92,11 @@ public class GameEngine{
     public static final String ANSI_BLUE_BOLD = "\033[1;34m";   // blu in grassetto
 
     private static String format(String str, String colorTAG){
-        return colorTAG+str+ANSI_RESET;
+        if(enableFormatted){
+            return colorTAG+str+ANSI_RESET;
+        }
+
+        return str;
     }
 
     /**
@@ -110,7 +121,9 @@ public class GameEngine{
         Coordinates cord = map.getPlayerPos();
         buffer += "["+format("INFO", ANSI_CYAN)+"]";
         buffer += "Attualmente "+p.getName()+" sei nella posizione " + format(cord.toString(), ANSI_GREEN)+"\n";
-        buffer += getNearDirection(cord);
+        if(!MapGraph.isStanza(map.getPlayerPos())){
+            buffer += getNearDirection(cord);
+        }
         buffer += getRoomInfo(cord);
     }
 
@@ -170,7 +183,7 @@ public class GameEngine{
     /**
      * Se il player si trova in una stanza prima attacca il mostro, poi riceve danno
      * dal attacco del mostro. Lancia DeathException se il player o mostro è morto oppure IllegalArgumentException
-     * se il player non si trova in una stanza
+     * se il player non si trova in una stanza. Il player può sbagliare l'attacco con una certa probabilità
      */
     public void attack() throws DeathException, IllegalArgumentException{
         if(lose){
@@ -187,8 +200,15 @@ public class GameEngine{
         }
         if(!map.isFreeRoomAt(cord)){
             potionsActiveted.forEach((key, value)->{potionsActiveted.put(key, --value);});
-            short val = playerAttack(m);
-            buffer+="["+format("INFO", ANSI_CYAN)+"]"+p.getName()+" hai attaccato "+ m.getName() +" infliggendo il danno "+(-val)+format(" (la vita del mostro è "+m.getLife()+")\n", ANSI_YELLOW);
+            short val;
+
+            if(!throwRandomCoin(PROBABILITY_ATTACK_MISTAKE)){
+                val = playerAttack(m);
+                buffer+="["+format("INFO", ANSI_CYAN)+"]"+p.getName()+" hai attaccato "+ m.getName() +" infliggendo il danno "+(-val)+format(" (la vita del mostro è "+m.getLife()+")\n", ANSI_YELLOW);
+            } 
+            else{
+                buffer+="["+format("INFO", ANSI_CYAN)+"]"+p.getName() +" sei scivolato e non hai colpito il mostro\n";
+            }
             if(m.getLife() > 0){
                 val = monsterAttack(m);
                 buffer += "["+format("INFO", ANSI_CYAN)+"]"+m.getName()+" ti ha attaccato infliggendo il danno "+(-val)+format(" (la vita di "+p.getName()+" è "+p.getLife()+")\n", ANSI_YELLOW);
@@ -197,6 +217,21 @@ public class GameEngine{
                 buffer += "["+format("WIN", ANSI_BLUE_BOLD)+"]"+p.getName() + " hai sconfitto " + m.getName() + " la chest si è aperta potresti trovare oggetti interressanti\n";
             }
         }
+    }
+
+    /**
+     * Lancia una moneta con probabilità esce testa = val e restistuice true se esce testa
+     * @param val probabilità  (0<val<1)
+     * @return boolean
+     */
+    private boolean throwRandomCoin(float val) throws IllegalArgumentException{
+        final int MAX_BOUND = 100;
+        if (val < 0 || val > 1){
+            throw new IllegalArgumentException("La probabilta è un valore compreso tra [0, 1]");
+        }
+
+        int limit = (int)(val*100);
+        return generator.nextInt(MAX_BOUND) < limit;
     }
 
     /**
@@ -337,22 +372,32 @@ public class GameEngine{
      */
 
     public boolean canPlayerTake(String item){
+      
         if(!MapGraph.isStanza(map.getPlayerPos())){
             return false;
         }
         
         Chest c = map.getChestAt(map.getPlayerPos());
         if(c.isClosed()){
+            buffer += "["+format("INFO", ANSI_CYAN)+"]La chest è chiusa\n";
             return false;
         }
 
         ItemStack it = c.searchFor(item);
         
         if(it == null){
+            buffer+="["+format("INFO", ANSI_CYAN)+"]l'item "+item+" non esite nella chest\n";
             return false;
         }
-        
-        return !p.doesFillInv(it);
+        if(p.doesFillInv(it)){
+            buffer += "["+format("INFO", ANSI_CYAN)+"]l'item "+item+" non può essere preso dal player perchè troppo pesante\n";
+            return false;
+        }
+        if(p.have(it.getType())){
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -567,9 +612,6 @@ public class GameEngine{
      * @return short vita massima
      */
     public short getMonsterMaxLife() throws IllegalAccessError{
-        if(!playerCanAttack()){
-            throw new IllegalAccessError(); 
-        }
 
         return map.getMonsterAt(map.getPlayerPos()).getMaxLife();
     }
@@ -580,9 +622,6 @@ public class GameEngine{
      * @return short vita attuale
      */
     public short getMonsterLife() throws IllegalAccessError{
-        if(!playerCanAttack()){
-            throw new IllegalAccessError(); 
-        }
 
         return map.getMonsterAt(map.getPlayerPos()).getLife();
     }
@@ -633,10 +672,61 @@ public class GameEngine{
     }
 
     /**
+     * Resetta la partita ripristinando player e mappa alle condizioni iniziali
+     * il nome del player non viene cambiato
+     */
+    public void reset(){
+        String name = p.getName();
+        runSetup(name);
+        map = new MapGraph();
+
+    }
+
+    /**
      * Carica una nuova mappa con i settaggi passati
      * @param newMap
      */
     public void loadMap(MapGraph newMap){
         map = newMap;
+    }
+
+    /**
+     * Restituisce il player per effettuare il salvataggio su cloud
+     * @return Player
+     */
+    public Player getPlayer(){
+        return p;
+    }
+
+    /**
+     * Restituisce la mappa per effettuare il salvattaggio su cloud
+     * @return MapGraph
+     */
+    public MapGraph getMap(){
+        return map;
+    }
+
+    /**
+     * Restituisce le cordinate di player
+     * @return Coordinates
+     */
+    public Coordinates getPlayerCord(){
+        return map.getPlayerPos();
+    }
+
+    /**
+     * restituisce il peso massimo del player
+     * @return byte peso
+     */
+    public byte getPlayerMaxWeight(){
+        return p.getMaxWeight();
+    }
+
+    /**
+     * Restituisce il peso del inventario di player
+     * @return byte peso
+     */
+    public byte getPlayerWeight(){
+        return p.getWeight();
     }
 }

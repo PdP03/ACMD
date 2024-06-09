@@ -107,7 +107,7 @@ public abstract class Storage
     {
 
         for(int i=0; i< items.size(); i++)
-         if( (items.get(i)).getName() == name ) return (items.get(i)).clone();
+         if( (items.get(i)).getName().equals(name) ) return (items.get(i)).clone();
 
         return null;
     }

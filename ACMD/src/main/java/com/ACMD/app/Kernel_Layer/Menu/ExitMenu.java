@@ -18,6 +18,8 @@ public class ExitMenu extends Menu
         if( !charged )
         {
             //: oridne alfabetico
+            //loadMethods("", new );
+
             loadMethods("exit", new Exit(generateMethods));
             //loadMethods("help", new );
 
@@ -37,7 +39,7 @@ public class ExitMenu extends Menu
     protected void loadMethods(String nomeComando, Command c)
     {
         if( ! commandMap.containsKey( new MenuValues(nomeComando,null) ) )
-            throw new MenuVoiceNotFound();
+         throw new MenuVoiceNotFound("Comando non trovato in file xml: "+nomeComando);
             //per avere un debug ogni volta che si avvvia, che almeno tutte le voci che appaiano nel menù facciano qualcosa
 
         commandMap.put( new MenuValues(nomeComando,null),  c);

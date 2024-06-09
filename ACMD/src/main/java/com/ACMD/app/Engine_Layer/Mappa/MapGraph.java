@@ -58,10 +58,12 @@ public class MapGraph {
     {
         for(Stanza s:chambers) 
         {
-            if(s.getCoord().getX() == c.getX() && s.getCoord().getY() == c.getY())
+            if(s.getPlayerPosition().getX() == c.getX() && s.getPlayerPosition().getY() == c.getY() )
                 return s.playerPosition;
+          
         }
-        throw new NoSuchElementException("Non verrò mai lanciata");
+        //throw new NoSuchElementException("Non verrò mai lanciata");
+        return c; 
     }
     /**
      * Costruttore che prende direttamente l'xml
@@ -83,7 +85,8 @@ public class MapGraph {
 
         //Aggiunta NODI
         Coordinates cord;
-        for(NODE n: nodes){
+        for(NODE n: nodes)
+        {
             cord = n.getCoord();
         }
         //Aggiunta STANZE
@@ -95,9 +98,7 @@ public class MapGraph {
             nodes.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), factory.create(r.mtype), r.path, ches)); //Coordinate, 
             chambers.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), factory.create(r.mtype), r.path, ches));
         }
-        
-        
-
+        prinAllisRoom();
     }
 
     /**
@@ -106,6 +107,8 @@ public class MapGraph {
     private Chest getRandomChest(){
         Chest c = new Chest();
         int maxItem = randomGen.nextInt(3);
+        c.add(itemFacry.getItem(ItemType.POZIONE_CURA)); //TODO: DA TOGLIERE SOLO PER TEST
+        c.add(itemFacry.getItem(ItemType.POZIONE_FORZA)); //TODO: DA TOGLIERE SOLO PER TEST
         for(int i=0; i<maxItem; i++){
             c.add(itemFacry.getRandomItem());
         }
@@ -382,9 +385,11 @@ public class MapGraph {
     }
     public static boolean isStanza(Coordinates coord) //throws NoSuchElementException
     {
+       
         for(Stanza s : chambers)
         {
-            if(s.getCoord().getX() == coord.getX() && s.getCoord().getY() == coord.getY() ) return s.isRoom();
+            
+            if(s.getPlayerPosition().getX() == coord.getX() && s.getPlayerPosition().getY() == coord.getY() || s.getCoord().getX() == coord.getX() && s.getCoord().getY() == coord.getY() ) return s.isStanza();
         }
         return false;
        // throw new NoSuchElementException("Nodo non presente");
@@ -444,6 +449,21 @@ public class MapGraph {
             if(n.getSouth()!=null) System.out.println("\tA sud ha"+n.getSouth());
             if(n.getEast()!=null) System.out.println("\tA est ha"+n.getEast());
             if(n.getWest()!=null) System.out.println("\tA West ha"+n.getWest());
+        }
+    }
+
+    public void printAllPlayerPosition()
+    {
+        for(Stanza n: chambers)
+        {
+            System.out.println("Il nodo " + n.getCoord().getX() +" " +n.getCoord().getY() + " ha " + n.playerPosition.getX() + " "+n.playerPosition.getY());
+        }
+    }
+    public void prinAllisRoom()
+    {
+        for(NODE n:nodes)
+        {
+            System.out.println("Il nodo"+ n.getCoord().toString()+" è stanza: "+n.isStanza());
         }
     }
     

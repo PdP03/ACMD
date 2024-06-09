@@ -1,13 +1,17 @@
 
 package com.ACMD.app.Kernel_Layer.Prompt;
 
-import java.util.HashMap;
 import java.util.Vector;
 
 import com.ACMD.app.Adapter_Layer.GraphicAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Graphic_Layer.GUI.GameFrame;
-import com.ACMD.app.Kernel_Layer.Menu.*;
+import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
+import com.ACMD.app.Kernel_Layer.Menu.BattleMenu;
+import com.ACMD.app.Kernel_Layer.Menu.Menu;
+import com.ACMD.app.Kernel_Layer.Menu.MovementMenu;
+import com.ACMD.app.Kernel_Layer.Menu.StartMenu;
+
 
 
 /*
@@ -41,44 +45,23 @@ public class Prompt
     Command cmmd;
 
     GraphicAdapter graphA;
-
+int cont=0;
     //## Costruttore ##
-/*
-    public void linkEngine(GameEngine g)
-    {
-        if( g==null ) throw new IllegalArgumentException("Serve un riferimento");
 
-        engineLinked = true;
-        gme = g;
-    }
-
-    public Prompt(GameEngine gme, StartMenu firstMenu, GameFrame gmf)
-    {
-        //istanzia una sola volta la grafica di input
-        linkEngine(gme);
-        
-        if( firstMenu == null || gmf == null) throw new IllegalArgumentException();
-         mn = firstMenu;
-         gmf = this.gmf;
-    }
-    public Prompt(StartMenu firstMenu, GameFrame gmf)
-    {
-         if( firstMenu == null || gmf == null) throw new IllegalArgumentException();
-         mn = firstMenu;
-         gmf = this.gmf;
-
-    }*/
-
-    //_istanzio anche
     public Prompt(GameEngine engine)
     {
-       // mn = new StartMenu();
-       //engine.runSetup("s");
         gmf= new GameFrame();
-        gmf.setVisible(true);;
+        gmf.setVisible(true);
         gme= engine;
+        gme.runSetup("Brico");          //TODO: #TERMINARE: necessario che lo start chieda il nome
 
         graphA = new GraphicAdapter(gmf);
+        mn = new StartMenu(gme,graphA);
+
+        graphA.reScaleEnemyBar(0, 1);       //per dire che non è presente un mostro
+        graphA.reScaleLifeBar( gme.getPlayerLife() , gme.getPlayerMaxLife() );
+        graphA.reScaleWeightBar( gme.getPlayerWeight(), gme.getPlayerMaxWeight() );
+        graphA.hideEnemyBar();
     }
 
 
@@ -89,20 +72,34 @@ public class Prompt
 
       //  if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
 
-        String s;
-        while( (s= gmf.textInput()) == null );
-
+      String s = graphA.busyWaitInput();
+                                                    //DEBUG if(s.equals("")) return BackStateGame_Enum.UPDATE;
         //_split comando da parametri
-        Vector<String> ary= removeDoubleSpaces(s);
+        Vector<String> ary= removeDoubleSpaces(s);  
             //STATO: input è vector di stringhe non vuote e toglie anche \n
         changeCommand(ary.get(0));
-        BackStateGame_Enum mem= cmmd.execute(ary);    //passo tutti i parametri, in quanto non so cosa gli serva
-        graphA.fromBufferToGraphic( gme.getBuffer() );//stampa tutti i messaggi
+        BackStateGame_Enum mem = 
+                cmmd != null ?
+                cmmd.execute(ary) :   //passo tutti i parametri, in quanto non so cosa gli serva
+                BackStateGame_Enum.ERROR_DIGIT;
+
+        //_dopo aver eseguito, faccio gli aggiornamenti necessari
+        graphA.fromBufferToGraphic( gme.getBuffer() );  //stampa tutti i messaggi
+        chooseUpdate(mem);
 
         return mem;
     }
     
-
+    /**
+     * Statico per dare la possibilità ai metodi del command patter di aggiornare la grafica
+     * @param gme       GameEngine
+     * @param graphA    Graphic Adapter
+     */
+    public static void updateEntityBars(GameEngine gme, GraphicAdapter graphA)
+    {
+        graphA.reScaleEnemyBar( gme.getMonsterLife(), gme.getMonsterMaxLife() );
+        graphA.reScaleLifeBar(  gme.getPlayerLife(), gme.getPlayerMaxLife() );
+    }
 
     //## Metodi Private ##
 
@@ -123,11 +120,58 @@ public class Prompt
     /**
      * Istanzia il menù con i nuovi comandi
      */
-    public void changeMenu(Menu mn)
+    private void changeMenu(Menu mn)
     {//: utile per passare da quello di start, a quello delle stanze a quello dei combattimenti
 
         if( mn==null ) throw new IllegalArgumentException("Menu non esiste");
         this.mn = mn;
+    }
+
+    /**
+     * uno switch per controllare le varie enum e decidere cosa aggiornare a schermo, ed i menù
+     */
+    private void chooseUpdate(BackStateGame_Enum state)
+    {
+        switch(state)
+        {
+            case COMBACT:
+            //nessun break
+            case UPDATE_MAP:
+            case MOVE:
+                if( gme.isPlayerInRoom() )
+                   { 
+                    changeMenu( new BattleMenu(gme,graphA) );
+                   }
+                else
+                   { changeMenu( new MovementMenu(gme,graphA) ); }  //cambio il menù
+            //nessun break: continua eseguendo MOVE:
+            
+                graphA.move( gme.getPlayerCord() );
+            break;
+            case UPDATE_ENTITY:
+                updateEntityBars(gme, graphA);
+            break;
+            case ERROR_DIGIT:
+                gme.addBuffer("Comando non riconosciuto");
+            break;
+            case UPDATE_STORAGE:
+                graphA.reScaleWeightBar( gme.getPlayerWeight() , gme.getPlayerMaxWeight());
+            break;
+            case START:
+                changeMenu( new MovementMenu(gme,graphA) );
+            break;
+            case RESTART:
+                try{ Thread.sleep(750); }
+                catch(InterruptedException e)
+                { System.out.println( "Problemi con nella classe attacco" ); e.getStackTrace(); }
+            case QUIT:
+                gmf.dispose();
+            break;
+            
+            default: break;
+        }
+
+        graphA.fromBufferToGraphic( gme.getBuffer() );
     }
     
 
@@ -135,5 +179,6 @@ public class Prompt
     private void changeCommand(String input)
     {
         cmmd= mn.checkInTheMap(input);
+       // graphA.fromBufferToGraphic( gme.getBuffer() );
     }
 }

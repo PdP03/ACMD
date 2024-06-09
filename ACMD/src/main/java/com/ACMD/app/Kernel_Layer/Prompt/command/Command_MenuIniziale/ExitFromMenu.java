@@ -15,9 +15,11 @@ public class ExitFromMenu implements Command
     }
 
     @Override
-    public BackStateGame_Enum execute(Vector<String> s)
+    public BackStateGame_Enum execute(Vector<String> nothing)
     {
-        gme.addBuffer("Comando non valido");
-        return BackStateGame_Enum.ERROR_DIGIT;
+        if( nothing.size() > 1 )
+         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
+
+        return BackStateGame_Enum.QUIT;
     }
 }

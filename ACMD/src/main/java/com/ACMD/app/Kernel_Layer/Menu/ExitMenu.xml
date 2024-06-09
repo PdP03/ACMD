@@ -2,13 +2,13 @@
 <ExitMenu>
 
  <menuvoice>
-  <command> exit </command>
+  <command>exit</command>
   <description>v</description>
  </menuvoice>
-
+<!--
  <menuvoice>
-  <command>v </command>
+  <command></command>
   <description> v </description>
- </menuvoice>
+ </menuvoice>-->
 
 </ExitMenu>

@@ -29,7 +29,7 @@ public class TestXMLreader {
         // ---------- TEST MOSTRO MARINO ----------
         Assert.assertEquals(3, values.get(MType.MOSTRO_MARINO.getId()).health);
         Assert.assertEquals(1, values.get(MType.MOSTRO_MARINO.getId()).armor);
-        Assert.assertEquals(2, values.get(MType.MOSTRO_MARINO.getId()).healthMul);
+        Assert.assertEquals(4, values.get(MType.MOSTRO_MARINO.getId()).healthMul);
 
         // ---------- TEST DRAGO ----------
         Assert.assertEquals(3, values.get(MType.BOSS_DRAGO.getId()).health);

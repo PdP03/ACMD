@@ -22,10 +22,10 @@ public class PlayerRemoveItemStack implements Command
         if( struments.size() > 2 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
-        try{ gme.playerRemove( struments.get(1) ); }
+        try{ gme.playerRemoveStack( struments.get(1) ); }
         catch(IllegalArgumentException e){ return BackStateGame_Enum.ERROR_DIGIT; }
 
-        return null;
+        return BackStateGame_Enum.UPDATE_STORAGE;
     }   
 
 }

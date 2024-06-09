@@ -24,41 +24,36 @@ public class Move implements Command
     {
         if( direction.size() > 2 ) 
          return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
+        if( direction.size() == 1 )
+         return (new LookAround(gme)).execute(direction);       //non importa cosa gli passo, l'importante abbia un solo valore il vector
 
         Direction d;
+        String dir = direction.get(1).toLowerCase();    //assicurarsi che siano 2 parametri
 
-        switch( direction.get(1) )
-        {           //#TERMINARE : manca il controllo se la direzione è possibile
-            case "Nord":
-            case "N":
-            case "NORD":
-            case "North":
-            case "NORTH":
+        switch( dir )
+        {
+            case "nord":
+            case "north":
+            case "n":
                 d = Direction.NORTH;
              break;
 
-            case "Sud":
-            case "S":
-            case "SUD":
-            case "South":
-            case "SOUTH":
+            case "sud":
+            case "south":
+            case "s":
                 d = Direction.SOUTH;
             break;
 
-            case "Est":         // destra
-            case "E":
-            case "EST":
-            case "East":
-            case "EAST":
+            case "est":         // destra
+            case "east":
+            case "e":
                 d = Direction.EAST;
             break;
 
-            case "Ovest":       // sinistra
-            case "O":
-            case "OVEST":
-            case "West":
-            case "W":
-            case "WEST":
+            case "ovest":       // sinistra
+            case "west":
+            case "w":
+            case "o":
                 d = Direction.WEST;
            break;
 
@@ -67,8 +62,22 @@ public class Move implements Command
 
         if( gme.canPlayerGo(d) )
          gme.movePlayer(d);
+        else gme.addBuffer("Direzione non valida");
        // else          #FORSE: necesario mettere in buffer errore
 
+       //debug();
+
         return BackStateGame_Enum.MOVE;
+    }
+
+
+    private void debug()
+    {
+        if(gme.isPlayerInRoom())
+       {
+        System.out.println("DEBUG: Entrato nella stanza");
+         //return BackStateGame_Enum.UPDATE_MAP;
+        }
+        else System.out.println("DEBUG: non ancora in una stanza");
     }
 }

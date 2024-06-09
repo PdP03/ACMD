@@ -19,7 +19,7 @@ public class TestGameEngine {
 
     @Before
     public void startup(){
-        engine = new GameEngine();
+        engine = new GameEngine(false);
         engine.runSetup("prova");
     }
 
@@ -60,21 +60,21 @@ public class TestGameEngine {
         // ------------ CHECK SU COBOLDO ------------
         movePlayerToCoboldo(engine);
         Assert.assertTrue(engine.getBuffer().contains("Coboldo"));
-        PlayerAttacca(engine, 3);
+        PlayerAttacca(engine);
         Assert.assertTrue(engine.getBuffer().contains("WIN"));
         movePlayerBack(engine, 5);
 
         // ------------ CHECK SU ARMATURA ------------
         movePlayerToArmatura(engine);
         Assert.assertTrue(engine.getBuffer().contains("Armatura"));
-        PlayerAttacca(engine, 3);
+        PlayerAttacca(engine);
         Assert.assertTrue(engine.getBuffer().contains("WIN"));
         movePlayerBack(engine, 5);
 
         // ------------ CHECK SU MAGO OSCURO (il player dovrebbe morire)------------
         movePlayerToMagoOscuro(engine);
         Assert.assertTrue(engine.getBuffer().contains("Mago Oscuro"));
-        PlayerAttacca(engine, 3);
+        PlayerAttacca(engine);
     }
 
     @Test
@@ -100,7 +100,7 @@ public class TestGameEngine {
         xmlReader reader = new xmlReader(StorageDir, fileName);
 
         movePlayerToCoboldo(engine);
-        PlayerAttacca(engine, 3);
+        PlayerAttacca(engine);
         Assert.assertTrue(engine.getBuffer().contains("WIN"));
 
         // ------------ CHECK SE L'ITEM ESISTE ------------
@@ -120,7 +120,7 @@ public class TestGameEngine {
         xmlReader reader = new xmlReader(StorageDir, fileName);
 
         movePlayerToCoboldo(engine);
-        PlayerAttacca(engine, 3);
+        PlayerAttacca(engine);
         Assert.assertTrue(engine.getBuffer().contains("WIN"));
 
         // ------------ CHECK DOPO CHE PLAYER HA PRESO UN ITEM ------------
@@ -141,7 +141,7 @@ public class TestGameEngine {
         xmlReader reader = new xmlReader(StorageDir, fileName);
 
         movePlayerToCoboldo(engine);
-        PlayerAttacca(engine, 3);
+        PlayerAttacca(engine);
         Assert.assertTrue(engine.getBuffer().contains("WIN"));
 
         // ------------ CHECK SU UN ITEM ESISTENTE ------------
@@ -244,8 +244,8 @@ public class TestGameEngine {
      * @param engine
      * @param i volte che il player attacca
      */
-    private static void PlayerAttacca(GameEngine engine, int quantity){
-        for(int j = 0; j < quantity; j++){
+    private static void PlayerAttacca(GameEngine engine){
+        while(engine.playerCanAttack()){
             engine.attack();
         }
     }

@@ -1,25 +1,9 @@
 package com.ACMD.app.Graphic_Layer.GUI;
-
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.*;
-import java.io.File;
-import java.awt.*;
-import java.text.NumberFormat.Style;
-import java.util.concurrent.TimeUnit;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.border.Border;
-
 import com.ACMD.app.Engine_Layer.ParsePath;
 import com.ACMD.app.Engine_Layer.Mappa.Coordinates;
 import com.ACMD.app.Engine_Layer.Mappa.MapGraph;
@@ -50,7 +34,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     final int numberCols   =20; 
     final float fontSize   =16f;
     public boolean isOutputReady;
-    private final int delay = 100; 
+    //private final int delay = 100; 
     // ====================
     // Stili per la shell
     /// ====================
@@ -70,8 +54,9 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                     updateGraphics(new Coordinates(1,19));
                     setPlayerHealth(100);
                     setEnemyHealth(100);
-                    setPeso(100);
+                    setPeso(0);
                     isOutputReady=false;
+                    jTextStory.setEnabled(false);       
     }                   
     /**
      * Moves the player position from the current one to the desired one: 
@@ -81,32 +66,41 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      */
     public void move (Coordinates c) throws IllegalArgumentException
     {
+        System.out.println("move chiamato con" + c.toString());
         //===================================================================
         // Voglio spostare il player nel posto giusto se entra in una stanza
-        // NON FUNZIONA 
+        //
         // ==================================================================
-        /*
-                if(MapGraph.isStanza(c))
-                {
-                    int x,y;
-                    Coordinates temp = MapGraph.getPlayerPositionOf(c);
-                    x=temp.getX();
-                    y=temp.getY();
-                    System.out.println("Ti sposto in" +x+y);
-                    move(x,y);
-                    return;
-                }
+        
+        /*if(MapGraph.isStanza(c))
+            {
+                int x,y;
+                Coordinates temp = MapGraph.getPlayerPositionOf(c);
+                x=temp.getX();
+                y=temp.getY();
+                System.out.println("Ti sposto in" +x+y);
+                if(MapGraph.getPlayerPositionOf(c).getX()==c.getX() && MapGraph.getPlayerPositionOf(c).getY() == c.getY()) return;
+                move(new Coordinates(x,y));
+                String iconPath = MapGraph.getIconOf(new Coordinates(x,y));
+                iconPath=ParsePath.getPath(imageDirPath,iconPath);
+                ImageIcon theIcon = new ImageIcon(iconPath); 
+                jLabelMap.setIcon(theIcon);
+                SwingUtilities.updateComponentTreeUI(jLabelMap);
+                jInternalFrame1.add(jLabelMap);
+    
+                jInternalFrame1.setVisible(true);
+                return;
+            }
         */
-        //FINE NON FUNZIONA
-        //=================================
         int x=c.getX(); 
         int y=c.getY();
         if(x <0 || x>19 || y<0 || y>19 ) throw new IllegalArgumentException("either x or y values not between 0-19 ");
         jInternalFrame1.remove(jLabelMap); //jInternalFrame è il frame in cui c'è la mappa
+
         jLabelMap=new JLabel("");
         try
-        {                        //TODO: Spostare il numero di chiavi a 4 
-            if(MapGraph.keys==2) //TODO Se ho 4 chiavi allora devo aprire la porta del drago spostare 2 a 4 
+        {                         
+            if(MapGraph.keys==4) 
             {
                 MapGraph.setDragon();
             }  
@@ -125,13 +119,20 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                         jLabelMap.add(jButtonPlayer);
                     }else
                     {
-                        JLabel l=new JLabel(" ");
+                        JLabel l=new JLabel("");
                         l.setForeground(Color.RED);
                         jLabelMap.add(l);
                     }
                 }
             }
+            
+            String iconPath = MapGraph.getIconOf(new Coordinates(x,y));
+            iconPath=ParsePath.getPath(imageDirPath,iconPath);
+            ImageIcon theIcon = new ImageIcon(iconPath); 
+            jLabelMap.setIcon(theIcon);
+            SwingUtilities.updateComponentTreeUI(jLabelMap);
             jInternalFrame1.add(jLabelMap);
+
             jInternalFrame1.setVisible(true);
             }catch(Exception e){System.err.println("Errore ");}
         }
@@ -151,7 +152,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         public void updateGraphics(Coordinates c )
         {
             String path = MapGraph.getIconOf(c); //Aggiungi il percorso del nuovo nodo per avere l'immagine corretta 
-                   path = pathParser.getPath(imageDirPath,path );
+                   path = ParsePath.getPath(imageDirPath,path );
                    jLabelMap.setIcon(new ImageIcon(path));
         }
 
@@ -162,6 +163,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          */
         public void setPlayerHealth(int amount ) throws RuntimeException
         {
+            System.out.println("Vita "+amount );
             if(amount>100) throw new RuntimeException("value greater than 100 ");
             if (amount <0) amount =0; 
             jBarVitaPlayer.setValue(amount);
@@ -173,6 +175,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          */
         public void setEnemyHealth(int amount ) throws RuntimeException
         {
+            System.out.println("Enemy "+amount );
             if(amount>100) throw new RuntimeException("value greater than 100 ");
             if (amount <0) amount =0; 
             jBarVitaNemico.setValue(amount);
@@ -184,6 +187,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          */
         public void setPeso(int amount) throws RuntimeException
         {
+            System.out.println("Peso "+amount );
             if(amount>100) throw new RuntimeException("value greater than 100 ");
             if (amount <0) amount =0; 
             jBarPeso.setValue(amount);
@@ -314,11 +318,13 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
        jButtonSave.setLocation(1200,730);
        add(jButtonSave);
 
-       key = new JButton();
+       key = new JLabel();
+       //key.setEnabled(false);
+       //ey.setOpaque(true);
        key.setSize(120,70);
        key.setBackground(backGround);
        key.setForeground(new Color(255,0,0));
-       key.setBorderPainted(false);
+      
        
        ImageIcon imageIcon2 = new ImageIcon(keyIcon); // load the image to a imageIcon
        Image image2 = imageIcon2.getImage(); // transform it 
@@ -359,6 +365,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jInternalFrame1 = new javax.swing.JInternalFrame("The cave");
         jButtonPlayer = new javax.swing.JRadioButton();
+       
         jLabelMap = new javax.swing.JLabel();
         jPanelProgressBars = new javax.swing.JPanel(); jPanelProgressBars.setBackground(backGround);
         jBarVitaNemico = new javax.swing.JProgressBar();
@@ -371,7 +378,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jButtonInvio = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextStory = new javax.swing.JTextArea();
-        jTextComandi = new javax.swing.JTextPane();
+        jTextComandi = new javax.swing.JTextField();
 
         jToolBar1.setRollover(true);
 
@@ -396,7 +403,17 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
 
 
         AddComponents1(); //Metodo black box
-        
+    // ================
+    // Gestione dell'invio
+    //==================
+    jTextComandi.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           
+            jButtonInvio.setEnabled(true);  // Attiva il pulsante quando si preme Invio
+            jButtonInvio.doClick(); } // Simula un click sul pulsante
+    });
+
         jTextComandi.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -414,6 +431,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         });
 
 
+
         jButtonInvio.setText("Submit");
         jButtonInvio.addActionListener(this);
         
@@ -429,7 +447,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
 
         addComponents2();
 
-        JButtonMusic.addActionListener(this);
+       // JButtonMusic.addActionListener(this);
         pack();
     }// </editor-fold>
     /**
@@ -438,14 +456,15 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      */
     public String textInput()
     {
-        System.out.println("Alla chiamata di textInput() isoutputeready è "+isOutputReady);
-        if(isOutputReady==true)
-        {
-            System.out.println("The output will be returned");
+        System.out.printf("");
+        if(isOutputReady){
             isOutputReady=false;
-            return jTextComandi.getText();
-        }
-        return null;  
+            String theInput = jTextComandi.getText();
+            jTextComandi.setText(null);
+
+            return theInput;}
+        return null; 
+       
     }
     /**
      * 
@@ -484,6 +503,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
         jTextStory.append(s);
         SwingUtilities.updateComponentTreeUI(jTextStory);
     }
+
     /**
      * 
      * @param s testo da visualizzare. Nota: la console NON VIENE PULITA prima del reset, per non pulirla usare il metodo 
@@ -518,18 +538,16 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      private javax.swing.JRadioButton jButtonPlayer;
      private javax.swing.JScrollPane jScrollPane1;
      private javax.swing.JScrollPane jScrollPane4;
-     private javax.swing.JTextPane jTextComandi;
+     private javax.swing.JTextField jTextComandi;
      private javax.swing.JTextArea jTextStory;
      private javax.swing.JToolBar jToolBar1;
-     private JButton key;
+     private JLabel key;
      private MyRoundButton JButtonMusic;
      // End of variables declaration      
     public final String lorem ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus ligula arcu, facilisis bibendum orci sagittis ac. Vestibulum maximus odio quis lobortis condimentum. Cras nisi mauris, suscipit non mauris quis, rhoncus vulputate leo. Fusce leo neque, mollis nec lectus et, ornare eleifend velit. Praesent sagittis, nulla a varius accumsan, nisi sem tempus lectus, quis vehicula dui risus vel leo. Cras ante sem, porta quis aliquam sit amet, ultrices a ipsum. Quisque libero elit, accumsan a est congue, finibus rhoncus elit. Ut mattis commodo sapien, in scelerisque tellus molestie eu";
     public final String[] splitLorem = lorem.split(" ");
     
-    // ================
-    // Gestione musica
-    //==================
+
      
     // =====================
     // Gestione bottoni
@@ -537,6 +555,8 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     public void actionPerformed(java.awt.event.ActionEvent evt) 
             {
                 if(evt.getSource()==jButtonInvio)
+                isOutputReady=true;
+                //System.out.println("Hai premuto il bottone: isOutputReady è " + isOutputReady);
                 {
                     isOutputReady=true;
                     System.out.println("isoutput ready is now true");
@@ -562,8 +582,29 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                 if(jTextComandi.getText().contains("Player")) {writeOnConsole("20"); System.out.println("cambio");}
                 SwingUtilities.updateComponentTreeUI(jInternalFrame1);
                 }
-            }
 
-    
+            }
+    /**
+     * Metodo che la barra del nemico, essendo finita la battaglia aggiorna le chiavi
+     */
+    public void removeEnemy()
+    {
+        jBarVitaNemico.setVisible(false);
+        jLabel1.setVisible(false);
+        updateKeys();
+
+    }
+    public void addEnemy()
+    {
+        jBarVitaNemico.setVisible(true);
+        jLabel1.setVisible(true);
+
+    }
+    private void updateKeys()
+    {
+        key.setText(MapGraph.keys+"");
+        key.setVisible(false);
+        key.setVisible(true);
+    }
 
 }
