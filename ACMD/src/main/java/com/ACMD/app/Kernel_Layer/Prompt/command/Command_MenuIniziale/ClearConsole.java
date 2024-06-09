@@ -3,24 +3,21 @@ package com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale;
 import java.util.Vector;
 
 import com.ACMD.app.Adapter_Layer.GraphicAdapter;
-import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 
 public class ClearConsole implements Command
 {
-    private GameEngine gme;
     private GraphicAdapter gra;
-    public ClearConsole(GameEngine g, GraphicAdapter a)
+    public ClearConsole(GraphicAdapter a)
     {
-        if(g==null) throw new IllegalArgumentException();
-        gme= g;
+        if(a==null) throw new IllegalArgumentException();
         gra= a;
     }
 
     @Override
     /**
-     * Per uscire dalla stanza
+     * Pulire lo schermo
      */
     public BackStateGame_Enum execute(Vector<String> nothing)
     {

@@ -24,12 +24,15 @@ public class MovementMenu extends Menu
     public MovementMenu(GameEngine generateMethods, GraphicAdapter gra)
     {
         super(fileName);
+        if( generateMethods == null || gra == null )
+         throw new IllegalArgumentException( "Non si stanno inserendo dei valori nel menù Movement" );
+
         if( !charged )
         {
             //: oridne alfabetico
             //loadMethods("", new );
             loadMethods("back", new MoveBack(generateMethods));
-            loadMethods("clear",new ClearConsole(generateMethods, gra));
+            loadMethods("clear",new ClearConsole(gra));
             loadMethods("exit", new Exit(generateMethods));
 
             loadMethods("help",          new HelpCorridoio(generateMethods,commandMap));

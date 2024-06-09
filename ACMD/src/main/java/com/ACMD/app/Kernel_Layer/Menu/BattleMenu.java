@@ -20,13 +20,17 @@ public class BattleMenu extends Menu
     public BattleMenu(GameEngine generateMethods, GraphicAdapter gra)
     {
         super(fileName);
+
+        if( generateMethods == null || gra == null )
+         throw new IllegalArgumentException( "Non si stanno inserendo dei valori nel menù Battle" );
+
         if( !charged )
         {
             //: oridne alfabetico
             //loadMethods("", new );
             loadMethods("attack",        new Attack(generateMethods, gra));
             loadMethods("back",          new BackFromRoom(generateMethods));
-            loadMethods("clear",         new ClearConsole(generateMethods, gra));
+            loadMethods("clear",         new ClearConsole(gra));
             loadMethods("help",          new HelpStanze(generateMethods,commandMap) );
                     // loadMethods("look", new );
                     // loadMethods("openchest",     new LookInsideChest(generateMethods));

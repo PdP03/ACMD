@@ -54,9 +54,10 @@ int cont=0;
         gmf.setVisible(true);
         gme= engine;
         gme.runSetup("Brico");          //TODO: #TERMINARE: necessario che lo start chieda il nome
-        mn = new StartMenu(gme,graphA);
 
         graphA = new GraphicAdapter(gmf);
+        mn = new StartMenu(gme,graphA);
+
         graphA.reScaleEnemyBar(0, 1);       //per dire che non è presente un mostro
         graphA.reScaleLifeBar( gme.getPlayerLife() , gme.getPlayerMaxLife() );
         graphA.reScaleWeightBar( gme.getPlayerWeight(), gme.getPlayerMaxWeight() );

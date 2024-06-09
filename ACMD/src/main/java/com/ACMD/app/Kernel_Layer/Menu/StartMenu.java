@@ -14,13 +14,16 @@ public class StartMenu extends Menu
     public StartMenu(GameEngine generateMethods, GraphicAdapter gra)
     {
         super(fileName);
+        if( generateMethods == null || gra == null )
+         throw new IllegalArgumentException( "Non si stanno inserendo dei valori nel menù Start" );
+
         if( !charged )
         {
             //: oridne alfabetico
             //loadMethods("", new );
 
             loadMethods("exit",  new ExitFromMenu(generateMethods));
-            loadMethods("clear", new ClearConsole(generateMethods, gra));
+            loadMethods("clear", new ClearConsole(gra));
             loadMethods("load",  new Load(generateMethods));
             loadMethods("start", new Start(generateMethods));
 
