@@ -13,6 +13,7 @@ public class Load implements Command
 {
     private GameEngine gme;
     private GraphicAdapter gra;
+    public final int ERRORE_INPUT = -1;
     public Load(GameEngine g,GraphicAdapter gra)
     {
         if(g==null) throw new IllegalArgumentException();
@@ -37,6 +38,9 @@ public class Load implements Command
         {
             int num= chooseFile(salvataggi);
             System.out.println(num);
+
+            if( num == ERRORE_INPUT )
+             return BackStateGame_Enum.SAVE;
 
             //_carico tutto
             SaveAdapter.DownloadGame(num);
@@ -64,7 +68,7 @@ public class Load implements Command
                 //valoreNonValido= false;
             }
             catch(NumberFormatException e)
-            { gra.fromBufferToGraphic("Non esiste il salvataggio"); }
+            { gra.fromBufferToGraphic("Non esiste il salvataggio"); return ERRORE_INPUT; }
 
        // }while( valoreNonValido );
 
