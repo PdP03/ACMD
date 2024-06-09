@@ -82,9 +82,8 @@ int cont=0;
                 BackStateGame_Enum.ERROR_DIGIT;
 
         //_dopo aver eseguito, faccio gli aggiornamenti necessari
+        graphA.fromBufferToGraphic( gme.getBuffer() );  //stampa tutti i messaggi
         chooseUpdate(mem);
-       // gme.addBuffer( mn.toString() );//DEBUG
-        graphA.fromBufferToGraphic( gme.getBuffer() );//stampa tutti i messaggi
 
         return mem;
     }
@@ -136,9 +135,9 @@ int cont=0;
             case UPDATE_MAP:
             case MOVE:
                 if( gme.isPlayerInRoom() )
-                   { changeMenu( new BattleMenu(gme,graphA) ); graphA.reScaleEnemyBar(1.0); }
+                   { changeMenu( new BattleMenu(gme,graphA) ); }
                 else
-                   { changeMenu( new MovementMenu(gme) ); graphA.reScaleEnemyBar(0,1); }  //cambio il menù
+                   { changeMenu( new MovementMenu(gme) ); }  //cambio il menù
             //nessun break: continua eseguendo MOVE:
             
                 graphA.move( gme.getPlayerCord() );
@@ -155,12 +154,18 @@ int cont=0;
             case START:
                 changeMenu( new MovementMenu(gme) );
             break;
+            case RESTART:
+                try{ Thread.sleep(750); }
+                catch(InterruptedException e)
+                { System.out.println( "Problemi con nella classe attacco" ); e.getStackTrace(); }
             case QUIT:
                 gmf.dispose();
             break;
-
+            
             default: break;
         }
+
+        graphA.fromBufferToGraphic( gme.getBuffer() );
     }
     
 
