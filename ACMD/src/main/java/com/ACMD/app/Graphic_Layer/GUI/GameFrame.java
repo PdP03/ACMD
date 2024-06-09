@@ -56,7 +56,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                     setEnemyHealth(100);
                     setPeso(0);
                     isOutputReady=false;
-                    jTextStory.setEnabled(false);       // by Carlo from Matteo
+                    jTextStory.setEnabled(false);       
     }                   
     /**
      * Moves the player position from the current one to the desired one: 
@@ -592,8 +592,8 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     }
     public void addEnemy()
     {
-        jBarVitaNemico.setVisible(false);
-        jLabel1.setVisible(false);
+        jBarVitaNemico.setVisible(true);
+        jLabel1.setVisible(true);
 
     }
     private void updateKeys()
