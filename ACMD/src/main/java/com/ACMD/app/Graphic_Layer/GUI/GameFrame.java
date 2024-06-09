@@ -318,11 +318,13 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
        jButtonSave.setLocation(1200,730);
        add(jButtonSave);
 
-       key = new JButton();
+       key = new JLabel();
+       //key.setEnabled(false);
+       //ey.setOpaque(true);
        key.setSize(120,70);
        key.setBackground(backGround);
        key.setForeground(new Color(255,0,0));
-       key.setBorderPainted(false);
+      
        
        ImageIcon imageIcon2 = new ImageIcon(keyIcon); // load the image to a imageIcon
        Image image2 = imageIcon2.getImage(); // transform it 
@@ -539,7 +541,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      private javax.swing.JTextField jTextComandi;
      private javax.swing.JTextArea jTextStory;
      private javax.swing.JToolBar jToolBar1;
-     private JButton key;
+     private JLabel key;
      private MyRoundButton JButtonMusic;
      // End of variables declaration      
     public final String lorem ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus ligula arcu, facilisis bibendum orci sagittis ac. Vestibulum maximus odio quis lobortis condimentum. Cras nisi mauris, suscipit non mauris quis, rhoncus vulputate leo. Fusce leo neque, mollis nec lectus et, ornare eleifend velit. Praesent sagittis, nulla a varius accumsan, nisi sem tempus lectus, quis vehicula dui risus vel leo. Cras ante sem, porta quis aliquam sit amet, ultrices a ipsum. Quisque libero elit, accumsan a est congue, finibus rhoncus elit. Ut mattis commodo sapien, in scelerisque tellus molestie eu";
