@@ -88,7 +88,7 @@
     <value>10</value>
   </pozione_cura>
 
-  <pozione_danno>
+  <pozione_>
     <description>f</description>
     <type>POZIONE_DANNO</type>
     <weight>1</weight>
@@ -96,7 +96,7 @@
     <value>8</value>
   </pozione_>
 
-  <pozione_forza>
+  <pozione_>
     <description>f</description>
     <type>POZIONE_FORZA</type>
     <weight>1</weight>
@@ -104,7 +104,7 @@
     <value>4</value>
   </pozione_>
 
-  <pozione_resistenza>
+  <pozione_>
     <description>f</description>
     <type>POZIONE_RESISTENZA</type>
     <weight>1</weight>
@@ -112,7 +112,7 @@
     <value>4</value>
   </pozione_>
 
-  <pozione_veleno>
+  <pozione_>
     <description>f</description>
     <type>POZIONE_VELENO</type>
     <weight>1</weight>
@@ -120,7 +120,7 @@
     <value>2</value>
   </pozione_>
 
-  <pozione_invalidita>
+  <pozione_>
     <description>1</description>
     <type>POZIONE_INVALIDITA</type>
     <weight>1</weight>

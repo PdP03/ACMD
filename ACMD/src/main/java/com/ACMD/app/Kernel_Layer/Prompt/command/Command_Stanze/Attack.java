@@ -55,7 +55,8 @@ public class Attack implements Command
              }
             catch(InterruptedException e)
                 { System.out.println( "Problemi con nella classe attacco" ); e.getStackTrace(); }
-            catch(DeathException e){ gme.addBuffer("HAI PERSO"); return BackStateGame_Enum.RESTART; }
+            catch(DeathException e){ //gme.addBuffer("HAI PERSO"); return BackStateGame_Enum.RESTART; }
+                    return BackStateGame_Enum.QUIT;}
             catch(IllegalArgumentException e) {}
         }
         else
