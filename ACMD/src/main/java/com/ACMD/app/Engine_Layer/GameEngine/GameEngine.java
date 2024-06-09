@@ -121,7 +121,9 @@ public class GameEngine{
         Coordinates cord = map.getPlayerPos();
         buffer += "["+format("INFO", ANSI_CYAN)+"]";
         buffer += "Attualmente "+p.getName()+" sei nella posizione " + format(cord.toString(), ANSI_GREEN)+"\n";
-        buffer += getNearDirection(cord);
+        if(!MapGraph.isStanza(map.getPlayerPos())){
+            buffer += getNearDirection(cord);
+        }
         buffer += getRoomInfo(cord);
     }
 
