@@ -379,16 +379,22 @@ public class GameEngine{
         
         Chest c = map.getChestAt(map.getPlayerPos());
         if(c.isClosed()){
+            buffer += "["+format("INFO", ANSI_CYAN)+"]La chest è chiusa\n";
             return false;
         }
 
         ItemStack it = c.searchFor(item);
         
         if(it == null){
+            buffer+="["+format("INFO", ANSI_CYAN)+"]l'item "+item+" non esite nella chest\n";
             return false;
         }
-        
-        return !p.doesFillInv(it);
+        if(p.doesFillInv(it)){
+            buffer += "["+format("INFO", ANSI_CYAN)+"]l'item "+item+" non può essere preso dal player perchè troppo pesante\n";
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -413,6 +419,7 @@ public class GameEngine{
         }
         else{
             buffer += "["+format("INFO", ANSI_CYAN)+"]Non puoi prendere questo oggetto poichè nel inventario ne hai gia uno dello stesso tipo!\n";
+            p.removeItem(it);
         }
     }
 
