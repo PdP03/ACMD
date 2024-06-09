@@ -36,6 +36,7 @@ public class Load implements Command
         if(salvataggi.size() > 0)
         {
             int num= chooseFile(salvataggi);
+            System.out.println(num);
 
             //_carico tutto
             SaveAdapter.DownloadGame(num);
@@ -51,7 +52,7 @@ public class Load implements Command
     {
         gra.fromBufferToGraphic("Salvataggi disponibili:\n");
         for(int i=0; i<ls.size(); i++)
-         gra.fromBufferToGraphic( ls.get(i)+"\n     " );
+         gra.fromBufferToGraphic( ls.get(i)+"\n" );
 
         int numSalvataggio=-1;  //numero a caso
         boolean valoreNonValido= true;
