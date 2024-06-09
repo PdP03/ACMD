@@ -150,7 +150,7 @@ int cont=0;
                 gme.addBuffer("Comando non riconosciuto");
             break;
             case UPDATE_STORAGE:
-                graphA.reScaleWeightBar( gme.getPlayerWeight() , gme.getPlayerMaxLife());
+                graphA.reScaleWeightBar( gme.getPlayerWeight() , gme.getPlayerMaxWeight());
             break;
             case START:
                 changeMenu( new MovementMenu(gme) );
