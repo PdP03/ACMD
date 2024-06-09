@@ -38,6 +38,7 @@ public class Attack implements Command
 
         if( gme.playerCanAttack() )     //? chissà se la predizione di un salto cambia da ciclo ad if, e quindi può essere più efficente fare un if e poi un ciclo piuttosto direttamente un ciclo
         {
+            gra.showEnemyBar();
             gra.fromBufferToGraphic( "Ti scagli all'attacco" );
 
             try{
@@ -50,6 +51,7 @@ public class Attack implements Command
                 //gra.fromBufferToGraphic( "Sconfitto" );
 
                 Prompt.updateEntityBars(gme, gra);
+                gra.hideEnemyBar();
              }
             catch(InterruptedException e)
                 { System.out.println( "Problemi con nella classe attacco" ); e.getStackTrace(); }
@@ -61,7 +63,7 @@ public class Attack implements Command
 
 
               //#TERMINARE : tutta la parte sui controlli sul fatto che deve attaccare: controllare se automatico e cosa accade in caso di morte
-        return BackStateGame_Enum.UPDATE_MAP;
+        return BackStateGame_Enum.COMBACT;
     }   
 
 }

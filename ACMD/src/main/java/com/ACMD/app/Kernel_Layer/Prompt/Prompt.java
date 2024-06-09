@@ -60,6 +60,7 @@ int cont=0;
         graphA.reScaleEnemyBar(0, 1);       //per dire che non è presente un mostro
         graphA.reScaleLifeBar( gme.getPlayerLife() , gme.getPlayerMaxLife() );
         graphA.reScaleWeightBar( gme.getPlayerWeight(), gme.getPlayerMaxWeight() );
+        graphA.hideEnemyBar();
     }
 
 
@@ -132,10 +133,14 @@ int cont=0;
     {
         switch(state)
         {
+            case COMBACT:
+            //nessun break
             case UPDATE_MAP:
             case MOVE:
                 if( gme.isPlayerInRoom() )
-                   { changeMenu( new BattleMenu(gme,graphA) ); }
+                   { 
+                    changeMenu( new BattleMenu(gme,graphA) );
+                   }
                 else
                    { changeMenu( new MovementMenu(gme) ); }  //cambio il menù
             //nessun break: continua eseguendo MOVE:

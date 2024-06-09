@@ -33,9 +33,10 @@ public class TakeFromChest implements Command
         if( gme.canPlayerTake(struments.elementAt(1)) )
          {
             gme.playerTake(struments.get(1));
-            System.out.println("An element has beed added to the Inv.");
+            System.out.println("An element has beed added to the Inv.");//DEBUG
             gme.addBuffer("Hai inserito in inventario "+ struments.get(1));
          }
+         //else
         
 
         return BackStateGame_Enum.UPDATE_STORAGE;
