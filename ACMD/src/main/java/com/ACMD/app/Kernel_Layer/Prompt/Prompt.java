@@ -51,13 +51,15 @@ int cont=0;
     public Prompt(GameEngine engine)
     {
         gmf= new GameFrame();
-        gmf.setVisible(true);;
+        gmf.setVisible(true);
         gme= engine;
-        gme.runSetup("Brico");
+        gme.runSetup("Brico");          //TODO: #TERMINARE: necessario che lo start chieda il nome
         mn = new StartMenu(gme);
 
         graphA = new GraphicAdapter(gmf);
-        //System.out.println("Creato prompt"); gme.addBuffer("Prompt creato"); graphA.fromBufferToGraphic( gme.getBuffer() );//DEBUG: vedere se creato
+        graphA.reScaleEnemyBar(0, 1);       //per dire che non è presente un mostro
+        graphA.reScaleLifeBar( gme.getPlayerLife() , gme.getPlayerMaxLife() );
+        graphA.reScaleWeightBar( gme.getPlayerWeight(), gme.getPlayerMaxWeight() );
     }
 
 
@@ -92,11 +94,10 @@ int cont=0;
      * @param gme       GameEngine
      * @param graphA    Graphic Adapter
      */
-    public static void updateBars(GameEngine gme, GraphicAdapter graphA)
+    public static void updateEntityBars(GameEngine gme, GraphicAdapter graphA)
     {
         graphA.reScaleEnemyBar( gme.getMonsterLife(), gme.getMonsterMaxLife() );
         graphA.reScaleLifeBar(  gme.getPlayerLife(), gme.getPlayerMaxLife() );
-        
     }
 
     //## Metodi Private ##
@@ -135,18 +136,21 @@ int cont=0;
             case UPDATE_MAP:
             case MOVE:
                 if( gme.isPlayerInRoom() )
-                    changeMenu( new BattleMenu(gme,graphA) );
+                   { changeMenu( new BattleMenu(gme,graphA) ); graphA.reScaleEnemyBar(1.0); }
                 else
-                    changeMenu( new MovementMenu(gme) );  //cambio il menù
+                   { changeMenu( new MovementMenu(gme) ); graphA.reScaleEnemyBar(0,1); }  //cambio il menù
             //nessun break: continua eseguendo MOVE:
             
                 graphA.move( gme.getPlayerCord() );
             break;
             case UPDATE_ENTITY:
-                updateBars(gme, graphA);
+                updateEntityBars(gme, graphA);
             break;
             case ERROR_DIGIT:
                 gme.addBuffer("Comando non riconosciuto");
+            break;
+            case UPDATE_STORAGE:
+                graphA.reScaleWeightBar( gme.getPlayerWeight() , gme.getPlayerMaxLife());
             break;
             case START:
                 changeMenu( new MovementMenu(gme) );

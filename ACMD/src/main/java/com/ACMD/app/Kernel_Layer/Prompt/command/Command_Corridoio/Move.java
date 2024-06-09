@@ -24,10 +24,12 @@ public class Move implements Command
     {
         if( direction.size() > 2 ) 
          return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
+        if( direction.size() == 1 )
+         return (new LookAround(gme)).execute(direction);       //non importa cosa gli passo, l'importante abbia un solo valore il vector
 
         Direction d;
+        String dir = direction.get(1).toLowerCase();    //assicurarsi che siano 2 parametri
 
-        String dir = direction.get(1).toLowerCase();
         switch( dir )
         {
             case "nord":
@@ -55,15 +57,22 @@ public class Move implements Command
 
         if( gme.canPlayerGo(d) )
          gme.movePlayer(d);
+        else gme.addBuffer("Direzione non valida");
        // else          #FORSE: necesario mettere in buffer errore
 
-       if(gme.isPlayerInRoom())
-       {
-        System.out.println("DEBUG: Entrato nella stanza");
-        return BackStateGame_Enum.UPDATE_MAP;
-        }
-        else System.out.println("DEBUG: non ancora in una stanza");
+       //debug();
 
         return BackStateGame_Enum.MOVE;
+    }
+
+
+    private void debug()
+    {
+        if(gme.isPlayerInRoom())
+       {
+        System.out.println("DEBUG: Entrato nella stanza");
+         //return BackStateGame_Enum.UPDATE_MAP;
+        }
+        else System.out.println("DEBUG: non ancora in una stanza");
     }
 }
