@@ -233,18 +233,27 @@ class Coordinates{
 
 }
 
-class MapGraph{
-  ArrayList<Room> rooms = new ArrayList<Room>;
-  Graph<Node, edge> nodiTree = new Graph<Node, edge>;
+class MapGraph
+{
+private SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge> map;
+Coordinates[] directions;
+static ArrayList<NODE> nodes;
+static ArrayList<Stanza> chambers; //TODO: Attenzione che lo ho messo statico 
+ArrayList<Coordinates> playerRoute; 
+Coordinates PlayerPosition; 
 
-  /'---------- METODI ----------'/
-  private ArrayList<Room> generateRoom(int quantity);
-
-  List<node> getRouteTo(Coordinates start, Coordinates end);
-  Direction[] validDirectionOf(Coordinates n);
-  boolean isValidDirectionFor(Coordinates n, Direction dir);
-  Monster getMonsterAt(Coordinates cord);
-  Chest getChestAt(Coordinates cord);
+static String getPathImage(Coordinates of){}
+static Coordinates getPlayerPositionOf(){}
+private Chest getRandomChest(){}
+Coordinates getPlayerPos(){}
+void setFreeRoomAt(Coordinates c){}
+void movePlayerTo(Direction dir){}
+public ArrayList<Direction> validDirectionOf(Coordinates n){}
+public ArrayList<Monster> getAllMonster(){}
+public boolean isValidDirectionTo(Coordinates c, Direction dir){}
+public Monster getMonsterAt(Coordinates cord){}
+public Chest getChestAt(Coordinates cord){}
+public static boolean isStanza(Coordinates coord){}
 }
 note left of MapGraph :"Classe di facade"
 
