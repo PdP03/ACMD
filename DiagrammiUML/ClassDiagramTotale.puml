@@ -131,6 +131,9 @@ struct MenuValues{
 
 }
 
+class GraphicAdapter{
+}
+
 
 BattleMenu"1"--|>"1"Menu
 StartMenu"1"--|>"1"Menu
@@ -209,6 +212,9 @@ class Load{
  
 }
 
+class GameFrame{
+}
+
 interface Command{
   
 }
@@ -223,8 +229,8 @@ PlayerUse"1"--|>"1"Command
 RemoveItem"1"--|>"1"Command
 RemoveStackItem"1"--|>"1"Command
 Load"1"--|>"1"Command
-Load "1"->"1"AdapterSave
-Load"1"->"1"Save
+Load "1"-->"1"AdapterSave
+Load"1"-->"1"Save
 Load"1"->"1"GameEngine
 Promt"1"--|>"1"Command
 TakeFromChest"1"--|>"1"Command
@@ -238,6 +244,9 @@ Player"1"-->"1"Inventario
 JsonParser"1"-->"1"awsClient
 
 AdapterSave"1"-->"1"JsonParser
+GraphicAdapter"1"-->"1"GameFrame
+Prompt"1"-->"1"GraphicAdapter
+Command"1"-->"1"GraphicAdapter
 
 
 
