@@ -97,13 +97,11 @@ class xmlReader{
   private MType getMTypeBy(String name);
 }
 
-class MonsterValues{
+struct MonsterValues{
   short health, maxHealth;
   byte damage, armor, level;
   byte healthMul, armorMul, damageMul;
 }
-
-note right of MonsterValues:"è una struct"
 
 
 class Armatura{
@@ -168,35 +166,47 @@ xmlReader -> MonsterValues
 
 
 /'sta nel kernel layer'/
-package MenuGraphic #DDDDDD{
-class LoaderMenu{
-  LoaderMenu(String file)
-  Menu getMenu();
-
-}
+package Menu_package #DDDDDD{
 
 abstract class Menu{
   /'La prima stringa e il comando mentre la seconda è la descrizione'/
-  Map<String, String> commandMap = new HashMap<String, String>;
-  
-  Vector<String> getElement();
+  protected HashMap<MenuValues, Command> commandMap;
+  final String thisDir;
+
+  public Command checkInTheMap(String cmmdName);
   String toString();
 }
-class StartMenu{}
-class BattleMenu{}
-class MovmentMenu{}
-class ExitMenu{}
+class StartMenu
+{
+ StartMenu(GameEngine generateMethods, GraphicAdapter gra);
+ private loadMethod(String,Command);
 }
-note left of Menu :"Specificare i singoli comnadi nelle implementazioni dei menù"
-BattleMenu---|> Menu
-StartMenu---|> Menu
-MovmentMenu ---|> Menu
-ExitMenu---|> Menu
+class BattleMenu
+{
+ BattleMenu(GameEngine generateMethods, GraphicAdapter gra);
+ private loadMethod(String,Command);
+}
+class MovementMenu
+{
+ MovementMenu(GameEngine generateMethods, GraphicAdapter gra);
+ private loadMethod(String,Command);
+}
+struct MenuValues
+{
+ public String cmmdName;
+ public String cmmdDescription;
 
-BattleMenu --> LoaderMenu
-StartMenu --> LoaderMenu
-MovmentMenu --> LoaderMenu
-ExitMenu --> LoaderMenu
+ hashCode();
+ toString();
+ equals(Object);
+}
+
+}
+note right of Menu :"Specificare i singoli comnadi nelle implementazioni dei menù"
+BattleMenu--|> Menu
+StartMenu--|> Menu
+MovementMenu --|> Menu
+Menu --|> MenuValues
 
 
 package Mappa #DDDDDD{   
@@ -286,49 +296,71 @@ Room --> Coordinates
 
 package Prompts #DDDDDD{
 /'Questa class è un Singleton: tutto entra ed esce da qua'/
-class Promt{
-  Command cmmd;
-  boolean egnineLinked;
-  
-  /'----------- COSTRUTTORI -----------'/
-  Promt();
-  /'----------- METODI PROMPT -----------'/
-  private void changeCommand(Command c);
-  void linkEngine(GameEngine g)
-  BackStateGame_Enum waitInput();
+
+enum BackStateGame
+{
+ START
+ QUIT
+ UPDATE
+ UPDATE_STORAGE
+ UPDATE_ENTITY
+ MOVE
+ COMBACT
+ SAVE
 }
 
-class StartCommand{
+class Promt{
+
+    Menu mn;
+    GameEngine gme;
+    Command cmmd;
+
+    GameFrame gmf;
+    GraphicAdapter graphA;
+  
+  /'----------- COSTRUTTORI -----------'/
+  Prompt(GameEngine);
+  /'----------- METODI PROMPT -----------'/
+  private void changeCommand(String);
+  BackStateGame_Enum waitInput();
+  public static void updateEntityBars(GameEngine gme, GraphicAdapter graphA);
+  private static Vector<String> removeDoubleSpaces(String str);
+  private void chooseUpdate(BackStateGame_Enum state);
+  private void changeMenu(Menu mn);
+  private void changeCommand(String input);
+}
+
+class Start{
   execute();
 }
-class ExitCommand{
+class Exit{
   execute();
 }
-class LookCommand{
+class Look{
   execute();
 }
-class AttackCommand{
+class Attack{
   execute();
 }
-class MoveBackCommand{
+class Move{
   execute();
 }
-class MovePlayerCommand{
+class Move{
   execute();
 }
-class PlayerTakeCommand{
+class TakeFromChest{
   execute();
 }
-class PlayerUseCommand{
+class PlayerUse{
   execute();
 }
-class PlayerRemoveCommand{
+class RemoveItem{
   execute();
 }
-class PlayerRemoveStackCommand{
+class RemoveStackItem{
   execute();
 }
-class LoadCommand{
+class Load{
   execute();
 }
 
@@ -337,15 +369,18 @@ interface Command{
 }
 
 }
-StartCommand --|> Command
-ExitCommand --|> Command
-LookCommand --|> Command
-AttackCommand --|> Command
-MoveBackCommand --|> Command
-MovePlayerCommand --|> Command
-PlayerUseCommand --|> Command
-PlayerRemoveStackCommand --|> Command
-LoadCommand --|> Command
-Promt --> Command
+Start --|> Command
+Exit --|> Command
+Look --|> Command
+Attack --|> Command
+Move --|> Command
+PlayerUse --|> Command
+RemoveItem --|> Command
+RemoveStackItem --|> Command
+Load --|> Command
+Promt --|> Command
+TakeFromChest --|> Command
+
+Menu --> Command
 
 @enduml

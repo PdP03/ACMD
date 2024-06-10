@@ -54,6 +54,11 @@ public class MapGraph {
         }
         throw new NoSuchElementException("Immagine del nodo" +of.getX()+","+of.getY()+"non trovata");
     }
+    /**
+     * Ritorna la posizione del player in una stanza
+     * @param c Le coordinate
+     * @return La posizione del player
+     */
     public static Coordinates getPlayerPositionOf(Coordinates c)
     {
         for(Stanza s:chambers) 
@@ -77,13 +82,12 @@ public class MapGraph {
         final String entityDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\Mappa\\";
         xmlReader reader = new xmlReader(entityDir, "MappaConfig.xml");
 
+        
+        // ========================
+        //      Aggiunta NODI
+        // ========================
         nodes = reader.getAllNode();
         ArrayList<RoomValues> rooms = reader.getAllRoom(); 
-       
-        
-        
-
-        //Aggiunta NODI
         Coordinates cord;
         for(NODE n: nodes)
         {
@@ -98,7 +102,7 @@ public class MapGraph {
             nodes.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), factory.create(r.mtype), r.path, ches)); //Coordinate, 
             chambers.add(new Stanza( new Coordinates(r.StanzaX, r.StanzaY), new Coordinates(r.PlayerX, r.PlayerY), factory.create(r.mtype), r.path, ches));
         }
-        prinAllisRoom();
+       // prinAllisRoom();
     }
 
     /**
@@ -214,8 +218,11 @@ public class MapGraph {
             map = new SimpleDirectedWeightedGraph<NODE, DefaultWeightedEdge>(DefaultWeightedEdge.class); //Creazione di una mappa di nodi 
             directions = new Coordinates[4]; //{N,S,E;W} 
             nodes= new ArrayList<NODE>();
+            //====================
+            //  LETTURA DEL FILE
+            //====================
             try {
-                FileReader f = new FileReader(path);
+                FileReader f = new FileReader(path); 
                 Scanner file = new Scanner(f);
                 boolean addingMode=true;
                 int count=0;
@@ -224,10 +231,10 @@ public class MapGraph {
                     if(addingMode)
                     {
                         String theLine = file.nextLine();
-                        if(theLine.equals("Connessioni")){addingMode=false; continue;}
-                        String line[] = theLine.split(","); 
-                        nodes.add(new NODE(Integer.parseInt(line[0]), Integer.parseInt(line[1])));
-                        map.addVertex(nodes.get(count++));
+                        if(theLine.equals("Connessioni")){addingMode=false; continue;} // Finiti i nodi 
+                        String line[] = theLine.split(",");  //Separa
+                        nodes.add(new NODE(Integer.parseInt(line[0]), Integer.parseInt(line[1]))); //Aggiungi
+                        map.addVertex(nodes.get(count++)); //Aggiungi il vertice
                     }
                     else
                     {
@@ -246,6 +253,9 @@ public class MapGraph {
 
                         map.addEdge(nodes.get(i),nodes.get(j));
                         map.addEdge(nodes.get(j),nodes.get(i));
+                        // ================================
+                        //  SETTING DELLE DIREZIONI A-> B
+                        // =================================
                         switch(line[4])
                         {
                             case "N": 
@@ -266,6 +276,9 @@ public class MapGraph {
                                 directions[3]=new Coordinates(nodes.get(j).getCoord().getX() , nodes.get(j).getCoord().getY());
                                 break;
                         }
+                         // ================================
+                        //  SETTING DELLE DIREZIONI B->A
+                        // =================================
                         switch(line[5])
                         {
                             case "N": 
@@ -291,7 +304,10 @@ public class MapGraph {
 
             } 
         } 
-    
+    /**
+     * 
+     * @return Tutti i mostri
+     */
     public ArrayList<Monster> getAllMonster(){
         ArrayList<Monster> list = new ArrayList<Monster>();
         for(Stanza s: chambers)
@@ -303,7 +319,12 @@ public class MapGraph {
     }
 
 
-
+    /**
+     * 
+     * @param coord Le coordinate del player
+     * @return Array di coordinate dove può muoversi
+     * @throws NoSuchElementException Se non c'è il nodo
+     */
     public Coordinates[] getDirections(Coordinates coord) throws NoSuchElementException{
 
         for(NODE s:nodes)
@@ -332,7 +353,13 @@ public class MapGraph {
         return nodes;
     }
    
-
+    /**
+     * 
+     * @param c Il nodo
+     * @param dir La direzione
+     * @return Se la direzione è disponibile
+     * @throws IOException
+     */
     public boolean isValidDirectionTo(Coordinates c, Direction dir) throws IOException
      {
         for(NODE s:nodes)
@@ -347,6 +374,11 @@ public class MapGraph {
         return false; 
      }
 
+     /**
+      * 
+      * @param cord le coordinate
+      * @return Il mostro lì 
+      */
     public Monster getMonsterAt(Coordinates cord){
         Coordinates c;    
         for(Stanza s:chambers)
@@ -356,6 +388,11 @@ public class MapGraph {
             }
             return null;
     }
+    /**
+     * 
+     * @param cord Le coordinate
+     * @return La cassa
+     */
     public Chest getChestAt(Coordinates cord){
         Coordinates c; 
         for(Stanza s:chambers)
@@ -367,7 +404,11 @@ public class MapGraph {
         }
         return null;
     }
-    
+    /**
+     * Usato per praticità in fase di test
+     * @param cord 
+     * @return
+     */
     public boolean isInChamber(Coordinates cord ){return true; }
     /**
      * Metodo usato per praticità durante dei test, di questo metodo non è presente il relativo @test */     
@@ -375,6 +416,12 @@ public class MapGraph {
         for(NODE s : nodes) System.out.println(s.getCoord());
     }
 
+    /**
+     * 
+     * @param coord Il nodo
+     * @return il percorso della sua immagine
+     * @throws NoSuchElementException Se il nodo non è presente
+     */
     public static String getIconOf(Coordinates coord) throws NoSuchElementException
     {
         for(NODE s : nodes)
@@ -383,6 +430,11 @@ public class MapGraph {
         }
         throw new NoSuchElementException("Elemento non trovato");
     }
+    /**
+     * 
+     * @param coord Le coordiante
+     * @return Se il nodo è una stanza
+     */
     public static boolean isStanza(Coordinates coord) //throws NoSuchElementException
     {
        
@@ -394,17 +446,27 @@ public class MapGraph {
         return false;
        // throw new NoSuchElementException("Nodo non presente");
     }
+    /**
+     * Usato in fase di test
+     */
     public static void printAllIcons()
     {
         for(NODE s: nodes ) System.out.println("Il nodo" + s.getCoord()+ " ha "+ s.pathImg);
     }
+    /**
+     * Usato in fase di test
+     * @return
+     */
     public static String getAllIcons()
     {
         String string="";
         for(NODE s: nodes ) { string+="Il nodo" + s.getCoord()+ " ha "+ s.pathImg+"\n";}
         return string;
-        
     }
+    /**
+     * Aggiorna la mappa aggiungendo "Open" al suo percorso
+     * @param coord Il nodo di riferimento 
+     */
     public static void setBeaten(Coordinates coord)
     {
        for(NODE s : nodes)
@@ -419,6 +481,8 @@ public class MapGraph {
             }
         }
     }
+    /**
+     * Aggiorna la mappa mettendo il cancello aperto e permettendo di sfidare il drago */ 
     public static void setDragon()
     {
         //Cambia tutti i percorsi della mappa mettendo quelli con il drago
@@ -439,7 +503,9 @@ public class MapGraph {
             }
          }
     }
-
+    /**
+     * Usato in fase di test
+     */
     public static void printAllDirection()
     {
         for(NODE n: nodes)
@@ -451,7 +517,9 @@ public class MapGraph {
             if(n.getWest()!=null) System.out.println("\tA West ha"+n.getWest());
         }
     }
-
+    /**
+     * Usato in fase di test
+     */
     public void printAllPlayerPosition()
     {
         for(Stanza n: chambers)
@@ -459,6 +527,9 @@ public class MapGraph {
             System.out.println("Il nodo " + n.getCoord().getX() +" " +n.getCoord().getY() + " ha " + n.playerPosition.getX() + " "+n.playerPosition.getY());
         }
     }
+    /**
+     * Usato in fase di test
+     */
     public void prinAllisRoom()
     {
         for(NODE n:nodes)
