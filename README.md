@@ -4,7 +4,8 @@ Text based game for software eng.
 # REQUISITI
 È neccessario aver installato maven nel PC. 
 ## Windows
-A questo [link](https://maven.apache.org/download.cgi) è possibile scaricare i file binari. Dopo averli scaricati bisogna aggiungere il percorso alla variable dambiente PATH
+A questo [link](https://maven.apache.org/download.cgi) è possibile scaricare i file binari. Dopo averli scaricati bisogna aggiungere il percorso alla variable dambiente PATH.
+Si può leggere questa [guida](https://phoenixnap.com/kb/install-maven-windows).
 
 ## Linux
 È possibile installare maven usando il package manager ad es per apt:
