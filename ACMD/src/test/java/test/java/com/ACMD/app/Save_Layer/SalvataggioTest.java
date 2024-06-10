@@ -36,7 +36,7 @@ public class SalvataggioTest {
         .excludeFieldsWithoutExposeAnnotation()
         .create();
         Player player = new Player("Lello");
-        SaveAdapter.save(player);
+        SaveAdapter.save(player, null);
 
         FileReader reader = new FileReader("Savefile.json");
 
@@ -55,7 +55,7 @@ public class SalvataggioTest {
     @Test
     public void SaveAdapterTest() {
         Player player = new Player("Lello");
-        SaveAdapter.save(player);
+        SaveAdapter.save(player, null);
         Player player2 = SaveAdapter.retrievePlayer();
         Assert.assertEquals(player.getName(), player2.getName());
     }
@@ -69,7 +69,7 @@ public class SalvataggioTest {
         @Test
         public void savePlayerNullTest() {
             Player player = null;
-            SaveAdapter.save(player);
+            SaveAdapter.save(player, null);
             Player savedPlayer = SaveAdapter.retrievePlayer();
             Assert.assertNull(savedPlayer);
         }
@@ -85,8 +85,8 @@ public class SalvataggioTest {
         public void savePlayerMultipleTimesTest() {
             Player player1 = new Player("Lello");
             Player player2 = new Player("Mario");
-            SaveAdapter.save(player1);
-            SaveAdapter.save(player2);
+            SaveAdapter.save(player1, null);
+            SaveAdapter.save(player2, null);
             Player savedPlayer = SaveAdapter.retrievePlayer();
             Assert.assertEquals(player2.getName(), savedPlayer.getName());
         }
