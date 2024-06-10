@@ -35,10 +35,6 @@ public class MenuVoices_test
   
         Assert.assertNotEquals( new MenuValues("chiave","valore") , new MenuValues("chiave2","valore") );
 
-        //: devo usare equals perché altrimenti controlla se i riferimenti a memoria sono uguali
-       // Assert.assertEquals( true, new MenuValues("chiave","valore") == new MenuValues("chiave","Altro") );
-       // Assert.assertEquals( false, new MenuValues("chiave","valore") == new MenuValues("chiave2","Altro") );
-
     }
     @Test
     public void testMapOk()

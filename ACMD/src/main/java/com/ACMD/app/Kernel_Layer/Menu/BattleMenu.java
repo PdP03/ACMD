@@ -64,25 +64,6 @@ public class BattleMenu extends Menu
             }
             //per avere un debug ogni volta che si avvvia, che almeno tutte le voci che appaiano nel menù facciano qualcosa
 
-           // Command cmd;
-            /*
-        switch (nomeComando) {
-            case "help":        cmd= ; break;
-            case "openchest":   cmd= ; break;
-            case "take":        cmd= ; break;
-
-            case "trashit":     cmd= ; break;
-            case "back":        cmd= ; break;
-            case "look":        cmd= ; break;
-
-            case "showchest":       cmd= ; break;
-            case "showinventario":  cmd= ; break;
-        
-            default:
-            throw new MenuVoiceNotFound();
-            //per avere un debug ogni volta che si avvvia, che almeno tutte le voci che appaiano nel menù facciano qualcosa
-        }
-*/
         super.commandMap.put( new MenuValues(nomeComando,null),  c);
         //hash non fatto sulla descrizione
     }

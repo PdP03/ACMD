@@ -32,12 +32,12 @@ public class Attack implements Command
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
         if( ! gme.isPlayerInRoom() )  //controllo non necessario, ma se per qualche motivo accade c'è un problema
-        {                           //tanto sarebbe una azione rara, quindi non importa per il controllo... se è per una cosa così critica  (altrimenti dovrei cercare di stare sempre in stati validi ed evitare if che possono cambiare)
+        {
             System.out.println("DEBUG: la voce è disponibile quando non si è in una stanza");
             System.exit(1);
         }
 
-        if( gme.playerCanAttack() )     //? chissà se la predizione di un salto cambia da ciclo ad if, e quindi può essere più efficente fare un if e poi un ciclo piuttosto direttamente un ciclo
+        if( gme.playerCanAttack() )
         {
             gra.showEnemyBar();
             gra.fromBufferToGraphic( "Ti scagli all'attacco" );
@@ -61,9 +61,11 @@ public class Attack implements Command
             catch(DeathException e)
             { //gme.addBuffer("HAI PERSO"); return BackStateGame_Enum.RESTART; }
                 
+                gra.reScaleEnemyBar( gme.getMonsterLife(), gme.getMonsterMaxLife() );
+                gra.reScaleLifeBar(0);
                 (new ClearConsole(gra)).execute(nothing);
                 gra.fromBufferToGraphic("HAI PERSO");
-                try{ Thread.sleep(500); } catch(InterruptedException e2)
+                try{ Thread.sleep(1600); } catch(InterruptedException e2)
                     { System.out.println( "Problemi con nella classe attacco" ); e2.getStackTrace(); }
                 return BackStateGame_Enum.QUIT;
             }
@@ -73,7 +75,6 @@ public class Attack implements Command
          gra.fromBufferToGraphic( "La stanza è vuota" );
 
 
-              //#TERMINARE : tutta la parte sui controlli sul fatto che deve attaccare: controllare se automatico e cosa accade in caso di morte
         return BackStateGame_Enum.COMBACT;
     }   
 

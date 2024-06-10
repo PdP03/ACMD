@@ -13,32 +13,12 @@ import com.ACMD.app.Kernel_Layer.Menu.MovementMenu;
 import com.ACMD.app.Kernel_Layer.Menu.StartMenu;
 
 
-
-/*
-    Idea Iniziale: fare un controllo sulla sintassi del comando ed utilizzare una entry che lega il comando con la stringa
-    Idea Nuova: utilizzare la hashmap su una entry che lega il nome della stringa ed la funzione da richiamre. Se il comando non si trova lo ci penserà la hashamp
-    
-    Tramite enumerazioni si può comunicare con la classe Game
-        -eventi per ritorno
-        -quali voci del menù si possono usare
-
-    #PROBLEMA: una volta che mi viene passato il menù delle operazioni che possono eseguire, come faccio a legarlo al metodo?
-    #PROBLEMA: essendo enum diverse, ci vogliono signature differenti, è brutto
- 
-    Odio l'idea di booleano a caso.
-    Capisco che non posso fare una classe a parte.. cioè, lo accetto solo perché dall'esterno di prompt la cosa si complica.
-    Però se trovo una idea che sta dentro a prompt io la faccio. Tipo creare un metodo che riallochi l'oggetto.
-    Altrimenti.. anche se non si farà.. una classe SmallPrompt che è in grado solo di comunicare con Game e non GameEngine:
-        quindi che è solo in grado di interfacciarsi con l'utente e non di far partire il gioco
-    */
-
     /**
      * @Singleton
      */
 public class Prompt
 {
 
-   // boolean engineLinked = false;
     Menu mn;
     GameEngine gme;
     Command cmmd;
@@ -53,15 +33,10 @@ public class Prompt
         gmf= new GameFrame();
         gmf.setVisible(true);
         gme= engine;
-       // gme.runSetup("Brico");    era di default, ora deve chiedere il nome   <-spostato in start
 
         graphA = new GraphicAdapter(gmf);
         graphA.hideBars();  //per dire che non è presente un mostro
         mn = new StartMenu(gme,graphA);
-
-        //graphA.reScaleEnemyBar(0, 1);ora nascosta
-        //graphA.reScaleLifeBar(   0,1 );
-        //graphA.reScaleWeightBar( 0,1 );
 
         graphA.fromBufferToGraphic("Digita \"help\" per avere aiuto");
     }
@@ -71,8 +46,6 @@ public class Prompt
 
     public BackStateGame_Enum waitInput()
     {//_richiama la grafica di input, aspetta il comando, fa le verifiche necessarie 
-
-      //  if(!engineLinked) throw new RuntimeException("Non è collegato ad alcun engine");
 
       String s = graphA.busyWaitInput();
                                                     //DEBUG if(s.equals("")) return BackStateGame_Enum.UPDATE;
@@ -114,7 +87,7 @@ public class Prompt
         for(int i=0; i<sAry.length; i++)
         {
             //se non vuoto, allora posso aggiungere
-            if( sAry[i] != "" && sAry[i] != "\n" ) s2.add( sAry[i] );            //#TESTARE : fatto in locale, posso metterlo nel test con tutti i casi
+            if( sAry[i] != "" && sAry[i] != "\n" ) s2.add( sAry[i] );
         }
         return s2;
     }
