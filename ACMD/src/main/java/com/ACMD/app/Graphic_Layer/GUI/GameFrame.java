@@ -527,10 +527,10 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      private javax.swing.JProgressBar jBarVitaPlayer;
      private javax.swing.JButton jButtonInvio;
      private javax.swing.JInternalFrame jInternalFrame1;
-     private javax.swing.JLabel jLabel1;
-     private javax.swing.JLabel jLabel2;
+     private javax.swing.JLabel jLabel1;        //nemico salute
+     private javax.swing.JLabel jLabel2;        //peso      (commenta sempre)
      private javax.swing.JLabel jLabelMap;
-     private javax.swing.JLabel jLabelVita;
+     private javax.swing.JLabel jLabelVita;     //player
      private javax.swing.JPanel jPanelProgressBars; // Pannello del 
      private javax.swing.JPanel jPanel2;
      private javax.swing.JRadioButton jButtonPlayer;
@@ -585,19 +585,27 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
     /**
      * Metodo che la barra del nemico, essendo finita la battaglia aggiorna le chiavi
      */
-    public void removeEnemy()
+    public void removeEnemyBar()
     {
         jBarVitaNemico.setVisible(false);
         jLabel1.setVisible(false);
         updateKeys();
 
     }
-    public void addEnemy()
+    public void addEnemyBar()
     {
         jBarVitaNemico.setVisible(true);
         jLabel1.setVisible(true);
 
     }
+    //by Carlo
+    public void addPlayerBar()    {jBarVitaPlayer.setVisible(true); jLabelVita.setVisible(true);}
+    public void removePlayerBar() {jBarVitaPlayer.setVisible(false); jLabelVita.setVisible(false);}
+    //by Carlo
+    public void addWeightBar()    {jBarPeso.setVisible(true); jLabel2.setVisible(true);}
+    public void removeWeightBar() {jBarPeso.setVisible(false); jLabel2.setVisible(false);}
+
+
     private void updateKeys()
     {
         key.setText(MapGraph.keys+"");

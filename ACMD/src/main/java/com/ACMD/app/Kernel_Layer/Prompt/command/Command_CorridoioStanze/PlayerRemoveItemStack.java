@@ -17,12 +17,18 @@ public class PlayerRemoveItemStack implements Command
     }
 
     @Override
-    public BackStateGame_Enum execute(Vector<String> struments)
+    public BackStateGame_Enum execute(Vector<String> strument)
     {
-        if( struments.size() > 2 )
+        if( strument.size() > 2 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
-        try{ gme.playerRemoveStack( struments.get(1) ); }
+        if( strument.size() ==1 )
+        {
+           gme.addBuffer("Serve inserire della pila di oggetti");
+           return BackStateGame_Enum.ERROR_DIGIT;
+        }
+
+        try{ gme.playerRemoveStack( strument.get(1) ); }
         catch(IllegalArgumentException e){ return BackStateGame_Enum.ERROR_DIGIT; }
 
         return BackStateGame_Enum.UPDATE_STORAGE;
