@@ -1,7 +1,7 @@
 # ACMD
 Text based game for software eng.
 
-#COMPILAZIONE(Windows e Linux)
+# COMPILAZIONE(Windows e Linux)
 Aprire il terminale ed entrare nella cartella ACMD contentente il pom.xml e lanciare il comando:
 ```
 > mvn compile
