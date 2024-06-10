@@ -225,4 +225,6 @@ public class Player extends Entity{
     public byte getWeight(){
         return (byte)inv.getTotalWeight();
     }
+
+
 }

@@ -21,18 +21,11 @@ public class SaveAdapter
      * @param player The player to save.
      */
 
-    public static void save(Player player){
-        JsonParser.save(player);
+    public static void save(Player player, MapGraph map){
+        JsonParser.save(player, map);
     }
 
-    /**
-     * This method saves the map to the Json file.
-     * @param map The map to save.
-     */
 
-    public static void save (MapGraph map){
-        JsonParser.save(map);
-    }
     
     /**
      * This method retrieves the player from the Json file.
