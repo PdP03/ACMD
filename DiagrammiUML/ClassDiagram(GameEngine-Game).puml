@@ -1,23 +1,29 @@
 
 /'organizzatore e gestore degli eventi del gioco'/
 class GameEngine{
+  final byte MAX_POTION_USAGE = 3;
+  final float PROBABILITY_ATTACK_MISTAKE = 0.2f;
   Player p;
   MapGraph map;
   String buffer;
   byte level;
-  ItemFactory factory;
   boolean lose;
   Map<ItemType, Byte> potionsActiveted;
   Stack<Coordinates> playerStack;
+  static boolean enableFormatted;
 
   /'metodo per l'inizializzazione(di player e mappa)'/
   void runSetup(String playerName);
-  Vector<Object> save();
+  MapGraph getMap();
+  Player getPlayer();
+  void loadPlayer(Player newPlayer);
+  void loadMap(MapGraph newMap);
   
   /'metodi privati'/
   private String format(String str, String colorTAG);
   private String getRoomInfo(Coordinates c);
   private String getNearDirection(Coordinates c);
+  private boolean throwRandomCoin(float val);
   private byte getPotionValue(ItemType t);
   private ItemType getPotion(ItemStack item);
   private void applayPotion(ItemStack item);
@@ -29,16 +35,17 @@ class GameEngine{
   void lookAround();
   boolean playerIsAlive();
   void attack();
+  boolean playerCanAttack();
   void movePlayerBack();
   void movePlayer(Direction d);
   boolean canPlayerGo(Direction d);
   boolean canPlayerTake(String item);
-  boolean playerHave(String item);
   void playerTake(String item);
+  boolean playerHave(String item);
   void playerUse(String item);
   void playerRemove(String item);        /'aggiunge nel buffer una info degli oggetti eliminati'/
   void playerRemoveStack(String items);/'toglie tutto lo stack di item'/
-  boolean playerCanAttack()
+  
 
   /'metodi usati per aggiornare la grafica'/
   String getPlayerInv();
@@ -48,11 +55,12 @@ class GameEngine{
   short getMonsterMaxLife();
   byte getMonsterLife();
   String getBuffer();
-  
-
-  /'metodi usati nel load di un partita'/
-  void loadPlayer(Player f);
-  void loadMap(Mappa m); 
+  boolean isPlayerInRoom();
+  void addBuffer(String str);
+  void reset();
+  Coordinates getPlayerCord();
+  byte getPlayerMaxWeight();
+  byte getPlayerWeight();
 }
 
 
