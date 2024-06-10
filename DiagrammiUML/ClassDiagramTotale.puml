@@ -97,7 +97,7 @@ class BossDrago{
 }
 
 
-Monster "1" ->"1" MType
+Monster "1" -->"1" MType
 Player "1"--|>"1"Entity
 Monster "1"--|>"1"Entity
 Armatura"1"--|>"1"Monster
