@@ -1,0 +1,236 @@
+@startuml
+class ItemFactory{
+}
+
+class ItemStack {
+}
+
+enum ItemType{
+}
+
+abstract Storage{   
+}
+
+class Inventario{
+}
+
+class Chest{
+
+}
+
+Storage "1" -> "n"ItemStack 
+ItemStack "1" -> "1" ItemType
+Inventario "1" --|> "1" Storage
+
+Chest "1" --|> "1" Storage
+ItemFactory "1" --> "n"ItemStack
+
+
+
+
+
+  class awsClient{
+  }
+
+  class JsonParser{
+    
+  }
+  
+
+  class AdapterSave{
+
+  }
+
+class GameEngine{
+ 
+}
+
+
+class Game{
+
+}
+
+
+enum MType{
+ 
+}
+
+abstract class Entity{
+ 
+} 
+
+
+
+class Player{
+}
+
+abstract class Monster{
+}
+class MonsterFactory{
+ 
+}
+
+class xmlReader{
+
+}
+
+struct MonsterValues{
+
+}
+
+
+class Armatura{
+ 
+}
+class MagoNero{
+  
+}
+
+class MostroMarino{
+  
+}
+class Coboldo{
+ 
+}
+class BossDrago{
+ 
+}
+
+
+Monster "1" ->"1" MType
+Player "1"--|>"1"Entity
+Monster "1"--|>"1"Entity
+Armatura"1"--|>"1"Monster
+MagoNero"1"--|>"1"Monster
+MostroMarino"1"--|>"1"Monster
+Coboldo--|>"1"Monster
+BossDrago"1"--|>"1"Monster
+
+MonsterFactory"1"-->"1"BossDrago
+MonsterFactory"1"-->"1"MagoNero 
+MonsterFactory"1"-->"1"Coboldo
+MonsterFactory"1"-->"1"Armatura
+MonsterFactory"1"-->"1"MostroMarino 
+MonsterFactory"1"->"1"xmlReader
+xmlReader"1"->"n"MonsterValues
+
+
+abstract class Menu{
+  
+}
+class StartMenu{
+ 
+}
+class BattleMenu{
+
+}
+class MovementMenu{
+ 
+}
+struct MenuValues{
+
+}
+
+
+BattleMenu"1"--|>"1"Menu
+StartMenu"1"--|>"1"Menu
+MovementMenu"1"--|>"1"Menu
+Menu"1"--|>"n"MenuValues
+
+ 
+
+    
+class Coordinates{
+
+}
+
+class MapGraph{
+ 
+}
+
+
+enum  Direction{
+ 
+}
+
+class node{
+  
+
+}
+
+class Room{
+
+}
+
+
+
+MapGraph"1"-->"n"Room
+MapGraph"1"-->"n"node
+node"1"-->"1"Coordinates
+node"1"-->"4"Direction
+Room"1"-->"1"Coordinates
+
+
+class Promt{
+
+}
+
+class Start{
+ 
+}
+class Exit{
+  
+}
+class Look{
+  
+}
+class Attack{
+
+}
+class Move{
+  
+}
+class Move{
+  
+}
+class TakeFromChest{
+  
+}
+class PlayerUse{
+  
+}
+class RemoveItem{
+  
+}
+class RemoveStackItem{
+
+}
+class Load{
+ 
+}
+
+interface Command{
+  
+}
+
+
+Start"1"--|>"1"Command
+Exit"1"--|>"1"Command
+Look"1"--|>"1"Command
+Attack"1"--|>"1"Command
+Move"1"--|>"1"Command
+PlayerUse"1"--|>"1"Command
+RemoveItem"1"--|>"1"Command
+RemoveStackItem"1"--|>"1"Command
+Load"1"--|>"1"Command
+Promt"1"--|>"1"Command
+TakeFromChest"1"--|>"1"Command
+
+Menu"1"-->"1"Command
+GameEngine"1"-->"1"Player
+GameEngine"1"-->"1"MapGraph
+Promt"1"-->"1"GameEngine
+Game"1"-->"1"Promt
+
+
+@enduml
