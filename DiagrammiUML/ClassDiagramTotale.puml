@@ -174,7 +174,7 @@ node"1"-->"4"Direction
 Room"1"-->"1"Coordinates
 
 
-class Promt{
+class Prompt{
 
 }
 
@@ -184,6 +184,27 @@ class Start{
 class Exit{
   
 }
+
+class Showme{
+
+}
+
+class Showinventario{
+
+}
+
+class Clearconsole{
+
+}
+
+class Help{
+
+}
+
+class Back{
+
+}
+
 class Look{
   
 }
@@ -230,16 +251,18 @@ RemoveItem"1"--|>"1"Command
 RemoveStackItem"1"--|>"1"Command
 Load"1"--|>"1"Command
 Load "1"-->"1"AdapterSave
-AdapterSave"1"-->"1"Save
+Command"1"-->"1"Save
+Save"1"-->"1"AdapterSave
+
 Load"1"->"1"GameEngine
-Promt"1"--|>"1"Command
+Prompt"1"--|>"1"Command
 TakeFromChest"1"--|>"1"Command
 
 Menu"1"-->"n"Command
 GameEngine"1"-->"1"Player
 GameEngine"1"-->"1"MapGraph
-Promt"1"-->"1"GameEngine
-Game"1"-->"1"Promt
+Prompt"1"-->"1"GameEngine
+Game"1"-->"1"Prompt
 Player"1"-->"1"Inventario
 JsonParser"1"-->"1"awsClient
 
@@ -247,6 +270,11 @@ AdapterSave"1"-->"1"JsonParser
 GraphicAdapter"1"-->"1"GameFrame
 Prompt"1"-->"1"GraphicAdapter
 Command"1"-->"1"GraphicAdapter
+Clearconsole"1"-->"1"GraphicAdapter
+Showme"1"-->"1"Command
+Showinventario"1"-->"1"Command
+Help"1"-->"1"Command
+Back"1"-->"1"Cammand
 
 
 
