@@ -393,7 +393,8 @@ public class GameEngine{
             buffer += "["+format("INFO", ANSI_CYAN)+"]l'item "+item+" non può essere preso dal player perchè troppo pesante\n";
             return false;
         }
-        if(p.have(it.getType())){
+        if(p.hasAlreadyArmaOrArmatura(it)){
+            buffer += "["+format("INFO", ANSI_CYAN)+"]l'item "+item+" non può essere preso dal player perchè è gia presente nel inventario\n";
             return false;
         }
 
@@ -612,7 +613,6 @@ public class GameEngine{
      * @return short vita massima
      */
     public short getMonsterMaxLife() throws IllegalAccessError{
-
         return map.getMonsterAt(map.getPlayerPos()).getMaxLife();
     }
     
@@ -622,7 +622,6 @@ public class GameEngine{
      * @return short vita attuale
      */
     public short getMonsterLife() throws IllegalAccessError{
-
         return map.getMonsterAt(map.getPlayerPos()).getLife();
     }
 

@@ -8,6 +8,7 @@ import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.Prompt;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale.ClearConsole;
 
 
 public class Attack implements Command
@@ -42,12 +43,14 @@ public class Attack implements Command
             gra.fromBufferToGraphic( "Ti scagli all'attacco" );
 
             try{
+                Thread.sleep(100);  //essere sicuro appaia la barra
+
                 do
                 {
                     Thread.sleep(350);
                     Prompt.updateEntityBars(gme, gra);    //invertito per non avere i problemi che cancellava gli oggetti
                     gme.attack();
-                }while( gme.playerCanAttack() );
+                }while( gme.playerIsAlive() && gme.playerCanAttack() );
                 //gra.fromBufferToGraphic( "Sconfitto" );
 
                 Prompt.updateEntityBars(gme, gra);
@@ -55,8 +58,15 @@ public class Attack implements Command
              }
             catch(InterruptedException e)
                 { System.out.println( "Problemi con nella classe attacco" ); e.getStackTrace(); }
-            catch(DeathException e){ //gme.addBuffer("HAI PERSO"); return BackStateGame_Enum.RESTART; }
-                    return BackStateGame_Enum.QUIT;}
+            catch(DeathException e)
+            { //gme.addBuffer("HAI PERSO"); return BackStateGame_Enum.RESTART; }
+                
+                (new ClearConsole(gra)).execute(nothing);
+                gra.fromBufferToGraphic("HAI PERSO");
+                try{ Thread.sleep(500); } catch(InterruptedException e2)
+                    { System.out.println( "Problemi con nella classe attacco" ); e2.getStackTrace(); }
+                return BackStateGame_Enum.QUIT;
+            }
             catch(IllegalArgumentException e) {}
         }
         else

@@ -78,13 +78,13 @@ public class TestMonsterFactory {
         mons.setLv((byte)3);
         //---- TEST VITA ----
         mons.changeHealth((short)100);
-        Assert.assertEquals(104, mons.getLife());
+        Assert.assertEquals(110, mons.getLife());
  
         //---- TEST DANNO ----
-        Assert.assertEquals(22, mons.getAttack());
+        Assert.assertEquals(24, mons.getAttack());
  
         //---- TEST ARMATURA ----
-        Assert.assertEquals(22, mons.getArmor());
+        Assert.assertEquals(24, mons.getArmor());
     }
 
     @Test

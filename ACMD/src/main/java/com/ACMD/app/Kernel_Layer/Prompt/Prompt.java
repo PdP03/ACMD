@@ -40,12 +40,12 @@ public class Prompt
 
    // boolean engineLinked = false;
     Menu mn;
-    GameFrame gmf;
     GameEngine gme;
     Command cmmd;
 
+    GameFrame gmf;
     GraphicAdapter graphA;
-int cont=0;
+
     //## Costruttore ##
 
     public Prompt(GameEngine engine)
@@ -53,15 +53,17 @@ int cont=0;
         gmf= new GameFrame();
         gmf.setVisible(true);
         gme= engine;
-        gme.runSetup("Brico");          //TODO: #TERMINARE: necessario che lo start chieda il nome
+       // gme.runSetup("Brico");    era di default, ora deve chiedere il nome   <-spostato in start
 
         graphA = new GraphicAdapter(gmf);
+        graphA.hideBars();  //per dire che non è presente un mostro
         mn = new StartMenu(gme,graphA);
 
-        graphA.reScaleEnemyBar(0, 1);       //per dire che non è presente un mostro
-        graphA.reScaleLifeBar( gme.getPlayerLife() , gme.getPlayerMaxLife() );
-        graphA.reScaleWeightBar( gme.getPlayerWeight(), gme.getPlayerMaxWeight() );
-        graphA.hideEnemyBar();
+        //graphA.reScaleEnemyBar(0, 1);ora nascosta
+        //graphA.reScaleLifeBar(   0,1 );
+        //graphA.reScaleWeightBar( 0,1 );
+
+        graphA.fromBufferToGraphic("Digita \"help\" per avere aiuto");
     }
 
 
@@ -132,6 +134,13 @@ int cont=0;
      */
     private void chooseUpdate(BackStateGame_Enum state)
     {
+        //NOTA: in teoria questo switch non viola il pattern command in quando si tratta di modificare degli stati
+        // della classe chiamante, l'altra soluzione sarebbe stata che al posto di tornare enum i comandi tornassero
+        // direttamente altri comandi, ma poi il check per capire chi avrebbe fatto cosa sarebbe stato molto probabilmente
+        // più complicato, oltre che non si potevano raccogliere come in questo se non con un ulteriore raccolta di metodi
+        
+        //questo switch dovrebbe occuparsi quasi esclusivamente della modifica sui menù, il resto si potrebbe spostare
+        // dentro i singoli comandi
         switch(state)
         {
             case COMBACT:
@@ -181,5 +190,11 @@ int cont=0;
     {
         cmmd= mn.checkInTheMap(input);
        // graphA.fromBufferToGraphic( gme.getBuffer() );
+    }
+
+    //## Metodo di DEBUG per dare accesso ai test per la divisione delle stringhe
+    public static Vector<String> DEBUG(String in)
+    {
+        return removeDoubleSpaces(in);
     }
 }

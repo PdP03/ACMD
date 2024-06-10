@@ -25,7 +25,7 @@ public class StartMenu extends Menu
             loadMethods("exit",  new ExitFromMenu(generateMethods));
             loadMethods("clear", new ClearConsole(gra));
             loadMethods("load",  new Load(generateMethods,gra));
-            loadMethods("start", new Start(generateMethods));
+            loadMethods("start", new Start(generateMethods,gra));
 
             loadMethods("help",  new HelpStart(generateMethods,commandMap));
 

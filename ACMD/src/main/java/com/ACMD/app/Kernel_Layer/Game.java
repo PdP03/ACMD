@@ -2,14 +2,15 @@ package com.ACMD.app.Kernel_Layer;
 
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
-//import com.ACMD.app.Kernel_Layer.Menu.BattleMenu;
 import com.ACMD.app.Kernel_Layer.Prompt.Prompt;
 
 /**
- 
  * Questa classe fa partire il gioco richiamando prompt il quale andrà a gesire il 
- * gameEngine in base ai comandi scritti dal utente
+ * gameEngine in base ai comandi scritti dal utente.
  * 
+ * IMPORTANTE: lo scopo di Game è quello di fare il main loop richiamando continuamente prompt 
+ * che va a gestire i comandi inseriti dal utente, il main loop termina quando l'utente scrive 
+ * exit e quindi prompt restituisce QUIT
  */
 public class Game{
     private static GameEngine engine = new GameEngine(false);
@@ -18,7 +19,6 @@ public class Game{
         
         Prompt p = new Prompt(engine);
         Boolean exit = false;
-      //  Menu menu;
 
         while(!exit){
             BackStateGame_Enum ret = p.waitInput();
@@ -28,29 +28,6 @@ public class Game{
             else if(ret == BackStateGame_Enum.RESTART){
                 p = new Prompt(engine);
             }
-
-          /*   menu = getMenuFrom(ret);                     spostato in prompt per evitare di dover passare anche gameframe
-            if(menu != null){
-                p.changeMenu(menu);
-            }*/
-            
-
-
         }
     }
-
-    /**
-     * Metodo di utilita per converite un enum nel rispettivo menu
-     * @return Menu
-     *
-    private static Menu getMenuFrom(BackStateGame_Enum e){
-        switch(e){
-            case START:
-                return new MovementMenu(engine);
-            case UPDATE_MAP:
-              //  return new BattleMenu(engine); by Carlo   perché non istanzia più la grafica
-            default:
-                return null;
-        }
-    }*/
 }

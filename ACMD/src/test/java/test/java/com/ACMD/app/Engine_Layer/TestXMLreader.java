@@ -1,6 +1,5 @@
 package test.java.com.ACMD.app.Engine_Layer;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -34,7 +33,7 @@ public class TestXMLreader {
         // ---------- TEST DRAGO ----------
         Assert.assertEquals(3, values.get(MType.BOSS_DRAGO.getId()).health);
         Assert.assertEquals(1, values.get(MType.BOSS_DRAGO.getId()).armor);
-        Assert.assertEquals(2, values.get(MType.BOSS_DRAGO.getId()).healthMul);
+        Assert.assertEquals(5, values.get(MType.BOSS_DRAGO.getId()).healthMul);
 
         // ---------- TEST ARMATURA ----------
         Assert.assertEquals(3, values.get(MType.ARMATURA.getId()).health);
@@ -47,7 +46,7 @@ public class TestXMLreader {
         Assert.assertEquals(2, values.get(MType.COBOLDO.getId()).healthMul);
 
         // ---------- TEST MAGO ----------
-        Assert.assertEquals(3, values.get(MType.MAGO_OSCURO.getId()).health);
+        Assert.assertEquals(4, values.get(MType.MAGO_OSCURO.getId()).health);
         Assert.assertEquals(1, values.get(MType.MAGO_OSCURO.getId()).armor);
         Assert.assertEquals(2, values.get(MType.MAGO_OSCURO.getId()).healthMul);
     }

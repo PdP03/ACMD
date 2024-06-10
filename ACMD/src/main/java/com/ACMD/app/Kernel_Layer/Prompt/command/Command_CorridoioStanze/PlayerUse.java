@@ -1,4 +1,4 @@
-package com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio;
+package com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze;
 
 import java.util.Vector;
 
@@ -24,7 +24,12 @@ public class PlayerUse implements Command
     {
         if( strument.size() > 2 ) 
          return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
-         
+        
+        if( strument.size() ==1 )
+         {
+            gme.addBuffer("Serve inserire il nome dell'oggetto");
+            return BackStateGame_Enum.ERROR_DIGIT;
+         }
 
         if( gme.playerHave(strument.get(1)) )
         {

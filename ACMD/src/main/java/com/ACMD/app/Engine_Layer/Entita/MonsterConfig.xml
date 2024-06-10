@@ -17,15 +17,15 @@ i tag obbligatori sono:
     <base_armor>1</base_armor>
     <base_health>3</base_health>
     <base_level>1</base_level>
-    <armor_multiplier>1</armor_multiplier>
+    <armor_multiplier>2</armor_multiplier>
     <damage_multiplier>1</damage_multiplier>
     <health_multiplier>2</health_multiplier>
   </ARMATURA>
 
   <MAGO_OSCURO>
-    <base_damage>2</base_damage>
+    <base_damage>3</base_damage>
     <base_armor>1</base_armor>
-    <base_health>3</base_health>
+    <base_health>4</base_health>
     <base_level>1</base_level>
     <armor_multiplier>1</armor_multiplier>
     <damage_multiplier>1</damage_multiplier>
@@ -33,7 +33,7 @@ i tag obbligatori sono:
   </MAGO_OSCURO>
 
   <COBOLDO>
-    <base_damage>2</base_damage>
+    <base_damage>3</base_damage>
     <base_armor>1</base_armor>
     <base_health>3</base_health>
     <base_level>1</base_level>
@@ -43,22 +43,22 @@ i tag obbligatori sono:
   </COBOLDO>
 
   <BOSS_DRAGO>
-    <base_damage>2</base_damage>
+    <base_damage>5</base_damage>
     <base_armor>1</base_armor>
     <base_health>3</base_health>
     <base_level>1</base_level>
-    <armor_multiplier>1</armor_multiplier>
-    <damage_multiplier>1</damage_multiplier>
-    <health_multiplier>2</health_multiplier>
+    <armor_multiplier>2</armor_multiplier>
+    <damage_multiplier>2</damage_multiplier>
+    <health_multiplier>5</health_multiplier>
   </BOSS_DRAGO>
 
   <MOSTRO_MARINO>
-    <base_damage>2</base_damage>
+    <base_damage>3</base_damage>
     <base_armor>1</base_armor>
     <base_health>3</base_health>
     <base_level>1</base_level>
     <armor_multiplier>1</armor_multiplier>
-    <damage_multiplier>1</damage_multiplier>
+    <damage_multiplier>2</damage_multiplier>
     <health_multiplier>4</health_multiplier>
   </MOSTRO_MARINO>
 

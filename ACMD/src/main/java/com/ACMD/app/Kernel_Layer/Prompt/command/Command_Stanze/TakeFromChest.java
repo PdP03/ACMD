@@ -19,10 +19,16 @@ public class TakeFromChest implements Command
      * Da dentro la stanza
      */
     @Override
-    public BackStateGame_Enum execute(Vector<String> struments)
+    public BackStateGame_Enum execute(Vector<String> strument)
     {
-        if( struments.size() > 2 )
+        if( strument.size() > 2 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non va
+
+        if( strument.size() ==1 )
+        {
+           gme.addBuffer("Serve inserire il nome dell'oggetto");
+           return BackStateGame_Enum.ERROR_DIGIT;
+        }
 
         if( ! gme.isPlayerInRoom() )  //controllo non necessario, ma se per qualche motivo accade c'è un problema
         {                           //tanto sarebbe una azione rara, quindi non importa per il controllo... se è per una cosa così critica  (altrimenti dovrei cercare di stare sempre in stati validi ed evitare if che possono cambiare)
@@ -30,11 +36,10 @@ public class TakeFromChest implements Command
             System.exit(1);
         }
        
-        if( gme.canPlayerTake(struments.elementAt(1)) )
+        if( gme.canPlayerTake(strument.elementAt(1)) )
          {
-            gme.playerTake(struments.get(1));
-            System.out.println("An element has beed added to the Inv.");//DEBUG
-            gme.addBuffer("Hai inserito in inventario "+ struments.get(1));
+            gme.playerTake(strument.get(1));//System.out.println("An element has beed added to the Inv.");//DEBUG
+            gme.addBuffer("Hai inserito in inventario "+ strument.get(1));
          }
          //else
         

@@ -40,8 +40,7 @@ public class ExitAndSave implements Command
 
     private void save()
     {
-        SaveAdapter.save( gme.getPlayer() );
-            System.out.println( gme.getPlayer().getName() );    //DEBUG
+        SaveAdapter.save( gme.getPlayer() );    //System.out.println( gme.getPlayer().getName() );//DEBUG
         SaveAdapter.save( gme.getMap() );
 
         gme.addBuffer("Partita salvata");
