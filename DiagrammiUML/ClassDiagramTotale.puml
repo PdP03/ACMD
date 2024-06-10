@@ -230,7 +230,7 @@ RemoveItem"1"--|>"1"Command
 RemoveStackItem"1"--|>"1"Command
 Load"1"--|>"1"Command
 Load "1"-->"1"AdapterSave
-Load"1"-->"1"Save
+AdapterSave"1"-->"1"Save
 Load"1"->"1"GameEngine
 Promt"1"--|>"1"Command
 TakeFromChest"1"--|>"1"Command
