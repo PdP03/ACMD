@@ -58,7 +58,7 @@
 
 
  <menuvoice>
-  <command>showchest</command>
+  <command>look</command>    <!--showchest-->
   <description> Mostra la chest: solo dopo aver sconfitto il mostro</description>
  </menuvoice>
 
