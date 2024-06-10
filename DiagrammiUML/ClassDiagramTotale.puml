@@ -18,7 +18,7 @@ class Chest{
 
 }
 
-Storage "1" -> "n"ItemStack 
+Storage "1" --> "n"ItemStack 
 ItemStack "1" -> "1" ItemType
 Inventario "1" --|> "1" Storage
 
@@ -223,6 +223,9 @@ PlayerUse"1"--|>"1"Command
 RemoveItem"1"--|>"1"Command
 RemoveStackItem"1"--|>"1"Command
 Load"1"--|>"1"Command
+Load "1"->"1"AdapterSave
+Load"1"->"1"Save
+Load"1"->"1"GameEngine
 Promt"1"--|>"1"Command
 TakeFromChest"1"--|>"1"Command
 
@@ -232,6 +235,10 @@ GameEngine"1"-->"1"MapGraph
 Promt"1"-->"1"GameEngine
 Game"1"-->"1"Promt
 Player"1"-->"1"Inventario
+JsonParser"1"-->"1"awsClient
+
+AdapterSave"1"-->"1"JsonParser
+
 
 
 @enduml
