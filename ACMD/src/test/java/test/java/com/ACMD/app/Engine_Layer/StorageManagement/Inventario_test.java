@@ -8,8 +8,6 @@ import com.ACMD.app.Engine_Layer.StorageManagement.Inventario;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemFactory;
 
-// PER IL FUTURO : se ci sono problemi con i test, prima vai a vedere le classi che utilizza (in questo caso avevano problemi Storage ed ItemStack)
-
 public class Inventario_test {
 
     @Test
@@ -17,7 +15,7 @@ public class Inventario_test {
     {
         final int nElementiGenerare = ItemFactory.MAXVALUE/2;   //sono sicuro di non sforare la quanità massima
 
-        //_controllo se la somma di tutti i pesi a mano è quella corretta
+        //_controllo a mano se la somma di tutti i pesi è quella corretta
         ItemFactory generator= new ItemFactory();
         ItemStack[] aryT = new ItemStack[nElementiGenerare];
         Inventario inv = new Inventario();

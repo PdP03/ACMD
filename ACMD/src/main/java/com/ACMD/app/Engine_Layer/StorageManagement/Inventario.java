@@ -14,7 +14,8 @@ public Inventario()
 
 @Override
 /**
- * 
+ * Aggiunge gli oggetti fino ad un limite, aggiunge anche un peso
+ * @return true se è ha potuto aggiungere l'oggetto
  */
 public boolean add(ItemStack t)
 {
@@ -23,11 +24,11 @@ public boolean add(ItemStack t)
         totalWeight+= t.getWeight();
         return true;
     }
-        // if(totalWeight<0) throw new IllegalArgumentException("Il peso lanciato è troppo");
 
         return false;
     }
 
+@Override
 /**
  * @return False se non è trovato in inventario
  */

@@ -63,8 +63,8 @@ public class ItemFactory_test {
         int nTentativi=0;
 
         ItemStack[] mem= new ItemStack[2];
-        mem[0]= factory.getRandomItem();         //alla fine è tornato più utile a me getRandomItem
-                                                 //perché un array? solo per fare il creativo (e togliere UN assegnamento che sarebbe durato migliaia di volte)
+        mem[0]= factory.getRandomItem();
+
         for(int i=1; i<factory.getSize(); i++)
         {
             mem[i%2]= factory.getRandomItem();  //così si danno il cambio
@@ -107,8 +107,7 @@ public class ItemFactory_test {
             //controlla che siano dello stesso tipo
 
            if( t != factory.getItem( t.getType() ) ) ++cont;
-            //controlla se sono stesso oggetto.. il che può essere, ma non sempre
-            //dato che alcune categorie sono uniche, ha più senso controllare se ci sono casi di oggetti non uguali
+            //controlla se sono stesso oggetto: il che può essere, ma non sempre
         }
         
         Assert.assertEquals(true,cont>0);   //quindi è riuscito a trovare dei casi in cui avevano stesso tipo, ma erano diversi
