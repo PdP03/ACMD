@@ -8,13 +8,14 @@ public class Inventario extends Storage
 //  ## Costruttori ##
 
 public Inventario()
-{
-    super();
-}
+ {super();}
 
 //  ## OverLoad Public ##
 
-
+@Override
+/**
+ * 
+ */
 public boolean add(ItemStack t)
 {
     if(super.add(t) )
