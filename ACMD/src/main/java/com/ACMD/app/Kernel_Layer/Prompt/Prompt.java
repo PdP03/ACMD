@@ -40,12 +40,12 @@ public class Prompt
 
    // boolean engineLinked = false;
     Menu mn;
-    GameFrame gmf;
     GameEngine gme;
     Command cmmd;
 
+    GameFrame gmf;
     GraphicAdapter graphA;
-int cont=0;
+
     //## Costruttore ##
 
     public Prompt(GameEngine engine)
@@ -190,5 +190,11 @@ int cont=0;
     {
         cmmd= mn.checkInTheMap(input);
        // graphA.fromBufferToGraphic( gme.getBuffer() );
+    }
+
+    //## Metodo di DEBUG per dare accesso ai test per la divisione delle stringhe
+    public static Vector<String> DEBUG(String in)
+    {
+        return removeDoubleSpaces(in);
     }
 }
