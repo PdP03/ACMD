@@ -57,6 +57,9 @@ public class ItemFactory
      */
     public ItemStack getItem(ItemType type) //NOTA: sarebbe più efficiente con altra struttura dati in grado di distinguere già le tipologie
      {
+        if(type==null)
+         return null;
+
         //_creo una lista con robe adatte
         Vector<Integer> itemListPosition= new Vector<Integer>();
 
@@ -75,6 +78,9 @@ public class ItemFactory
 
     public ItemStack getItem(String name)
     {
+        if(name==null)
+         return null;
+
         for(int i=0; i<itemConfigurazione.size(); i++)
             if( name.equals( (itemConfigurazione.get(i) ).getName() ) ) return itemConfigurazione.get(i).clone();
 
