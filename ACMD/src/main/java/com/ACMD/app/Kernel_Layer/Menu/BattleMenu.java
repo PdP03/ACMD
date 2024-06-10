@@ -40,6 +40,7 @@ public class BattleMenu extends Menu
             loadMethods("take",          new TakeFromChest(generateMethods));
             loadMethods("trashitem",     new PlayerRemoveItem(generateMethods));
             loadMethods("trashstack",    new PlayerRemoveItemStack(generateMethods));
+            loadMethods("use",           new PlayerUse(generateMethods));
 
             if( super.commandMap.containsValue(null) )
             {

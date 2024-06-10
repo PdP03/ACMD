@@ -25,6 +25,10 @@
  </menuvoice>
 -->
 
+<menuvoice>
+  <command>use</command>
+  <description> (String) Utilizzare un oggetto da inventario </description>
+ </menuvoice>
 
  <menuvoice>
   <command>attack</command>
