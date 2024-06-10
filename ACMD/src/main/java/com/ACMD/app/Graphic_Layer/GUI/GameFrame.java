@@ -66,10 +66,10 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
      */
     public void move (Coordinates c) throws IllegalArgumentException
     {
-        System.out.println("move chiamato con" + c.toString());
+        //System.out.println("move chiamato con" + c.toString());
         //===================================================================
         // Voglio spostare il player nel posto giusto se entra in una stanza
-        //
+        // OBSOLETO MA LO TENGO PERCHE' POTREBBE ESSERE UTILE IN FUTURO 
         // ==================================================================
         
         /*if(MapGraph.isStanza(c))
@@ -163,7 +163,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          */
         public void setPlayerHealth(int amount ) throws RuntimeException
         {
-            System.out.println("Vita "+amount );
+            //System.out.println("Vita "+amount );
             if(amount>100) throw new RuntimeException("value greater than 100 ");
             if (amount <0) amount =0; 
             jBarVitaPlayer.setValue(amount);
@@ -175,7 +175,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          */
         public void setEnemyHealth(int amount ) throws RuntimeException
         {
-            System.out.println("Enemy "+amount );
+            //System.out.println("Enemy "+amount );
             if(amount>100) throw new RuntimeException("value greater than 100 ");
             if (amount <0) amount =0; 
             jBarVitaNemico.setValue(amount);
@@ -187,18 +187,271 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
          */
         public void setPeso(int amount) throws RuntimeException
         {
-            System.out.println("Peso "+amount );
+            //System.out.println("Peso "+amount );
             if(amount>100) throw new RuntimeException("value greater than 100 ");
             if (amount <0) amount =0; 
             jBarPeso.setValue(amount);
-        }
+        }    
+    /**
+     * Metodo che inizializza tutte le componenti del frame
+     */
+    public void initComponents() {
+        //Inizializzazione delle variabili oggetto per la grafica 
+        //setBackground(new java.awt.Color(0,0,0));
+        jToolBar1 = new javax.swing.JToolBar();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jInternalFrame1 = new javax.swing.JInternalFrame("The cave");
+        jButtonPlayer = new javax.swing.JRadioButton();
+       
+        jLabelMap = new javax.swing.JLabel();
+        jPanelProgressBars = new javax.swing.JPanel(); jPanelProgressBars.setBackground(backGround);
+        jBarVitaNemico = new javax.swing.JProgressBar();
+        jLabelNemico = new javax.swing.JLabel();
+        jLabelVita = new javax.swing.JLabel();
+        jBarVitaPlayer = new javax.swing.JProgressBar();
+        jLabelPeso = new javax.swing.JLabel();
+        jBarPeso = new javax.swing.JProgressBar();
+        jPanel2 = new javax.swing.JPanel();
+        jButtonInvio = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextStory = new javax.swing.JTextArea();
+        jTextComandi = new javax.swing.JTextField();
+
+        jToolBar1.setRollover(true);
+
+        //Implementazione dell'inventario
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(true);
+        jLabelNemico.setText("Nemico");
+        jLabelVita.setText("Vita");
+        jLabelPeso.setText("Peso");
+        jInternalFrame1.setVisible(true);
+        jButtonPlayer.setEnabled(false);    
+        jBarPeso.setBackground(lightBackground);
+        jBarVitaNemico.setBackground(lightBackground);
+        jBarVitaNemico.setForeground(new Color(255,0,0));
+        jBarVitaPlayer.setBackground(lightBackground);
+        jBarVitaPlayer.setForeground(Color.red);
+        jBarVitaNemico.setForeground(new Color(255,0,0));
+
+        jBarPeso.setForeground(new java.awt.Color(0, 255, 0));
+        jBarPeso.setValue(10);
 
 
+        AddComponents1(); //Metodo black box
+    // =====================
+    // Gestione dell'invio
+    //=====================
+    jTextComandi.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           
+            jButtonInvio.setEnabled(true);  // Attiva il pulsante quando si preme Invio
+            jButtonInvio.doClick(); } // Simula un click sul pulsante
+    });
+    // ==============================
+    // Gestione del testo automatico 
+    // ==============================
+        jTextComandi.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (jTextComandi.getText().equals("Enter your answer")) {
+                    jTextComandi.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (jTextComandi.getText().isEmpty()) {
+                    jTextComandi.setText("Enter your answer");
+                }
+            }
+        });
 
 
+        jButtonInvio.setText("Submit");
+        jButtonInvio.addActionListener(this);
+        
 
+        jTextStory.setBackground(new Color(0,0,0));
+        jTextStory.setForeground(new Color (255,255,255));
+        jTextStory.setFont(jTextStory.getFont().deriveFont(fontSize)); 
+        jTextStory.setColumns(20);
+        jTextStory.setRows(5);
+        jScrollPane1.setViewportView(jTextStory);
 
-        //============================
+        jTextComandi.setText("Enter your answer");
+
+        addComponents2();
+
+       // JButtonMusic.addActionListener(this);
+        pack();
+    }// </editor-fold>
+    /**
+     * For busy waiting 
+     * @return If the button has been pressed return that value, otherwise return null 
+     */
+    public String textInput()
+    {
+        System.out.printf("");
+        if(isOutputReady){
+            isOutputReady=false;
+            String theInput = jTextComandi.getText();
+            jTextComandi.setText(null);
+
+            return theInput;}
+        return null; 
+       
+    }
+    /**
+     * 
+     * @param s testo da visualizzare. Nota: la console VIENE PULITA prima del reset, per non pulirla usare il metodo 
+     * "appendOnConsole" che non pulisce
+     */
+    public void writeOnConsole(String s)
+    {
+        jTextStory.setText(s);
+        SwingUtilities.updateComponentTreeUI(jTextStory);
+    }
+    public void writeRedOnConsole(String s)
+    {
+        jTextStory.setForeground(Color.red);
+        jTextStory.append(s);
+        SwingUtilities.updateComponentTreeUI(jTextStory);
+    }
+    public void writeBlueOnConsole(String s)
+    {
+        jTextStory.setForeground(Color.blue);
+        jTextStory.append(s);
+        SwingUtilities.updateComponentTreeUI(jTextStory);
+    }
+
+    /**
+     * 
+     * @param s testo da visualizzare. Nota: la console NON VIENE PULITA prima del reset, per non pulirla usare il metodo 
+     * "writeOnConsole" che pulisce
+     */
+    public void appendOnConsole(String s)
+    {
+        jTextStory.append(s);
+    }
+    /**
+     * Pulisce la console: 
+     */
+    public void resetConsole()
+    {
+        jTextStory.setText("");
+    }
+    
+    // ==================================
+    // Dichiarazione variabili del frame
+    // ==================================
+    private javax.swing.JProgressBar jBarPeso;
+     private javax.swing.JProgressBar jBarVitaNemico;
+     private javax.swing.JProgressBar jBarVitaPlayer;
+     private javax.swing.JButton jButtonInvio;
+     private javax.swing.JInternalFrame jInternalFrame1;
+     private javax.swing.JLabel jLabelNemico;        //nemico salute
+     private javax.swing.JLabel jLabelPeso;        //peso      (commenta sempre)
+     private javax.swing.JLabel jLabelMap;
+     private javax.swing.JLabel jLabelVita;     //player
+     private javax.swing.JPanel jPanelProgressBars; // Pannello del 
+     private javax.swing.JPanel jPanel2;
+     private javax.swing.JRadioButton jButtonPlayer;
+     private javax.swing.JScrollPane jScrollPane1;
+     private javax.swing.JScrollPane jScrollPane4;
+     private javax.swing.JTextField jTextComandi;
+     private javax.swing.JTextArea jTextStory;
+     private javax.swing.JToolBar jToolBar1;
+     private JLabel key;
+     private MyRoundButton JButtonMusic;
+     // End of variables declaration      
+    public final String lorem ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus ligula arcu, facilisis bibendum orci sagittis ac. Vestibulum maximus odio quis lobortis condimentum. Cras nisi mauris, suscipit non mauris quis, rhoncus vulputate leo. Fusce leo neque, mollis nec lectus et, ornare eleifend velit. Praesent sagittis, nulla a varius accumsan, nisi sem tempus lectus, quis vehicula dui risus vel leo. Cras ante sem, porta quis aliquam sit amet, ultrices a ipsum. Quisque libero elit, accumsan a est congue, finibus rhoncus elit. Ut mattis commodo sapien, in scelerisque tellus molestie eu";
+    public final String[] splitLorem = lorem.split(" ");
+    
+
+     
+    // =====================
+    // Gestione bottoni
+    // =====================
+    public void actionPerformed(java.awt.event.ActionEvent evt) 
+            {
+                // ========================
+                // |    BOTTONE SUBMIT    |
+                // ========================
+                if(evt.getSource()==jButtonInvio)
+                isOutputReady=true;
+                //System.out.println("Hai premuto il bottone: isOutputReady è " + isOutputReady);
+                {
+                    isOutputReady=true;
+                    System.out.println("isoutput ready is now true");
+                    SwingUtilities.updateComponentTreeUI(jInternalFrame1);
+                }
+
+            }
+
+    // ===========================
+    // |    RIMOZIONE BARRE      |
+    // ===========================
+    /**
+     * Metodo che cancella la barra del nemico, essendo finita la battaglia aggiorna le chiavi
+     */
+    public void removeEnemyBar()
+    {
+        jBarVitaNemico.setVisible(false);
+        jLabelNemico.setVisible(false);
+        updateKeys();
+    }
+    /**
+     * Metodo che la mostra del nemico
+     * */
+    public void addEnemyBar()
+    {
+        jBarVitaNemico.setVisible(true);
+        jLabelNemico.setVisible(true);
+
+    }
+    /**
+     * Metodo che la mostra barra del player
+     */
+    public void addPlayerBar()
+    {
+        jBarVitaPlayer.setVisible(true); jLabelVita.setVisible(true);
+    }
+    /**
+     * Metodo che rimuove la barra del player
+     */
+    public void removePlayerBar()
+    {
+        jBarVitaPlayer.setVisible(false); jLabelVita.setVisible(false);
+    }
+    /**
+     * Metodo che la mostra barra del peso del player
+     */
+    public void addWeightBar()
+    {
+        jBarPeso.setVisible(true); jLabelPeso.setVisible(true);
+    }
+    /**
+     * Metodo che la nasconde mostra barra del peso
+     */
+    public void removeWeightBar()
+    {
+        jBarPeso.setVisible(false); jLabelPeso.setVisible(false);
+    }
+
+    /** 
+     * Metodo che aggiorna le chiavi
+     * */ 
+    private void updateKeys()
+    {
+        key.setText(MapGraph.keys+"");
+        key.setVisible(false);
+        key.setVisible(true);
+    }
+
+     //============================
         //       Black box
         //===========================
         /**
@@ -214,13 +467,13 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                         .addGroup(jPanelProgressBarsLayout.createSequentialGroup()
                             .addComponent(jLabelVita)
                             .addGap(4, 4, 4))
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jLabelPeso, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(jPanelProgressBarsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jBarVitaPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jBarPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(23, 23, 23)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelNemico, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jBarVitaNemico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -236,9 +489,9 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                         .addGroup(jPanelProgressBarsLayout.createSequentialGroup()
                             .addGroup(jPanelProgressBarsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelVita)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabelNemico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGap(25, 25, 25)
-                            .addComponent(jLabel2)
+                            .addComponent(jLabelPeso)
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(jPanelProgressBarsLayout.createSequentialGroup()
                             .addComponent(jBarVitaPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -351,264 +604,4 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
        add(JButtonMusic);
 
     }
-    
-    /**
-     * Metodo che inizializza tutte le componenti del frame
-     */
-    public void initComponents() {
-        //Inizializzazione delle variabili oggetto per la grafica 
-        //setBackground(new java.awt.Color(0,0,0));
-        jToolBar1 = new javax.swing.JToolBar();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jInternalFrame1 = new javax.swing.JInternalFrame("The cave");
-        jButtonPlayer = new javax.swing.JRadioButton();
-       
-        jLabelMap = new javax.swing.JLabel();
-        jPanelProgressBars = new javax.swing.JPanel(); jPanelProgressBars.setBackground(backGround);
-        jBarVitaNemico = new javax.swing.JProgressBar();
-        jLabel1 = new javax.swing.JLabel();
-        jLabelVita = new javax.swing.JLabel();
-        jBarVitaPlayer = new javax.swing.JProgressBar();
-        jLabel2 = new javax.swing.JLabel();
-        jBarPeso = new javax.swing.JProgressBar();
-        jPanel2 = new javax.swing.JPanel();
-        jButtonInvio = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextStory = new javax.swing.JTextArea();
-        jTextComandi = new javax.swing.JTextField();
-
-        jToolBar1.setRollover(true);
-
-        //Implementazione dell'inventario
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(true);
-        jLabel1.setText("Nemico");
-        jLabelVita.setText("Vita");
-        jLabel2.setText("Peso");
-        jInternalFrame1.setVisible(true);
-        jButtonPlayer.setEnabled(false);    
-        jBarPeso.setBackground(lightBackground);
-        jBarVitaNemico.setBackground(lightBackground);
-        jBarVitaNemico.setForeground(new Color(255,0,0));
-        jBarVitaPlayer.setBackground(lightBackground);
-        jBarVitaPlayer.setForeground(Color.red);
-        jBarVitaNemico.setForeground(new Color(255,0,0));
-
-        jBarPeso.setForeground(new java.awt.Color(0, 255, 0));
-        jBarPeso.setValue(10);
-
-
-        AddComponents1(); //Metodo black box
-    // ================
-    // Gestione dell'invio
-    //==================
-    jTextComandi.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-           
-            jButtonInvio.setEnabled(true);  // Attiva il pulsante quando si preme Invio
-            jButtonInvio.doClick(); } // Simula un click sul pulsante
-    });
-
-        jTextComandi.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (jTextComandi.getText().equals("Enter your answer")) {
-                    jTextComandi.setText("");
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (jTextComandi.getText().isEmpty()) {
-                    jTextComandi.setText("Enter your answer");
-                }
-            }
-        });
-
-
-        jButtonInvio.setText("Submit");
-        jButtonInvio.addActionListener(this);
-        
-
-        jTextStory.setBackground(new Color(0,0,0));
-        jTextStory.setForeground(new Color (255,255,255));
-        jTextStory.setFont(jTextStory.getFont().deriveFont(fontSize)); 
-        jTextStory.setColumns(20);
-        jTextStory.setRows(5);
-        jScrollPane1.setViewportView(jTextStory);
-
-        jTextComandi.setText("Enter your answer");
-
-        addComponents2();
-
-       // JButtonMusic.addActionListener(this);
-        pack();
-    }// </editor-fold>
-    /**
-     * For busy waiting 
-     * @return If the button has been pressed return that value, otherwise return null 
-     */
-    public String textInput()
-    {
-        System.out.printf("");
-        if(isOutputReady){
-            isOutputReady=false;
-            String theInput = jTextComandi.getText();
-            jTextComandi.setText(null);
-
-            return theInput;}
-        return null; 
-       
-    }
-    /**
-     * 
-     * @param s testo da visualizzare. Nota: la console VIENE PULITA prima del reset, per non pulirla usare il metodo 
-     * "appendOnConsole" che non pulisce
-     */
-    public void writeOnConsole(String s)
-    {
-        /*
-        int count =0;
-        String[] message = s.split(" ");
-        jTextStory.setText("");
-        for(String i:message){
-        jTextStory.append(""+i+" ");
-        if(count==10){jTextStory.append("\n"); count=0;}
-        try {
-            Thread.sleep(delay);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        }
-        */
-        jTextStory.setText(s);
-        SwingUtilities.updateComponentTreeUI(jTextStory);
-}
-    public void writeRedOnConsole(String s)
-    {
-        jTextStory.setForeground(Color.red);
-        jTextStory.append(s);
-        SwingUtilities.updateComponentTreeUI(jTextStory);
-    }
-    public void writeBlueOnConsole(String s)
-    {
-        jTextStory.setForeground(Color.blue);
-        jTextStory.append(s);
-        SwingUtilities.updateComponentTreeUI(jTextStory);
-    }
-
-    /**
-     * 
-     * @param s testo da visualizzare. Nota: la console NON VIENE PULITA prima del reset, per non pulirla usare il metodo 
-     * "writeOnConsole" che pulisce
-     */
-    public void appendOnConsole(String s)
-    {
-        jTextStory.append(s);
-    }
-    /**
-     * Pulisce la console: 
-     */
-    public void resetConsole()
-    {
-        jTextStory.setText("");
-    }
-    
-    // ==================================
-    // Dichiarazione variabili del frame
-    // ==================================
-    private javax.swing.JProgressBar jBarPeso;
-     private javax.swing.JProgressBar jBarVitaNemico;
-     private javax.swing.JProgressBar jBarVitaPlayer;
-     private javax.swing.JButton jButtonInvio;
-     private javax.swing.JInternalFrame jInternalFrame1;
-     private javax.swing.JLabel jLabel1;        //nemico salute
-     private javax.swing.JLabel jLabel2;        //peso      (commenta sempre)
-     private javax.swing.JLabel jLabelMap;
-     private javax.swing.JLabel jLabelVita;     //player
-     private javax.swing.JPanel jPanelProgressBars; // Pannello del 
-     private javax.swing.JPanel jPanel2;
-     private javax.swing.JRadioButton jButtonPlayer;
-     private javax.swing.JScrollPane jScrollPane1;
-     private javax.swing.JScrollPane jScrollPane4;
-     private javax.swing.JTextField jTextComandi;
-     private javax.swing.JTextArea jTextStory;
-     private javax.swing.JToolBar jToolBar1;
-     private JLabel key;
-     private MyRoundButton JButtonMusic;
-     // End of variables declaration      
-    public final String lorem ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus ligula arcu, facilisis bibendum orci sagittis ac. Vestibulum maximus odio quis lobortis condimentum. Cras nisi mauris, suscipit non mauris quis, rhoncus vulputate leo. Fusce leo neque, mollis nec lectus et, ornare eleifend velit. Praesent sagittis, nulla a varius accumsan, nisi sem tempus lectus, quis vehicula dui risus vel leo. Cras ante sem, porta quis aliquam sit amet, ultrices a ipsum. Quisque libero elit, accumsan a est congue, finibus rhoncus elit. Ut mattis commodo sapien, in scelerisque tellus molestie eu";
-    public final String[] splitLorem = lorem.split(" ");
-    
-
-     
-    // =====================
-    // Gestione bottoni
-    // =====================
-    public void actionPerformed(java.awt.event.ActionEvent evt) 
-            {
-                if(evt.getSource()==jButtonInvio)
-                isOutputReady=true;
-                //System.out.println("Hai premuto il bottone: isOutputReady è " + isOutputReady);
-                {
-                    isOutputReady=true;
-                    System.out.println("isoutput ready is now true");
-                    
-                try {
-                    if(jTextComandi.getText().contains("Open"))
-                    {
-                        String[] t=jTextComandi.getText().split(",");
-                        int x=Integer.parseInt(t[0]);
-                        int y=Integer.parseInt(t[1]);
-                        MapGraph.setBeaten(new Coordinates(x,y));
-                        key.setVisible(false);
-                        key.setText(MapGraph.keys+"");
-                        key.setVisible(true);                        
-                    }
-                    String[] t=jTextComandi.getText().split(",");
-                    int x=Integer.parseInt(t[0]);
-                    int y=Integer.parseInt(t[1]);
-                    move(new Coordinates(x,y));
-                    updateGraphics(new Coordinates(x,y));
-                    //writeOnConsole(lorem);
-                }catch (Exception e ){}
-                if(jTextComandi.getText().contains("Player")) {writeOnConsole("20"); System.out.println("cambio");}
-                SwingUtilities.updateComponentTreeUI(jInternalFrame1);
-                }
-
-            }
-    /**
-     * Metodo che la barra del nemico, essendo finita la battaglia aggiorna le chiavi
-     */
-    public void removeEnemyBar()
-    {
-        jBarVitaNemico.setVisible(false);
-        jLabel1.setVisible(false);
-        updateKeys();
-
-    }
-    public void addEnemyBar()
-    {
-        jBarVitaNemico.setVisible(true);
-        jLabel1.setVisible(true);
-
-    }
-    //by Carlo
-    public void addPlayerBar()    {jBarVitaPlayer.setVisible(true); jLabelVita.setVisible(true);}
-    public void removePlayerBar() {jBarVitaPlayer.setVisible(false); jLabelVita.setVisible(false);}
-    //by Carlo
-    public void addWeightBar()    {jBarPeso.setVisible(true); jLabel2.setVisible(true);}
-    public void removeWeightBar() {jBarPeso.setVisible(false); jLabel2.setVisible(false);}
-
-
-    private void updateKeys()
-    {
-        key.setText(MapGraph.keys+"");
-        key.setVisible(false);
-        key.setVisible(true);
-    }
-
 }
