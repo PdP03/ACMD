@@ -226,11 +226,12 @@ Load"1"--|>"1"Command
 Promt"1"--|>"1"Command
 TakeFromChest"1"--|>"1"Command
 
-Menu"1"-->"1"Command
+Menu"1"-->"n"Command
 GameEngine"1"-->"1"Player
 GameEngine"1"-->"1"MapGraph
 Promt"1"-->"1"GameEngine
 Game"1"-->"1"Promt
+Player"1"-->"1"Inventario
 
 
 @enduml
