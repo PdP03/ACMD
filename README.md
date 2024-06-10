@@ -1,6 +1,18 @@
 # ACMD
 Text based game for software eng.
 
+# REQUISITI
+È neccessario aver installato maven nel PC. 
+## Windows
+A questo [link](https://maven.apache.org/download.cgi) è possibile scaricare i file binari. Dopo averli scaricati bisogna aggiungere il percorso alla variable dambiente PATH
+
+## Linux
+È possibile installare maven usando il package manager ad es per apt:
+```
+> sudo apt install maven -y
+```
+Inoltre la funzione di salvataggio della partita è disponibile solo se si possiede una chiave per un bucket di aws.
+
 # COMPILAZIONE(Windows e Linux)
 Aprire il terminale ed entrare nella cartella ACMD contentente il pom.xml e lanciare il comando:
 ```
