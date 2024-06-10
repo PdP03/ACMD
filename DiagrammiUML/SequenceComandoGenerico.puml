@@ -2,47 +2,74 @@
 
 title Comando generico
 
-participant Game          order 1
-participant Prompt        order 2 #yellow
-participant GraphicInput  order 3
-actor Utente              order 4
-participant GameEngine    order 10
-participant Adapter_Salvataggio  order 20
-database Amazon           order 30
+participant Game           order 1
+participant Prompt         order 2 #yellow
+participant GraphicAdapter order 3
+participant GameFrame      order 3
+actor Utente               order 4
+participant GameEngine     order 10
+participant SaveAdapter    order 20
+participant Parser         order 20
+database Amazon            order 30
 
-
+/'riga 13'/
 activate Game
-Game          -> Prompt : dare controllo
+Game          -> Prompt : Prompt(GameEngine)
+Game          -> Prompt : waitInput()
 activate Prompt
-Prompt        -> GraphicInput : attesa di input
-activate GraphicInput
-GraphicInput  -> Utente : attesa
-activate Utente
+Prompt        -> GraphicAdapter : WaitInput()
 
-Utente       --> GraphicInput : scrive comando
+activate GraphicAdapter
+GraphicAdapter -> GameFrame : stringa input
+
+activate GameFrame
+GameFrame      -> Utente
+
+activate Utente
+Utente       --> GameFrame : scrive comando
 deactivate Utente
-GraphicInput --> Prompt : stringa
-deactivate GraphicInput
+
+/'riga 29'/
+
+GameFrame --> GraphicAdapter
+deactivate GameFrame
+
+GraphicAdapter --> Prompt : stringa
+deactivate GraphicAdapter
+
 Prompt        -> Prompt : controllo correttezza rispetto menù
-Prompt        -> Prompt : richiama il metodo corrispondente
-deactivate Prompt
+Prompt        -> Prompt : cambia il command
 deactivate Game
+
+/'riga 42'/
 
 
 alt Azioni Gioco
 Prompt  -[#red]> GameEngine : attacco/movimento/uso
-GameEngine   --> Prompt     : facoltativo
+GameEngine    -> GameEngine : chiamate interne
+GameEngine   --> Prompt     : valori richiesti
+Prompt       -->GraphicAdapter: dipende dalla richiesta
 Prompt       --> Game       : Enum per gli eventi
 
 
-else Salvataggio
+else Salvataggio:
 /'activate Prompt'/
-Prompt      -[#green]> Adapter_Salvataggio :
-Adapter_Salvataggio -> Amazon
-/'deactivate Prompt'/
+
+Prompt      -[#green]> GameEngine : ottengo i valori
+GameEngine         --> Prompt:      Prende i valori
+Prompt              -> SaveAdapter: Ottiene i valori
+SaveAdapter         -> Parser: Converte in Json
+Parser              -> Amazon
+Prompt       --> Game       : Enum per gli eventi
+
+Prompt      -[#green]> SaveAdapter: Load: richiedo valori
+SaveAdapter        --> Prompt : Valore istanziabile
+Prompt              -> GameEngine: Istanzia
+Prompt       --> Game       : Enum per gli eventi
 
 else No azioni particolari
 Prompt      --> Game : Enum per gli eventi
+deactivate Prompt
 
 end
 
