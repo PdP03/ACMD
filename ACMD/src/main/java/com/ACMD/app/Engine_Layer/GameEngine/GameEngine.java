@@ -393,7 +393,8 @@ public class GameEngine{
             buffer += "["+format("INFO", ANSI_CYAN)+"]l'item "+item+" non può essere preso dal player perchè troppo pesante\n";
             return false;
         }
-        if(p.have(it.getType())){
+        if(p.hasAlreadyArmaOrArmatura(it)){
+            buffer += "["+format("INFO", ANSI_CYAN)+"]l'item "+item+" non può essere preso dal player perchè è gia presente nel inventario\n";
             return false;
         }
 

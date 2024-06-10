@@ -188,12 +188,18 @@ public class Player extends Entity{
     }
 
     /**
-     * Restituisce true se il player ha quel tipo di oggetto nel inventario
-     * @param type
-     * @return
+     * restituisce true se e solo se l'item passato è un arma o armatura ed è gia presente nel inventario di player 
+     * @param item da controllare
+     * @return boolean true false
      */
-    public boolean have(ItemType type){
-        return inv.searchFor(type) != null;
+    public boolean hasAlreadyArmaOrArmatura(ItemStack item){
+        ItemType type = item.getType();
+        if(type == ItemType.ARMA)
+            return inv.searchFor(type) != null;
+        else if (type == ItemType.ARMATURA)
+            return inv.searchFor(item.getName()) != null;
+        
+        return false;
     }
 
     /**
