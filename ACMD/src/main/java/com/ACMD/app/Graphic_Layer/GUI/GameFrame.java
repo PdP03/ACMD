@@ -313,10 +313,8 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                         .addComponent(jPanelProgressBars, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
         );
-       JButton jButtonSave = new JButton("Save Game");
-       jButtonSave.setSize(100,30);
-       jButtonSave.setLocation(1200,730);
-       add(jButtonSave);
+       
+       
 
        key = new JLabel();
        //key.setEnabled(false);
@@ -348,7 +346,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
        JButtonMusic.setIcon( imageIcon2); 
 
               
-       JButtonMusic.setLocation(1050,710);
+       JButtonMusic.setLocation(1210,710);
        
        add(JButtonMusic);
 
