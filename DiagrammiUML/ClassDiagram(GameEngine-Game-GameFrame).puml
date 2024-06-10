@@ -66,5 +66,48 @@ class GameEngine{
 
 class Game{
 public void main();
-
 }
+
+class GameFrame{
+JButton jButtonInvio;
+JProgressBar jBarPeso;
+JProgressBar jBarVitaNemico;
+JProgressBar jBarVitaPlayer;
+JButton jButtonInvio;
+JLabel jLabelNemico;        
+JLabel jLabelPeso; 
+JLabel jLabelMap;
+JLabel jLabelVita;    
+JRadioButton jButtonPlayer;
+JTextField jTextComandi;
+JTextArea jTextStory;
+MyRoundButton JButtonMusic;
+final int numberRows;
+final int numberCols; 
+final String pathOfTheImages;
+
+public void remove[Add]Player[Enemy]Bar(){}
+public void initComonents(){}
+public void WriteOnConsole(String t){}
+public void setPeso(int x){}
+public void getPeso(){}
+public void setVita(int x){}
+public void getVita(){}
+public void setVitaNemico(int x){}
+public void getVitaNemico(){}
+public void move(Coordinates c){}
+public void setDragon(){}
+}
+
+
+class MyRoundButton
+{
+protected void paintBorder(Graphics g){}
+protected void paintComponent(Graphics g){}
+public boolean contains(int x, int y){}
+public void actionPerformed(ActionEvent e){}
+public void playMusic(){}
+public void pauseMusic(){}
+}
+GameFrame--MyRoundButton
+note top of MyRoundButton: Extends JButton
