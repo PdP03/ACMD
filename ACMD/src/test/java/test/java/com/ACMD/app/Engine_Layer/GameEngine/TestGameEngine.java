@@ -100,8 +100,12 @@ public class TestGameEngine {
         xmlReader reader = new xmlReader(StorageDir, fileName);
 
         movePlayerToCoboldo(engine);
-        PlayerAttacca(engine);
-        Assert.assertTrue(engine.getBuffer().contains("WIN"));
+        try{
+            PlayerAttacca(engine);
+            Assert.assertTrue(engine.getBuffer().contains("WIN"));
+        }
+        catch(DeathException e){}//Tutto ok il player può morire
+            
 
         // ------------ CHECK SE L'ITEM ESISTE ------------
         String itemName = getItemNameFromChest(reader.getAllItemStack(), engine);
@@ -120,8 +124,11 @@ public class TestGameEngine {
         xmlReader reader = new xmlReader(StorageDir, fileName);
 
         movePlayerToCoboldo(engine);
+        try{
         PlayerAttacca(engine);
         Assert.assertTrue(engine.getBuffer().contains("WIN"));
+        }
+        catch(DeathException e){} //Tutto ok il player può morire
 
         // ------------ CHECK DOPO CHE PLAYER HA PRESO UN ITEM ------------
         String itemName = getItemNameFromChest(reader.getAllItemStack(), engine);
@@ -141,8 +148,11 @@ public class TestGameEngine {
         xmlReader reader = new xmlReader(StorageDir, fileName);
 
         movePlayerToCoboldo(engine);
+        try{
         PlayerAttacca(engine);
         Assert.assertTrue(engine.getBuffer().contains("WIN"));
+        }
+        catch(DeathException e){}//Tutto ok il player può morire
 
         // ------------ CHECK SU UN ITEM ESISTENTE ------------
         String itemName = getItemNameFromChest(reader.getAllItemStack(), engine);

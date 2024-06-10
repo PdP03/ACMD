@@ -16,7 +16,7 @@ import com.ACMD.app.Graphic_Layer.GUI.TitleFrame;
 
 public class main {
     static xmlReader reader;
-    final static String StorageDir = "ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\StorageManagement\\";
+    final static String StorageDir = "\\ACMD\\src\\main\\java\\com\\ACMD\\app\\Engine_Layer\\StorageManagement\\";
     
     static final String fileName = "ItemStackConfig.xml";
     public static void main(String[] args){
@@ -45,9 +45,9 @@ public class main {
         engine.lookAround();
         System.out.println(engine.getBuffer());
         engine.playerTake("pozione_cura");
-        engine.playerTake("pozione_");
+        engine.playerTake("pozione_forza");
         engine.playerUse("pozione_cura");
-        engine.playerUse("pozione_");
+        engine.playerUse("pozione_forza");
 
        
         engine.onlyForDebugging();
@@ -77,8 +77,8 @@ public class main {
          System.out.println(engine.getBuffer());
          engine.playerTake("pozione_cura");
          engine.playerUse("pozione_cura");
-         engine.playerTake("pozione_");
-         engine.playerUse("pozione_");
+         engine.playerTake("pozione_forza");
+         engine.playerUse("pozione_forza");
          movePlayerBack(engine, 3);
 
          movePlayerToMare(engine);
