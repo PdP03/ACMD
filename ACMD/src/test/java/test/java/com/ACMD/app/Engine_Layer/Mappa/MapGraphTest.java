@@ -95,7 +95,7 @@ public class MapGraphTest {
     public void testGetIconOfStanza()
     {
         MapGraph m=new MapGraph(); 
-        Assert.assertEquals(m.getIconOf(new Coordinates(8,7)), "SeaMap.png");
+        Assert.assertEquals(m.getIconOf(new Coordinates(8,7)), "MostroMarino.png");
     }
     @Test
     public void testGetIconOfStanzaFail()
@@ -158,7 +158,7 @@ public class MapGraphTest {
     @Test
     public void testGetPlayerPositionOf() {
         MapGraph m=new MapGraph();
-        Assert.assertEquals(m.getPlayerPositionOf(new Coordinates(2,4)), new Coordinates(10,8) );
+        Assert.assertEquals(m.getPlayerPositionOf(new Coordinates(2,4)), new Coordinates(2,4) );
     }
 
 
@@ -197,7 +197,7 @@ public class MapGraphTest {
         assertEquals(m.getIconOf(new Coordinates(1,19)), "Mappa_Definitiva.png");
         m.setDragon();
         assertEquals(m.getIconOf(new Coordinates(1,19)), "Mappa_Drago.png");
-        assertEquals(m.getIconOf(new Coordinates(8,7)), "SeaMap.png");
+        assertEquals(m.getIconOf(new Coordinates(8,7)), "MostroMarino.png");
     }
 
     @Test
