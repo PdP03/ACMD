@@ -446,6 +446,9 @@ public class MapGraph {
         return false;
        // throw new NoSuchElementException("Nodo non presente");
     }
+
+    public ArrayList<Stanza> getChambers(){return chambers;}
+    
     /**
      * Usato in fase di test
      */
