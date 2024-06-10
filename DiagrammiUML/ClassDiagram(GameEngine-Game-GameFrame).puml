@@ -1,113 +1,282 @@
+@startuml
+class ItemFactory{
+}
 
-/'organizzatore e gestore degli eventi del gioco'/
+class ItemStack {
+}
+
+enum ItemType{
+}
+
+abstract Storage{   
+}
+
+class Inventario{
+}
+
+class Chest{
+
+}
+
+Storage "1" --> "n"ItemStack 
+ItemStack "1" -> "1" ItemType
+Inventario "1" --|> "1" Storage
+
+Chest "1" --|> "1" Storage
+ItemFactory "1" --> "n"ItemStack
+
+
+
+
+
+  class awsClient{
+  }
+
+  class JsonParser{
+    
+  }
+  
+
+  class AdapterSave{
+
+  }
+
 class GameEngine{
-  final byte MAX_POTION_USAGE = 3;
-  final float PROBABILITY_ATTACK_MISTAKE = 0.2f;
-  Player p;
-  MapGraph map;
-  String buffer;
-  byte level;
-  boolean lose;
-  Map<ItemType, Byte> potionsActiveted;
-  Stack<Coordinates> playerStack;
-  static boolean enableFormatted;
-
-  /'metodo per l'inizializzazione(di player e mappa)'/
-  void runSetup(String playerName);
-  MapGraph getMap();
-  Player getPlayer();
-  void loadPlayer(Player newPlayer);
-  void loadMap(MapGraph newMap);
-  
-  /'metodi privati'/
-  private String format(String str, String colorTAG);
-  private String getRoomInfo(Coordinates c);
-  private String getNearDirection(Coordinates c);
-  private boolean throwRandomCoin(float val);
-  private byte getPotionValue(ItemType t);
-  private ItemType getPotion(ItemStack item);
-  private void applayPotion(ItemStack item);
-  private short playerAttack(Monster m);
-  private short monsterAttack(Monster m);
-
-
-  /'metodo richiamati durante il gioco '/
-  void lookAround();
-  boolean playerIsAlive();
-  void attack();
-  boolean playerCanAttack();
-  void movePlayerBack();
-  void movePlayer(Direction d);
-  boolean canPlayerGo(Direction d);
-  boolean canPlayerTake(String item);
-  void playerTake(String item);
-  boolean playerHave(String item);
-  void playerUse(String item);
-  void playerRemove(String item);        /'aggiunge nel buffer una info degli oggetti eliminati'/
-  void playerRemoveStack(String items);/'toglie tutto lo stack di item'/
-  
-
-  /'metodi usati per aggiornare la grafica'/
-  String getPlayerInv();
-  short getPlayerMaxLife();
-  byte getPlayerLife();
-  byte getPlayerLv();
-  short getMonsterMaxLife();
-  byte getMonsterLife();
-  String getBuffer();
-  boolean isPlayerInRoom();
-  void addBuffer(String str);
-  void reset();
-  Coordinates getPlayerCord();
-  byte getPlayerMaxWeight();
-  byte getPlayerWeight();
+ 
 }
 
 
 class Game{
-public void main();
+
+}
+
+
+enum MType{
+ 
+}
+
+abstract class Entity{
+ 
+} 
+
+
+
+class Player{
+}
+
+abstract class Monster{
+}
+class MonsterFactory{
+ 
+}
+
+class xmlReader{
+
+}
+
+struct MonsterValues{
+
+}
+
+
+class Armatura{
+ 
+}
+class MagoNero{
+  
+}
+
+class MostroMarino{
+  
+}
+class Coboldo{
+ 
+}
+class BossDrago{
+ 
+}
+
+
+Monster "1" -->"1" MType
+Player "1"--|>"1"Entity
+Monster "1"--|>"1"Entity
+Armatura"1"--|>"1"Monster
+MagoNero"1"--|>"1"Monster
+MostroMarino"1"--|>"1"Monster
+Coboldo--|>"1"Monster
+BossDrago"1"--|>"1"Monster
+
+MonsterFactory"1"-->"1"BossDrago
+MonsterFactory"1"-->"1"MagoNero 
+MonsterFactory"1"-->"1"Coboldo
+MonsterFactory"1"-->"1"Armatura
+MonsterFactory"1"-->"1"MostroMarino 
+MonsterFactory"1"->"1"xmlReader
+xmlReader"1"->"n"MonsterValues
+
+
+abstract class Menu{
+  
+}
+class StartMenu{
+ 
+}
+class BattleMenu{
+
+}
+class MovementMenu{
+ 
+}
+struct MenuValues{
+
+}
+
+class GraphicAdapter{
+}
+
+
+BattleMenu"1"--|>"1"Menu
+StartMenu"1"--|>"1"Menu
+MovementMenu"1"--|>"1"Menu
+Menu"1"--|>"n"MenuValues
+
+ 
+
+    
+class Coordinates{
+
+}
+
+class MapGraph{
+ 
+}
+
+
+enum  Direction{
+ 
+}
+
+class node{
+  
+
+}
+
+class Room{
+
+}
+
+
+
+MapGraph"1"-->"n"Room
+MapGraph"1"-->"n"node
+node"1"-->"1"Coordinates
+node"1"-->"4"Direction
+Room"1"-->"1"Coordinates
+
+
+class Prompt{
+
+}
+
+class Start{
+ 
+}
+class Exit{
+  
+}
+
+class Showme{
+
+}
+
+class Showinventario{
+
+}
+
+class Clearconsole{
+
+}
+
+class Help{
+
+}
+
+class Back{
+
+}
+
+class Look{
+  
+}
+class Attack{
+
+}
+class Move{
+  
+}
+class Move{
+  
+}
+class TakeFromChest{
+  
+}
+class PlayerUse{
+  
+}
+class RemoveItem{
+  
+}
+class RemoveStackItem{
+
+}
+class Load{
+ 
 }
 
 class GameFrame{
-JButton jButtonInvio;
-JProgressBar jBarPeso;
-JProgressBar jBarVitaNemico;
-JProgressBar jBarVitaPlayer;
-JButton jButtonInvio;
-JLabel jLabelNemico;        
-JLabel jLabelPeso; 
-JLabel jLabelMap;
-JLabel jLabelVita;    
-JRadioButton jButtonPlayer;
-JTextField jTextComandi;
-JTextArea jTextStory;
-MyRoundButton JButtonMusic;
-final int numberRows;
-final int numberCols; 
-final String pathOfTheImages;
+}
 
-public void remove[Add]Player[Enemy]Bar(){}
-public void initComonents(){}
-public void WriteOnConsole(String t){}
-public void setPeso(int x){}
-public void getPeso(){}
-public void setVita(int x){}
-public void getVita(){}
-public void setVitaNemico(int x){}
-public void getVitaNemico(){}
-public void move(Coordinates c){}
-public void setDragon(){}
+interface Command{
+  
 }
 
 
-class MyRoundButton
-{
-protected void paintBorder(Graphics g){}
-protected void paintComponent(Graphics g){}
-public boolean contains(int x, int y){}
-public void actionPerformed(ActionEvent e){}
-public void playMusic(){}
-public void pauseMusic(){}
-}
-GameFrame--MyRoundButton
-note top of MyRoundButton: Extends JButton
+Start"1"--|>"1"Command
+Exit"1"--|>"1"Command
+Look"1"--|>"1"Command
+Attack"1"--|>"1"Command
+Move"1"--|>"1"Command
+PlayerUse"1"--|>"1"Command
+RemoveItem"1"--|>"1"Command
+RemoveStackItem"1"--|>"1"Command
+Load"1"--|>"1"Command
+Load "1"-->"1"AdapterSave
+Save"1"-->"1"Command
+Save"1"-->"1"AdapterSave
+
+Load"1"->"1"GameEngine
+Prompt"1"--|>"1"Command
+TakeFromChest"1"--|>"1"Command
+
+Menu"1"-->"n"Command
+GameEngine"1"-->"1"Player
+GameEngine"1"-->"1"MapGraph
+Prompt"1"-->"1"GameEngine
+Game"1"-->"1"Prompt
+Player"1"-->"1"Inventario
+JsonParser"1"-->"1"awsClient
+
+AdapterSave"1"-->"1"JsonParser
+GraphicAdapter"1"-->"1"GameFrame
+Prompt"1"-->"1"GraphicAdapter
+Command"1"-->"1"GraphicAdapter
+Clearconsole"1"-->"1"GraphicAdapter
+Showme"1"-->"1"Command
+Showinventario"1"-->"1"Command
+Help"1"-->"1"Command
+Back"1"-->"1"Command
+Clearconsole"1"-->"1"Command
+
+
+
+@enduml
