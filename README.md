@@ -1,6 +1,29 @@
 # ACMD
 Text based game for software eng.
 
+# REQUISITI
+È neccessario aver installato maven nel PC. 
+## Windows
+A questo [link](https://maven.apache.org/download.cgi) è possibile scaricare i file binari. Dopo averli scaricati bisogna aggiungere il percorso alla variable dambiente PATH.
+Si può leggere questa [guida](https://phoenixnap.com/kb/install-maven-windows).
+
+## Linux
+È possibile installare maven usando il package manager ad es per apt:
+```
+> sudo apt install maven -y
+```
+Inoltre la funzione di salvataggio della partita è disponibile solo se si possiede una chiave per un bucket di aws.
+
+# COMPILAZIONE(Windows e Linux)
+Aprire il terminale ed entrare nella cartella ACMD contentente il pom.xml e lanciare il comando:
+```
+> mvn compile
+```
+Per eliminare i file compilati lanciare:
+```
+> mvn clean
+```
+
 # START POINT
 Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/dev/ACMD/src/main/java/com/ACMD/app/Kernel_Layer/Game.java) il quale andra a richiamare tutti i metodi/classi che servono per:
 * Avvio del gioco ("start")

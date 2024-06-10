@@ -24,37 +24,9 @@ public /*abstract*/ class ItemStack
 
 //  ## costruttori ##
 
-    /**                 ?per quale motivo se tolgo l'asterisco non capisce che è un parametro
-    * @param w Peso
-    *
-    public ItemStack(String n, ItemType t, byte w)
-    {
-        name= n;
-        weight= w;
-        quantity= VALORE_DEFAULT_QUANTITA;
-        tipology= t;
-
-        exceptionLauncher();
-    }
-	  
-    /**
-     * @param w Peso
-     * @param q Quantità
-     *
-    public ItemStack(String n, ItemType t, byte w, byte q)
-    {
-        name= n;
-        weight= w;
-        quantity= q;
-        tipology= t;
-
-        exceptionLauncher();
-    }*/
-
-    public ItemStack(String n, ItemType t, byte w, byte q, byte v, String descr) //perché ora c'è il factory, quindi non è più item a pigliarsi la roba
-    {//_era per il clone
-
-       
+    public ItemStack(String n, ItemType t, byte w, byte q, byte v, String descr)
+        //perché ora c'è il factory, quindi non è più item a pigliarsi la roba
+    {  
             name = n;
         tipology = t;
           weight = w;
@@ -63,28 +35,7 @@ public /*abstract*/ class ItemStack
         description = descr;
 
 //        exceptionLauncher(); SPOSTATA NEL FACTORY, QUINDI NON VENGONO PIÙ FATTI CONTROLLI QUI
-                            //vantaggio anche ora chi usa può non impazzire passando degli int, ma poi sarà il factory ad usare byte
-        //si potrebbe per rendere più efficiente l'esecuzione fare questi controlli dentro il factory, al massimo andrebbe a rendere più pesante il caricamento: però si può pensare di fare i controlli solo sugli oggetti
-        //che sono istanziati da salvataggi e che non si trovano nella hashtable
     }
-
-//  ## Metodi Private ##
-/*
-    private void exceptionLauncher()
-    {
-        if( weight<=0)
-         throw new IllegalArgumentException("Peso non può essere negativo o nullo");
-        if(name=="" || name==null)
-         throw new IllegalArgumentException("Il nome dell'oggetto non è valido");
-        if(quantity <=0)
-         throw new IllegalArgumentException("La quantità non è positiva");
-        if(value<=0)
-         throw new IllegalArgumentException("Il valore deve essere positivo");
-        if(tipology==null)
-         throw new IllegalArgumentException("Deve avere un tipo");
-            //anche se prima avevo messo queste condizioni nei singoli costruttori in modo da evitare il controllo sulla quantità che non serve.. e forse è più sensato perché non si tratta di un metodo che può essere utile all'esterno
-    }
-*/
 
 //  ## Metodi Public ##
 
@@ -97,14 +48,13 @@ public /*abstract*/ class ItemStack
      {
         ItemStack i= (ItemStack)o;
         return this.tipology==i.tipology && this.name.equals(i.name) && this.value==i.value && this.weight==i.weight;
-//interessante che non segna errore su o anche se non esiste in Object la variabile tipology
      }
 
     @Override
     public ItemStack clone()
     {
-        return new ItemStack(this.name,this.tipology,this.weight,this.quantity,this.value,this.description); //che bello che non servano i metodi, perché è dentro la stessa classe, quindi accetta
-                // non passo per il facotry perché sto copiando un oggetto che deve essere già in stato valido
+        return new ItemStack(this.name,this.tipology,this.weight,this.quantity,this.value,this.description);
+         // non passa per il facotry perché sto copiando un oggetto che deve essere già in stato valido
     }
 
     /**
@@ -112,11 +62,11 @@ public /*abstract*/ class ItemStack
      * In questo modo se qualcuno da fuori deve fare un controllo in caso di errore, può usare il valore direttamente
      *  senza negare il return
      */
-    public boolean addQuantity()   //true finito spazio
+    public boolean addQuantity()
      {
-        if( quantity> ItemFactory.MAXVALUE ) return true;
+        if( quantity>= ItemFactory.MAXVALUE ) return true;
  
-        ++quantity;
+        ++quantity; //nota: lo si vede "in ritardo" l'incremento: al possimo controllo  <- se a 100 devo controllare prima, motivo del >= e non >
         return false;
      }
 
@@ -125,21 +75,14 @@ public /*abstract*/ class ItemStack
      */
     public boolean removeQuantity()
      {
-       // return (--quantity) == 0;         no perché essendo che modifica continuando a richiamare può andare in overflow
-   //         else throw new noItem_Exception();
-
-      /*  if( quantity > 1 )      //si elimina quando è l'ultimo, quindi 1 no 0
-        {
-            --quantity;
-            return false;
-        }
-
-        return true;        funziona ma rimane 1*/
-
         --quantity;
         if(quantity==0) return true;
-        if(quantity<0) ++quantity;      //in teoria non si avvera mai, e non servirebbe, ma previene overflow da --quantity
-                                        //questo INSEGNA che per fare le cose fatte bene ci sono le classi che rappresentano gli oggetti che non dovrebbero fare sti controlli a volte, e ci dovrebbe essere un gestore ad occuparsene
+        if(quantity<0)      //in teoria non si avvera mai, e non servirebbe, ma previene overflow da --quantity
+        {
+            ++quantity;
+            return true;        //modificato poco prima di release, prima non faceva return
+        }
+
         return false;
      }
 
@@ -160,6 +103,4 @@ public /*abstract*/ class ItemStack
     public String showDescription()
      {return description;}
 
-/*    public String toString()
-     { return nome; }*/
 }

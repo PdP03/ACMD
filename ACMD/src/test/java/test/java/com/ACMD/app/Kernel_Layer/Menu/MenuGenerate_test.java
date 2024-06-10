@@ -10,15 +10,6 @@ import com.ACMD.app.Kernel_Layer.Menu.StartMenu;
 
 public class MenuGenerate_test
 {
-/*
-    @Test
-    @Before
-    public void menugeneric()
-    {
-        new BattleMenu(new GameEngine() );      //uno a caso
-        
-        //_vedere se stampa tutti i comandi in maniera corretta
-    }*/
 
     @Test
     public void menuBattle()
@@ -38,11 +29,6 @@ public class MenuGenerate_test
         new StartMenu( new GameEngine(false),new GraphicAdapter(null) );
         //si supera se non vengono lanciare eccezioni
     }
-    @Test
-    public void menuExit()
-    {
-       // new ExitMenu(new GameEngine(false) );
-        //si supera se non vengono lanciare eccezioni
-    }
+
 
 }

@@ -6,8 +6,6 @@ import java.util.Vector;        //comodità per ottenere i dati
 
 import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
-import com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale.ErroreInput;
-
 
 public abstract class Menu 
 {
@@ -32,23 +30,12 @@ public abstract class Menu
   
     public Command checkInTheMap(String cmmdName)
     {
-        //Command cmd=
         return commandMap.get( new MenuValues(cmmdName,null) );
             //controllo solo tramite il nome e non la descrizione
-        
-      /*  if(cmd==null)
-         new ErroreInput(null);     //se non è stato trovato
-*/
-        //return cmd;
     }
     public String toString()
     {
-       // String s="";
         Set<MenuValues> keys = commandMap.keySet();
-
-     /*    for(int i=0; i<keys.size(); i++)
-         s+= keys..toString() +'\n';*/
-        
         return keys.toString()+"\n";
     }
 

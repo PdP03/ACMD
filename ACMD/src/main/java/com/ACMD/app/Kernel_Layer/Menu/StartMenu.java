@@ -22,7 +22,7 @@ public class StartMenu extends Menu
             //: oridne alfabetico
             //loadMethods("", new );
 
-            loadMethods("exit",  new ExitFromMenu(generateMethods));
+            loadMethods("exit",  new ExitFromMenu());
             loadMethods("clear", new ClearConsole(gra));
             loadMethods("load",  new Load(generateMethods,gra));
             loadMethods("start", new Start(generateMethods,gra));

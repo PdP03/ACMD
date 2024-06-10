@@ -25,7 +25,7 @@ public class MoveBack implements Command
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
         if( gme.isPlayerInRoom() )  //controllo non necessario dato la natura del menù, ma se per qualche motivo accade c'è un problema
-        {                           //tanto sarebbe una azione rara, quindi non importa per il controllo... se è per una cosa così critica  (altrimenti dovrei cercare di stare sempre in stati validi ed evitare if che possono cambiare)
+        {
             System.out.println("DEBUG: la voce non è disponibile quando non si è in una stanza");
             System.exit(1);
         }

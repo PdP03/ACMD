@@ -28,7 +28,7 @@ public class Move implements Command
          return (new LookAround(gme)).execute(direction);       //non importa cosa gli passo, l'importante abbia un solo valore il vector
 
         Direction d;
-        String dir = direction.get(1).toLowerCase();    //assicurarsi che siano 2 parametri
+        String dir = direction.get(1).toLowerCase();
 
         switch( dir )
         {
@@ -63,9 +63,6 @@ public class Move implements Command
         if( gme.canPlayerGo(d) )
          gme.movePlayer(d);
         else gme.addBuffer("Direzione non valida");
-       // else          #FORSE: necesario mettere in buffer errore
-
-       //debug();
 
         return BackStateGame_Enum.MOVE;
     }
