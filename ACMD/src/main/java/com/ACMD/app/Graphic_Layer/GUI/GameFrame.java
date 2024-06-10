@@ -385,7 +385,7 @@ public class GameFrame extends javax.swing.JFrame implements Frame {
                 //System.out.println("Hai premuto il bottone: isOutputReady è " + isOutputReady);
                 {
                     isOutputReady=true;
-                    System.out.println("isoutput ready is now true");
+                   // System.out.println("isoutput ready is now true");
                     SwingUtilities.updateComponentTreeUI(jInternalFrame1);
                 }
 
