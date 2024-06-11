@@ -1,4 +1,5 @@
 target/
+out/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -18,7 +19,7 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 .vscode
-.class
+*.class
 ACMD/ACMD/src/main/java/com/ACMD/app/Engine_Layer/testLocaleCarloStorageManagement
 #ACMD/ACMD/target/surefire-reports
 ACMD/src/main/java/com/ACMD/app/Engine_Layer/main.java
