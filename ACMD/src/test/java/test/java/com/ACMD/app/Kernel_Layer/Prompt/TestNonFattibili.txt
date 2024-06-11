@@ -1,0 +1,7 @@
+
+I test per prompt devono essere fatti per la maggior parte manualmente:
+ per non è possibile fare dei test direttamente su prompt, ma è necessario
+ assicurarsi che i singoli metodi non causino problemi
+
+Gli unici metodi che si possono provare sono quelli di utilità, ma la maggior parte sono
+ delle chiamate agli adapter, quindi anche quelli è necessario fare dei test a mano

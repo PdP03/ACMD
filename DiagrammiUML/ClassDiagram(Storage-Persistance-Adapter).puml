@@ -1,0 +1,114 @@
+@startuml
+package "StorageManagment" #DDDDDD{  /'songole tipologie elementi'/
+class ItemFactory      /'alloca oggetti prendendo da caratteristiche da file di configurazione'/
+{
+  ItemStack getRandomItem();
+  ItemStack getRandom(ItemType t);
+  ItemStack getItem(String name);
+  ItemStack createItemTemplate(String name, ItemType t, int value, int weight, int quantity, String description); /'nel save si deve aggiungere questo dato'/
+}
+
+class LoaderItem{ /'crea stuttura comoda con tutta configurazione per il factory'/
+  LoaderItem(String file);
+  public /'HashMap<ItemType, ItemStack> '/ Vector<ItemSatck> loadItems(); /'per adesso è più comodo così, tanto per gli iteratori è più facile da cambiare'/
+}
+
+class ItemStack {
+  String name;
+  byte weight;
+  byte quantity;
+  byte value;
+  ItemType type;   
+  String description;
+   
+  byte getQuanity();
+  byte getWeight();
+  byte getValue();
+  ItemType getType();
+  String getName();
+
+  void addQuantity();
+  boolean removeQuantity();
+  String showDescription();
+
+  boolean equals(Object);
+  ItemStack clone();
+}
+
+enum ItemType{
+  ARMA
+  ARMATURA
+  POZIONE_CURA
+  POZIONE_DANNO
+  POZIONE_FORZA
+  POZIONE_RESISTENZA
+  POZIONE_VELENO
+  POZIONE_INVALIDITA
+  CIBO
+  EASTER_EGG
+}
+
+/'gestione di infiniti item'/
+abstract Storage{   
+  List<ItemStack> items = new ArrayList<ItemStack>;
+
+  boolean add(ItemStack i);
+  boolean remove(ItemStack i);
+
+  List<ItemStack> showStorage();
+  byte quantityOf(ItemType t);
+  ItemStack searchFor(ItemType t);
+  ItemStack searchFor(String name);
+
+  String toString();
+}
+note left of Storage::"searchFor(String name)"
+shallow copy, evita di influenzare elementi interni
+?esiste modo per fare un final per il chiamante
+end note
+
+class Inventario{
+  byte weight;
+  int getTotalWeight();
+/'overload di add e remove'/
+}
+
+class Chest{
+  boolean lock;
+  
+  void lock();
+  void unlock()
+  boolean isClosed(); /'o meglio chiamarlo getState?'/
+
+}
+
+}
+Storage -> ItemStack 
+Inventario --|> Storage
+
+Chest --|> Storage
+ItemStack -> ItemType
+
+
+
+
+package PersistaceLayer #DDDDDD{
+  class awsClient{
+    void upload(File f);
+    void download(String file);
+    String getChecksum(String file);  
+  }
+
+  class JsonParser{
+    
+  }
+  
+}
+
+package AdapterLayer #DDDDDD{
+  class AdapterSave{
+    boolean checkOldSave(File f);
+    File loadSave(); /'file'/
+  }
+}
+@enduml

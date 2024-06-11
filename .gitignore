@@ -7,6 +7,8 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+*.json
+
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 
@@ -15,3 +17,11 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+.vscode
+.class
+ACMD/ACMD/src/main/java/com/ACMD/app/Engine_Layer/testLocaleCarloStorageManagement
+#ACMD/ACMD/target/surefire-reports
+ACMD/src/main/java/com/ACMD/app/Engine_Layer/main.java
+ACMD/src/main/java/com/ACMD/app/Engine_Layer/main2.java
+ACMD/src/main/java/com/ACMD/app/Engine_Layer/main3.java
+Savefile.json

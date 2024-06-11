@@ -1,0 +1,42 @@
+@startuml
+/'-----------------       UI LAYER      -----------------'/
+package "UI Layer" #2e5642{
+  [GraficaInput]
+  [GraficaOutput]
+}
+
+/'-----------------  GAME ENGINE LAYER  -----------------'/
+package "Game Engine Layer" #f5f5dc{
+  
+  [GameEngine]
+}
+
+/'-----------------    ADAPTER LAYER    -----------------'/
+package "Kernel Layer" #96ded1{
+  [Prompt]
+  [Game]
+  [Menu]  
+}
+[Game] -> [Prompt]
+[Prompt] --> [GameEngine]
+[Prompt] --> [GraficaInput]
+[Prompt] -> [Menu]
+
+
+
+/'----------------- PERSISTANCE LAYER -----------------'/
+package "Persitance Layer" #cc0605 {
+  [Salvataggio]
+}
+
+/'----------------- ADAPTER LAYER -----------------'/
+package "Adapter Layer" #a65e2e{
+  [AdapterGrafica]
+  [AdapterSalvataggio]
+}
+[Prompt] --> [AdapterSalvataggio]
+[AdapterSalvataggio] --> [Salvataggio]
+[AdapterGrafica] --> [GraficaOutput]
+[Prompt] --> [AdapterGrafica]
+
+@enduml

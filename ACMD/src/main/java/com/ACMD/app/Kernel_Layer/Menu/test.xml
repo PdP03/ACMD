@@ -1,0 +1,22 @@
+<!--
+  Per inserire una nuova voce del menu si usa il tag menu_voice con al iterno i vari parametri
+
+  Bisogna specificare i campi obbligatori:
+  - <command>...</command>
+  - <description>..</description>
+  
+-->
+
+<menu>
+  <menu_voice>
+    <command>Comando 1</command>
+    <description>Descrizione 1</description>
+  </menu_voice>
+
+  <menu_voice>
+    <command>Comando 2</command>
+    <description>Descrizione 2</description>
+  </menu_voice>
+
+
+</menu>

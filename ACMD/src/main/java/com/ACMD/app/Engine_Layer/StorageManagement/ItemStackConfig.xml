@@ -1,0 +1,134 @@
+<!-- Per inserire nuovi item e sufficente aggiungere una voce con il nome del item (per inserire un item con nome sciabola e sufficente 
+    definire <sciabola>...</sciabola>)
+    I tag obbligatori sono:
+    - <description>
+    - <type>
+    - <weight>
+    - <value>
+
+    NB: il tag <type> deve contenere un valore gia definito nella enum ItemType (es. <type>POZIONE_CURA</type> per ItemType.POZIONE_CURA)
+-->
+
+<itemstack>
+
+  <!-- ARMI -->
+  <coltello>
+    <description>Coltello molto affilato</description>
+    <type>ARMA</type>
+    <weight>1</weight>
+    <quantity>1</quantity>
+    <value>2</value>
+  </coltello>
+
+  <spada>
+    <description>Spada di legno</description>
+    <type>ARMA</type>
+    <weight>3</weight>
+    <quantity>1</quantity>
+    <value>5</value>
+  </spada>
+
+  <scettro>
+    <description>Non serve solo a specchiarsi</description>
+    <type>ARMA</type>
+    <weight>2</weight>
+    <quantity>1</quantity>
+    <value>3</value>
+  </scettro>
+
+  <mazza>
+    <description>Molto pesante ma forte</description>
+    <type>ARMA</type>
+    <weight>6</weight>
+    <quantity>1</quantity>
+    <value>6</value>
+  </mazza>
+
+
+  <!-- ARMATURE -->
+  <elmo>
+    <description>elmetto piccolo ma robusto</description>
+    <type>ARMATURA</type>
+    <weight>2</weight>
+    <quantity>1</quantity>
+    <value>4</value>
+  </elmo>
+
+  <corazza>
+    <description>Fatta di acciaio</description>
+    <type>ARMATURA</type>
+    <weight>4</weight>
+    <quantity>1</quantity>
+    <value>7</value>
+  </corazza>
+
+  <gambali>
+    <description>Stivali comodi</description>
+    <type>ARMATURA</type>
+    <weight>2</weight>
+    <quantity>1</quantity>
+    <value>4</value>
+  </gambali>
+
+  <sandali>
+    <description>Leggeri e arieggiati</description>
+    <type>ARMATURA</type>
+    <weight>1</weight>
+    <quantity>1</quantity>
+    <value>1</value>
+  </sandali>
+
+
+  <!-- POZIONI -->
+  <pozione_cura>
+    <description>f</description>
+    <type>POZIONE_CURA</type>
+    <weight>1</weight>
+    <quantity>1</quantity>
+    <value>10</value>
+  </pozione_cura>
+
+  <pozione_danno>
+    <description>f</description>
+    <type>POZIONE_DANNO</type>
+    <weight>1</weight>
+    <quantity>1</quantity>
+    <value>8</value>
+  </pozione_danno>
+
+  <pozione_forza>
+    <description>f</description>
+    <type>POZIONE_FORZA</type>
+    <weight>1</weight>
+    <quantity>1</quantity>
+    <value>4</value>
+  </pozione_forza>
+
+  <pozione_resistenza>
+    <description>f</description>
+    <type>POZIONE_RESISTENZA</type>
+    <weight>1</weight>
+    <quantity>1</quantity>
+    <value>4</value>
+  </pozione_resistenza>
+
+  <pozione_veleno>
+    <description>f</description>
+    <type>POZIONE_VELENO</type>
+    <weight>1</weight>
+    <quantity>1</quantity>
+    <value>2</value>
+  </pozione_veleno>
+
+  <pozione_invalidita>
+    <description>1</description>
+    <type>POZIONE_INVALIDITA</type>
+    <weight>1</weight>
+    <quantity>1</quantity>
+    <value>1</value>                    <!-- purtroppo devo mettere un valore: quinidi per il futuro la pozione da usare su se stessi o da lanciare;
+                                              quelle con effetto come valore e quelle che hanno un effetto particolare (es:invisibilità)-->
+  </pozione_invalidita>
+
+  <!-- ALTRO-->
+
+</itemstack>
