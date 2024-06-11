@@ -83,6 +83,7 @@ public class JsonParser {
         public JsonElement serialize(MapGraph map, Type type, JsonSerializationContext jsonSerializationContext) {
             JsonObject object = new JsonObject();
             object.addProperty("coordinates", map.getPlayerPos().toString());
+            object.addProperty("chambers", map.getChambers().toString());
             return object;
         }
     }
