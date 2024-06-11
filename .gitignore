@@ -1,3 +1,4 @@
+# Build artifacts
 target/
 out/
 pom.xml.tag
@@ -7,22 +8,21 @@ pom.xml.next
 release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
-.mvn/timing.properties
-*.json
 
-# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+# Maven Wrapper
 .mvn/wrapper/maven-wrapper.jar
 
-# Eclipse m2e generated files
-# Eclipse Core
+# Eclipse generated files
 .project
-# JDT-specific (Eclipse Java Development Tools)
 .classpath
 .vscode
-*.class
+
+
+# Specific files in ACMD/ACMD/src/main/java/com/ACMD/app/Engine_Layer
 ACMD/ACMD/src/main/java/com/ACMD/app/Engine_Layer/testLocaleCarloStorageManagement
-#ACMD/ACMD/target/surefire-reports
 ACMD/src/main/java/com/ACMD/app/Engine_Layer/main.java
 ACMD/src/main/java/com/ACMD/app/Engine_Layer/main2.java
 ACMD/src/main/java/com/ACMD/app/Engine_Layer/main3.java
+
+# Other files
 Savefile.json
