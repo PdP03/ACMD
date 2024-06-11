@@ -23,6 +23,11 @@ Per eliminare i file compilati lanciare:
 ```
 > mvn clean
 ```
+# ESECUZIONE 
+Dopo aver compilato i file è possibile avviare il gioco con:
+```
+> mvn exec:java
+```
 
 # START POINT
 Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/dev/ACMD/src/main/java/com/ACMD/app/Kernel_Layer/Game.java) il quale andra a richiamare tutti i metodi/classi che servono per:
