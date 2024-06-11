@@ -26,7 +26,7 @@ public class TestXMLreader {
         Vector<MonsterValues> values = reader.getMonsterValues();
 
         // ---------- TEST MOSTRO MARINO ----------
-        Assert.assertEquals(3, values.get(MType.MOSTRO_MARINO.getId()).health);
+        Assert.assertEquals(2, values.get(MType.MOSTRO_MARINO.getId()).health);
         Assert.assertEquals(1, values.get(MType.MOSTRO_MARINO.getId()).armor);
         Assert.assertEquals(4, values.get(MType.MOSTRO_MARINO.getId()).healthMul);
 

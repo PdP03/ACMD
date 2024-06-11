@@ -214,7 +214,7 @@ public class GameEngine{
                 buffer += "["+format("INFO", ANSI_CYAN)+"]"+m.getName()+" ti ha attaccato infliggendo il danno "+(-val)+format(" (la vita di "+p.getName()+" è "+p.getLife()+")\n", ANSI_YELLOW);
             }
             else{
-                buffer += "["+format("WIN", ANSI_BLUE_BOLD)+"]"+p.getName() + " hai sconfitto " + m.getName() + " la chest si è aperta potresti trovare oggetti interressanti\n";
+                buffer += "["+format("WIN", ANSI_BLUE_BOLD)+"]"+p.getName() + " hai sconfitto " + m.getName() + " la chest si è aperta potresti trovare oggetti interessanti\n";
             }
         }
     }

@@ -13,7 +13,7 @@ i tag obbligatori sono:
 
 <monster>
   <ARMATURA>
-    <base_damage>2</base_damage>
+    <base_damage>1</base_damage>
     <base_armor>1</base_armor>
     <base_health>3</base_health>
     <base_level>1</base_level>
@@ -23,7 +23,7 @@ i tag obbligatori sono:
   </ARMATURA>
 
   <MAGO_OSCURO>
-    <base_damage>3</base_damage>
+    <base_damage>2</base_damage>
     <base_armor>1</base_armor>
     <base_health>4</base_health>
     <base_level>1</base_level>
@@ -53,9 +53,9 @@ i tag obbligatori sono:
   </BOSS_DRAGO>
 
   <MOSTRO_MARINO>
-    <base_damage>3</base_damage>
+    <base_damage>2</base_damage>
     <base_armor>1</base_armor>
-    <base_health>3</base_health>
+    <base_health>2</base_health>
     <base_level>1</base_level>
     <armor_multiplier>1</armor_multiplier>
     <damage_multiplier>2</damage_multiplier>

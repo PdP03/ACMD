@@ -2,7 +2,7 @@ package com.ACMD.app.Engine_Layer.Entita;
 
 public class MostroMarino extends Monster{
     final String story = "Io sono Mostro Marino, mi stavo divertendo ad alzare il livello dell' acqua con un controllore PID."+
-                        " Ma ad un certo punto l'acqua non rispondeva più al controllo ed è diventata BIBO disabile non"+
+                        " Ma ad un certo punto l'acqua non rispondeva più al controllo ed è diventata BIBO instabile non"+
                         " riesco a controllarla argh!!!\nDevo trovare il colpevole.";
     
     /*
