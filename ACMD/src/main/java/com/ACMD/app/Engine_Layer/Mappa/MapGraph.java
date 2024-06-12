@@ -12,7 +12,6 @@ import org.jgrapht.graph.*;
 
 import com.ACMD.app.Engine_Layer.RoomValues;
 import com.ACMD.app.Engine_Layer.xmlReader;
-import com.ACMD.app.Engine_Layer.Entita.MType;
 import com.ACMD.app.Engine_Layer.Entita.Monster;
 import com.ACMD.app.Engine_Layer.Entita.MonsterFactory;
 import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
@@ -297,7 +296,7 @@ public class MapGraph {
                         }
                         
                     }
-                    //file.close();
+                    file.close();
                 }
             } catch (IOException e1) {
                 System.out.println("File non trovato oppure non sono presenti i dati nel formato corretto.");
