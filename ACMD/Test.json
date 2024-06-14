@@ -1,0 +1,21 @@
+{
+  "name": "Ciccio",
+  "Life": 5,
+  "Level": 1,
+  "Inventory": {
+    "Item": {
+      "name": "coltello",
+      "tipology": "ARMA",
+      "weight": 1,
+      "quantity": 1,
+      "value": 2
+    },
+    "Item": {
+      "name": "sandali",
+      "tipology": "ARMATURA",
+      "weight": 1,
+      "quantity": 1,
+      "value": 1
+    }
+  }
+}

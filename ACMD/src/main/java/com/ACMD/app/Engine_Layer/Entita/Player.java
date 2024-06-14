@@ -61,6 +61,15 @@ public class Player extends Entity{
         initHandler();
     }
 
+    public Player(String name, byte lv, short health, Inventario inv){
+        initHandler();
+        super.name = name;
+        setLv(lv);
+        super.health = health;
+        this.inv = inv;
+        
+    }
+
     /**
      * Aggiunge un nuovo listener(observer) a observerHandler, tutti gli
      * observer aggiunti verrano notificati in caso di cambiamento
