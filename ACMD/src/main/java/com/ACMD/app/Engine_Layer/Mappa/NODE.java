@@ -3,7 +3,6 @@ package com.ACMD.app.Engine_Layer.Mappa;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
-import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
 
 /**
  * Classe che implementa un generico nodo della mappa. Di default i campi north, south, east e west sono null 
