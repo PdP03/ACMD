@@ -288,7 +288,7 @@ public class GameEngine{
 
         if(healthChange < 0){
             p.changeHealth(healthChange);
-            if(p.getLife() < 0){
+            if(p.getLife() <= 0){
                 lose = true;
                 buffer += "Mi dispiace sei stato sconfitto da: "+m.getName()+" fai un nuovo tentativo!\n";
             }
