@@ -16,9 +16,7 @@ buildNumber.properties
 .project
 .classpath
 .vscode
-
-
-# Specific files in ACMD/ACMD/src/main/java/com/ACMD/app/Engine_Layer
+.class
 ACMD/ACMD/src/main/java/com/ACMD/app/Engine_Layer/testLocaleCarloStorageManagement
 ACMD/src/main/java/com/ACMD/app/Engine_Layer/main.java
 ACMD/src/main/java/com/ACMD/app/Engine_Layer/main2.java
