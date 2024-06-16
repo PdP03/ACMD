@@ -1,7 +1,6 @@
 package com.ACMD.app.Engine_Layer.Mappa;
 
 
-import com.ACMD.app.Engine_Layer.Entita.MType;
 import com.ACMD.app.Engine_Layer.Entita.Monster; 
 import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 
@@ -52,6 +51,13 @@ public class Stanza extends NODE
         this.playerPosition = player; 
         this.pathImg=path;   
         this.chest=chest;
+    }
+
+    public Stanza(Coordinates c, boolean isFree, Chest chest )
+    {
+        this.coord = c; 
+        this.isFree = isFree; 
+        this.chest = chest; 
     }
 
     /**

@@ -11,7 +11,6 @@ import com.ACMD.app.Engine_Layer.StorageManagement.ItemStack;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
@@ -155,6 +154,7 @@ class PlayerAdapter extends TypeAdapter<Player>{
         writer.name("name");
         writer.value(player.getName());
         writer.name("Life");
+        
         writer.value(player.getLife());
         writer.name("Level");
         writer.value(player.getLv());

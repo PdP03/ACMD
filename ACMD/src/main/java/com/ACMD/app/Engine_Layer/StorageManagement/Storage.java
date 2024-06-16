@@ -80,6 +80,7 @@ public abstract class Storage
     /**
      * @return Non ritorna la vera lista, ma una deep copy
      */
+    @SuppressWarnings("unchecked")
     public LinkedList<ItemStack> showStorage()
     {
         Object obj= items.clone();

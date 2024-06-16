@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 
 import org.junit.Assert;
@@ -89,7 +88,7 @@ public class MapGraphTest {
     public void testGetIconOf()
     {
         MapGraph m=new MapGraph(); 
-        Assert.assertEquals(m.getIconOf(new Coordinates(1,19)), "Mappa_Definitiva.png");
+        Assert.assertEquals(MapGraph.getIconOf(new Coordinates(1,19)), "Mappa_Definitiva.png");
     }
     @Test
     public void testGetIconOfStanza()

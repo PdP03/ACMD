@@ -6,7 +6,8 @@ package com.ACMD.app.Engine_Layer.StorageManagement;
 public class Chest extends Storage
 {
     private boolean lock= true; //quindi bloccata
-
+    public Chest(boolean locked){lock=locked;}
+    public Chest(){}
     public void lock()   {lock= true;}
     public void unlock() {lock=false;}
     public boolean isClosed() {return lock;}

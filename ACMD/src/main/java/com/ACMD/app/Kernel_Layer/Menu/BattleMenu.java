@@ -8,9 +8,8 @@ import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.NoCommandExistException;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.*;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale.ClearConsole;
-//import com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze.PlayerRemoveItemStack;
+import com.ACMD.app.Debug;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze.*;
-//import com.ACMD.app.Kernel_Layer.Prompt.command.Command_Stanze.LookInsideChest;
 
 public class BattleMenu extends Menu
 {
@@ -67,8 +66,8 @@ public class BattleMenu extends Menu
         super.commandMap.put( new MenuValues(nomeComando,null),  c);
         //hash non fatto sulla descrizione
     }
-
-
+    
+    @Debug
     private void debugMethod()
     {
        // System.out.println( commandMap );

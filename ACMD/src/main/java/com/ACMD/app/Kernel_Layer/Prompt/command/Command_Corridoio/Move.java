@@ -2,6 +2,7 @@ package com.ACMD.app.Kernel_Layer.Prompt.command.Command_Corridoio;
 
 import java.util.Vector;
 
+import com.ACMD.app.Debug;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Engine_Layer.Mappa.Direction;
 import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
@@ -67,7 +68,7 @@ public class Move implements Command
         return BackStateGame_Enum.MOVE;
     }
 
-
+    @Debug
     private void debug()
     {
         if(gme.isPlayerInRoom())

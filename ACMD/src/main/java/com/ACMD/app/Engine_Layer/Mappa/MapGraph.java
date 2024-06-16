@@ -19,7 +19,6 @@ import com.ACMD.app.Engine_Layer.StorageManagement.ItemFactory;
 import com.ACMD.app.Engine_Layer.StorageManagement.ItemType;
 
 
-//TODO gestire vittoria e drago: attualmente sconfiggeere 4 mostri e drago = reset di tutta la mappa 
 public class MapGraph {
     // =========
     // Variabili
@@ -30,7 +29,6 @@ public class MapGraph {
     private Coordinates[] directions;
     private static ArrayList<NODE> nodes;
     private static ArrayList<Stanza> chambers; //TODO: Attenzione che lo ho messo statico 
-    private ArrayList<Coordinates> playerRoute; 
     private Coordinates PlayerPosition =new Coordinates(1,19); //default player postion  
     public static int keys=0;
     public static final int dragonX=12; //sono obbligato a usare static perchè il metodo che aggiunge il drago è static 
@@ -87,11 +85,7 @@ public class MapGraph {
         // ========================
         nodes = reader.getAllNode();
         ArrayList<RoomValues> rooms = reader.getAllRoom(); 
-        Coordinates cord;
-        for(NODE n: nodes)
-        {
-            cord = n.getCoord();
-        }
+
         //Aggiunta STANZE
         Chest ches;
         for(RoomValues r:rooms)
@@ -104,19 +98,31 @@ public class MapGraph {
        // prinAllisRoom();
     }
 
+    public MapGraph(int key, ArrayList<Stanza> chambers){
+        this();             //Calls the default constructor
+        MapGraph.keys = key;
+        MapGraph.chambers = chambers;
+    
+    }
+
     /**
      * Crea una chest con elementi random al max contine 3 elementi
      */
+
     private Chest getRandomChest(){
         Chest c = new Chest();
         int maxItem = randomGen.nextInt(3);
-        c.add(itemFacry.getItem(ItemType.POZIONE_CURA)); //TODO: DA TOGLIERE SOLO PER TEST
-        c.add(itemFacry.getItem(ItemType.POZIONE_FORZA)); //TODO: DA TOGLIERE SOLO PER TEST
+        /* c.add(itemFacry.getItem(ItemType.POZIONE_CURA)); //TODO: DA TOGLIERE SOLO PER TEST
+        c.add(itemFacry.getItem(ItemType.POZIONE_FORZA)); //TODO: DA TOGLIERE SOLO PER TEST */
         for(int i=0; i<maxItem; i++){
             c.add(itemFacry.getRandomItem());
         }
 
         return c;
+    }
+
+    public int getKeys(){
+        return keys;
     }
 
     public Coordinates getPlayerPos(){

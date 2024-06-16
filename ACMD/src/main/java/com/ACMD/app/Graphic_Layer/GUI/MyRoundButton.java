@@ -3,24 +3,19 @@ package com.ACMD.app.Graphic_Layer.GUI;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.swing.Icon;
 import javax.swing.JButton;
 
 import com.ACMD.app.Engine_Layer.ParsePath;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Shape;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
 import java.io.File;
-import java.awt.FontMetrics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 
 
 public class MyRoundButton extends JButton implements ActionListener
@@ -98,7 +93,7 @@ public class MyRoundButton extends JButton implements ActionListener
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
         isPaused=false;
         

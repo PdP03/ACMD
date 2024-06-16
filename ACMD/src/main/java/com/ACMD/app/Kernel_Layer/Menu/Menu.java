@@ -4,6 +4,7 @@ import java.util.HashMap;
  import java.util.Set;          //ottenere le chiavi
 import java.util.Vector;        //comodità per ottenere i dati
 
+import com.ACMD.app.Debug;
 import com.ACMD.app.Engine_Layer.xmlReader;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 
@@ -43,7 +44,7 @@ public abstract class Menu
     protected abstract void loadMethods(String nomeComando, Command c);
     //saranno le singole classi a pensare a caricare i comandi corrispondeti con degli switch
     //devo passare anche il Command su cui istanziare i metodi
-
+    @Debug
     private void debugMethod( Vector<MenuValues> menuItems )
     {
         if( ! commandMap.containsKey( menuItems.get(0) ) ) { System.out.println("Fatale"); System.exit(1); }
