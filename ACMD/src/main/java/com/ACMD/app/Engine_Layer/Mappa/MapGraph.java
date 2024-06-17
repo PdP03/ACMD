@@ -104,6 +104,8 @@ public class MapGraph {
         nodes.removeAll(MapGraph.chambers);
         MapGraph.chambers = chambers;
         nodes.addAll(chambers);
+
+    
     }
 
     /**
