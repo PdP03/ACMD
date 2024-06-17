@@ -63,11 +63,13 @@ public class awsClient {
 
     public static void Download(int index) {
         List<String> saveFiles = GetUploadedFiles();
-        if (!CheckSum(index)) {     //(bravo         by Carlo)
+        if (!CheckSum(index)) {
             try {
+
                 GetObjectRequest request = GetObjectRequest.builder().bucket(bucketName).key(saveFiles.get(index))
-                        .build();
-                client.getObject(request);
+                .build();
+                client.getObject(request, Paths.get("Savefile.json"));
+
 
             } catch (S3Exception e) {
                 System.err.println(e.awsErrorDetails().errorMessage());

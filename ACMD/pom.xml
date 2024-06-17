@@ -54,6 +54,18 @@
       </exclusions>
     </dependency>
 
+      <dependency>
+         <groupId>software.amazon.awssdk</groupId>
+         <artifactId>s3-transfer-manager</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>software.amazon.awssdk.crt</groupId>
+         <artifactId>aws-crt</artifactId>
+         <version>0.20.3</version>
+      </dependency>
+     
+
+
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>sso</artifactId>
