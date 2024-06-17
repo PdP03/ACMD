@@ -111,7 +111,7 @@ public class MapGraph {
 
     private Chest getRandomChest(){
         Chest c = new Chest();
-        int maxItem = randomGen.nextInt(3);
+        int maxItem = randomGen.nextInt(3,5);
         /* c.add(itemFacry.getItem(ItemType.POZIONE_CURA)); //TODO: DA TOGLIERE SOLO PER TEST
         c.add(itemFacry.getItem(ItemType.POZIONE_FORZA)); //TODO: DA TOGLIERE SOLO PER TEST */
         for(int i=0; i<maxItem; i++){
@@ -471,6 +471,14 @@ public class MapGraph {
         for(NODE s: nodes ) { string+="Il nodo" + s.getCoord()+ " ha "+ s.pathImg+"\n";}
         return string;
     }
+
+    public static void UpdateChambers(Coordinates s){
+        for(Stanza c: chambers){
+            if(c.getCoordinates().getX() == s.getX() && c.getCoordinates().getY() == s.getY()){
+                c.setFree();
+            }
+        }
+    }
     /**
      * Aggiorna la mappa aggiungendo "Open" al suo percorso
      * @param coord Il nodo di riferimento 
@@ -481,10 +489,12 @@ public class MapGraph {
         {
             if(s.getCoord().getX() == coord.getX() && s.getCoord().getY() == coord.getY() )
             {
+                s.setFree();
+                UpdateChambers(s.getCoord());
                 if(s.pathImg.contains("Open")) return;                                     
                 s.pathImg=s.pathImg.substring(0,s.pathImg.length()-4);
                 s.pathImg+="Open.png";
-                keys++; 
+                keys++;
                 //System.out.println(s.pathImg);
             }
         }

@@ -7,7 +7,7 @@ import com.ACMD.app.Engine_Layer.StorageManagement.Chest;
 
 public class Stanza extends NODE
 {
-    Coordinates playerPosition; 
+    Coordinates playerPosition = new Coordinates(1,19); 
     Monster monster; 
     Chest chest; 
     boolean isFree=false;
