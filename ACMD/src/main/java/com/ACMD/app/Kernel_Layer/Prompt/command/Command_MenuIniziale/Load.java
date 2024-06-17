@@ -35,7 +35,7 @@ public class Load implements Command
 
         //_ottengo i nomi
         List<String> salvataggi= SaveAdapter.GetUploadedFiles();
-        System.out.println( "Numero di salvataggi disponibili: "+salvataggi.size() );//DEBUG
+        //System.out.println( "Numero di salvataggi disponibili: "+salvataggi.size() );//DEBUG
 
         if(salvataggi.size() > 0)
         {
@@ -45,7 +45,7 @@ public class Load implements Command
             if( num == ERRORE_INPUT )
              return BackStateGame_Enum.SAVE;
 
-            //_carico tutto             (Alex ha detto che non serve il runsetu)
+            //_carico tutto             (Alex ha detto che non serve il runsetup)
             SaveAdapter.DownloadGame(num);
             gme.loadPlayer( SaveAdapter.retrievePlayer() );
             gme.loadMap(    SaveAdapter.retrieveMap() );
@@ -53,6 +53,8 @@ public class Load implements Command
             gra.fromBufferToGraphic("Partita è stata caricata. Ben tornato/a "+
                                     gme.getPlayer().getName()+
                                     "\nSolo un folle lo farebbe\n");
+
+            return BackStateGame_Enum.LOAD;
         }
         else gra.fromBufferToGraphic("Non sono presenti dei salvataggi");
 

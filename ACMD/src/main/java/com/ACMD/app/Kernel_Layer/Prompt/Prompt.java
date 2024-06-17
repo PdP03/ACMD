@@ -38,7 +38,7 @@ public class Prompt
         graphA.hideBars();  //per dire che non è presente un mostro
         mn = new StartMenu(gme,graphA);
 
-        graphA.fromBufferToGraphic("Digita \"help\" per avere aiuto");
+        graphA.fromBufferToGraphic("Digita \"help\" per avere aiuto\n");
     }
 
 
@@ -119,6 +119,7 @@ public class Prompt
             case COMBACT:
             //nessun break
             case UPDATE_MAP:
+            case LOAD:
             case MOVE:
                 if( gme.isPlayerInRoom() )
                    { 

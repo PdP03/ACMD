@@ -42,7 +42,7 @@ public class Start implements Command
         gra.fromBufferToGraphic( "\nBene "+s+" verrai lanciato/a nel dungeon."      //messo così la stringa perché se no mi tocca in una riga; se se non metto il + vscode segna errore
                                     +"\nTi vedi piccolo in quell'angolino/a a sinistra?"
                                     +"\nÈ solo proporzionale ai mostri."
-                                    +"\nSe avessi bisogno di una guida scrivi help e premi invio/enter" );
+                                    +"\nSe avessi bisogno di una guida scrivi help e premi invio/enter\n" );
 
         gra.reScaleLifeBar( gme.getPlayerLife(), gme.getPlayerMaxLife());
         gra.reScaleWeightBar( gme.getPlayerWeight(), gme.getPlayerMaxWeight());

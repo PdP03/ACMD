@@ -33,7 +33,10 @@ public class ExitAndSave implements Command
         String Yn= gra.busyWaitInput();
 
         if( ! Yn.equals("n") )
-         save();
+        {
+            gra.fromBufferToGraphic("Salvataggio in corso\n");
+            save();
+        }
 
         return BackStateGame_Enum.QUIT;
     }
