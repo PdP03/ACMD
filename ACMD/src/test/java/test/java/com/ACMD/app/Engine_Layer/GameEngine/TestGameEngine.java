@@ -260,7 +260,7 @@ public class TestGameEngine {
             engine.attack();
             i++;
             if(i >= 300){
-                break;
+                throw new DeathException();
             }
         }
     }
