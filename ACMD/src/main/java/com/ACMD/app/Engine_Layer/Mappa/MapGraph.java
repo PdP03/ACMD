@@ -101,8 +101,9 @@ public class MapGraph {
     public MapGraph(int key, ArrayList<Stanza> chambers){
         this();             //Calls the default constructor
         MapGraph.keys = key;
+        nodes.removeAll(MapGraph.chambers);
         MapGraph.chambers = chambers;
-    
+        nodes.addAll(chambers);
     }
 
     /**
