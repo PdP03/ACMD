@@ -4,8 +4,8 @@ Text based game for software eng.
 # REQUISITI
 È neccessario aver installato maven nel PC. Inoltre la funzione di salvataggio della partita è disponibile solo se si possiede una chiave per un bucket di aws.
 ## Windows
-A questo [link](https://maven.apache.org/download.cgi) è possibile scaricare i file binari. Dopo averli scaricati bisogna aggiungere il percorso alla variable dambiente PATH.
-Si può leggere questa [guida](https://phoenixnap.com/kb/install-maven-windows).
+A questo [link](https://maven.apache.org/download.cgi) è possibile scaricare i file binari di maven, poi è neccessario decomprire il file ed aggiungere il percorso nella variable dambiente PATH.
+Per ulteriori riferimenti si può leggere questa [guida](https://phoenixnap.com/kb/install-maven-windows).
 
 ## Linux
 È possibile installare maven usando il package manager ad es per apt:
@@ -30,9 +30,7 @@ Dopo aver compilato i file è possibile avviare il gioco con:
 ```
 
 # START POINT
-Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/dev/ACMD/src/main/java/com/ACMD/app/Kernel_Layer/Game.java) il quale andra a richiamare tutti i metodi/classi che servono per:
-* Avvio del gioco ("start")
-* Caricare una partita gia salvata("load")
+Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/dev/ACMD/src/main/java/com/ACMD/app/Kernel_Layer/Game.java) il quale andra a richiamare tutti i metodi/classi che servono per avviare il gioco.
 
 # ENGINE ([GameEngine.java](https://github.com/PdP03/ACMD/blob/dev/ACMD/src/main/java/com/ACMD/app/Engine_Layer/GameEngine/GameEngine.java))
 È la classe che implementa la logia del gioco ovvero:
@@ -49,12 +47,10 @@ Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/dev/ACMD/src/m
 ![Class Diagram](https://github.com/PdP03/ACMD/blob/dev/DiagrammiUML/ClassDiagram(GameEngine-Game-GameFrame).svg)
 
 
-# SEQUENCE DIAGRAM (Work in progress....)
+# SEQUENCE DIAGRAM
 Il diagramma di avvio del gioco è:
 ![Alt text](https://github.com/PdP03/ACMD/blob/dev/DiagrammiUML/SequenceDiagram.svg)
 Altri sequence diagram utili sono:
-* [comandi move per player](https://github.com/PdP03/ACMD/tree/dev/DiagrammiUML/provvisorio1.svg)
-* [load di una partita](https://github.com/PdP03/ACMD/tree/dev/DiagrammiUML/provvisorio2.svg)
-* altri da fare .....
+* [Diagramma del uso degli oggetti](https://github.com/PdP03/ACMD/tree/dev/DiagrammiUML/SequenceOggeti.puml)
 
 
