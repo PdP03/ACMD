@@ -255,8 +255,13 @@ public class TestGameEngine {
      * @param i volte che il player attacca
      */
     private static void PlayerAttacca(GameEngine engine){
+        int i = 0;
         while(engine.playerCanAttack()){
             engine.attack();
+            i++;
+            if(i >= 300){
+                break;
+            }
         }
     }
 
