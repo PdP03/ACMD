@@ -28,6 +28,9 @@ public class HelpCorridoio implements Command
         if( nothing.size() > 1 )
         return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
+        if( gme.isPlayerInRoom() ) //DEBUG
+         throw new IllegalArgumentException("Non si trova in una stanza");
+
         Object[] ary = mapMem.keySet().toArray();
         String s="";
         for(int i=0; i<ary.length; i++)

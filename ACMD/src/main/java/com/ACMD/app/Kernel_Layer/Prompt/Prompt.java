@@ -38,7 +38,7 @@ public class Prompt
         graphA.hideBars();  //per dire che non è presente un mostro
         mn = new StartMenu(gme,graphA);
 
-        graphA.fromBufferToGraphic("Digita \"help\" per avere aiuto");
+        graphA.fromBufferToGraphic("Digita \"help\" per avere aiuto\n");
     }
 
 
@@ -107,16 +107,10 @@ public class Prompt
      */
     private void chooseUpdate(BackStateGame_Enum state)
     {
-        //NOTA: in teoria questo switch non viola il pattern command in quando si tratta di modificare degli stati
-        // della classe chiamante, l'altra soluzione sarebbe stata che al posto di tornare enum i comandi tornassero
-        // direttamente altri comandi, ma poi il check per capire chi avrebbe fatto cosa sarebbe stato molto probabilmente
-        // più complicato, oltre che non si potevano raccogliere come in questo se non con un ulteriore raccolta di metodi
-        
-        //questo switch dovrebbe occuparsi quasi esclusivamente della modifica sui menù, il resto si potrebbe spostare
-        // dentro i singoli comandi
         switch(state)
         {
             case COMBACT:
+            case LOAD:
             //nessun break
             case UPDATE_MAP:
             case MOVE:

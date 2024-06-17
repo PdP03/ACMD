@@ -53,6 +53,9 @@ public class Load implements Command
             gra.fromBufferToGraphic("Partita è stata caricata. Ben tornato/a "+
                                     gme.getPlayer().getName()+
                                     "\nSolo un folle lo farebbe\n");
+
+            Start.setupGraphic(gme, gra);
+            return BackStateGame_Enum.LOAD;
         }
         else gra.fromBufferToGraphic("Non sono presenti dei salvataggi");
 

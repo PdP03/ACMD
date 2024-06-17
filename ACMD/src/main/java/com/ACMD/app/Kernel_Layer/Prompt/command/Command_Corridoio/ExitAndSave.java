@@ -29,11 +29,14 @@ public class ExitAndSave implements Command
         if( nothing.size() > 1 )
          return BackStateGame_Enum.ERROR_DIGIT;
 
-        gra.fromBufferToGraphic("Hai deciso di uscire, vuoi anche salvare? (Y/n)");
+        gra.fromBufferToGraphic("Hai deciso di uscire, vuoi anche salvare? (Y/n)\n");
         String Yn= gra.busyWaitInput();
 
         if( ! Yn.equals("n") )
-         save();
+        {
+            gra.fromBufferToGraphic("Salvataggio in corso");
+            save();
+        }
 
         return BackStateGame_Enum.QUIT;
     }

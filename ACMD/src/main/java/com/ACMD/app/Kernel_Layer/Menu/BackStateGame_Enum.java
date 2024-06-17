@@ -20,6 +20,7 @@ public enum BackStateGame_Enum
     ERROR_DIGIT,    //se il comando inserito non esiste
     RESTART,        //riavvia il gioco nel caso player muore
     SAVE,           //effettuato qualcosa su LOAD o SALVATAGGIO
+    LOAD,           //aggiornare il menù rispettivo
     YN              //booleano per le scelte sì-no come se vuole salvare
 ;
 }

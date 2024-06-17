@@ -28,11 +28,20 @@ public class Start implements Command
         if( nothing.size() > 1 )
          return BackStateGame_Enum.ERROR_DIGIT;     //qualcosa che non và
 
-        //_siccome possono essere tanti, faccio la pulizia dello schermo prima
+        setupNewGame();
+        setupGraphic(gme,gra);
+
+        return BackStateGame_Enum.START;
+    }   
+
+
+    private void setupNewGame()
+    {
+        Vector<String> nothing = new Vector<String>();
         ClearConsole cls = new ClearConsole(gra);
         cls.execute(nothing);
 
-        gra.fromBufferToGraphic("Digita il tuo nome per la partita: ");
+        gra.fromBufferToGraphic("Digita il tuo nome per la partita\nVerrano presi solo i primi 8 caratteri");
         String s= gra.busyWaitInput();
 
         s= s.length() < 8 ? s : s.substring(0, 7);
@@ -40,16 +49,17 @@ public class Start implements Command
 
         cls.execute(nothing);
         gra.fromBufferToGraphic( "\nBene "+s+" verrai lanciato/a nel dungeon."      //messo così la stringa perché se no mi tocca in una riga; se se non metto il + vscode segna errore
-                                    +"\nTi vedi piccolo in quell'angolino/a a sinistra?"
+                                    +"\nTi vedi piccolo/a in quell'angolino a sinistra?"
                                     +"\nÈ solo proporzionale ai mostri."
-                                    +"\nSe avessi bisogno di una guida scrivi help e premi invio/enter" );
+                                    +"\nSe avessi bisogno di una guida scrivi help e premi invio/enter\n" );
+    }
 
+    public static void setupGraphic(GameEngine gme, GraphicAdapter gra)
+    {
         gra.reScaleLifeBar( gme.getPlayerLife(), gme.getPlayerMaxLife());
         gra.reScaleWeightBar( gme.getPlayerWeight(), gme.getPlayerMaxWeight());
         //IMPORTANTE: potrei passarli direttamente 100%? sì perché è quello che voglio, è meglio non farlo? SÌ, perché se ci sono problemi lo vedo
 
         gra.showBars();gra.hideEnemyBar();
-
-        return BackStateGame_Enum.START;
-    }   
+    }
 }
