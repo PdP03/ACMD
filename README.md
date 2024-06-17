@@ -12,7 +12,10 @@ Per ulteriori riferimenti si può leggere questa [guida](https://phoenixnap.com/
 ```
 > sudo apt install maven -y
 ```
-
+Su Arch Linux si installa con:
+```
+> sudo pacman -S maven
+```
 
 # COMPILAZIONE(Windows e Linux)
 Aprire il terminale ed entrare nella cartella ACMD contentente il pom.xml e lanciare il comando:
