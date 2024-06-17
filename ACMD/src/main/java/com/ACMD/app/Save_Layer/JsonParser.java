@@ -170,11 +170,12 @@ public class JsonParser {
             ItemType type = null;
             int weight = -1, quantity = -1, value = -1;
             Inventario inv = new Inventario();
+            reader.beginArray();
             while (reader.hasNext()) {
                 if (reader.peek().equals(JsonToken.BEGIN_OBJECT)) {
                     reader.beginObject();
                 }
-                else if (reader.peek().equals(JsonToken.NAME)) {
+                if (reader.peek().equals(JsonToken.NAME)) {
                     String tName = reader.nextName();
                     switch (tName) {
                         case "name":
@@ -195,12 +196,13 @@ public class JsonParser {
                     }
                 }
 
-                else if (reader.peek().equals(JsonToken.END_OBJECT)) {
+                if (reader.peek().equals(JsonToken.END_OBJECT)) {
                     ItemStack it = new ItemStack(name, type, (byte) weight, (byte) quantity, (byte) value, "");
                     inv.add(it);
                     reader.endObject();
                 }
             }
+            reader.endArray();
             return inv;
         }
 
@@ -234,9 +236,9 @@ public class JsonParser {
          * @throws IOException nel caso di errore IO
          */
         private void writeInvetory(JsonWriter writer, Inventario inv) throws IOException {
-            writer.beginObject();
+            writer.beginArray();
             writeStorageItems(writer, inv.showStorage());
-            writer.endObject();
+            writer.endArray();
         }
 
         /**
@@ -248,7 +250,7 @@ public class JsonParser {
         private void writeStorageItems(JsonWriter writer, LinkedList<ItemStack> storage) throws IOException {
 
             for (ItemStack item : storage) {
-                writer.name("Item");
+                //writer.name("Item");
                 writer.beginObject();
                 writer.name("name");
                 writer.value(item.getName());
@@ -332,15 +334,15 @@ public class JsonParser {
             Coordinates coordinates = null;
             boolean monsterState = false;
             boolean chestState = false;
-
+            reader.beginArray();
             while(reader.hasNext()){
                 if(reader.peek().equals(JsonToken.BEGIN_OBJECT)){
                     reader.beginObject();
                 }
-                else if(reader.peek().equals(JsonToken.NAME)){
+                if(reader.peek().equals(JsonToken.NAME)){
                     String tName = reader.nextName();
                     switch(tName){
-                        case "Monster State":
+                        case "Monster Dead":
                             monsterState = reader.nextBoolean();
                             break;
                         case "Chest Locked":
@@ -356,13 +358,13 @@ public class JsonParser {
                             break;
                     }
                 }
-                else if(reader.peek().equals(JsonToken.END_OBJECT)){
+                if(reader.peek().equals(JsonToken.END_OBJECT)){
                     Stanza chamber = new Stanza(coordinates, monsterState, chest);
                     chambers.add(chamber);
                     reader.endObject();
                 }
-            
             }
+            reader.endArray();
             return chambers;
         }
     
@@ -387,11 +389,11 @@ public class JsonParser {
         }
     
         private void writeChambers(JsonWriter writer, ArrayList<Stanza> chambers) throws IOException {
-            writer.beginObject();
+            writer.beginArray();
             for (Stanza chamber : chambers) {
                 writeChamberValues(writer, chamber);
             }
-            writer.endObject();
+            writer.endArray();
         }
 
         /**
@@ -402,9 +404,8 @@ public class JsonParser {
          * @throws IOException if an I/O error occurs while writing to the JSON writer
          */
         private void writeChamberValues(JsonWriter writer, Stanza chamber) throws IOException {
-            writer.name("chamber");
             writer.beginObject();
-            writer.name("Monster State");
+            writer.name("Monster Dead");
             writer.value(chamber.isFree());
             writer.name("Chest Locked");
             writer.value(chamber.getChest().isClosed());
