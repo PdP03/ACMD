@@ -380,7 +380,8 @@ public class JsonParser {
                 if(reader.peek().equals(JsonToken.END_OBJECT)){
                     Stanza chamber = new Stanza(new Coordinates(roomX, roomY), new Coordinates(playerX, playerY), monster, path, chest);
                     if(monsterState)
-                    {                        
+                    {
+                        monster.changeHealth((short)-1000);                  
                         path=path.substring(0,path.length()-4);
                         path+="Open.png";
                         chamber = new Stanza(new Coordinates(roomX, roomY), new Coordinates(playerX, playerY), monster, path, chest);
