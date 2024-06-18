@@ -669,6 +669,7 @@ public class GameEngine{
         potionsActiveted = new HashMap<ItemType, Byte>();
         playerStack = new Stack<Coordinates>();
         level = p.getLv();
+        generator = new Random(System.currentTimeMillis());
     }
 
     /**
