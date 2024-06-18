@@ -11,6 +11,7 @@ import com.ACMD.app.Kernel_Layer.Menu.BattleMenu;
 import com.ACMD.app.Kernel_Layer.Menu.Menu;
 import com.ACMD.app.Kernel_Layer.Menu.MovementMenu;
 import com.ACMD.app.Kernel_Layer.Menu.StartMenu;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale.ClearConsole;
 
 
     /**
@@ -151,6 +152,23 @@ public class Prompt
         graphA.fromBufferToGraphic( gme.getBuffer() );
     }
     
+    public static void deatchCase(GameEngine gme, GraphicAdapter gra)
+    {//così gestisce solo una volta i tempi per uscire
+
+        gra.reScaleEnemyBar( gme.getMonsterLife(), gme.getMonsterMaxLife() );
+        gra.reScaleLifeBar(0);      //non è bello, ma almeno si evitano problemi di appossimazione
+        gra.reScaleWeightBar(gme.getPlayerWeight(),gme.getPlayerMaxWeight());
+
+
+        Vector<String> nothing = new Vector<String>();
+        (new ClearConsole(gra)).execute(nothing);
+        gra.fromBufferToGraphic( gme.getBuffer() );
+
+        gra.fromBufferToGraphic("HAI PERSO");
+        try{ Thread.sleep(1600); } catch(InterruptedException e2)
+         { System.out.println( "Problemi con nella classe attack o playerUse" ); e2.getStackTrace(); }
+    }
+
 
     //## Metodi Command-Pattern ##
     private void changeCommand(String input)

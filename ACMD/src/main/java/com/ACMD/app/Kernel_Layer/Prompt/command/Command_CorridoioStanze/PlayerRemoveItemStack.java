@@ -3,6 +3,7 @@ package com.ACMD.app.Kernel_Layer.Prompt.command.Command_CorridoioStanze;
 import java.util.Vector;
 
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
+import com.ACMD.app.Engine_Layer.StorageManagement.noItem_Exception;
 import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 
@@ -30,6 +31,8 @@ public class PlayerRemoveItemStack implements Command
 
         try{ gme.playerRemoveStack( strument.get(1) ); }
         catch(IllegalArgumentException e){ return BackStateGame_Enum.ERROR_DIGIT; }
+        catch(noItem_Exception e)        { return BackStateGame_Enum.ERROR_DIGIT; }
+
 
         return BackStateGame_Enum.UPDATE_STORAGE;
     }   
