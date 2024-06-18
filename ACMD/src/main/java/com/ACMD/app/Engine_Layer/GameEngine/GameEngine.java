@@ -670,6 +670,7 @@ public class GameEngine{
         playerStack = new Stack<Coordinates>();
         level = p.getLv();
         generator = new Random(System.currentTimeMillis());
+        factory = new ItemFactory();
     }
 
     /**
