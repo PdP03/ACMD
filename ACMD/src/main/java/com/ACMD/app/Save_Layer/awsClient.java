@@ -104,7 +104,8 @@ public class awsClient {
                         .build();
 
                 ResponseInputStream<GetObjectResponse> response = client.getObject(request);
-
+                if(!Files.exists(Paths.get("Savefile.json")))
+                    Files.createFile(Paths.get("Savefile.json"));
                 Path outputPath = Paths.get("Savefile.json");
 
                 ReadableByteChannel rbc = Channels.newChannel(response);
