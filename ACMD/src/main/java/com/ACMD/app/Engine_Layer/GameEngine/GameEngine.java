@@ -46,7 +46,7 @@ public class GameEngine{
         p = null;
         generator = null;
         map = new MapGraph();
-        buffer = null;
+        buffer = "";
         lose = false;
         potionsActiveted = null;
         playerStack = null;
