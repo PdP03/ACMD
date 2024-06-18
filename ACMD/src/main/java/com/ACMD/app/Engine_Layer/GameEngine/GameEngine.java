@@ -677,8 +677,9 @@ public class GameEngine{
      */
     public void reset(){
         String name = p.getName();
-        runSetup(name);
         map = new MapGraph();
+        runSetup(name);
+        
 
     }
 
@@ -688,6 +689,12 @@ public class GameEngine{
      */
     public void loadMap(MapGraph newMap){
         map = newMap;
+
+        p.initHandler();
+        ArrayList<Monster> list = map.getAllMonster();
+        for(Monster m: list){
+            p.addObserver(m);
+        }
     }
 
     /**
