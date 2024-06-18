@@ -32,13 +32,13 @@ public class Prompt
     public Prompt(GameEngine engine)
     {
         gmf= new GameFrame();
-        gmf.setVisible(true);
         gme= engine;
 
         graphA = new GraphicAdapter(gmf);
         graphA.hideBars();  //per dire che non è presente un mostro
         mn = new StartMenu(gme,graphA);
 
+        gmf.setVisible(true);
         graphA.fromBufferToGraphic("Digita \"help\" per avere aiuto\n");
     }
 

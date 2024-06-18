@@ -34,7 +34,7 @@ public class PlayerRemoveItem implements Command
 
         try { gme.playerRemove( strument.get(1) ); }
         catch(IllegalArgumentException e) { return BackStateGame_Enum.ERROR_DIGIT; }
-        catch(noItem_Exception e)         { return BackStateGame_Enum.ERROR_DIGIT; }
+        catch(noItem_Exception e)         { gme.addBuffer("Oggetto non trovato in inventario"); }
 
         return BackStateGame_Enum.UPDATE_STORAGE;
     }   

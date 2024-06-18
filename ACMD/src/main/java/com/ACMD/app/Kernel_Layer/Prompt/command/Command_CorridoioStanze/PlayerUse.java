@@ -52,6 +52,7 @@ public class PlayerUse implements Command
                 return BackStateGame_Enum.QUIT;
             }
         }
+         else gme.addBuffer("Non trovo questo oggetto");
 
         return BackStateGame_Enum.UPDATE_STORAGE;
     }  
