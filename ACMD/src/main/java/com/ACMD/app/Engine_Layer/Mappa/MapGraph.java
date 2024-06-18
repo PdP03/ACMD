@@ -98,13 +98,13 @@ public class MapGraph {
        // prinAllisRoom();
     }
 
-    public MapGraph(int key, ArrayList<Stanza> chambers){
+    public MapGraph(int key, ArrayList<Stanza> ch){
         this();             //Calls the default constructor
         MapGraph.keys = key;
-        nodes.removeAll(MapGraph.chambers);
-        MapGraph.chambers = chambers;
+        nodes.removeAll(chambers);
+        chambers = ch;
         nodes.addAll(chambers);
-
+        randomGen = new Random(System.currentTimeMillis());
     
     }
 
