@@ -341,7 +341,7 @@ public class JsonParser {
             int playerX = -1, playerY = -1;
             Monster monster = null;
             Chest chest = null;
-            boolean monsterState;
+            boolean monsterState=false;
             reader.beginArray();
             while(reader.hasNext()){
                 if(reader.peek().equals(JsonToken.BEGIN_OBJECT)){
@@ -379,6 +379,13 @@ public class JsonParser {
                 }
                 if(reader.peek().equals(JsonToken.END_OBJECT)){
                     Stanza chamber = new Stanza(new Coordinates(roomX, roomY), new Coordinates(playerX, playerY), monster, path, chest);
+                    if(monsterState)
+                    {                        
+                        path=path.substring(0,path.length()-4);
+                        path+="Open.png";
+                        chamber = new Stanza(new Coordinates(roomX, roomY), new Coordinates(playerX, playerY), monster, path, chest);
+                        chamber.setFree();    
+                    }  
                     chambers.add(chamber);
                     path = null;
                     chest = null;
@@ -387,6 +394,7 @@ public class JsonParser {
                     playerY = -1;
                     roomX = -1;
                     roomY = -1;
+                    monsterState=false;
                     reader.endObject();
                 }
             }
