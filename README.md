@@ -52,7 +52,7 @@ Il gioco inizia da [Game.java](https://github.com/PdP03/ACMD/blob/dev/ACMD/src/m
 
 # SEQUENCE DIAGRAM
 Il diagramma di avvio del gioco è:
-![Alt text](https://github.com/PdP03/ACMD/blob/dev/DiagrammiUML/SequenceDiagram.svg)
+![Alt text](https://github.com/PdP03/ACMD/blob/dev/DiagrammiUML/SequenceComandoGenerico.svg)
 Altri sequence diagram utili sono:
 * [Diagramma del uso degli oggetti](https://github.com/PdP03/ACMD/tree/dev/DiagrammiUML/SequenceOggeti.puml)
 
