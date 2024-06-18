@@ -48,9 +48,9 @@ public class JsonParser {
             jsonObj.add(map.getClass().getSimpleName(), gson.toJsonTree(map));
 
             gson.toJson(jsonObj, writer);
+            writer.close();
             File file = new File(FILE_NAME);
             awsClient.Upload(file);
-            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Errore nel salvataggio del file");
@@ -333,7 +333,6 @@ public class JsonParser {
             Chest chest = null;
             Coordinates coordinates = null;
             boolean monsterState = false;
-            boolean chestState = false;
             reader.beginArray();
             while(reader.hasNext()){
                 if(reader.peek().equals(JsonToken.BEGIN_OBJECT)){
@@ -345,10 +344,11 @@ public class JsonParser {
                         case "Monster Dead":
                             monsterState = reader.nextBoolean();
                             break;
-                        case "Chest Locked":
-                            chestState = reader.nextBoolean();
-                            chest = new Chest(chestState);
+                        case "Chest":
+                            chest = readChest(reader, chest);
+                            reader.skipValue();
                             break;
+                        
                         case "Coordinates":
                             String coords = reader.nextString();
                             String[] coord = coords.split(",");
@@ -366,6 +366,66 @@ public class JsonParser {
             }
             reader.endArray();
             return chambers;
+        }
+
+        private Chest readChest(JsonReader reader, Chest chest) throws IOException {
+            boolean locked = false;
+            reader.beginObject();
+            while(reader.hasNext()){
+                String tName = reader.nextName();
+                switch(tName){
+                    case "Chest Locked":
+                        locked = reader.nextBoolean();
+                        break;
+                    case "Chest Inventory":
+                        chest = readInventario(reader, chest);
+                        reader.skipValue();
+                        break;
+                }
+            }
+            reader.endObject();
+            chest = new Chest(locked);
+            return chest;
+        }
+
+        private Chest readInventario(JsonReader reader, Chest chest) throws IOException {
+            String name = null;
+            ItemType type = null;
+            int weight = -1, quantity = -1, value = -1;
+            reader.beginArray();
+            while (reader.hasNext()) {
+                if (reader.peek().equals(JsonToken.BEGIN_OBJECT)) {
+                    reader.beginObject();
+                }
+                if (reader.peek().equals(JsonToken.NAME)) {
+                    String tName = reader.nextName();
+                    switch (tName) {
+                        case "name":
+                            name = reader.nextString();
+                            break;
+                        case "tipology":
+                            type = ItemType.valueOf(reader.nextString());
+                            break;
+                        case "weight":
+                            weight = reader.nextInt();
+                            break;
+                        case "quantity":
+                            quantity = reader.nextInt();
+                            break;
+                        case "value":
+                            value = reader.nextInt();
+                            break;
+                    }
+                }
+
+                if (reader.peek().equals(JsonToken.END_OBJECT)) {
+                    ItemStack it = new ItemStack(name, type, (byte) weight, (byte) quantity, (byte) value, "");
+                    chest.add(it);
+                    reader.endObject();
+                }
+            }
+            reader.endArray();
+            return chest;
         }
     
         /**
@@ -407,12 +467,36 @@ public class JsonParser {
             writer.beginObject();
             writer.name("Monster Dead");
             writer.value(chamber.isFree());
-            writer.name("Chest Locked");
+            writer.name("Chest:");
+            writer.beginObject();
+            writer.name("Chest Locked:");
             writer.value(chamber.getChest().isClosed());
+            writer.name("Chest Inventory:");
+            writeInvetory(writer, chamber.getChest().showStorage());
+            writer.endObject();
             writer.name("Coordinates");
             writer.value(chamber.getCoordinates().toString());
             writer.endObject();
 
+        }
+
+        private void writeInvetory(JsonWriter writer, LinkedList<ItemStack> storage) throws IOException {
+            writer.beginArray();
+            for (ItemStack item : storage) {
+                writer.beginObject();
+                writer.name("name");
+                writer.value(item.getName());
+                writer.name("tipology");
+                writer.value(item.getType().toString());
+                writer.name("weight");
+                writer.value(item.getWeight());
+                writer.name("quantity");
+                writer.value(item.getQuantity());
+                writer.name("value");
+                writer.value(item.getValue());
+                writer.endObject();
+            }
+            writer.endArray();
         }
     }
 
