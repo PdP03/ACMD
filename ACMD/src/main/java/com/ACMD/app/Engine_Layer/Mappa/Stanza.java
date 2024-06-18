@@ -44,6 +44,7 @@ public class Stanza extends NODE
         this.playerPosition = player; 
         this.pathImg=path;   
     }
+
     public Stanza(Coordinates c, Coordinates player, Monster m, String path, Chest chest)
     {   
         this.monster = m; 
@@ -51,6 +52,17 @@ public class Stanza extends NODE
         this.playerPosition = player; 
         this.pathImg=path;   
         this.chest=chest;
+    }
+
+    public Stanza(Coordinates c, Coordinates player, Monster m, String path, Chest chest, boolean monsterState)
+    {   
+        this.monster = m; 
+        this.coord = c; 
+        this.playerPosition = player; 
+        this.pathImg=path;   
+        this.chest=chest;
+        this.isFree = monsterState;
+        super.isFree = monsterState;
     }
 
     public Stanza(Coordinates c, boolean isFree, Chest chest )

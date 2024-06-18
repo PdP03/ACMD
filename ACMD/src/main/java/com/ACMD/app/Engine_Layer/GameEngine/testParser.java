@@ -9,7 +9,9 @@ public class testParser {
         MapGraph m = new MapGraph();
         Player p = new Player("fa");
         //JsonParser.save(p, m);
-        JsonParser.read(MapGraph.class);
+        MapGraph map = JsonParser.read(MapGraph.class);
+
+        map.getMap();
     }
     
 }
