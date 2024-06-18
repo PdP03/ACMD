@@ -6,7 +6,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Vector;
 
+import com.ACMD.app.Engine_Layer.Entita.MType;
+import com.ACMD.app.Engine_Layer.Entita.Monster;
+import com.ACMD.app.Engine_Layer.Entita.MonsterFactory;
 import com.ACMD.app.Engine_Layer.Entita.Player;
 import com.ACMD.app.Engine_Layer.Mappa.Coordinates;
 import com.ACMD.app.Engine_Layer.Mappa.MapGraph;
@@ -279,7 +283,7 @@ public class JsonParser {
          */
         @Override
         public MapGraph read(JsonReader reader) throws IOException {
-            int keys = 0;
+            int keys = -1;
             ArrayList<Stanza> chambers = null;
 
             reader.beginObject();
@@ -301,8 +305,9 @@ public class JsonParser {
                         break;
                 }
             }
-            reader.endObject();
-            if (keys != 0 && chambers != null) {
+            reader.skipValue();
+            
+            if (keys != -1 && chambers != null) {
                 return new MapGraph(keys, chambers);
             }
     
@@ -329,10 +334,14 @@ public class JsonParser {
          * @throws IOException If an I/O error occurs while reading the JSON file.
          */
         private ArrayList<Stanza> readChambers(JsonReader reader) throws IOException {
+            MonsterFactory factory = new MonsterFactory();
             ArrayList<Stanza> chambers = new ArrayList<>();
+            String path = null;
+            int roomX = -1, roomY = -1;
+            int playerX = -1, playerY = -1;
+            Monster monster = null;
             Chest chest = null;
-            Coordinates coordinates = null;
-            boolean monsterState = false;
+            boolean monsterState;
             reader.beginArray();
             while(reader.hasNext()){
                 if(reader.peek().equals(JsonToken.BEGIN_OBJECT)){
@@ -340,64 +349,90 @@ public class JsonParser {
                 }
                 if(reader.peek().equals(JsonToken.NAME)){
                     String tName = reader.nextName();
+                    
                     switch(tName){
                         case "Monster Dead":
                             monsterState = reader.nextBoolean();
                             break;
-                        case "Chest":
-                            chest = readChest(reader, chest);
-                            reader.skipValue();
+                        case "roomX":
+                            roomX = reader.nextInt();
                             break;
-                        
-                        case "Coordinates":
-                            String coords = reader.nextString();
-                            String[] coord = coords.split(",");
-                            int x = Integer.parseInt(coord[0].substring(2));
-                            int y = Integer.parseInt(coord[1].substring(0, coord[1].length()-2));
-                            coordinates = new Coordinates(x, y);
+                        case "roomY":
+                            roomY = reader.nextInt();
+                            break;
+                        case "playerX":
+                            playerX = reader.nextInt();
+                            break;
+                        case "playerY":
+                            playerY = reader.nextInt();
+                            break;
+                        case "mType":
+                            monster = factory.create(MType.valueOf(reader.nextString()));
+                            break;
+                        case "path":
+                            path = reader.nextString();
+                            break;
+                        case "Chest:":
+                            chest = readChest(reader);
                             break;
                     }
                 }
                 if(reader.peek().equals(JsonToken.END_OBJECT)){
-                    Stanza chamber = new Stanza(coordinates, monsterState, chest);
+                    Stanza chamber = new Stanza(new Coordinates(roomX, roomY), new Coordinates(playerX, playerY), monster, path, chest);
                     chambers.add(chamber);
+                    path = null;
+                    chest = null;
+                    monster = null;
+                    playerX = -1;
+                    playerY = -1;
+                    roomX = -1;
+                    roomY = -1;
                     reader.endObject();
                 }
             }
-            reader.endArray();
+           
+            reader.skipValue();
+            
             return chambers;
         }
 
-        private Chest readChest(JsonReader reader, Chest chest) throws IOException {
+        private Chest readChest(JsonReader reader) throws IOException {
+            Vector<ItemStack> items;
+            Chest chest = null;
             boolean locked = false;
             reader.beginObject();
             while(reader.hasNext()){
                 String tName = reader.nextName();
                 switch(tName){
                     case "Chest Locked":
-                        locked = reader.nextBoolean();
+                        chest = new Chest(reader.nextBoolean());
                         break;
-                    case "Chest Inventory":
-                        chest = readInventario(reader, chest);
-                        reader.skipValue();
+                    case "Chest Inventory:":
+                        items = readChestItems(reader);
+                        for(ItemStack item: items){
+                            chest.add(item);
+                        }
                         break;
                 }
             }
             reader.endObject();
-            chest = new Chest(locked);
+            
             return chest;
         }
 
-        private Chest readInventario(JsonReader reader, Chest chest) throws IOException {
+        private Vector<ItemStack> readChestItems(JsonReader reader) throws IOException {
+            Vector<ItemStack> vec = new Vector<ItemStack>();
             String name = null;
             ItemType type = null;
             int weight = -1, quantity = -1, value = -1;
             reader.beginArray();
+            
             while (reader.hasNext()) {
                 if (reader.peek().equals(JsonToken.BEGIN_OBJECT)) {
                     reader.beginObject();
                 }
                 if (reader.peek().equals(JsonToken.NAME)) {
+                    
                     String tName = reader.nextName();
                     switch (tName) {
                         case "name":
@@ -420,12 +455,13 @@ public class JsonParser {
 
                 if (reader.peek().equals(JsonToken.END_OBJECT)) {
                     ItemStack it = new ItemStack(name, type, (byte) weight, (byte) quantity, (byte) value, "");
-                    chest.add(it);
+                    vec.add(it);
                     reader.endObject();
                 }
             }
-            reader.endArray();
-            return chest;
+            
+            reader.skipValue();
+            return vec;
         }
     
         /**
@@ -465,17 +501,29 @@ public class JsonParser {
          */
         private void writeChamberValues(JsonWriter writer, Stanza chamber) throws IOException {
             writer.beginObject();
+            Coordinates c = chamber.getCoord();
+            writer.name("roomX");
+            writer.value(c.getX());
+            writer.name("roomY");
+            writer.value(c.getY());
+            c = chamber.getPlayerCoordinates();
+            writer.name("playerX");
+            writer.value(c.getX());
+            writer.name("playerY");
+            writer.value(c.getY());
+            writer.name("mType");
+            writer.value(chamber.getMonster().getType().toString());
+            writer.name("path");
+            writer.value(chamber.getPathImage());
             writer.name("Monster Dead");
             writer.value(chamber.isFree());
             writer.name("Chest:");
             writer.beginObject();
-            writer.name("Chest Locked:");
+            writer.name("Chest Locked");
             writer.value(chamber.getChest().isClosed());
             writer.name("Chest Inventory:");
             writeInvetory(writer, chamber.getChest().showStorage());
             writer.endObject();
-            writer.name("Coordinates");
-            writer.value(chamber.getCoordinates().toString());
             writer.endObject();
 
         }

@@ -60,6 +60,14 @@ public class Stanza extends NODE
         this.chest = chest; 
     }
 
+    public Coordinates getCoord(){
+        return coord;
+    }
+
+    public Coordinates getPlayerCoordinates(){
+        return playerPosition;
+    }
+
     /**
      * Empty constructor, only for good habits
      */
