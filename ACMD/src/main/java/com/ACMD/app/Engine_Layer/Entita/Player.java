@@ -62,6 +62,11 @@ public class Player extends Entity{
     }
 
     public Player(String name, byte lv, short health, Inventario inv){
+        super.level = BASE_LEVEL;
+        super.maxHealth = BASE_HEALTH;
+        super.attack = BASE_ATTACK;
+        super.armor = BASE_ARMOR;
+        super.history = story;
         initHandler();
         super.name = name;
         setLv(lv);
