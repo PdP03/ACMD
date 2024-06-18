@@ -45,7 +45,7 @@ public class MovementMenu extends Menu
 
             loadMethods("trashitem",     new PlayerRemoveItem(generateMethods));
             loadMethods("trashstack",    new PlayerRemoveItemStack(generateMethods));
-            loadMethods("use",           new PlayerUse(generateMethods));
+            loadMethods("use",           new PlayerUse(generateMethods,gra));
 
             if( super.commandMap.containsValue(null) )
             {

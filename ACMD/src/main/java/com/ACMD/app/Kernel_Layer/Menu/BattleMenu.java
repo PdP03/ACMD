@@ -33,13 +33,13 @@ public class BattleMenu extends Menu
             loadMethods("help",          new HelpStanze(generateMethods,commandMap) );
                     // loadMethods("look", new );
                     // loadMethods("openchest",     new LookInsideChest(generateMethods));
-            loadMethods("look",     new LookInsideChest(generateMethods) );
+            loadMethods("look",          new LookInsideChest(generateMethods) );
             loadMethods("showme",        new Showme(generateMethods));
             loadMethods("showinventario",new ShowInventario(generateMethods));
             loadMethods("take",          new TakeFromChest(generateMethods));
             loadMethods("trashitem",     new PlayerRemoveItem(generateMethods));
             loadMethods("trashstack",    new PlayerRemoveItemStack(generateMethods));
-            loadMethods("use",           new PlayerUse(generateMethods));
+            loadMethods("use",           new PlayerUse(generateMethods, gra));
 
             if( super.commandMap.containsValue(null) )
             {
@@ -87,8 +87,8 @@ public class BattleMenu extends Menu
       //  System.out.println( keys.contains( new MenuValues("back","Uscire da stanza") ) ? "Trovata" : "Non trovata" );
 
         System.out.println( keys );
-        System.out.println( keys.contains("back") );
-        System.out.println( keys.contains("look") );
+       // System.out.println( keys.contains("back") );
+       // System.out.println( keys.contains("look") );
         System.out.println( keys.contains( new MenuValues("back",null) ) );
         System.out.println( keys.contains( new MenuValues("back","DESCRIZIONE MANCANTE look") ) );
 
