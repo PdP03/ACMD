@@ -169,5 +169,12 @@ public class NODE{
     }
     public void setFree(){isFree=true;}
     public boolean isStanza(){return isRoom;}
+
+    @Override
+    public boolean equals(Object obj) {
+        Stanza s=(Stanza)obj;
+        if(this.coord.getX()==s.getCoordinates().getX() && this.coord.getY()==s.getCoordinates().getY()) return true;
+        return false;
+    }
      
 }

@@ -103,7 +103,7 @@ public class MapGraph {
         MapGraph.keys = key;
         nodes.removeAll(chambers);
         chambers = ch;
-        nodes.addAll(chambers);
+        nodes.addAll(ch);
         randomGen = new Random(System.currentTimeMillis());
     
     }
