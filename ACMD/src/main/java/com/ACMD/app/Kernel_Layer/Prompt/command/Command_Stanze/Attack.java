@@ -58,7 +58,8 @@ public class Attack implements Command
             catch(InterruptedException e)
                 { System.out.println( "Problemi con nella classe attacco" ); e.getStackTrace(); }
             catch(DeathException e)
-            {                
+            {     
+                gra.reScaleEnemyBar( gme.getMonsterLife(), gme.getMonsterMaxLife() );           
                 gme.addBuffer("Tramortito, cadi a terra\n");
                 Prompt.deatchCase(gme, gra);
                 return BackStateGame_Enum.QUIT;

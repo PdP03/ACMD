@@ -14,9 +14,6 @@ import com.ACMD.app.Kernel_Layer.Menu.StartMenu;
 import com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale.ClearConsole;
 
 
-    /**
-     * @Singleton
-     */
 public class Prompt
 {
 
@@ -155,7 +152,6 @@ public class Prompt
     public static void deatchCase(GameEngine gme, GraphicAdapter gra)
     {//così gestisce solo una volta i tempi per uscire
 
-        gra.reScaleEnemyBar( gme.getMonsterLife(), gme.getMonsterMaxLife() );
         gra.reScaleLifeBar(0);      //non è bello, ma almeno si evitano problemi di appossimazione
         gra.reScaleWeightBar(gme.getPlayerWeight(),gme.getPlayerMaxWeight());
 
@@ -165,7 +161,8 @@ public class Prompt
         gra.fromBufferToGraphic( gme.getBuffer() );
 
         gra.fromBufferToGraphic("HAI PERSO");
-        try{ Thread.sleep(1600); } catch(InterruptedException e2)
+
+        try{ Thread.sleep(5600); } catch(InterruptedException e2)
          { System.out.println( "Problemi con nella classe attack o playerUse" ); e2.getStackTrace(); }
     }
 

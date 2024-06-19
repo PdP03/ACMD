@@ -114,6 +114,7 @@ public class MapGraph {
 
     private Chest getRandomChest(){
         Chest c = new Chest();
+        c.add(itemFacry.getItem(ItemType.POZIONE_DANNO)); //TODO: Da togliere solo per i test
         int maxItem = randomGen.nextInt(3,5);
         /* c.add(itemFacry.getItem(ItemType.POZIONE_CURA)); //TODO: DA TOGLIERE SOLO PER TEST
         c.add(itemFacry.getItem(ItemType.POZIONE_FORZA)); //TODO: DA TOGLIERE SOLO PER TEST */
