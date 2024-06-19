@@ -8,7 +8,6 @@ import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
 import com.ACMD.app.Kernel_Layer.Prompt.Prompt;
-import com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale.ClearConsole;
 
 
 public class Attack implements Command
@@ -59,14 +58,9 @@ public class Attack implements Command
             catch(InterruptedException e)
                 { System.out.println( "Problemi con nella classe attacco" ); e.getStackTrace(); }
             catch(DeathException e)
-            { //gme.addBuffer("HAI PERSO"); return BackStateGame_Enum.RESTART; }
-                
-                gra.reScaleEnemyBar( gme.getMonsterLife(), gme.getMonsterMaxLife() );
-                gra.reScaleLifeBar(0);
-                (new ClearConsole(gra)).execute(nothing);
-                gra.fromBufferToGraphic("HAI PERSO");
-                try{ Thread.sleep(1600); } catch(InterruptedException e2)
-                    { System.out.println( "Problemi con nella classe attacco" ); e2.getStackTrace(); }
+            {                
+                gme.addBuffer("Tramortito, cadi a terra\n");
+                Prompt.deatchCase(gme, gra);
                 return BackStateGame_Enum.QUIT;
             }
             catch(IllegalArgumentException e) {}

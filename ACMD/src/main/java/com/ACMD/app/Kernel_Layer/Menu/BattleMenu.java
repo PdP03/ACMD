@@ -33,13 +33,13 @@ public class BattleMenu extends Menu
             loadMethods("help",          new HelpStanze(generateMethods,commandMap) );
                     // loadMethods("look", new );
                     // loadMethods("openchest",     new LookInsideChest(generateMethods));
-            loadMethods("look",          new LookInsideChest(generateMethods) );
+            loadMethods("look",     new LookInsideChest(generateMethods) );
             loadMethods("showme",        new Showme(generateMethods));
             loadMethods("showinventario",new ShowInventario(generateMethods));
             loadMethods("take",          new TakeFromChest(generateMethods));
             loadMethods("trashitem",     new PlayerRemoveItem(generateMethods));
             loadMethods("trashstack",    new PlayerRemoveItemStack(generateMethods));
-            loadMethods("use",           new PlayerUse(generateMethods, gra));
+            loadMethods("use",           new PlayerUse(generateMethods,gra));
 
             if( super.commandMap.containsValue(null) )
             {

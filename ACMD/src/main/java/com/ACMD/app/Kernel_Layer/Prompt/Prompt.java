@@ -2,7 +2,7 @@
 package com.ACMD.app.Kernel_Layer.Prompt;
 
 import java.util.Vector;
-
+import com.ACMD.app.Debug;
 import com.ACMD.app.Adapter_Layer.GraphicAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Graphic_Layer.GUI.GameFrame;
@@ -11,6 +11,7 @@ import com.ACMD.app.Kernel_Layer.Menu.BattleMenu;
 import com.ACMD.app.Kernel_Layer.Menu.Menu;
 import com.ACMD.app.Kernel_Layer.Menu.MovementMenu;
 import com.ACMD.app.Kernel_Layer.Menu.StartMenu;
+import com.ACMD.app.Kernel_Layer.Prompt.command.Command_MenuIniziale.ClearConsole;
 
 
     /**
@@ -31,13 +32,13 @@ public class Prompt
     public Prompt(GameEngine engine)
     {
         gmf= new GameFrame();
-        gmf.setVisible(true);
         gme= engine;
 
         graphA = new GraphicAdapter(gmf);
         graphA.hideBars();  //per dire che non è presente un mostro
         mn = new StartMenu(gme,graphA);
 
+        gmf.setVisible(true);
         graphA.fromBufferToGraphic("Digita \"help\" per avere aiuto\n");
     }
 
@@ -151,6 +152,23 @@ public class Prompt
         graphA.fromBufferToGraphic( gme.getBuffer() );
     }
     
+    public static void deatchCase(GameEngine gme, GraphicAdapter gra)
+    {//così gestisce solo una volta i tempi per uscire
+
+        gra.reScaleEnemyBar( gme.getMonsterLife(), gme.getMonsterMaxLife() );
+        gra.reScaleLifeBar(0);      //non è bello, ma almeno si evitano problemi di appossimazione
+        gra.reScaleWeightBar(gme.getPlayerWeight(),gme.getPlayerMaxWeight());
+
+
+        Vector<String> nothing = new Vector<String>();
+        (new ClearConsole(gra)).execute(nothing);
+        gra.fromBufferToGraphic( gme.getBuffer() );
+
+        gra.fromBufferToGraphic("HAI PERSO");
+        try{ Thread.sleep(1600); } catch(InterruptedException e2)
+         { System.out.println( "Problemi con nella classe attack o playerUse" ); e2.getStackTrace(); }
+    }
+
 
     //## Metodi Command-Pattern ##
     private void changeCommand(String input)
@@ -159,9 +177,11 @@ public class Prompt
        // graphA.fromBufferToGraphic( gme.getBuffer() );
     }
 
+    @Debug
     //## Metodo di DEBUG per dare accesso ai test per la divisione delle stringhe
     public static Vector<String> DEBUG(String in)
     {
         return removeDoubleSpaces(in);
     }
 }
+

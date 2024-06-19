@@ -46,7 +46,7 @@ public class GameEngine{
         p = null;
         generator = null;
         map = new MapGraph();
-        buffer = null;
+        buffer = "";
         lose = false;
         potionsActiveted = null;
         playerStack = null;
@@ -670,6 +670,7 @@ public class GameEngine{
         playerStack = new Stack<Coordinates>();
         level = p.getLv();
         generator = new Random(System.currentTimeMillis());
+        factory = new ItemFactory();
     }
 
     /**

@@ -7,6 +7,7 @@ import com.ACMD.app.Engine_Layer.GameEngine.DeathException;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Kernel_Layer.Menu.BackStateGame_Enum;
 import com.ACMD.app.Kernel_Layer.Prompt.Command;
+import com.ACMD.app.Kernel_Layer.Prompt.Prompt;
 
 public class PlayerUse implements Command
 {
@@ -46,12 +47,12 @@ public class PlayerUse implements Command
                 }
             catch( DeathException e )
             {
-                gra.reScaleLifeBar( gme.getPlayerLife(), gme.getPlayerMaxLife() );
-                gra.reScaleWeightBar( gme.getPlayerWeight(), gme.getPlayerMaxWeight() );
                 gme.addBuffer("Ti sei arrecato del danno, e..\n");
+                Prompt.deatchCase(gme, gra);
                 return BackStateGame_Enum.QUIT;
             }
         }
+         else gme.addBuffer("Non trovo questo oggetto");
 
         return BackStateGame_Enum.UPDATE_STORAGE;
     }  
