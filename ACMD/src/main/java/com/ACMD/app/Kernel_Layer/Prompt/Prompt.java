@@ -2,7 +2,7 @@
 package com.ACMD.app.Kernel_Layer.Prompt;
 
 import java.util.Vector;
-
+import com.ACMD.app.Debug;
 import com.ACMD.app.Adapter_Layer.GraphicAdapter;
 import com.ACMD.app.Engine_Layer.GameEngine.GameEngine;
 import com.ACMD.app.Graphic_Layer.GUI.GameFrame;
@@ -177,9 +177,11 @@ public class Prompt
        // graphA.fromBufferToGraphic( gme.getBuffer() );
     }
 
+    @Debug
     //## Metodo di DEBUG per dare accesso ai test per la divisione delle stringhe
     public static Vector<String> DEBUG(String in)
     {
         return removeDoubleSpaces(in);
     }
 }
+

@@ -32,7 +32,6 @@ public class SaveAdapter
 
     public static Player retrievePlayer(){
         Player player = JsonParser.read(Player.class);
-        System.out.println(player.showInv());
         return player;
     }
     

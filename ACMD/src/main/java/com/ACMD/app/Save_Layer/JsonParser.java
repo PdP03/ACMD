@@ -408,7 +408,6 @@ public class JsonParser {
         private Chest readChest(JsonReader reader) throws IOException {
             Vector<ItemStack> items;
             Chest chest = null;
-            boolean locked = false;
             reader.beginObject();
             while(reader.hasNext()){
                 String tName = reader.nextName();

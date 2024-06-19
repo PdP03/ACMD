@@ -34,6 +34,7 @@ import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
@@ -76,13 +77,10 @@ public class awsClient {
                 .build();
             FileUpload fileUpload = transferManager.uploadFile(uploadFileRequest);
             fileUpload.completionFuture().join();
-            long sesso = Files.size(file.toPath());
-            System.out.println(Files.size(Paths.get("Savefile.json")));
-            System.out.println(sesso);
+
+            
             asyncClient.close();
         } catch (SdkClientException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -104,7 +102,9 @@ public class awsClient {
                         .build();
 
                 ResponseInputStream<GetObjectResponse> response = client.getObject(request);
-            
+                File file = new File("Savefile.json");
+                if(!file.exists())
+                    file.createNewFile();
                 Path outputPath = Paths.get("Savefile.json");
 
                 ReadableByteChannel rbc = Channels.newChannel(response);
@@ -161,6 +161,9 @@ public class awsClient {
             return localMD5.equals(remoteMD5);
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
+        } catch (InvalidPathException e) {
+           System.err.println("[INFO] Il file di salvataggio non esiste.");
             return false;
         }
 
