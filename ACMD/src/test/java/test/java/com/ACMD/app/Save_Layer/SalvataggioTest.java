@@ -25,7 +25,7 @@ import com.google.gson.*;
 public class SalvataggioTest {
     
     Player p = null;
-    MapGraph m = null;
+    MapGraph m = new MapGraph();
     /**
      * This method tests the SaveAdapter.savePlayer method of the SaveAdapter class.
      * It creates a new Player object, saves it using SaveAdapter.savePlayer method,
@@ -39,11 +39,14 @@ public class SalvataggioTest {
         p.addItem(item);
         item = new ItemStack("Pozione", ItemType.POZIONE_DANNO, (byte)2, (byte)1, (byte)1, "danno");
         p.addItem(item);
-        SaveAdapter.save(p, null);
+        SaveAdapter.save(p, m);
         Player player2 = SaveAdapter.retrievePlayer();
         Assert.assertEquals(p.getName(), player2.getName());
         Assert.assertEquals(p.getLv(), player2.getLv());
-        Assert.assertEquals(p.getInv(), player2.getInv());
+        Assert.assertEquals(p.showInv(), player2.showInv());
+        MapGraph map2 = SaveAdapter.retrieveMap();
+        Assert.assertEquals(m.getChambers(), map2.getChambers());
+        Assert.assertEquals(m.getKeys(), map2.getKeys());
     }
 
         /**
@@ -53,31 +56,10 @@ public class SalvataggioTest {
          * method, and asserts that the retrieved player is null.
          */
         @Test
-        public void savePlayerNullTest() {
-            Player player = null;
-            SaveAdapter.save(player, null);
+        public void savePlayerAndMapNullTest() {
+            SaveAdapter.save(p, null);
             Player savedPlayer = SaveAdapter.retrievePlayer();
             Assert.assertNull(savedPlayer);
         }
-
-        /**
-         * This method tests the SaveAdapter.saveMap method of the SaveAdapter class.
-         * It saves a map using SaveAdapter.saveMap method and asserts the expected behavior.
-         */
-        @Test
-        public void saveMapTest() {
-            // Write your test for the saveMap method here
-        }
-
-        /**
-         * This method tests the SaveAdapter.saveMap method of the SaveAdapter class
-         * with null input. It saves a null map using SaveAdapter.saveMap method and
-         * asserts the expected behavior.
-         */
-        @Test
-        public void saveMapNullTest() {
-            // Write your test for the saveMap method with null input here
-        }
-
     
 }
