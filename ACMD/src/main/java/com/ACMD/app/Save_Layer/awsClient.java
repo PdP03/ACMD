@@ -49,8 +49,9 @@ public class awsClient {
 
     private final static Region region = Region.US_EAST_1;
     private final static String bucketName = "macdtest";
-    private final static String accessKeyId = "AKIAZJ42G7ZVBUEAUGE3";
-    private final static String secretAcessKey = "BiG6IoTyiHazvDdXmxBVFCJ2KkNChdra52w1OHsM";
+    // ADD YOUR OWN ACCESS KEY AND SECRET KEY
+    private final static String accessKeyId = "";
+    private final static String secretAcessKey = "";
     private final static AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKeyId, secretAcessKey);
 
     /**
